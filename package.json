@@ -61,7 +61,7 @@
     "hooks": {
       "pre-commit": "npm run lint && pretty-quick --staged",
       "pre-push":
-        "npm run clean && mkdir dist && npm run compile && cp -R src/styles.css README.md media dist && npm run commit:dist && git push"
+        "npm run clean && mkdir dist && npm run compile && cp -R src/styles.css README.md media dist && npm run commit:dist && git push --no-verify"
     }
   },
   "devDependencies": {
