@@ -4,9 +4,15 @@ import { CapturedNode } from './captured-node';
 import { NodeDraggableEvent } from './draggable.events';
 export declare class NodeDraggableService {
     draggableNodeEvents$: Subject<NodeDraggableEvent>;
-    private capturedNode;
-    fireNodeDragged(captured: CapturedNode, target: ElementRef): void;
-    captureNode(node: CapturedNode): void;
-    getCapturedNode(): CapturedNode;
-    releaseCapturedNode(): void;
+    private checkedNodes;
+    private draggedNode;
+    fireNodeDragged(captured: CapturedNode[], target: ElementRef): void;
+    addCheckedNode(node: CapturedNode): void;
+    setDraggedNode(node: CapturedNode): void;
+    removeCheckedNode(node: CapturedNode): void;
+    removeCheckedNodeById(id: string | number): void;
+    getCheckedNodes(): CapturedNode[];
+    getDraggedNodeNode(): CapturedNode;
+    releaseCheckedNodes(): void;
+    releaseDraggedNode(): void;
 }

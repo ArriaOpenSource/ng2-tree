@@ -6,21 +6,43 @@ var draggable_events_1 = require("./draggable.events");
 var NodeDraggableService = (function () {
     function NodeDraggableService() {
         this.draggableNodeEvents$ = new Subject_1.Subject();
+        this.checkedNodes = [];
     }
     NodeDraggableService.prototype.fireNodeDragged = function (captured, target) {
-        if (!captured.tree || captured.tree.isStatic()) {
+        if (captured.length === 0 || captured.every(function (cn) { return !cn.tree || cn.tree.isStatic(); })) {
             return;
         }
         this.draggableNodeEvents$.next(new draggable_events_1.NodeDraggableEvent(captured, target));
     };
-    NodeDraggableService.prototype.captureNode = function (node) {
-        this.capturedNode = node;
+    NodeDraggableService.prototype.addCheckedNode = function (node) {
+        this.checkedNodes.push(node);
     };
-    NodeDraggableService.prototype.getCapturedNode = function () {
-        return this.capturedNode;
+    NodeDraggableService.prototype.setDraggedNode = function (node) {
+        this.draggedNode = node;
     };
-    NodeDraggableService.prototype.releaseCapturedNode = function () {
-        this.capturedNode = null;
+    NodeDraggableService.prototype.removeCheckedNode = function (node) {
+        var i = this.checkedNodes.indexOf(node);
+        if (i > -1) {
+            this.checkedNodes.splice(i, 1);
+        }
+    };
+    NodeDraggableService.prototype.removeCheckedNodeById = function (id) {
+        var i = this.checkedNodes.findIndex(function (cn) { return cn.tree.id === id; });
+        if (i > -1) {
+            this.checkedNodes.splice(i, 1);
+        }
+    };
+    NodeDraggableService.prototype.getCheckedNodes = function () {
+        return this.checkedNodes;
+    };
+    NodeDraggableService.prototype.getDraggedNodeNode = function () {
+        return this.draggedNode;
+    };
+    NodeDraggableService.prototype.releaseCheckedNodes = function () {
+        this.checkedNodes = [];
+    };
+    NodeDraggableService.prototype.releaseDraggedNode = function () {
+        this.draggedNode = null;
     };
     NodeDraggableService.decorators = [
         { type: core_1.Injectable },

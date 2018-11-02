@@ -36,7 +36,9 @@ var NodeDraggableDirective = (function () {
         if (e.stopPropagation) {
             e.stopPropagation();
         }
-        this.nodeDraggableService.captureNode(new captured_node_1.CapturedNode(this.nodeDraggable, this.tree));
+        if (!this.tree.checked) {
+            this.nodeDraggableService.setDraggedNode(new captured_node_1.CapturedNode(this.nodeDraggable, this.tree));
+        }
         e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
         e.dataTransfer.effectAllowed = 'move';
     };
@@ -64,17 +66,36 @@ var NodeDraggableDirective = (function () {
         if (!this.isDropPossible(e)) {
             return false;
         }
-        if (this.nodeDraggableService.getCapturedNode()) {
-            return this.notifyThatNodeWasDropped();
+        if (this.nodeDraggableService.getDraggedNodeNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
+            this.notifyThatNodeWasDropped();
+            this.releaseNodes();
         }
     };
     NodeDraggableDirective.prototype.isDropPossible = function (e) {
-        var capturedNode = this.nodeDraggableService.getCapturedNode();
-        return capturedNode && capturedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
+        var _this = this;
+        var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+        if (draggedNode) {
+            return draggedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
+        }
+        else {
+            var capturedNodes = this.nodeDraggableService.getCheckedNodes();
+            return (capturedNodes.length > 0 &&
+                capturedNodes.every(function (cn) { return cn.canBeDroppedAt(_this.nodeDraggable); }) &&
+                this.containsElementAt(e));
+        }
     };
     NodeDraggableDirective.prototype.handleDragEnd = function (e) {
         this.removeClass('over-drop-target');
-        this.nodeDraggableService.releaseCapturedNode();
+        this.releaseNodes();
+    };
+    NodeDraggableDirective.prototype.releaseNodes = function () {
+        var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+        if (draggedNode) {
+            this.nodeDraggableService.releaseDraggedNode();
+        }
+        else {
+            this.nodeDraggableService.releaseCheckedNodes();
+        }
     };
     NodeDraggableDirective.prototype.containsElementAt = function (e) {
         var _a = e.x, x = _a === void 0 ? e.clientX : _a, _b = e.y, y = _b === void 0 ? e.clientY : _b;
@@ -89,7 +110,9 @@ var NodeDraggableDirective = (function () {
         classList.remove(className);
     };
     NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function () {
-        this.nodeDraggableService.fireNodeDragged(this.nodeDraggableService.getCapturedNode(), this.nodeDraggable);
+        var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+        var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
+        this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable);
     };
     NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
     NodeDraggableDirective.decorators = [

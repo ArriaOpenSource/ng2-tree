@@ -11,10 +11,13 @@ var editable_events_1 = require("./editable/editable.events");
 var tree_service_1 = require("./tree.service");
 var EventUtils = require("./utils/event.utils");
 var fn_utils_1 = require("./utils/fn.utils");
+var node_draggable_service_1 = require("./draggable/node-draggable.service");
+var captured_node_1 = require("./draggable/captured-node");
 var TreeInternalComponent = (function () {
-    function TreeInternalComponent(nodeMenuService, treeService, nodeElementRef) {
+    function TreeInternalComponent(nodeMenuService, treeService, nodeDraggableService, nodeElementRef) {
         this.nodeMenuService = nodeMenuService;
         this.treeService = treeService;
+        this.nodeDraggableService = nodeDraggableService;
         this.nodeElementRef = nodeElementRef;
         this.isSelected = false;
         this.isRightMenuVisible = false;
@@ -46,14 +49,19 @@ var TreeInternalComponent = (function () {
         }));
         this.subscriptions.push(this.treeService.unselectStream(this.tree).subscribe(function () { return (_this.isSelected = false); }));
         this.subscriptions.push(this.treeService.draggedStream(this.tree, this.nodeElementRef).subscribe(function (e) {
-            if (_this.tree.hasSibling(e.captured.tree)) {
-                _this.swapWithSibling(e.captured.tree, _this.tree);
-            }
-            else if (_this.tree.isBranch()) {
-                _this.moveNodeToThisTreeAndRemoveFromPreviousOne(e, _this.tree);
-            }
-            else {
-                _this.moveNodeToParentTreeAndRemoveFromPreviousOne(e, _this.tree);
+            var i = e.captured.length;
+            while (i--) {
+                var node = e.captured[i];
+                _this.treeService.getController(node.tree.id).uncheck();
+                if (_this.tree.hasSibling(node.tree)) {
+                    _this.swapWithSibling(node.tree, _this.tree);
+                }
+                else if (_this.tree.isBranch()) {
+                    _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
+                }
+                else {
+                    _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
+                }
             }
         }));
         this.subscriptions.push(this.treeService.nodeChecked$
@@ -74,15 +82,21 @@ var TreeInternalComponent = (function () {
         tree.swapWithSibling(sibling);
         this.treeService.fireNodeMoved(sibling, sibling.parent);
     };
-    TreeInternalComponent.prototype.moveNodeToThisTreeAndRemoveFromPreviousOne = function (e, tree) {
-        e.captured.tree.removeItselfFromParent();
-        var addedChild = tree.addChild(e.captured.tree);
-        this.treeService.fireNodeMoved(addedChild, e.captured.tree.parent);
+    TreeInternalComponent.prototype.moveNodeToThisTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {
+        var _this = this;
+        capturedTree.removeItselfFromParent();
+        setTimeout(function () {
+            var addedChild = moveToTree.addChild(capturedTree);
+            _this.treeService.fireNodeMoved(addedChild, capturedTree.parent);
+        });
     };
-    TreeInternalComponent.prototype.moveNodeToParentTreeAndRemoveFromPreviousOne = function (e, tree) {
-        e.captured.tree.removeItselfFromParent();
-        var addedSibling = tree.addSibling(e.captured.tree, tree.positionInParent);
-        this.treeService.fireNodeMoved(addedSibling, e.captured.tree.parent);
+    TreeInternalComponent.prototype.moveNodeToParentTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {
+        var _this = this;
+        capturedTree.removeItselfFromParent();
+        setTimeout(function () {
+            var addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent);
+            _this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
+        });
     };
     TreeInternalComponent.prototype.onNodeSelected = function (e) {
         if (!this.tree.selectionAllowed) {
@@ -204,6 +218,7 @@ var TreeInternalComponent = (function () {
         if (!this.checkboxElementRef) {
             return;
         }
+        this.nodeDraggableService.addCheckedNode(new captured_node_1.CapturedNode(this.nodeElementRef, this.tree));
         this.checkboxElementRef.nativeElement.indeterminate = false;
         this.treeService.fireNodeChecked(this.tree);
         this.executeOnChildController(function (controller) { return controller.check(); });
@@ -213,6 +228,7 @@ var TreeInternalComponent = (function () {
         if (!this.checkboxElementRef) {
             return;
         }
+        this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
         this.checkboxElementRef.nativeElement.indeterminate = false;
         this.treeService.fireNodeUnchecked(this.tree);
         this.executeOnChildController(function (controller) { return controller.uncheck(); });
@@ -268,6 +284,7 @@ var TreeInternalComponent = (function () {
     TreeInternalComponent.ctorParameters = function () { return [
         { type: node_menu_service_1.NodeMenuService, },
         { type: tree_service_1.TreeService, },
+        { type: node_draggable_service_1.NodeDraggableService, },
         { type: core_1.ElementRef, },
     ]; };
     TreeInternalComponent.propDecorators = {

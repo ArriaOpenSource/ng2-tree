@@ -6,9 +6,11 @@ import { NodeMenuService } from './menu/node-menu.service';
 import { NodeMenuItemSelectedEvent } from './menu/menu.events';
 import { NodeEditableEvent } from './editable/editable.events';
 import { TreeService } from './tree.service';
+import { NodeDraggableService } from './draggable/node-draggable.service';
 export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
     private nodeMenuService;
     treeService: TreeService;
+    nodeDraggableService: NodeDraggableService;
     nodeElementRef: ElementRef;
     tree: Tree;
     settings: TreeTypes.Ng2TreeSettings;
@@ -20,14 +22,14 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     controller: TreeController;
     checkboxElementRef: ElementRef;
     private subscriptions;
-    constructor(nodeMenuService: NodeMenuService, treeService: TreeService, nodeElementRef: ElementRef);
+    constructor(nodeMenuService: NodeMenuService, treeService: TreeService, nodeDraggableService: NodeDraggableService, nodeElementRef: ElementRef);
     ngAfterViewInit(): void;
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     private swapWithSibling(sibling, tree);
-    private moveNodeToThisTreeAndRemoveFromPreviousOne(e, tree);
-    private moveNodeToParentTreeAndRemoveFromPreviousOne(e, tree);
+    private moveNodeToThisTreeAndRemoveFromPreviousOne(capturedTree, moveToTree);
+    private moveNodeToParentTreeAndRemoveFromPreviousOne(capturedTree, moveToTree);
     onNodeSelected(e: {
         button: number;
     }): void;

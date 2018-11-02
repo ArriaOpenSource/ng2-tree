@@ -77,7 +77,7 @@ var TreeService = (function () {
     TreeService.prototype.draggedStream = function (tree, element) {
         return this.nodeDraggableService.draggableNodeEvents$
             .filter(function (e) { return e.target === element; })
-            .filter(function (e) { return !e.captured.tree.hasChild(tree); });
+            .filter(function (e) { return !e.captured.some(function (cn) { return cn.tree.hasChild(tree); }); });
     };
     TreeService.prototype.setController = function (id, controller) {
         this.controllers.set(id, controller);
