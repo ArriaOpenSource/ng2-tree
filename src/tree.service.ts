@@ -111,7 +111,7 @@ export class TreeService {
   public draggedStream(tree: Tree, element: ElementRef): Observable<NodeDraggableEvent> {
     return this.nodeDraggableService.draggableNodeEvents$
       .filter((e: NodeDraggableEvent) => e.target === element)
-      .filter((e: NodeDraggableEvent) => !e.captured.tree.hasChild(tree));
+      .filter((e: NodeDraggableEvent) => !e.captured.some(cn => cn.tree.hasChild(tree)));
   }
 
   public setController(id: string | number, controller: TreeController): void {

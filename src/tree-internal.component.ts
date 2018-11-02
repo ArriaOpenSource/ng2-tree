@@ -24,6 +24,8 @@ import * as EventUtils from './utils/event.utils';
 import { NodeDraggableEvent } from './draggable/draggable.events';
 import { Subscription } from 'rxjs/Subscription';
 import { get, isNil } from './utils/fn.utils';
+import { NodeDraggableService } from './draggable/node-draggable.service';
+import { CapturedNode } from './draggable/captured-node';
 
 @Component({
   selector: 'tree-internal',
@@ -105,6 +107,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   public constructor(
     private nodeMenuService: NodeMenuService,
     public treeService: TreeService,
+    public nodeDraggableService: NodeDraggableService,
     public nodeElementRef: ElementRef
   ) {}
 
@@ -140,13 +143,16 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
 
     this.subscriptions.push(
       this.treeService.draggedStream(this.tree, this.nodeElementRef).subscribe((e: NodeDraggableEvent) => {
-        if (this.tree.hasSibling(e.captured.tree)) {
-          this.swapWithSibling(e.captured.tree, this.tree);
-        } else if (this.tree.isBranch()) {
-          this.moveNodeToThisTreeAndRemoveFromPreviousOne(e, this.tree);
-        } else {
-          this.moveNodeToParentTreeAndRemoveFromPreviousOne(e, this.tree);
-        }
+        e.captured.forEach(cn => {
+          if (this.tree.hasSibling(cn.tree)) {
+            this.swapWithSibling(cn.tree, this.tree);
+          } else if (this.tree.isBranch()) {
+            this.moveNodeToThisTreeAndRemoveFromPreviousOne(cn.tree, this.tree);
+          } else {
+            this.moveNodeToParentTreeAndRemoveFromPreviousOne(cn.tree, this.tree);
+          }
+          this.treeService.getController(cn.tree.id).uncheck();
+        });
       })
     );
 
@@ -175,16 +181,16 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.treeService.fireNodeMoved(sibling, sibling.parent);
   }
 
-  private moveNodeToThisTreeAndRemoveFromPreviousOne(e: NodeDraggableEvent, tree: Tree): void {
-    e.captured.tree.removeItselfFromParent();
-    const addedChild = tree.addChild(e.captured.tree);
-    this.treeService.fireNodeMoved(addedChild, e.captured.tree.parent);
+  private moveNodeToThisTreeAndRemoveFromPreviousOne(capturedTree: Tree, moveToTree: Tree): void {
+    capturedTree.removeItselfFromParent();
+    const addedChild = moveToTree.addChild(capturedTree);
+    this.treeService.fireNodeMoved(addedChild, capturedTree.parent);
   }
 
-  private moveNodeToParentTreeAndRemoveFromPreviousOne(e: NodeDraggableEvent, tree: Tree): void {
-    e.captured.tree.removeItselfFromParent();
-    const addedSibling = tree.addSibling(e.captured.tree, tree.positionInParent);
-    this.treeService.fireNodeMoved(addedSibling, e.captured.tree.parent);
+  private moveNodeToParentTreeAndRemoveFromPreviousOne(capturedTree: Tree, moveToTree: Tree): void {
+    capturedTree.removeItselfFromParent();
+    const addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent);
+    this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
   }
 
   public onNodeSelected(e: { button: number }): void {
@@ -328,6 +334,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     if (!this.checkboxElementRef) {
       return;
     }
+    this.nodeDraggableService.addNode(new CapturedNode(this.nodeElementRef, this.tree));
 
     this.checkboxElementRef.nativeElement.indeterminate = false;
     this.treeService.fireNodeChecked(this.tree);
@@ -339,7 +346,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     if (!this.checkboxElementRef) {
       return;
     }
-
+    this.nodeDraggableService.removeNodeByTreeId(this.tree.id);
     this.checkboxElementRef.nativeElement.indeterminate = false;
     this.treeService.fireNodeUnchecked(this.tree);
     this.executeOnChildController(controller => controller.uncheck());

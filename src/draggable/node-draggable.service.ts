@@ -7,25 +7,39 @@ import { NodeDraggableEvent } from './draggable.events';
 export class NodeDraggableService {
   public draggableNodeEvents$: Subject<NodeDraggableEvent> = new Subject<NodeDraggableEvent>();
 
-  private capturedNode: CapturedNode;
+  private capturedNodes: CapturedNode[] = [];
 
-  public fireNodeDragged(captured: CapturedNode, target: ElementRef): void {
-    if (!captured.tree || captured.tree.isStatic()) {
+  public fireNodeDragged(captured: CapturedNode[], target: ElementRef): void {
+    if (captured.length === 0 || captured.every(cn => !cn.tree || cn.tree.isStatic())) {
       return;
     }
 
     this.draggableNodeEvents$.next(new NodeDraggableEvent(captured, target));
   }
 
-  public captureNode(node: CapturedNode): void {
-    this.capturedNode = node;
+  public addNode(node: CapturedNode): void {
+    this.capturedNodes.push(node);
   }
 
-  public getCapturedNode(): CapturedNode {
-    return this.capturedNode;
+  public removeNode(node: CapturedNode): void {
+    const i = this.capturedNodes.indexOf(node);
+    if (i > -1) {
+      this.capturedNodes.splice(i, 1);
+    }
   }
 
-  public releaseCapturedNode(): void {
-    this.capturedNode = null;
+  public removeNodeByTreeId(id: string | number): void {
+    const i = this.capturedNodes.findIndex(cn => cn.tree.id === id);
+    if (i > -1) {
+      this.capturedNodes.splice(i, 1);
+    }
+  }
+
+  public getCapturedNodes(): CapturedNode[] {
+    return this.capturedNodes;
+  }
+
+  public releaseCapturedNodes(): void {
+    this.capturedNodes = [];
   }
 }

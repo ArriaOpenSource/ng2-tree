@@ -10,11 +10,11 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   public static DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
 
   @Input() public nodeDraggable: ElementRef;
-
   @Input() public tree: Tree;
 
   private nodeNativeElement: HTMLElement;
   private disposersForDragListeners: Function[] = [];
+  private draggedNode: CapturedNode;
 
   public constructor(
     @Inject(ElementRef) public element: ElementRef,
@@ -63,7 +63,10 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       e.stopPropagation();
     }
 
-    this.nodeDraggableService.captureNode(new CapturedNode(this.nodeDraggable, this.tree));
+    if (!this.tree.checked) {
+      this.draggedNode = new CapturedNode(this.nodeDraggable, this.tree);
+      this.nodeDraggableService.addNode(this.draggedNode);
+    }
 
     e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
     e.dataTransfer.effectAllowed = 'move';
@@ -99,19 +102,32 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       return false;
     }
 
-    if (this.nodeDraggableService.getCapturedNode()) {
-      return this.notifyThatNodeWasDropped();
+    if (this.nodeDraggableService.getCapturedNodes().length > 0) {
+      this.notifyThatNodeWasDropped();
+      this.releaseNodes();
     }
   }
 
   private isDropPossible(e: DragEvent): boolean {
-    const capturedNode = this.nodeDraggableService.getCapturedNode();
-    return capturedNode && capturedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
+    const capturedNodes = this.nodeDraggableService.getCapturedNodes();
+    return (
+      capturedNodes.length > 0 &&
+      capturedNodes.every(cn => cn.canBeDroppedAt(this.nodeDraggable)) &&
+      this.containsElementAt(e)
+    );
   }
 
   private handleDragEnd(e: DragEvent): any {
     this.removeClass('over-drop-target');
-    this.nodeDraggableService.releaseCapturedNode();
+    this.releaseNodes();
+  }
+
+  private releaseNodes(): void {
+    if (this.draggedNode && !this.draggedNode.tree.checked) {
+      this.nodeDraggableService.removeNode(this.draggedNode);
+    } else {
+      this.nodeDraggableService.releaseCapturedNodes();
+    }
   }
 
   private containsElementAt(e: DragEvent): boolean {
@@ -130,6 +146,6 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   private notifyThatNodeWasDropped(): void {
-    this.nodeDraggableService.fireNodeDragged(this.nodeDraggableService.getCapturedNode(), this.nodeDraggable);
+    this.nodeDraggableService.fireNodeDragged(this.nodeDraggableService.getCapturedNodes(), this.nodeDraggable);
   }
 }
