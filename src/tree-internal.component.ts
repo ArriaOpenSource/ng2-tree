@@ -185,14 +185,18 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
 
   private moveNodeToThisTreeAndRemoveFromPreviousOne(capturedTree: Tree, moveToTree: Tree): void {
     capturedTree.removeItselfFromParent();
-    const addedChild = moveToTree.addChild(capturedTree);
-    this.treeService.fireNodeMoved(addedChild, capturedTree.parent);
+    setTimeout(() => {
+      const addedChild = moveToTree.addChild(capturedTree);
+      this.treeService.fireNodeMoved(addedChild, capturedTree.parent);
+    });
   }
 
   private moveNodeToParentTreeAndRemoveFromPreviousOne(capturedTree: Tree, moveToTree: Tree): void {
     capturedTree.removeItselfFromParent();
-    const addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent);
-    this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
+    setTimeout(() => {
+      const addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent);
+      this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
+    });
   }
 
   public onNodeSelected(e: { button: number }): void {
