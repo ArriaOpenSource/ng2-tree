@@ -14,7 +14,6 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
 
   private nodeNativeElement: HTMLElement;
   private disposersForDragListeners: Function[] = [];
-  private draggedNode: CapturedNode;
 
   public constructor(
     @Inject(ElementRef) public element: ElementRef,
@@ -64,8 +63,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     }
 
     if (!this.tree.checked) {
-      this.draggedNode = new CapturedNode(this.nodeDraggable, this.tree);
-      this.nodeDraggableService.addNode(this.draggedNode);
+      this.nodeDraggableService.setDraggedNode(new CapturedNode(this.nodeDraggable, this.tree));
     }
 
     e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
@@ -102,19 +100,24 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       return false;
     }
 
-    if (this.nodeDraggableService.getCapturedNodes().length > 0) {
+    if (this.nodeDraggableService.getDraggedNodeNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
       this.notifyThatNodeWasDropped();
       this.releaseNodes();
     }
   }
 
   private isDropPossible(e: DragEvent): boolean {
-    const capturedNodes = this.nodeDraggableService.getCapturedNodes();
-    return (
-      capturedNodes.length > 0 &&
-      capturedNodes.every(cn => cn.canBeDroppedAt(this.nodeDraggable)) &&
-      this.containsElementAt(e)
-    );
+    const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+    if (draggedNode) {
+      return draggedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
+    } else {
+      const capturedNodes = this.nodeDraggableService.getCheckedNodes();
+      return (
+        capturedNodes.length > 0 &&
+        capturedNodes.every(cn => cn.canBeDroppedAt(this.nodeDraggable)) &&
+        this.containsElementAt(e)
+      );
+    }
   }
 
   private handleDragEnd(e: DragEvent): any {
@@ -123,10 +126,11 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   private releaseNodes(): void {
-    if (this.draggedNode && !this.draggedNode.tree.checked) {
-      this.nodeDraggableService.removeNode(this.draggedNode);
+    const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+    if (draggedNode) {
+      this.nodeDraggableService.releaseDraggedNode();
     } else {
-      this.nodeDraggableService.releaseCapturedNodes();
+      this.nodeDraggableService.releaseCheckedNodes();
     }
   }
 
@@ -146,6 +150,8 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   private notifyThatNodeWasDropped(): void {
-    this.nodeDraggableService.fireNodeDragged(this.nodeDraggableService.getCapturedNodes(), this.nodeDraggable);
+    const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+    const nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
+    this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable);
   }
 }

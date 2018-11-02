@@ -340,7 +340,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     if (!this.checkboxElementRef) {
       return;
     }
-    this.nodeDraggableService.addNode(new CapturedNode(this.nodeElementRef, this.tree));
+    this.nodeDraggableService.addCheckedNode(new CapturedNode(this.nodeElementRef, this.tree));
 
     this.checkboxElementRef.nativeElement.indeterminate = false;
     this.treeService.fireNodeChecked(this.tree);
@@ -352,7 +352,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     if (!this.checkboxElementRef) {
       return;
     }
-    this.nodeDraggableService.removeNodeByTreeId(this.tree.id);
+    this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
     this.checkboxElementRef.nativeElement.indeterminate = false;
     this.treeService.fireNodeUnchecked(this.tree);
     this.executeOnChildController(controller => controller.uncheck());
