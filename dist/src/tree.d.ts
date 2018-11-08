@@ -111,9 +111,14 @@ export declare class Tree {
     private _addChild(child, position?);
     /**
      * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-     * @param {Tree} sibling - A sibling with which current node shold be swapped.
+     * @param {Tree} sibling - A sibling with which current node should be swapped.
      */
     swapWithSibling(sibling: Tree): void;
+    /**
+     * Moves a given sibling after the current node.
+     * If node passed as a parameter is not a sibling - nothing happens.
+     * @param {Tree} sibling - A sibling to move
+     */
     moveSiblingAfter(sibling: Tree): void;
     /**
      * Get a node's position in its parent.

@@ -569,7 +569,7 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
         };
         TreeInternalComponent.decorators = [{ type: core_1.Component, args: [{
                 selector: 'tree-internal',
-                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: this.tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n        <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"this.tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n         </div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (click)=\"onNodeSelected($event)\">\n            <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n            <span *ngIf=\"!template\" class=\"node-name\" [innerHTML]=\"tree.value | safeHtml\"></span>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
+                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n        <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n         </div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (click)=\"onNodeSelected($event)\">\n            <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n            <span *ngIf=\"!template\" class=\"node-name\" [innerHTML]=\"tree.value | safeHtml\"></span>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
             }] }];
         /** @nocollapse */
         TreeInternalComponent.ctorParameters = function () {
@@ -1191,15 +1191,15 @@ $__System.registerDynamic("13", ["17", "20", "12", "1f"], true, function ($__req
         };
         /**
          * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-         * @param {Tree} sibling - A sibling with which current node shold be swapped.
+         * @param {Tree} sibling - A sibling with which current node should be swapped.
          */
         /**
            * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-           * @param {Tree} sibling - A sibling with which current node shold be swapped.
+           * @param {Tree} sibling - A sibling with which current node should be swapped.
            */
         Tree.prototype.swapWithSibling = /**
                                          * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-                                         * @param {Tree} sibling - A sibling with which current node shold be swapped.
+                                         * @param {Tree} sibling - A sibling with which current node should be swapped.
                                          */
         function (sibling) {
             if (!this.hasSibling(sibling)) {
@@ -1210,7 +1210,22 @@ $__System.registerDynamic("13", ["17", "20", "12", "1f"], true, function ($__req
             this.parent._children[siblingIndex] = this;
             this.parent._children[thisTreeIndex] = sibling;
         };
-        Tree.prototype.moveSiblingAfter = function (sibling) {
+        /**
+         * Moves a given sibling after the current node.
+         * If node passed as a parameter is not a sibling - nothing happens.
+         * @param {Tree} sibling - A sibling to move
+         */
+        /**
+           * Moves a given sibling after the current node.
+           * If node passed as a parameter is not a sibling - nothing happens.
+           * @param {Tree} sibling - A sibling to move
+           */
+        Tree.prototype.moveSiblingAfter = /**
+                                          * Moves a given sibling after the current node.
+                                          * If node passed as a parameter is not a sibling - nothing happens.
+                                          * @param {Tree} sibling - A sibling to move
+                                          */
+        function (sibling) {
             if (!this.hasSibling(sibling)) {
                 return;
             }
@@ -1815,20 +1830,24 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
         NodeDraggableDirective.prototype.handleDragEnter = function (e) {
             e.preventDefault();
             if (this.containsElementAt(e)) {
-                this.addClass('over-drop-target');
+                this.addClasses(['over-drop-target', this.getDragOverClassName()]);
             }
         };
         NodeDraggableDirective.prototype.handleDragLeave = function (e) {
             if (!this.containsElementAt(e)) {
-                this.removeClass('over-drop-target');
+                this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
             }
+        };
+        NodeDraggableDirective.prototype.handleDragEnd = function (e) {
+            this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+            this.releaseNodes();
         };
         NodeDraggableDirective.prototype.handleDrop = function (e) {
             e.preventDefault();
             if (e.stopPropagation) {
                 e.stopPropagation();
             }
-            this.removeClass('over-drop-target');
+            this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
             if (!this.isDropPossible(e)) {
                 return false;
             }
@@ -1836,6 +1855,25 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
                 this.notifyThatNodeWasDropped();
                 this.releaseNodes();
             }
+        };
+        NodeDraggableDirective.prototype.appendDropBetweenZone = function () {
+            // TODO might also need separate event listener to add/remove .over-drop-between class
+            /*
+                div.drop-between-zone {
+                  display: block;
+                  width: 100%;
+                  margin-top: -0.66em;
+                  height: 0.66em;
+                  z-index: 999;
+                }
+                 */
+        };
+        NodeDraggableDirective.prototype.getDragOverClassName = function () {
+            return this.isOverDropBetweenZone() ? 'over-drop-between' : this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
+        };
+        NodeDraggableDirective.prototype.isOverDropBetweenZone = function () {
+            // TODO check if dragged item is currently over "drop-between-zone"
+            return false;
         };
         NodeDraggableDirective.prototype.isDropPossible = function (e) {
             var _this = this;
@@ -1848,10 +1886,6 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
                     return cn.canBeDroppedAt(_this.nodeDraggable);
                 }) && this.containsElementAt(e);
             }
-        };
-        NodeDraggableDirective.prototype.handleDragEnd = function (e) {
-            this.removeClass('over-drop-target');
-            this.releaseNodes();
         };
         NodeDraggableDirective.prototype.releaseNodes = function () {
             var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
@@ -1868,13 +1902,13 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
                 y = _b === void 0 ? e.clientY : _b;
             return this.nodeNativeElement.contains(document.elementFromPoint(x, y));
         };
-        NodeDraggableDirective.prototype.addClass = function (className) {
+        NodeDraggableDirective.prototype.addClasses = function (classNames) {
             var classList = this.nodeNativeElement.classList;
-            classList.add(className);
+            classList.add.apply(classList, classNames);
         };
-        NodeDraggableDirective.prototype.removeClass = function (className) {
+        NodeDraggableDirective.prototype.removeClasses = function (classNames) {
             var classList = this.nodeNativeElement.classList;
-            classList.remove(className);
+            classList.remove.apply(classList, classNames);
         };
         NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function () {
             var draggedNode = this.nodeDraggableService.getDraggedNodeNode();

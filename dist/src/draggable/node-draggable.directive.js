@@ -49,20 +49,24 @@ var NodeDraggableDirective = (function () {
     NodeDraggableDirective.prototype.handleDragEnter = function (e) {
         e.preventDefault();
         if (this.containsElementAt(e)) {
-            this.addClass('over-drop-target');
+            this.addClasses(['over-drop-target', this.getDragOverClassName()]);
         }
     };
     NodeDraggableDirective.prototype.handleDragLeave = function (e) {
         if (!this.containsElementAt(e)) {
-            this.removeClass('over-drop-target');
+            this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
         }
+    };
+    NodeDraggableDirective.prototype.handleDragEnd = function (e) {
+        this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+        this.releaseNodes();
     };
     NodeDraggableDirective.prototype.handleDrop = function (e) {
         e.preventDefault();
         if (e.stopPropagation) {
             e.stopPropagation();
         }
-        this.removeClass('over-drop-target');
+        this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
         if (!this.isDropPossible(e)) {
             return false;
         }
@@ -70,6 +74,27 @@ var NodeDraggableDirective = (function () {
             this.notifyThatNodeWasDropped();
             this.releaseNodes();
         }
+    };
+    NodeDraggableDirective.prototype.appendDropBetweenZone = function () {
+        // TODO might also need separate event listener to add/remove .over-drop-between class
+        /*
+            div.drop-between-zone {
+              display: block;
+              width: 100%;
+              margin-top: -0.66em;
+              height: 0.66em;
+              z-index: 999;
+            }
+             */
+    };
+    NodeDraggableDirective.prototype.getDragOverClassName = function () {
+        return this.isOverDropBetweenZone()
+            ? 'over-drop-between'
+            : this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
+    };
+    NodeDraggableDirective.prototype.isOverDropBetweenZone = function () {
+        // TODO check if dragged item is currently over "drop-between-zone"
+        return false;
     };
     NodeDraggableDirective.prototype.isDropPossible = function (e) {
         var _this = this;
@@ -84,10 +109,6 @@ var NodeDraggableDirective = (function () {
                 this.containsElementAt(e));
         }
     };
-    NodeDraggableDirective.prototype.handleDragEnd = function (e) {
-        this.removeClass('over-drop-target');
-        this.releaseNodes();
-    };
     NodeDraggableDirective.prototype.releaseNodes = function () {
         var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
         if (draggedNode) {
@@ -101,13 +122,13 @@ var NodeDraggableDirective = (function () {
         var _a = e.x, x = _a === void 0 ? e.clientX : _a, _b = e.y, y = _b === void 0 ? e.clientY : _b;
         return this.nodeNativeElement.contains(document.elementFromPoint(x, y));
     };
-    NodeDraggableDirective.prototype.addClass = function (className) {
+    NodeDraggableDirective.prototype.addClasses = function (classNames) {
         var classList = this.nodeNativeElement.classList;
-        classList.add(className);
+        classList.add.apply(classList, classNames);
     };
-    NodeDraggableDirective.prototype.removeClass = function (className) {
+    NodeDraggableDirective.prototype.removeClasses = function (classNames) {
         var classList = this.nodeNativeElement.classList;
-        classList.remove(className);
+        classList.remove.apply(classList, classNames);
     };
     NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function () {
         var draggedNode = this.nodeDraggableService.getDraggedNodeNode();

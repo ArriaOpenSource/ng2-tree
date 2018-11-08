@@ -17,12 +17,15 @@ export declare class NodeDraggableDirective implements OnDestroy, OnInit {
     private handleDragOver(e);
     private handleDragEnter(e);
     private handleDragLeave(e);
-    private handleDrop(e);
-    private isDropPossible(e);
     private handleDragEnd(e);
+    private handleDrop(e);
+    private appendDropBetweenZone();
+    private getDragOverClassName();
+    private isOverDropBetweenZone();
+    private isDropPossible(e);
     private releaseNodes();
     private containsElementAt(e);
-    private addClass(className);
-    private removeClass(className);
+    private addClasses(classNames);
+    private removeClasses(classNames);
     private notifyThatNodeWasDropped();
 }

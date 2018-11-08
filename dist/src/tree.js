@@ -419,15 +419,15 @@ var Tree = (function () {
     };
     /**
      * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-     * @param {Tree} sibling - A sibling with which current node shold be swapped.
+     * @param {Tree} sibling - A sibling with which current node should be swapped.
      */
     /**
        * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-       * @param {Tree} sibling - A sibling with which current node shold be swapped.
+       * @param {Tree} sibling - A sibling with which current node should be swapped.
        */
     Tree.prototype.swapWithSibling = /**
        * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-       * @param {Tree} sibling - A sibling with which current node shold be swapped.
+       * @param {Tree} sibling - A sibling with which current node should be swapped.
        */
     function (sibling) {
         if (!this.hasSibling(sibling)) {
@@ -438,7 +438,22 @@ var Tree = (function () {
         this.parent._children[siblingIndex] = this;
         this.parent._children[thisTreeIndex] = sibling;
     };
-    Tree.prototype.moveSiblingAfter = function (sibling) {
+    /**
+     * Moves a given sibling after the current node.
+     * If node passed as a parameter is not a sibling - nothing happens.
+     * @param {Tree} sibling - A sibling to move
+     */
+    /**
+       * Moves a given sibling after the current node.
+       * If node passed as a parameter is not a sibling - nothing happens.
+       * @param {Tree} sibling - A sibling to move
+       */
+    Tree.prototype.moveSiblingAfter = /**
+       * Moves a given sibling after the current node.
+       * If node passed as a parameter is not a sibling - nothing happens.
+       * @param {Tree} sibling - A sibling to move
+       */
+    function (sibling) {
         if (!this.hasSibling(sibling)) {
             return;
         }
