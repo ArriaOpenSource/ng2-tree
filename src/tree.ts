@@ -322,7 +322,7 @@ export class Tree {
 
   /**
    * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-   * @param {Tree} sibling - A sibling with which current node shold be swapped.
+   * @param {Tree} sibling - A sibling with which current node should be swapped.
    */
   public swapWithSibling(sibling: Tree): void {
     if (!this.hasSibling(sibling)) {
@@ -336,6 +336,11 @@ export class Tree {
     this.parent._children[thisTreeIndex] = sibling;
   }
 
+  /**
+   * Moves a given sibling after the current node.
+   * If node passed as a parameter is not a sibling - nothing happens.
+   * @param {Tree} sibling - A sibling to move
+   */
   public moveSiblingAfter(sibling: Tree): void {
     if (!this.hasSibling(sibling)) {
       return;
