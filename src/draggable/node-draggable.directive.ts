@@ -78,14 +78,19 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   private handleDragEnter(e: DragEvent): any {
     e.preventDefault();
     if (this.containsElementAt(e)) {
-      this.addClass('over-drop-target');
+      this.addClasses(['over-drop-target', this.getDragOverClassName()]);
     }
   }
 
   private handleDragLeave(e: DragEvent): any {
     if (!this.containsElementAt(e)) {
-      this.removeClass('over-drop-target');
+      this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
     }
+  }
+
+  private handleDragEnd(e: DragEvent): any {
+    this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+    this.releaseNodes();
   }
 
   private handleDrop(e: DragEvent): any {
@@ -94,7 +99,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       e.stopPropagation();
     }
 
-    this.removeClass('over-drop-target');
+    this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
 
     if (!this.isDropPossible(e)) {
       return false;
@@ -104,6 +109,10 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       this.notifyThatNodeWasDropped();
       this.releaseNodes();
     }
+  }
+
+  private getDragOverClassName(): string {
+    return this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
   }
 
   private isDropPossible(e: DragEvent): boolean {
@@ -120,11 +129,6 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     }
   }
 
-  private handleDragEnd(e: DragEvent): any {
-    this.removeClass('over-drop-target');
-    this.releaseNodes();
-  }
-
   private releaseNodes(): void {
     const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
     if (draggedNode) {
@@ -139,14 +143,14 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     return this.nodeNativeElement.contains(document.elementFromPoint(x, y));
   }
 
-  private addClass(className: string): void {
+  private addClasses(classNames: string[]): void {
     const classList: DOMTokenList = this.nodeNativeElement.classList;
-    classList.add(className);
+    classList.add(...classNames);
   }
 
-  private removeClass(className: string): void {
+  private removeClasses(classNames: string[]): void {
     const classList: DOMTokenList = this.nodeNativeElement.classList;
-    classList.remove(className);
+    classList.remove(...classNames);
   }
 
   private notifyThatNodeWasDropped(): void {

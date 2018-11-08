@@ -33,7 +33,7 @@ import { CapturedNode } from './draggable/captured-node';
   <ul class="tree" *ngIf="tree" [ngClass]="{rootless: isRootHidden()}">
     <li>
       <div class="value-container"
-        [ngClass]="{rootless: isRootHidden(), checked: this.tree.checked}"
+        [ngClass]="{rootless: isRootHidden(), checked: tree.checked}"
         [class.selected]="isSelected"
         (contextmenu)="showRightMenu($event)"
         [nodeDraggable]="nodeElementRef"
@@ -42,7 +42,7 @@ import { CapturedNode } from './draggable/captured-node';
         <div class="folding" (click)="onSwitchFoldingType()" [ngClass]="tree.foldingCssClass"></div>
 
         <div class="node-checkbox" *ngIf="settings.showCheckboxes">
-        <input checkbox  type="checkbox" [disabled]="isReadOnly" [checked]="this.tree.checked" (change)="switchNodeCheckStatus()" #checkbox />
+        <input checkbox  type="checkbox" [disabled]="isReadOnly" [checked]="tree.checked" (change)="switchNodeCheckStatus()" #checkbox />
          </div>
 
         <div class="node-value"
