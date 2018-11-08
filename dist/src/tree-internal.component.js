@@ -53,7 +53,7 @@ var TreeInternalComponent = (function () {
             while (i--) {
                 var node = e.captured[i];
                 var ctrl = _this.treeService.getController(node.tree.id);
-                if (ctrl.isChecked()) {
+                if (ctrl && ctrl.isChecked()) {
                     ctrl.uncheck();
                 }
                 if (_this.tree.isBranch()) {
@@ -61,7 +61,7 @@ var TreeInternalComponent = (function () {
                 }
                 else if (_this.tree.hasSibling(node.tree)) {
                     if (_this.settings.moveNode) {
-                        // TODO move the node into position instead of swapping two nodes.
+                        _this.moveSiblingAfter(node.tree, _this.tree);
                     }
                     else {
                         _this.swapWithSibling(node.tree, _this.tree);
@@ -87,8 +87,14 @@ var TreeInternalComponent = (function () {
         this.subscriptions.forEach(function (sub) { return sub && sub.unsubscribe(); });
     };
     TreeInternalComponent.prototype.swapWithSibling = function (sibling, tree) {
+        var previousPositionInParent = sibling.positionInParent;
         tree.swapWithSibling(sibling);
-        this.treeService.fireNodeMoved(sibling, sibling.parent);
+        this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
+    };
+    TreeInternalComponent.prototype.moveSiblingAfter = function (sibling, tree) {
+        var previousPositionInParent = sibling.positionInParent;
+        tree.moveSiblingAfter(sibling);
+        this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
     };
     TreeInternalComponent.prototype.moveNodeToThisTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {
         var _this = this;

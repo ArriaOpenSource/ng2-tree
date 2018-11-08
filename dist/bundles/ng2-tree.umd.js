@@ -331,14 +331,14 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                 while (i--) {
                     var node = e.captured[i];
                     var ctrl = _this.treeService.getController(node.tree.id);
-                    if (ctrl.isChecked()) {
+                    if (ctrl && ctrl.isChecked()) {
                         ctrl.uncheck();
                     }
                     if (_this.tree.isBranch()) {
                         _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
                     } else if (_this.tree.hasSibling(node.tree)) {
                         if (_this.settings.moveNode) {
-                            // TODO move the node into position instead of swapping two nodes.
+                            _this.moveSiblingAfter(node.tree, _this.tree);
                         } else {
                             _this.swapWithSibling(node.tree, _this.tree);
                         }
@@ -365,8 +365,14 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             });
         };
         TreeInternalComponent.prototype.swapWithSibling = function (sibling, tree) {
+            var previousPositionInParent = sibling.positionInParent;
             tree.swapWithSibling(sibling);
-            this.treeService.fireNodeMoved(sibling, sibling.parent);
+            this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
+        };
+        TreeInternalComponent.prototype.moveSiblingAfter = function (sibling, tree) {
+            var previousPositionInParent = sibling.positionInParent;
+            tree.moveSiblingAfter(sibling);
+            this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
         };
         TreeInternalComponent.prototype.moveNodeToThisTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {
             var _this = this;
@@ -1203,6 +1209,15 @@ $__System.registerDynamic("13", ["17", "20", "12", "1f"], true, function ($__req
             var thisTreeIndex = this.positionInParent;
             this.parent._children[siblingIndex] = this;
             this.parent._children[thisTreeIndex] = sibling;
+        };
+        Tree.prototype.moveSiblingAfter = function (sibling) {
+            if (!this.hasSibling(sibling)) {
+                return;
+            }
+            var siblingIndex = sibling.positionInParent;
+            var thisTreeIndex = this.positionInParent;
+            var siblings = this.parent._children;
+            siblings.splice(thisTreeIndex, 0, siblings.splice(siblingIndex, 1)[0]);
         };
         Object.defineProperty(Tree.prototype, "positionInParent", {
             /**
@@ -2170,9 +2185,10 @@ $__System.registerDynamic("25", [], true, function ($__require, exports, module)
     exports.NodeDestructiveEvent = NodeDestructiveEvent;
     var NodeMovedEvent = function (_super) {
         __extends(NodeMovedEvent, _super);
-        function NodeMovedEvent(node, previousParent) {
+        function NodeMovedEvent(node, previousParent, previousPosition) {
             var _this = _super.call(this, node) || this;
             _this.previousParent = previousParent;
+            _this.previousPosition = previousPosition;
             return _this;
         }
         return NodeMovedEvent;
@@ -2509,8 +2525,8 @@ $__System.registerDynamic("11", ["25", "24", "10", "1b", "17"], true, function (
         TreeService.prototype.fireNodeRenamed = function (oldValue, tree) {
             this.nodeRenamed$.next(new tree_events_1.NodeRenamedEvent(tree, oldValue, tree.value));
         };
-        TreeService.prototype.fireNodeMoved = function (tree, parent) {
-            this.nodeMoved$.next(new tree_events_1.NodeMovedEvent(tree, parent));
+        TreeService.prototype.fireNodeMoved = function (tree, parent, previousPosition) {
+            this.nodeMoved$.next(new tree_events_1.NodeMovedEvent(tree, parent, previousPosition));
         };
         TreeService.prototype.fireMenuItemSelected = function (tree, selectedItem) {
             this.menuItemSelected$.next(new tree_events_1.MenuItemSelectedEvent(tree, selectedItem));

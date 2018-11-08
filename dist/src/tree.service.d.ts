@@ -30,7 +30,7 @@ export declare class TreeService {
     fireNodeSelected(tree: Tree): void;
     fireNodeUnselected(tree: Tree): void;
     fireNodeRenamed(oldValue: RenamableNode | string, tree: Tree): void;
-    fireNodeMoved(tree: Tree, parent: Tree): void;
+    fireNodeMoved(tree: Tree, parent: Tree, previousPosition?: number): void;
     fireMenuItemSelected(tree: Tree, selectedItem: string): void;
     fireNodeSwitchFoldingType(tree: Tree): void;
     private fireNodeExpanded(tree);

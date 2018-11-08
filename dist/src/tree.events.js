@@ -43,9 +43,10 @@ var NodeDestructiveEvent = (function (_super) {
 exports.NodeDestructiveEvent = NodeDestructiveEvent;
 var NodeMovedEvent = (function (_super) {
     __extends(NodeMovedEvent, _super);
-    function NodeMovedEvent(node, previousParent) {
+    function NodeMovedEvent(node, previousParent, previousPosition) {
         var _this = _super.call(this, node) || this;
         _this.previousParent = previousParent;
+        _this.previousPosition = previousPosition;
         return _this;
     }
     return NodeMovedEvent;

@@ -42,8 +42,8 @@ var TreeService = (function () {
     TreeService.prototype.fireNodeRenamed = function (oldValue, tree) {
         this.nodeRenamed$.next(new tree_events_1.NodeRenamedEvent(tree, oldValue, tree.value));
     };
-    TreeService.prototype.fireNodeMoved = function (tree, parent) {
-        this.nodeMoved$.next(new tree_events_1.NodeMovedEvent(tree, parent));
+    TreeService.prototype.fireNodeMoved = function (tree, parent, previousPosition) {
+        this.nodeMoved$.next(new tree_events_1.NodeMovedEvent(tree, parent, previousPosition));
     };
     TreeService.prototype.fireMenuItemSelected = function (tree, selectedItem) {
         this.menuItemSelected$.next(new tree_events_1.MenuItemSelectedEvent(tree, selectedItem));

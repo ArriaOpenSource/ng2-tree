@@ -438,6 +438,15 @@ var Tree = (function () {
         this.parent._children[siblingIndex] = this;
         this.parent._children[thisTreeIndex] = sibling;
     };
+    Tree.prototype.moveSiblingAfter = function (sibling) {
+        if (!this.hasSibling(sibling)) {
+            return;
+        }
+        var siblingIndex = sibling.positionInParent;
+        var thisTreeIndex = this.positionInParent;
+        var siblings = this.parent._children;
+        siblings.splice(thisTreeIndex, 0, siblings.splice(siblingIndex, 1)[0]);
+    };
     Object.defineProperty(Tree.prototype, "positionInParent", {
         /**
          * Get a node's position in its parent.

@@ -114,6 +114,7 @@ export declare class Tree {
      * @param {Tree} sibling - A sibling with which current node shold be swapped.
      */
     swapWithSibling(sibling: Tree): void;
+    moveSiblingAfter(sibling: Tree): void;
     /**
      * Get a node's position in its parent.
      * @returns {number} The position inside a parent.

@@ -15,7 +15,8 @@ export declare class NodeDestructiveEvent extends NodeEvent {
 }
 export declare class NodeMovedEvent extends NodeDestructiveEvent {
     previousParent: Tree;
-    constructor(node: Tree, previousParent: Tree);
+    previousPosition: number;
+    constructor(node: Tree, previousParent: Tree, previousPosition?: number);
 }
 export declare class NodeRemovedEvent extends NodeDestructiveEvent {
     lastIndex: number;

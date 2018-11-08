@@ -28,6 +28,7 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     private swapWithSibling(sibling, tree);
+    private moveSiblingAfter(sibling, tree);
     private moveNodeToThisTreeAndRemoveFromPreviousOne(capturedTree, moveToTree);
     private moveNodeToParentTreeAndRemoveFromPreviousOne(capturedTree, moveToTree);
     onNodeSelected(e: {
