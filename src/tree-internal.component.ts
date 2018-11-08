@@ -197,7 +197,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   private moveNodeToParentTreeAndRemoveFromPreviousOne(capturedTree: Tree, moveToTree: Tree): void {
     capturedTree.removeItselfFromParent();
     setTimeout(() => {
-      const addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent);
+      const addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent + 1);
       this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
     });
   }
