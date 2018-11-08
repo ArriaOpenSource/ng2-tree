@@ -35,7 +35,7 @@ declare const alertify: any;
             </div>
             <div class="tree-content">
                 <tree [tree]="pls"
-                      [settings]="disabledCheckboxesSettings"
+                      [settings]="plsSettings"
                       (nodeRemoved)="onNodeRemoved($event)"
                       (nodeRenamed)="onNodeRenamed($event)"
                       (nodeSelected)="onNodeSelected($event)"
@@ -201,10 +201,11 @@ export class AppComponent implements OnInit {
     showCheckboxes: true
   };
 
-  public disabledCheckboxesSettings: Ng2TreeSettings = {
+  public plsSettings: Ng2TreeSettings = {
     rootIsVisible: false,
     showCheckboxes: true,
-    enableCheckboxes: false
+    enableCheckboxes: false,
+    moveNode: true
   };
 
   public fonts: TreeModel = {

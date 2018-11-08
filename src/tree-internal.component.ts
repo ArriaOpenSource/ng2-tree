@@ -147,13 +147,18 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
         while (i--) {
           const node = e.captured[i];
           const ctrl = this.treeService.getController(node.tree.id);
-          if (ctrl.isChecked()) {
+          if (ctrl && ctrl.isChecked()) {
             ctrl.uncheck();
           }
+
           if (this.tree.isBranch()) {
             this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
           } else if (this.tree.hasSibling(node.tree)) {
-            this.swapWithSibling(node.tree, this.tree);
+            if (this.settings.moveNode) {
+              this.moveSiblingAfter(node.tree, this.tree);
+            } else {
+              this.swapWithSibling(node.tree, this.tree);
+            }
           } else {
             this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree);
           }
@@ -182,8 +187,15 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   private swapWithSibling(sibling: Tree, tree: Tree): void {
+    const previousPositionInParent = sibling.positionInParent;
     tree.swapWithSibling(sibling);
-    this.treeService.fireNodeMoved(sibling, sibling.parent);
+    this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
+  }
+
+  private moveSiblingAfter(sibling: Tree, tree: Tree): void {
+    const previousPositionInParent = sibling.positionInParent;
+    tree.moveSiblingAfter(sibling);
+    this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
   }
 
   private moveNodeToThisTreeAndRemoveFromPreviousOne(capturedTree: Tree, moveToTree: Tree): void {

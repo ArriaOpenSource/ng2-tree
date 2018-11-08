@@ -336,6 +336,18 @@ export class Tree {
     this.parent._children[thisTreeIndex] = sibling;
   }
 
+  public moveSiblingAfter(sibling: Tree): void {
+    if (!this.hasSibling(sibling)) {
+      return;
+    }
+
+    const siblingIndex = sibling.positionInParent;
+    const thisTreeIndex = this.positionInParent;
+    const siblings = this.parent._children;
+
+    siblings.splice(thisTreeIndex, 0, siblings.splice(siblingIndex, 1)[0]);
+  }
+
   /**
    * Get a node's position in its parent.
    * @returns {number} The position inside a parent.

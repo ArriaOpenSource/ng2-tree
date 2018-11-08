@@ -69,8 +69,8 @@ export class TreeService {
     this.nodeRenamed$.next(new NodeRenamedEvent(tree, oldValue, tree.value));
   }
 
-  public fireNodeMoved(tree: Tree, parent: Tree): void {
-    this.nodeMoved$.next(new NodeMovedEvent(tree, parent));
+  public fireNodeMoved(tree: Tree, parent: Tree, previousPosition?: number): void {
+    this.nodeMoved$.next(new NodeMovedEvent(tree, parent, previousPosition));
   }
 
   public fireMenuItemSelected(tree: Tree, selectedItem: string): void {
