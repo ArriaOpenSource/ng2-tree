@@ -146,7 +146,10 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
         let i = e.captured.length;
         while (i--) {
           const node = e.captured[i];
-          this.treeService.getController(node.tree.id).uncheck();
+          const ctrl = this.treeService.getController(node.tree.id);
+          if (ctrl.isChecked()) {
+            ctrl.uncheck();
+          }
           if (this.tree.hasSibling(node.tree)) {
             this.swapWithSibling(node.tree, this.tree);
           } else if (this.tree.isBranch()) {
