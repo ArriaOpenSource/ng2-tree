@@ -150,10 +150,10 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
           if (ctrl.isChecked()) {
             ctrl.uncheck();
           }
-          if (this.tree.hasSibling(node.tree)) {
-            this.swapWithSibling(node.tree, this.tree);
-          } else if (this.tree.isBranch()) {
+          if (this.tree.isBranch()) {
             this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
+          } else if (this.tree.hasSibling(node.tree)) {
+            this.swapWithSibling(node.tree, this.tree);
           } else {
             this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree);
           }
