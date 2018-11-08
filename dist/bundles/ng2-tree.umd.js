@@ -330,11 +330,18 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                 var i = e.captured.length;
                 while (i--) {
                     var node = e.captured[i];
-                    _this.treeService.getController(node.tree.id).uncheck();
-                    if (_this.tree.hasSibling(node.tree)) {
-                        _this.swapWithSibling(node.tree, _this.tree);
-                    } else if (_this.tree.isBranch()) {
+                    var ctrl = _this.treeService.getController(node.tree.id);
+                    if (ctrl.isChecked()) {
+                        ctrl.uncheck();
+                    }
+                    if (_this.tree.isBranch()) {
                         _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
+                    } else if (_this.tree.hasSibling(node.tree)) {
+                        if (_this.settings.moveNode) {
+                            // TODO move the node into position instead of swapping two nodes.
+                        } else {
+                            _this.swapWithSibling(node.tree, _this.tree);
+                        }
                     } else {
                         _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
                     }
@@ -373,7 +380,7 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             var _this = this;
             capturedTree.removeItselfFromParent();
             setTimeout(function () {
-                var addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent);
+                var addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent + 1);
                 _this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
             });
         };
@@ -665,6 +672,7 @@ $__System.registerDynamic("12", ["17"], true, function ($__require, exports, mod
             this.rootIsVisible = true;
             this.showCheckboxes = false;
             this.enableCheckboxes = true;
+            this.moveNode = false;
         }
         return Ng2TreeSettings;
     }();

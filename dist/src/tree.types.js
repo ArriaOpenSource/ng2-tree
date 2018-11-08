@@ -48,6 +48,7 @@ var Ng2TreeSettings = (function () {
         this.rootIsVisible = true;
         this.showCheckboxes = false;
         this.enableCheckboxes = true;
+        this.moveNode = false;
     }
     return Ng2TreeSettings;
 }());
