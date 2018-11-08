@@ -14,13 +14,13 @@
       "url": "https://www.arria.com"
     }
   ],
-  "homepage": "https://github.com/ArriaData2Text/ng2-tree",
+  "homepage": "https://github.com/ArriaOpenSource/ng2-tree",
   "repository": {
     "type": "git",
-    "url": "git@github.com:ArriaData2Text/ng2-tree.git"
+    "url": "git@github.com:ArriaOpenSource/ng2-tree.git"
   },
   "bugs": {
-    "url": "https://github.com/ArriaData2Text/ng2-tree/issues"
+    "url": "https://github.com/ArriaOpenSource/ng2-tree/issues"
   },
   "private": true,
   "keywords": [
