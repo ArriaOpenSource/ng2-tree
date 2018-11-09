@@ -1,18 +1,20 @@
-import { Directive, ElementRef, Inject, Input, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, OnDestroy, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { NodeDraggableService } from './node-draggable.service';
 import { CapturedNode } from './captured-node';
 import { Tree } from '../tree';
+import { NodeDropType } from './draggable.events';
 
 @Directive({
   selector: '[nodeDraggable]'
 })
-export class NodeDraggableDirective implements OnDestroy, OnInit {
+export class NodeDraggableDirective implements OnDestroy, OnInit, AfterViewInit {
   public static DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
 
   @Input() public nodeDraggable: ElementRef;
   @Input() public tree: Tree;
 
   private nodeNativeElement: HTMLElement;
+  private dropAfterElement: HTMLElement;
   private disposersForDragListeners: Function[] = [];
 
   public constructor(
@@ -47,10 +49,14 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     }
   }
 
+  public ngAfterViewInit(): void {
+    if (this.tree.isBranch()) {
+      this.appendDropAfterZone();
+    }
+  }
+
   public ngOnDestroy(): void {
-    /* tslint:disable:typedef */
     this.disposersForDragListeners.forEach(dispose => dispose());
-    /* tslint:enable:typedef */
   }
 
   private handleDragStart(e: DragEvent): any {
@@ -73,6 +79,13 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   private handleDragOver(e: DragEvent): any {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
+    if (this.tree.isBranch()) {
+      if (this.isOverDropAfterZone(e)) {
+        this.addClasses(['over-drop-after']);
+      } else {
+        this.removeClasses(['over-drop-after']);
+      }
+    }
   }
 
   private handleDragEnter(e: DragEvent): any {
@@ -85,11 +98,17 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   private handleDragLeave(e: DragEvent): any {
     if (!this.containsElementAt(e)) {
       this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+      if (this.tree.isBranch()) {
+        this.removeClasses(['over-drop-after']);
+      }
     }
   }
 
   private handleDragEnd(e: DragEvent): any {
     this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+    if (this.tree.isBranch()) {
+      this.removeClasses(['over-drop-after']);
+    }
     this.releaseNodes();
   }
 
@@ -100,51 +119,50 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     }
 
     this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+    if (this.tree.isBranch()) {
+      this.removeClasses(['over-drop-after']);
+    }
 
     if (!this.isDropPossible(e)) {
       return false;
     }
 
     if (this.nodeDraggableService.getDraggedNodeNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
-      this.notifyThatNodeWasDropped();
+      const type = this.tree.isBranch() && this.isOverDropAfterZone(e) ? NodeDropType.DropAfter : NodeDropType.DropOn;
+      this.notifyThatNodeWasDropped(type);
       this.releaseNodes();
     }
   }
 
-  private appendDropBetweenZone(): void {
-    // TODO might also need separate event listener to add/remove .over-drop-between class
-    /*
-    div.drop-between-zone {
-      display: block;
-      width: 100%;
-      margin-top: -0.66em;
-      height: 0.66em;
-      z-index: 999;
-    }
-     */
+  private appendDropAfterZone(): void {
+    const style = 'display: block; width: 100%; margin-top: -0.66em; height: 0.66em; position: absolute; bottom: 0;';
+    const div = document.createElement('div');
+    div.setAttribute('style', style);
+    div.classList.add('drop-after-zone');
+    (this.element.nativeElement as HTMLElement).appendChild(div);
+    this.dropAfterElement = div;
+  }
+
+  private isOverDropAfterZone(e: DragEvent): boolean {
+    return e.target === this.dropAfterElement;
   }
 
   private getDragOverClassName(): string {
-    return this.isOverDropBetweenZone()
-      ? 'over-drop-between'
-      : this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
-  }
-
-  private isOverDropBetweenZone(): boolean {
-    // TODO check if dragged item is currently over "drop-between-zone"
-    return false;
+    return this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
   }
 
   private isDropPossible(e: DragEvent): boolean {
     const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
     if (draggedNode) {
-      return draggedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
+      return (
+        draggedNode.canBeDroppedAt(this.nodeDraggable) && (this.isOverDropAfterZone(e) || this.containsElementAt(e))
+      );
     } else {
       const capturedNodes = this.nodeDraggableService.getCheckedNodes();
       return (
         capturedNodes.length > 0 &&
         capturedNodes.every(cn => cn.canBeDroppedAt(this.nodeDraggable)) &&
-        this.containsElementAt(e)
+        (this.isOverDropAfterZone(e) || this.containsElementAt(e))
       );
     }
   }
@@ -173,9 +191,9 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     classList.remove(...classNames);
   }
 
-  private notifyThatNodeWasDropped(): void {
+  private notifyThatNodeWasDropped(dropType: NodeDropType): void {
     const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
     const nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
-    this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable);
+    this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, dropType);
   }
 }

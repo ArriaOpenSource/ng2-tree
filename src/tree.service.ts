@@ -20,7 +20,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { ElementRef, Inject, Injectable } from '@angular/core';
 import { NodeDraggableService } from './draggable/node-draggable.service';
-import { NodeDraggableEvent } from './draggable/draggable.events';
+import { NodeDraggableEvent, NodeDropType } from './draggable/draggable.events';
 import { isEmpty } from './utils/fn.utils';
 
 @Injectable()
