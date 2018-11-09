@@ -4,6 +4,7 @@ var core_1 = require("@angular/core");
 var node_draggable_service_1 = require("./node-draggable.service");
 var captured_node_1 = require("./captured-node");
 var tree_1 = require("../tree");
+var draggable_events_1 = require("./draggable.events");
 var NodeDraggableDirective = (function () {
     function NodeDraggableDirective(element, nodeDraggableService, renderer) {
         this.element = element;
@@ -23,10 +24,13 @@ var NodeDraggableDirective = (function () {
             this.disposersForDragListeners.push(this.renderer.listen(this.nodeNativeElement, 'dragend', this.handleDragEnd.bind(this)));
         }
     };
+    NodeDraggableDirective.prototype.ngAfterViewInit = function () {
+        if (this.tree.isBranch()) {
+            this.appendDropAfterZone();
+        }
+    };
     NodeDraggableDirective.prototype.ngOnDestroy = function () {
-        /* tslint:disable:typedef */
         this.disposersForDragListeners.forEach(function (dispose) { return dispose(); });
-        /* tslint:enable:typedef */
     };
     NodeDraggableDirective.prototype.handleDragStart = function (e) {
         if (this.tree.isBeingRenamed()) {
@@ -45,6 +49,14 @@ var NodeDraggableDirective = (function () {
     NodeDraggableDirective.prototype.handleDragOver = function (e) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
+        if (this.tree.isBranch()) {
+            if (this.isOverDropAfterZone(e)) {
+                this.addClasses(['over-drop-after']);
+            }
+            else {
+                this.removeClasses(['over-drop-after']);
+            }
+        }
     };
     NodeDraggableDirective.prototype.handleDragEnter = function (e) {
         e.preventDefault();
@@ -55,10 +67,16 @@ var NodeDraggableDirective = (function () {
     NodeDraggableDirective.prototype.handleDragLeave = function (e) {
         if (!this.containsElementAt(e)) {
             this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+            if (this.tree.isBranch()) {
+                this.removeClasses(['over-drop-after']);
+            }
         }
     };
     NodeDraggableDirective.prototype.handleDragEnd = function (e) {
         this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+        if (this.tree.isBranch()) {
+            this.removeClasses(['over-drop-after']);
+        }
         this.releaseNodes();
     };
     NodeDraggableDirective.prototype.handleDrop = function (e) {
@@ -67,46 +85,43 @@ var NodeDraggableDirective = (function () {
             e.stopPropagation();
         }
         this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+        if (this.tree.isBranch()) {
+            this.removeClasses(['over-drop-after']);
+        }
         if (!this.isDropPossible(e)) {
             return false;
         }
         if (this.nodeDraggableService.getDraggedNodeNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
-            this.notifyThatNodeWasDropped();
+            var type = this.tree.isBranch() && this.isOverDropAfterZone(e) ? draggable_events_1.NodeDropType.DropAfter : draggable_events_1.NodeDropType.DropOn;
+            this.notifyThatNodeWasDropped(type);
             this.releaseNodes();
         }
     };
-    NodeDraggableDirective.prototype.appendDropBetweenZone = function () {
-        // TODO might also need separate event listener to add/remove .over-drop-between class
-        /*
-            div.drop-between-zone {
-              display: block;
-              width: 100%;
-              margin-top: -0.66em;
-              height: 0.66em;
-              z-index: 999;
-            }
-             */
+    NodeDraggableDirective.prototype.appendDropAfterZone = function () {
+        var style = 'display: block; width: 100%; margin-top: -0.66em; height: 0.66em; position: absolute; bottom: 0;';
+        var div = document.createElement('div');
+        div.setAttribute('style', style);
+        div.classList.add('drop-after-zone');
+        this.element.nativeElement.appendChild(div);
+        this.dropAfterElement = div;
+    };
+    NodeDraggableDirective.prototype.isOverDropAfterZone = function (e) {
+        return e.target === this.dropAfterElement;
     };
     NodeDraggableDirective.prototype.getDragOverClassName = function () {
-        return this.isOverDropBetweenZone()
-            ? 'over-drop-between'
-            : this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
-    };
-    NodeDraggableDirective.prototype.isOverDropBetweenZone = function () {
-        // TODO check if dragged item is currently over "drop-between-zone"
-        return false;
+        return this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
     };
     NodeDraggableDirective.prototype.isDropPossible = function (e) {
         var _this = this;
         var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
         if (draggedNode) {
-            return draggedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
+            return (draggedNode.canBeDroppedAt(this.nodeDraggable) && (this.isOverDropAfterZone(e) || this.containsElementAt(e)));
         }
         else {
             var capturedNodes = this.nodeDraggableService.getCheckedNodes();
             return (capturedNodes.length > 0 &&
                 capturedNodes.every(function (cn) { return cn.canBeDroppedAt(_this.nodeDraggable); }) &&
-                this.containsElementAt(e));
+                (this.isOverDropAfterZone(e) || this.containsElementAt(e)));
         }
     };
     NodeDraggableDirective.prototype.releaseNodes = function () {
@@ -130,10 +145,10 @@ var NodeDraggableDirective = (function () {
         var classList = this.nodeNativeElement.classList;
         classList.remove.apply(classList, classNames);
     };
-    NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function () {
+    NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function (dropType) {
         var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
         var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
-        this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable);
+        this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, dropType);
     };
     NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
     NodeDraggableDirective.decorators = [

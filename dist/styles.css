@@ -70,7 +70,7 @@ tree-internal .over-drop-target {
   border-radius: 5%;
 }
 
-tree-internal .over-drop-target.over-drop-between {
+tree-internal .over-drop-target.over-drop-after {
   border: unset;
   border-bottom: 4px solid #757575;
   transition: padding 0.2s ease-out;
@@ -106,7 +106,11 @@ tree-internal .tree .node-value:after {
   transition: width 0.3s;
 }
 
-tree-internal .tree .node-value:hover:after {
+tree-internal .value-container {
+  position: relative;
+}
+
+tree-internal .value-container:hover .node-value:after {
   width: 100%;
 }
 
