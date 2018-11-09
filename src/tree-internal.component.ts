@@ -37,9 +37,10 @@ import { CapturedNode } from './draggable/captured-node';
         [class.selected]="isSelected"
         (contextmenu)="showRightMenu($event)"
         [nodeDraggable]="nodeElementRef"
-        [tree]="tree">
+        [tree]="tree"
+        (click)="onNodeSelected($event)">
 
-        <div class="folding" (click)="onSwitchFoldingType()" [ngClass]="tree.foldingCssClass"></div>
+        <div class="folding" (click)="onSwitchFoldingType();$event.stopPropagation()" [ngClass]="tree.foldingCssClass"></div>
 
         <div class="node-checkbox" *ngIf="settings.showCheckboxes">
         <input checkbox  type="checkbox" [disabled]="isReadOnly" [checked]="tree.checked" (change)="switchNodeCheckStatus()" #checkbox />
@@ -47,8 +48,7 @@ import { CapturedNode } from './draggable/captured-node';
 
         <div class="node-value"
           *ngIf="!shouldShowInputForTreeValue()"
-          [class.node-selected]="isSelected"
-          (click)="onNodeSelected($event)">
+          [class.node-selected]="isSelected">
             <div *ngIf="tree.nodeTemplate" class="node-template" [innerHTML]="tree.nodeTemplate | safeHtml"></div>
             <span *ngIf="!template" class="node-name" [innerHTML]="tree.value | safeHtml"></span>
             <span class="loading-children" *ngIf="tree.childrenAreBeingLoaded()"></span>
@@ -60,7 +60,7 @@ import { CapturedNode } from './draggable/captured-node';
            [nodeEditable]="tree.value"
            (valueChanged)="applyNewValue($event)"/>
 
-        <div class="node-left-menu" *ngIf="tree.hasLeftMenu()" (click)="showLeftMenu($event)" [innerHTML]="tree.leftMenuTemplate">
+        <div class="node-left-menu" *ngIf="tree.hasLeftMenu()" (click)="showLeftMenu($event);$event.stopPropagation()" [innerHTML]="tree.leftMenuTemplate">
         </div>
         <node-menu *ngIf="tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()"
           (menuItemSelected)="onMenuItemSelected($event)">

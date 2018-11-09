@@ -106,7 +106,7 @@ tree-internal .tree .node-value:after {
   transition: width 0.3s;
 }
 
-tree-internal .tree .node-value:hover:after {
+tree-internal .value-container:hover .node-value:after {
   width: 100%;
 }
 
