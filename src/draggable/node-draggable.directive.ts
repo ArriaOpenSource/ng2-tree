@@ -2,6 +2,7 @@ import { Directive, ElementRef, Inject, Input, OnDestroy, OnInit, Renderer2 } fr
 import { NodeDraggableService } from './node-draggable.service';
 import { CapturedNode } from './captured-node';
 import { Tree } from '../tree';
+import { DropPosition } from './draggable.events';
 
 @Directive({
   selector: '[nodeDraggable]'
@@ -14,6 +15,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
 
   private nodeNativeElement: HTMLElement;
   private disposersForDragListeners: Function[] = [];
+  private currentDropPosition: DropPosition;
 
   public constructor(
     @Inject(ElementRef) public element: ElementRef,
@@ -48,9 +50,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   public ngOnDestroy(): void {
-    /* tslint:disable:typedef */
     this.disposersForDragListeners.forEach(dispose => dispose());
-    /* tslint:enable:typedef */
   }
 
   private handleDragStart(e: DragEvent): any {
@@ -73,6 +73,10 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   private handleDragOver(e: DragEvent): any {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
+    const newDropPosition = this.determineDropPosition(e);
+    this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
+    this.addClasses([this.getDropPositionClassName(newDropPosition)]);
+    this.currentDropPosition = newDropPosition;
   }
 
   private handleDragEnter(e: DragEvent): any {
@@ -84,12 +88,20 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
 
   private handleDragLeave(e: DragEvent): any {
     if (!this.containsElementAt(e)) {
-      this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+      this.removeClasses([
+        'over-drop-target',
+        this.getDragOverClassName(),
+        this.getDropPositionClassName(this.currentDropPosition)
+      ]);
     }
   }
 
   private handleDragEnd(e: DragEvent): any {
-    this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+    this.removeClasses([
+      'over-drop-target',
+      this.getDragOverClassName(),
+      this.getDropPositionClassName(this.currentDropPosition)
+    ]);
     this.releaseNodes();
   }
 
@@ -99,7 +111,11 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       e.stopPropagation();
     }
 
-    this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+    this.removeClasses([
+      'over-drop-target',
+      this.getDragOverClassName(),
+      this.getDropPositionClassName(this.currentDropPosition)
+    ]);
 
     if (!this.isDropPossible(e)) {
       return false;
@@ -111,8 +127,45 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     }
   }
 
+  private determineDropPosition(e: DragEvent): DropPosition {
+    let dropPosition: DropPosition;
+    const currentTarget = e.currentTarget as HTMLElement;
+    const elemHeight = currentTarget.offsetHeight;
+    const relativeMousePosition = e.pageY - currentTarget.offsetTop;
+    if (this.tree.isBranch()) {
+      const third = elemHeight / 3;
+      const twoThirds = third * 2;
+      if (relativeMousePosition < third) {
+        dropPosition = DropPosition.Above;
+      } else if (relativeMousePosition >= third && relativeMousePosition <= twoThirds) {
+        dropPosition = DropPosition.Into;
+      } else {
+        dropPosition = DropPosition.Below;
+      }
+    } else {
+      const half = elemHeight / 2;
+      if (relativeMousePosition <= half) {
+        dropPosition = DropPosition.Above;
+      } else {
+        dropPosition = DropPosition.Below;
+      }
+    }
+    return dropPosition;
+  }
+
   private getDragOverClassName(): string {
     return this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
+  }
+
+  private getDropPositionClassName(dropPosition: DropPosition): string {
+    switch (dropPosition) {
+      case DropPosition.Above:
+        return 'over-drop-above';
+      case DropPosition.Into:
+        return 'over-drop-into';
+      case DropPosition.Below:
+        return 'over-drop-below';
+    }
   }
 
   private isDropPossible(e: DragEvent): boolean {
@@ -156,6 +209,6 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   private notifyThatNodeWasDropped(): void {
     const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
     const nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
-    this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable);
+    this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
   }
 }

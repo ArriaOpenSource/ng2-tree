@@ -321,19 +321,20 @@ export class Tree {
   }
 
   /**
-   * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-   * @param {Tree} sibling - A sibling with which current node should be swapped.
+   * Moves a given before the current node.
+   * If node passed as a parameter is not a sibling - nothing happens.
+   * @param {Tree} sibling - A sibling to move
    */
-  public swapWithSibling(sibling: Tree): void {
+  public moveSiblingBefore(sibling: Tree): void {
     if (!this.hasSibling(sibling)) {
       return;
     }
 
+    const insertAtIndex = this.positionInParent;
     const siblingIndex = sibling.positionInParent;
-    const thisTreeIndex = this.positionInParent;
+    const siblings = this.parent._children;
 
-    this.parent._children[siblingIndex] = this;
-    this.parent._children[thisTreeIndex] = sibling;
+    siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
   }
 
   /**
@@ -346,11 +347,14 @@ export class Tree {
       return;
     }
 
-    const siblingIndex = sibling.positionInParent;
-    const thisTreeIndex = this.positionInParent;
     const siblings = this.parent._children;
+    const siblingIndex = sibling.positionInParent;
+    let insertAtIndex = this.positionInParent;
+    if (insertAtIndex < siblings.length - 1) {
+      insertAtIndex++;
+    }
 
-    siblings.splice(thisTreeIndex, 0, siblings.splice(siblingIndex, 1)[0]);
+    siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
   }
 
   /**

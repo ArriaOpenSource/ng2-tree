@@ -21,7 +21,7 @@ import { NodeEditableEvent, NodeEditableEventAction } from './editable/editable.
 import { NodeCheckedEvent, NodeEvent } from './tree.events';
 import { TreeService } from './tree.service';
 import * as EventUtils from './utils/event.utils';
-import { NodeDraggableEvent } from './draggable/draggable.events';
+import { NodeDraggableEvent, DropPosition } from './draggable/draggable.events';
 import { Subscription } from 'rxjs/Subscription';
 import { get, isNil } from './utils/fn.utils';
 import { NodeDraggableService } from './draggable/node-draggable.service';
@@ -151,16 +151,12 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
             ctrl.uncheck();
           }
 
-          if (this.tree.isBranch()) {
+          if (this.tree.isBranch() && e.position === DropPosition.Into) {
             this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
           } else if (this.tree.hasSibling(node.tree)) {
-            if (this.settings.moveNode) {
-              this.moveSiblingAfter(node.tree, this.tree);
-            } else {
-              this.swapWithSibling(node.tree, this.tree);
-            }
+            this.moveSibling(node.tree, this.tree, e.position);
           } else {
-            this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree);
+            this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree, e.position);
           }
         }
       })
@@ -186,15 +182,13 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.subscriptions.forEach(sub => sub && sub.unsubscribe());
   }
 
-  private swapWithSibling(sibling: Tree, tree: Tree): void {
+  private moveSibling(sibling: Tree, tree: Tree, position: DropPosition): void {
     const previousPositionInParent = sibling.positionInParent;
-    tree.swapWithSibling(sibling);
-    this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
-  }
-
-  private moveSiblingAfter(sibling: Tree, tree: Tree): void {
-    const previousPositionInParent = sibling.positionInParent;
-    tree.moveSiblingAfter(sibling);
+    if (position === DropPosition.Above) {
+      tree.moveSiblingBefore(sibling);
+    } else {
+      tree.moveSiblingAfter(sibling);
+    }
     this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
   }
 
@@ -206,10 +200,18 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     });
   }
 
-  private moveNodeToParentTreeAndRemoveFromPreviousOne(capturedTree: Tree, moveToTree: Tree): void {
+  private moveNodeToParentTreeAndRemoveFromPreviousOne(
+    capturedTree: Tree,
+    moveToTree: Tree,
+    position: DropPosition
+  ): void {
     capturedTree.removeItselfFromParent();
     setTimeout(() => {
-      const addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent + 1);
+      let insertAtIndex = moveToTree.positionInParent;
+      if (position === DropPosition.Below) {
+        insertAtIndex++;
+      }
+      const addedSibling = moveToTree.addSibling(capturedTree, insertAtIndex);
       this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
     });
   }

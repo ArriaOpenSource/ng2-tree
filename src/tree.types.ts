@@ -135,7 +135,6 @@ export class Ng2TreeSettings {
   rootIsVisible? = true;
   showCheckboxes? = false;
   enableCheckboxes? = true;
-  moveNode? = false;
 }
 
 export enum TreeStatus {

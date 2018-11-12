@@ -204,8 +204,7 @@ export class AppComponent implements OnInit {
   public plsSettings: Ng2TreeSettings = {
     rootIsVisible: false,
     showCheckboxes: true,
-    enableCheckboxes: false,
-    moveNode: true
+    enableCheckboxes: false
   };
 
   public fonts: TreeModel = {
