@@ -71,7 +71,7 @@ function View_TreeInternalComponent_1(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵel
     } if (("click" === en)) {
         var pd_1 = (_co.onNodeSelected($event) !== false);
         ad = (pd_1 && ad);
-    } return ad; }, null, null)), i0.ɵdid(5, 278528, null, 0, i1.NgClass, [i0.IterableDiffers, i0.KeyValueDiffers, i0.ElementRef, i0.Renderer2], { klass: [0, "klass"], ngClass: [1, "ngClass"] }, null), i0.ɵpod(6, { rootless: 0, checked: 1 }), i0.ɵdid(7, 4407296, null, 0, i9.NodeDraggableDirective, [i0.ElementRef, i8.NodeDraggableService, i0.Renderer2], { nodeDraggable: [0, "nodeDraggable"], tree: [1, "tree"] }, null), (_l()(), i0.ɵeld(8, 0, null, null, 1, "div", [["class", "folding"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
+    } return ad; }, null, null)), i0.ɵdid(5, 278528, null, 0, i1.NgClass, [i0.IterableDiffers, i0.KeyValueDiffers, i0.ElementRef, i0.Renderer2], { klass: [0, "klass"], ngClass: [1, "ngClass"] }, null), i0.ɵpod(6, { rootless: 0, checked: 1 }), i0.ɵdid(7, 212992, null, 0, i9.NodeDraggableDirective, [i0.ElementRef, i8.NodeDraggableService, i0.Renderer2], { nodeDraggable: [0, "nodeDraggable"], tree: [1, "tree"] }, null), (_l()(), i0.ɵeld(8, 0, null, null, 1, "div", [["class", "folding"]], null, [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
         _co.onSwitchFoldingType();
         var pd_0 = ($event.stopPropagation() !== false);
         ad = (pd_0 && ad);

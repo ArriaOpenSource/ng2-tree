@@ -10,7 +10,6 @@ var menu_events_1 = require("./menu/menu.events");
 var editable_events_1 = require("./editable/editable.events");
 var tree_service_1 = require("./tree.service");
 var EventUtils = require("./utils/event.utils");
-var draggable_events_1 = require("./draggable/draggable.events");
 var fn_utils_1 = require("./utils/fn.utils");
 var node_draggable_service_1 = require("./draggable/node-draggable.service");
 var captured_node_1 = require("./draggable/captured-node");
@@ -50,7 +49,6 @@ var TreeInternalComponent = (function () {
         }));
         this.subscriptions.push(this.treeService.unselectStream(this.tree).subscribe(function () { return (_this.isSelected = false); }));
         this.subscriptions.push(this.treeService.draggedStream(this.tree, this.nodeElementRef).subscribe(function (e) {
-            // TODO handle NodeDropType
             var i = e.captured.length;
             while (i--) {
                 var node = e.captured[i];
@@ -58,7 +56,7 @@ var TreeInternalComponent = (function () {
                 if (ctrl && ctrl.isChecked()) {
                     ctrl.uncheck();
                 }
-                if (_this.tree.isBranch() && e.type !== draggable_events_1.NodeDropType.DropAfter) {
+                if (_this.tree.isBranch()) {
                     _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
                 }
                 else if (_this.tree.hasSibling(node.tree)) {

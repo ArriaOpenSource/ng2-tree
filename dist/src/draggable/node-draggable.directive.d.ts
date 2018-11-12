@@ -1,7 +1,7 @@
-import { ElementRef, OnDestroy, OnInit, Renderer2, AfterViewInit } from '@angular/core';
+import { ElementRef, OnDestroy, OnInit, Renderer2 } from '@angular/core';
 import { NodeDraggableService } from './node-draggable.service';
 import { Tree } from '../tree';
-export declare class NodeDraggableDirective implements OnDestroy, OnInit, AfterViewInit {
+export declare class NodeDraggableDirective implements OnDestroy, OnInit {
     element: ElementRef;
     private nodeDraggableService;
     private renderer;
@@ -9,11 +9,9 @@ export declare class NodeDraggableDirective implements OnDestroy, OnInit, AfterV
     nodeDraggable: ElementRef;
     tree: Tree;
     private nodeNativeElement;
-    private dropAfterElement;
     private disposersForDragListeners;
     constructor(element: ElementRef, nodeDraggableService: NodeDraggableService, renderer: Renderer2);
     ngOnInit(): void;
-    ngAfterViewInit(): void;
     ngOnDestroy(): void;
     private handleDragStart(e);
     private handleDragOver(e);
@@ -21,13 +19,11 @@ export declare class NodeDraggableDirective implements OnDestroy, OnInit, AfterV
     private handleDragLeave(e);
     private handleDragEnd(e);
     private handleDrop(e);
-    private appendDropAfterZone();
-    private isOverDropAfterZone(e);
     private getDragOverClassName();
     private isDropPossible(e);
     private releaseNodes();
     private containsElementAt(e);
     private addClasses(classNames);
     private removeClasses(classNames);
-    private notifyThatNodeWasDropped(dropType);
+    private notifyThatNodeWasDropped();
 }

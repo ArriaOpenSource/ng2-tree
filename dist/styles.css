@@ -70,23 +70,17 @@ tree-internal .over-drop-target {
   border-radius: 5%;
 }
 
-tree-internal .over-drop-target.over-drop-after {
-  border: unset;
-  border-bottom: 4px solid #757575;
-  transition: padding 0.2s ease-out;
-}
-
 tree-internal .tree {
   box-sizing: border-box;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-tree-internal li {
+tree-internal .tree li {
   list-style: none;
   cursor: default;
 }
 
-tree-internal li div {
+tree-internal .tree li div {
   display: inline-block;
   box-sizing: border-box;
 }
@@ -104,10 +98,6 @@ tree-internal .tree .node-value:after {
   background-color: #212121;
   content: '';
   transition: width 0.3s;
-}
-
-tree-internal .value-container {
-  position: relative;
 }
 
 tree-internal .value-container:hover .node-value:after {
