@@ -131,7 +131,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     let dropPosition: DropPosition;
     const currentTarget = e.currentTarget as HTMLElement;
     const elemHeight = currentTarget.offsetHeight;
-    const relativeMousePosition = e.pageY - currentTarget.offsetTop;
+    const relativeMousePosition = e.clientY - currentTarget.getBoundingClientRect().top;
     if (this.tree.isBranch()) {
       const third = elemHeight / 3;
       const twoThirds = third * 2;
