@@ -70,23 +70,17 @@ tree-internal .over-drop-target {
   border-radius: 5%;
 }
 
-tree-internal .over-drop-target.over-drop-between {
-  border: unset;
-  border-bottom: 4px solid #757575;
-  transition: padding 0.2s ease-out;
-}
-
 tree-internal .tree {
   box-sizing: border-box;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-tree-internal li {
+tree-internal .tree li {
   list-style: none;
   cursor: default;
 }
 
-tree-internal li div {
+tree-internal .tree li div {
   display: inline-block;
   box-sizing: border-box;
 }

@@ -111,28 +111,8 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     }
   }
 
-  private appendDropBetweenZone(): void {
-    // TODO might also need separate event listener to add/remove .over-drop-between class
-    /*
-    div.drop-between-zone {
-      display: block;
-      width: 100%;
-      margin-top: -0.66em;
-      height: 0.66em;
-      z-index: 999;
-    }
-     */
-  }
-
   private getDragOverClassName(): string {
-    return this.isOverDropBetweenZone()
-      ? 'over-drop-between'
-      : this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
-  }
-
-  private isOverDropBetweenZone(): boolean {
-    // TODO check if dragged item is currently over "drop-between-zone"
-    return false;
+    return this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
   }
 
   private isDropPossible(e: DragEvent): boolean {
