@@ -1868,7 +1868,7 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
             var dropPosition;
             var currentTarget = e.currentTarget;
             var elemHeight = currentTarget.offsetHeight;
-            var relativeMousePosition = e.pageY - currentTarget.offsetTop;
+            var relativeMousePosition = e.clientY - currentTarget.getBoundingClientRect().top;
             if (this.tree.isBranch()) {
                 var third = elemHeight / 3;
                 var twoThirds = third * 2;
