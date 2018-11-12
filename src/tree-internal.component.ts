@@ -21,7 +21,7 @@ import { NodeEditableEvent, NodeEditableEventAction } from './editable/editable.
 import { NodeCheckedEvent, NodeEvent } from './tree.events';
 import { TreeService } from './tree.service';
 import * as EventUtils from './utils/event.utils';
-import { NodeDraggableEvent, NodeDropType } from './draggable/draggable.events';
+import { NodeDraggableEvent } from './draggable/draggable.events';
 import { Subscription } from 'rxjs/Subscription';
 import { get, isNil } from './utils/fn.utils';
 import { NodeDraggableService } from './draggable/node-draggable.service';
@@ -143,7 +143,6 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
 
     this.subscriptions.push(
       this.treeService.draggedStream(this.tree, this.nodeElementRef).subscribe((e: NodeDraggableEvent) => {
-        // TODO handle NodeDropType
         let i = e.captured.length;
         while (i--) {
           const node = e.captured[i];
@@ -152,7 +151,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
             ctrl.uncheck();
           }
 
-          if (this.tree.isBranch() && e.type !== NodeDropType.DropAfter) {
+          if (this.tree.isBranch()) {
             this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
           } else if (this.tree.hasSibling(node.tree)) {
             if (this.settings.moveNode) {
