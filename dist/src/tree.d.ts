@@ -110,17 +110,13 @@ export declare class Tree {
     addChild(child: Tree, position?: number): Tree;
     private _addChild(child, position?);
     /**
-     * Moves a given before the current node.
+     * Moves a given sibling above or below.
+     * The sibling will be moved immediately above this node if sibling's current position is somewhere below this node.
+     * The sibling will be moved immediately below this node if sibling's current position is somewhere above this node.
      * If node passed as a parameter is not a sibling - nothing happens.
      * @param {Tree} sibling - A sibling to move
      */
-    moveSiblingBefore(sibling: Tree): void;
-    /**
-     * Moves a given sibling after the current node.
-     * If node passed as a parameter is not a sibling - nothing happens.
-     * @param {Tree} sibling - A sibling to move
-     */
-    moveSiblingAfter(sibling: Tree): void;
+    moveSibling(sibling: Tree): void;
     /**
      * Get a node's position in its parent.
      * @returns {number} The position inside a parent.
