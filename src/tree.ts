@@ -321,11 +321,13 @@ export class Tree {
   }
 
   /**
-   * Moves a given before the current node.
+   * Moves a given sibling above or below.
+   * The sibling will be moved immediately above this node if sibling's current position is somewhere below this node.
+   * The sibling will be moved immediately below this node if sibling's current position is somewhere above this node.
    * If node passed as a parameter is not a sibling - nothing happens.
    * @param {Tree} sibling - A sibling to move
    */
-  public moveSiblingBefore(sibling: Tree): void {
+  public moveSibling(sibling: Tree): void {
     if (!this.hasSibling(sibling)) {
       return;
     }
@@ -333,26 +335,6 @@ export class Tree {
     const insertAtIndex = this.positionInParent;
     const siblingIndex = sibling.positionInParent;
     const siblings = this.parent._children;
-
-    siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
-  }
-
-  /**
-   * Moves a given sibling after the current node.
-   * If node passed as a parameter is not a sibling - nothing happens.
-   * @param {Tree} sibling - A sibling to move
-   */
-  public moveSiblingAfter(sibling: Tree): void {
-    if (!this.hasSibling(sibling)) {
-      return;
-    }
-
-    const siblings = this.parent._children;
-    const siblingIndex = sibling.positionInParent;
-    let insertAtIndex = this.positionInParent;
-    if (insertAtIndex < siblings.length - 1) {
-      insertAtIndex++;
-    }
 
     siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
   }
