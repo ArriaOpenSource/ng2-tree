@@ -10,6 +10,7 @@ var menu_events_1 = require("./menu/menu.events");
 var editable_events_1 = require("./editable/editable.events");
 var tree_service_1 = require("./tree.service");
 var EventUtils = require("./utils/event.utils");
+var draggable_events_1 = require("./draggable/draggable.events");
 var fn_utils_1 = require("./utils/fn.utils");
 var node_draggable_service_1 = require("./draggable/node-draggable.service");
 var captured_node_1 = require("./draggable/captured-node");
@@ -56,19 +57,14 @@ var TreeInternalComponent = (function () {
                 if (ctrl && ctrl.isChecked()) {
                     ctrl.uncheck();
                 }
-                if (_this.tree.isBranch()) {
+                if (_this.tree.isBranch() && e.position === draggable_events_1.DropPosition.Into) {
                     _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
                 }
                 else if (_this.tree.hasSibling(node.tree)) {
-                    if (_this.settings.moveNode) {
-                        _this.moveSiblingAfter(node.tree, _this.tree);
-                    }
-                    else {
-                        _this.swapWithSibling(node.tree, _this.tree);
-                    }
+                    _this.moveSibling(node.tree, _this.tree, e.position);
                 }
                 else {
-                    _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
+                    _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree, e.position);
                 }
             }
         }));
@@ -86,14 +82,14 @@ var TreeInternalComponent = (function () {
         }
         this.subscriptions.forEach(function (sub) { return sub && sub.unsubscribe(); });
     };
-    TreeInternalComponent.prototype.swapWithSibling = function (sibling, tree) {
+    TreeInternalComponent.prototype.moveSibling = function (sibling, tree, position) {
         var previousPositionInParent = sibling.positionInParent;
-        tree.swapWithSibling(sibling);
-        this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
-    };
-    TreeInternalComponent.prototype.moveSiblingAfter = function (sibling, tree) {
-        var previousPositionInParent = sibling.positionInParent;
-        tree.moveSiblingAfter(sibling);
+        if (position === draggable_events_1.DropPosition.Above) {
+            tree.moveSiblingBefore(sibling);
+        }
+        else {
+            tree.moveSiblingAfter(sibling);
+        }
         this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
     };
     TreeInternalComponent.prototype.moveNodeToThisTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {
@@ -104,11 +100,15 @@ var TreeInternalComponent = (function () {
             _this.treeService.fireNodeMoved(addedChild, capturedTree.parent);
         });
     };
-    TreeInternalComponent.prototype.moveNodeToParentTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {
+    TreeInternalComponent.prototype.moveNodeToParentTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree, position) {
         var _this = this;
         capturedTree.removeItselfFromParent();
         setTimeout(function () {
-            var addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent + 1);
+            var insertAtIndex = moveToTree.positionInParent;
+            if (position === draggable_events_1.DropPosition.Below) {
+                insertAtIndex++;
+            }
+            var addedSibling = moveToTree.addSibling(capturedTree, insertAtIndex);
             _this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
         });
     };

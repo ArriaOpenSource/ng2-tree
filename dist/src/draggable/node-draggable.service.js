@@ -8,11 +8,11 @@ var NodeDraggableService = (function () {
         this.draggableNodeEvents$ = new Subject_1.Subject();
         this.checkedNodes = [];
     }
-    NodeDraggableService.prototype.fireNodeDragged = function (captured, target) {
+    NodeDraggableService.prototype.fireNodeDragged = function (captured, target, position) {
         if (captured.length === 0 || captured.every(function (cn) { return !cn.tree || cn.tree.isStatic(); })) {
             return;
         }
-        this.draggableNodeEvents$.next(new draggable_events_1.NodeDraggableEvent(captured, target));
+        this.draggableNodeEvents$.next(new draggable_events_1.NodeDraggableEvent(captured, target, position));
     };
     NodeDraggableService.prototype.addCheckedNode = function (node) {
         this.checkedNodes.push(node);

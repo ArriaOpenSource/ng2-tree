@@ -418,25 +418,28 @@ var Tree = (function () {
         return child;
     };
     /**
-     * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-     * @param {Tree} sibling - A sibling with which current node should be swapped.
+     * Moves a given before the current node.
+     * If node passed as a parameter is not a sibling - nothing happens.
+     * @param {Tree} sibling - A sibling to move
      */
     /**
-       * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-       * @param {Tree} sibling - A sibling with which current node should be swapped.
+       * Moves a given before the current node.
+       * If node passed as a parameter is not a sibling - nothing happens.
+       * @param {Tree} sibling - A sibling to move
        */
-    Tree.prototype.swapWithSibling = /**
-       * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-       * @param {Tree} sibling - A sibling with which current node should be swapped.
+    Tree.prototype.moveSiblingBefore = /**
+       * Moves a given before the current node.
+       * If node passed as a parameter is not a sibling - nothing happens.
+       * @param {Tree} sibling - A sibling to move
        */
     function (sibling) {
         if (!this.hasSibling(sibling)) {
             return;
         }
+        var insertAtIndex = this.positionInParent;
         var siblingIndex = sibling.positionInParent;
-        var thisTreeIndex = this.positionInParent;
-        this.parent._children[siblingIndex] = this;
-        this.parent._children[thisTreeIndex] = sibling;
+        var siblings = this.parent._children;
+        siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
     };
     /**
      * Moves a given sibling after the current node.
@@ -457,10 +460,13 @@ var Tree = (function () {
         if (!this.hasSibling(sibling)) {
             return;
         }
-        var siblingIndex = sibling.positionInParent;
-        var thisTreeIndex = this.positionInParent;
         var siblings = this.parent._children;
-        siblings.splice(thisTreeIndex, 0, siblings.splice(siblingIndex, 1)[0]);
+        var siblingIndex = sibling.positionInParent;
+        var insertAtIndex = this.positionInParent;
+        if (insertAtIndex < siblings.length - 1) {
+            insertAtIndex++;
+        }
+        siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
     };
     Object.defineProperty(Tree.prototype, "positionInParent", {
         /**

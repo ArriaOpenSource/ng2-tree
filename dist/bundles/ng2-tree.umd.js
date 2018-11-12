@@ -1,6 +1,6 @@
 !function(e){function t(e){Object.defineProperty(this,e,{enumerable:!0,get:function(){return this[v][e]}})}function r(e){if("undefined"!=typeof System&&System.isModule?System.isModule(e):"[object Module]"===Object.prototype.toString.call(e))return e;var t={default:e,__useDefault:e};if(e&&e.__esModule)for(var r in e)Object.hasOwnProperty.call(e,r)&&(t[r]=e[r]);return new o(t)}function o(e){Object.defineProperty(this,v,{value:e}),Object.keys(e).forEach(t,this)}function n(e){return"@node/"===e.substr(0,6)?c(e,r(m(e.substr(6))),{}):p[e]}function u(e){var t=n(e);if(!t)throw new Error('Module "'+e+'" expected, but not contained in build.');if(t.module)return t.module;var r=t.linkRecord;return i(t,r),a(t,r,[]),t.module}function i(e,t){if(!t.depLoads){t.declare&&d(e,t),t.depLoads=[];for(var r=0;r<t.deps.length;r++){var o=n(t.deps[r]);t.depLoads.push(o),o.linkRecord&&i(o,o.linkRecord);var u=t.setters&&t.setters[r];u&&(u(o.module||o.linkRecord.moduleObj),o.importerSetters.push(u))}return e}}function d(t,r){var o=r.moduleObj,n=t.importerSetters,u=!1,i=r.declare.call(e,function(e,t){if(!u){if("object"==typeof e)for(var r in e)"__useDefault"!==r&&(o[r]=e[r]);else o[e]=t;u=!0;for(var i=0;i<n.length;i++)n[i](o);return u=!1,t}},{id:t.key});"function"!=typeof i?(r.setters=i.setters,r.execute=i.execute):(r.setters=[],r.execute=i)}function l(e,t,r){return p[e]={key:e,module:void 0,importerSetters:[],linkRecord:{deps:t,depLoads:void 0,declare:r,setters:void 0,execute:void 0,moduleObj:{}}}}function f(e,t,r,o){var n={};return p[e]={key:e,module:void 0,importerSetters:[],linkRecord:{deps:t,depLoads:void 0,declare:void 0,execute:o,executingRequire:r,moduleObj:{default:n,__useDefault:n},setters:void 0}}}function s(e,t,r){return function(o){for(var n=0;n<e.length;n++)if(e[n]===o){var u,i=t[n],d=i.linkRecord;return u=d?-1===r.indexOf(i)?a(i,d,r):d.moduleObj:i.module,"__useDefault"in u?u.__useDefault:u}}}function a(t,r,n){if(n.push(t),t.module)return t.module;var u;if(r.setters){for(var i=0;i<r.deps.length;i++){var d=r.depLoads[i],l=d.linkRecord;l&&-1===n.indexOf(d)&&(u=a(d,l,l.setters?n:[]))}r.execute.call(y)}else{var f={id:t.key},c=r.moduleObj;Object.defineProperty(f,"exports",{configurable:!0,set:function(e){c.default=c.__useDefault=e},get:function(){return c.__useDefault}});var p=s(r.deps,r.depLoads,n);if(!r.executingRequire)for(var i=0;i<r.deps.length;i++)p(r.deps[i]);var v=r.execute.call(e,p,c.__useDefault,f);void 0!==v?c.default=c.__useDefault=v:f.exports!==c.__useDefault&&(c.default=c.__useDefault=f.exports);var m=c.__useDefault;if(m&&m.__esModule)for(var b in m)Object.hasOwnProperty.call(m,b)&&(c[b]=m[b])}var f=t.module=new o(r.moduleObj);if(!r.setters)for(var i=0;i<t.importerSetters.length;i++)t.importerSetters[i](f);return f}function c(e,t){return p[e]={key:e,module:t,importerSetters:[],linkRecord:void 0}}var p={},v="undefined"!=typeof Symbol?Symbol():"@@baseObject";o.prototype=Object.create(null),"undefined"!=typeof Symbol&&Symbol.toStringTag&&(o.prototype[Symbol.toStringTag]="Module");var m="undefined"!=typeof System&&System._nodeRequire||"undefined"!=typeof require&&"undefined"!=typeof require.resolve&&"undefined"!=typeof process&&process.platform&&require,y={};return Object.freeze&&Object.freeze(y),function(e,t,n,i){return function(d){d(function(d){var s={_nodeRequire:m,register:l,registerDynamic:f,registry:{get:function(e){return p[e].module},set:c},newModule:function(e){return new o(e)}};c("@empty",new o({}));for(var a=0;a<t.length;a++)c(t[a],r(arguments[a],{}));i(s);var v=u(e[0]);if(e.length>1)for(var a=1;a<e.length;a++)u(e[a]);return n?v.__useDefault:(v instanceof o&&Object.defineProperty(v,"__esModule",{value:!0}),v)})}}}("undefined"!=typeof self?self:"undefined"!=typeof global?global:this)
 
-(["a"], ["2a","10","28","20","24","d","c","e"], true, function($__System) {
+(["a"], ["2a","10","28","21","25","d","c","e"], true, function($__System) {
 var require = this.require, exports = this.exports, module = this.module;
 $__System.registerDynamic("b", ["c", "d", "e"], true, function ($__require, exports, module) {
   "use strict";
@@ -270,7 +270,7 @@ $__System.registerDynamic("14", ["15", "16", "17"], true, function ($__require, 
     exports.TreeController = TreeController;
 
 });
-$__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11", "16", "17", "1b", "1c"], true, function ($__require, exports, module) {
+$__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11", "16", "1b", "17", "1c", "1d"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -286,9 +286,10 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
     var editable_events_1 = $__require("1a");
     var tree_service_1 = $__require("11");
     var EventUtils = $__require("16");
+    var draggable_events_1 = $__require("1b");
     var fn_utils_1 = $__require("17");
-    var node_draggable_service_1 = $__require("1b");
-    var captured_node_1 = $__require("1c");
+    var node_draggable_service_1 = $__require("1c");
+    var captured_node_1 = $__require("1d");
     var TreeInternalComponent = function () {
         function TreeInternalComponent(nodeMenuService, treeService, nodeDraggableService, nodeElementRef) {
             this.nodeMenuService = nodeMenuService;
@@ -334,16 +335,12 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                     if (ctrl && ctrl.isChecked()) {
                         ctrl.uncheck();
                     }
-                    if (_this.tree.isBranch()) {
+                    if (_this.tree.isBranch() && e.position === draggable_events_1.DropPosition.Into) {
                         _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
                     } else if (_this.tree.hasSibling(node.tree)) {
-                        if (_this.settings.moveNode) {
-                            _this.moveSiblingAfter(node.tree, _this.tree);
-                        } else {
-                            _this.swapWithSibling(node.tree, _this.tree);
-                        }
+                        _this.moveSibling(node.tree, _this.tree, e.position);
                     } else {
-                        _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
+                        _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree, e.position);
                     }
                 }
             }));
@@ -364,14 +361,13 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                 return sub && sub.unsubscribe();
             });
         };
-        TreeInternalComponent.prototype.swapWithSibling = function (sibling, tree) {
+        TreeInternalComponent.prototype.moveSibling = function (sibling, tree, position) {
             var previousPositionInParent = sibling.positionInParent;
-            tree.swapWithSibling(sibling);
-            this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
-        };
-        TreeInternalComponent.prototype.moveSiblingAfter = function (sibling, tree) {
-            var previousPositionInParent = sibling.positionInParent;
-            tree.moveSiblingAfter(sibling);
+            if (position === draggable_events_1.DropPosition.Above) {
+                tree.moveSiblingBefore(sibling);
+            } else {
+                tree.moveSiblingAfter(sibling);
+            }
             this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
         };
         TreeInternalComponent.prototype.moveNodeToThisTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {
@@ -382,11 +378,15 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                 _this.treeService.fireNodeMoved(addedChild, capturedTree.parent);
             });
         };
-        TreeInternalComponent.prototype.moveNodeToParentTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {
+        TreeInternalComponent.prototype.moveNodeToParentTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree, position) {
             var _this = this;
             capturedTree.removeItselfFromParent();
             setTimeout(function () {
-                var addedSibling = moveToTree.addSibling(capturedTree, moveToTree.positionInParent + 1);
+                var insertAtIndex = moveToTree.positionInParent;
+                if (position === draggable_events_1.DropPosition.Below) {
+                    insertAtIndex++;
+                }
+                var addedSibling = moveToTree.addSibling(capturedTree, insertAtIndex);
                 _this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
             });
         };
@@ -586,7 +586,7 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
     exports.TreeInternalComponent = TreeInternalComponent;
 
 });
-$__System.registerDynamic("1c", [], true, function ($__require, exports, module) {
+$__System.registerDynamic("1d", [], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -678,7 +678,6 @@ $__System.registerDynamic("12", ["17"], true, function ($__require, exports, mod
             this.rootIsVisible = true;
             this.showCheckboxes = false;
             this.enableCheckboxes = true;
-            this.moveNode = false;
         }
         return Ng2TreeSettings;
     }();
@@ -691,7 +690,7 @@ $__System.registerDynamic("12", ["17"], true, function ($__require, exports, mod
     })(TreeStatus = exports.TreeStatus || (exports.TreeStatus = {}));
 
 });
-$__System.registerDynamic('1d', ['@empty'], true, function ($__require, exports, module) {
+$__System.registerDynamic('1e', ['@empty'], true, function ($__require, exports, module) {
   var global = this || self,
       GLOBAL = global;
   // Unique ID creation requires a high quality random # generator.  In node.js
@@ -705,7 +704,7 @@ $__System.registerDynamic('1d', ['@empty'], true, function ($__require, exports,
 
   module.exports = rng;
 });
-$__System.registerDynamic('1e', [], true, function ($__require, exports, module) {
+$__System.registerDynamic('1f', [], true, function ($__require, exports, module) {
   var global = this || self,
       GLOBAL = global;
   /**
@@ -725,11 +724,11 @@ $__System.registerDynamic('1e', [], true, function ($__require, exports, module)
 
   module.exports = bytesToUuid;
 });
-$__System.registerDynamic('1f', ['1d', '1e'], true, function ($__require, exports, module) {
+$__System.registerDynamic('20', ['1e', '1f'], true, function ($__require, exports, module) {
   var global = this || self,
       GLOBAL = global;
-  var rng = $__require('1d');
-  var bytesToUuid = $__require('1e');
+  var rng = $__require('1e');
+  var bytesToUuid = $__require('1f');
 
   function v4(options, buf, offset) {
     var i = buf && offset || 0;
@@ -758,16 +757,16 @@ $__System.registerDynamic('1f', ['1d', '1e'], true, function ($__require, export
 
   module.exports = v4;
 });
-$__System.registerDynamic("13", ["17", "20", "12", "1f"], true, function ($__require, exports, module) {
+$__System.registerDynamic("13", ["17", "21", "12", "20"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
         GLOBAL = global;
     Object.defineProperty(exports, "__esModule", { value: true });
     var fn_utils_1 = $__require("17");
-    var Observable_1 = $__require("20");
+    var Observable_1 = $__require("21");
     var tree_types_1 = $__require("12");
-    var uuidv4 = $__require("1f");
+    var uuidv4 = $__require("20");
     var ChildrenLoadingState;
     (function (ChildrenLoadingState) {
         ChildrenLoadingState[ChildrenLoadingState["NotStarted"] = 0] = "NotStarted";
@@ -1190,25 +1189,28 @@ $__System.registerDynamic("13", ["17", "20", "12", "1f"], true, function ($__req
             return child;
         };
         /**
-         * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-         * @param {Tree} sibling - A sibling with which current node should be swapped.
+         * Moves a given before the current node.
+         * If node passed as a parameter is not a sibling - nothing happens.
+         * @param {Tree} sibling - A sibling to move
          */
         /**
-           * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-           * @param {Tree} sibling - A sibling with which current node should be swapped.
+           * Moves a given before the current node.
+           * If node passed as a parameter is not a sibling - nothing happens.
+           * @param {Tree} sibling - A sibling to move
            */
-        Tree.prototype.swapWithSibling = /**
-                                         * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-                                         * @param {Tree} sibling - A sibling with which current node should be swapped.
-                                         */
+        Tree.prototype.moveSiblingBefore = /**
+                                           * Moves a given before the current node.
+                                           * If node passed as a parameter is not a sibling - nothing happens.
+                                           * @param {Tree} sibling - A sibling to move
+                                           */
         function (sibling) {
             if (!this.hasSibling(sibling)) {
                 return;
             }
+            var insertAtIndex = this.positionInParent;
             var siblingIndex = sibling.positionInParent;
-            var thisTreeIndex = this.positionInParent;
-            this.parent._children[siblingIndex] = this;
-            this.parent._children[thisTreeIndex] = sibling;
+            var siblings = this.parent._children;
+            siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
         };
         /**
          * Moves a given sibling after the current node.
@@ -1229,10 +1231,13 @@ $__System.registerDynamic("13", ["17", "20", "12", "1f"], true, function ($__req
             if (!this.hasSibling(sibling)) {
                 return;
             }
-            var siblingIndex = sibling.positionInParent;
-            var thisTreeIndex = this.positionInParent;
             var siblings = this.parent._children;
-            siblings.splice(thisTreeIndex, 0, siblings.splice(siblingIndex, 1)[0]);
+            var siblingIndex = sibling.positionInParent;
+            var insertAtIndex = this.positionInParent;
+            if (insertAtIndex < siblings.length - 1) {
+                insertAtIndex++;
+            }
+            siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
         };
         Object.defineProperty(Tree.prototype, "positionInParent", {
             /**
@@ -1773,16 +1778,17 @@ $__System.registerDynamic("13", ["17", "20", "12", "1f"], true, function ($__req
     exports.Tree = Tree;
 
 });
-$__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__require, exports, module) {
+$__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
         GLOBAL = global;
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = $__require("10");
-    var node_draggable_service_1 = $__require("1b");
-    var captured_node_1 = $__require("1c");
+    var node_draggable_service_1 = $__require("1c");
+    var captured_node_1 = $__require("1d");
     var tree_1 = $__require("13");
+    var draggable_events_1 = $__require("1b");
     var NodeDraggableDirective = function () {
         function NodeDraggableDirective(element, nodeDraggableService, renderer) {
             this.element = element;
@@ -1803,11 +1809,9 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
             }
         };
         NodeDraggableDirective.prototype.ngOnDestroy = function () {
-            /* tslint:disable:typedef */
             this.disposersForDragListeners.forEach(function (dispose) {
                 return dispose();
             });
-            /* tslint:enable:typedef */
         };
         NodeDraggableDirective.prototype.handleDragStart = function (e) {
             if (this.tree.isBeingRenamed()) {
@@ -1826,6 +1830,10 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
         NodeDraggableDirective.prototype.handleDragOver = function (e) {
             e.preventDefault();
             e.dataTransfer.dropEffect = 'move';
+            var newDropPosition = this.determineDropPosition(e);
+            this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
+            this.addClasses([this.getDropPositionClassName(newDropPosition)]);
+            this.currentDropPosition = newDropPosition;
         };
         NodeDraggableDirective.prototype.handleDragEnter = function (e) {
             e.preventDefault();
@@ -1835,11 +1843,11 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
         };
         NodeDraggableDirective.prototype.handleDragLeave = function (e) {
             if (!this.containsElementAt(e)) {
-                this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+                this.removeClasses(['over-drop-target', this.getDragOverClassName(), this.getDropPositionClassName(this.currentDropPosition)]);
             }
         };
         NodeDraggableDirective.prototype.handleDragEnd = function (e) {
-            this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+            this.removeClasses(['over-drop-target', this.getDragOverClassName(), this.getDropPositionClassName(this.currentDropPosition)]);
             this.releaseNodes();
         };
         NodeDraggableDirective.prototype.handleDrop = function (e) {
@@ -1847,7 +1855,7 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
             if (e.stopPropagation) {
                 e.stopPropagation();
             }
-            this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+            this.removeClasses(['over-drop-target', this.getDragOverClassName(), this.getDropPositionClassName(this.currentDropPosition)]);
             if (!this.isDropPossible(e)) {
                 return false;
             }
@@ -1856,8 +1864,43 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
                 this.releaseNodes();
             }
         };
+        NodeDraggableDirective.prototype.determineDropPosition = function (e) {
+            var dropPosition;
+            var currentTarget = e.currentTarget;
+            var elemHeight = currentTarget.offsetHeight;
+            var relativeMousePosition = e.pageY - currentTarget.offsetTop;
+            if (this.tree.isBranch()) {
+                var third = elemHeight / 3;
+                var twoThirds = third * 2;
+                if (relativeMousePosition < third) {
+                    dropPosition = draggable_events_1.DropPosition.Above;
+                } else if (relativeMousePosition >= third && relativeMousePosition <= twoThirds) {
+                    dropPosition = draggable_events_1.DropPosition.Into;
+                } else {
+                    dropPosition = draggable_events_1.DropPosition.Below;
+                }
+            } else {
+                var half = elemHeight / 2;
+                if (relativeMousePosition <= half) {
+                    dropPosition = draggable_events_1.DropPosition.Above;
+                } else {
+                    dropPosition = draggable_events_1.DropPosition.Below;
+                }
+            }
+            return dropPosition;
+        };
         NodeDraggableDirective.prototype.getDragOverClassName = function () {
             return this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
+        };
+        NodeDraggableDirective.prototype.getDropPositionClassName = function (dropPosition) {
+            switch (dropPosition) {
+                case draggable_events_1.DropPosition.Above:
+                    return 'over-drop-above';
+                case draggable_events_1.DropPosition.Into:
+                    return 'over-drop-into';
+                case draggable_events_1.DropPosition.Below:
+                    return 'over-drop-below';
+            }
         };
         NodeDraggableDirective.prototype.isDropPossible = function (e) {
             var _this = this;
@@ -1897,7 +1940,7 @@ $__System.registerDynamic("21", ["10", "1b", "1c", "13"], true, function ($__req
         NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function () {
             var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
             var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
-            this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable);
+            this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
         };
         NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
         NodeDraggableDirective.decorators = [{ type: core_1.Directive, args: [{
@@ -1928,7 +1971,7 @@ $__System.registerDynamic("1a", [], true, function ($__require, exports, module)
     })(NodeEditableEventAction = exports.NodeEditableEventAction || (exports.NodeEditableEventAction = {}));
 
 });
-$__System.registerDynamic("22", ["10", "1a"], true, function ($__require, exports, module) {
+$__System.registerDynamic("23", ["10", "1a"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -2011,7 +2054,7 @@ $__System.registerDynamic("16", [], true, function ($__require, exports, module)
     exports.isEscapePressed = isEscapePressed;
 
 });
-$__System.registerDynamic("23", ["10", "19", "15", "16"], true, function ($__require, exports, module) {
+$__System.registerDynamic("24", ["10", "19", "15", "16"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -2110,14 +2153,14 @@ $__System.registerDynamic("15", [], true, function ($__require, exports, module)
     })(NodeMenuAction = exports.NodeMenuAction || (exports.NodeMenuAction = {}));
 
 });
-$__System.registerDynamic("19", ["10", "24", "15"], true, function ($__require, exports, module) {
+$__System.registerDynamic("19", ["10", "25", "15"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
         GLOBAL = global;
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = $__require("10");
-    var Subject_1 = $__require("24");
+    var Subject_1 = $__require("25");
     var menu_events_1 = $__require("15");
     var NodeMenuService = function () {
         function NodeMenuService() {
@@ -2150,7 +2193,7 @@ $__System.registerDynamic("19", ["10", "24", "15"], true, function ($__require, 
     exports.NodeMenuService = NodeMenuService;
 
 });
-$__System.registerDynamic("25", [], true, function ($__require, exports, module) {
+$__System.registerDynamic("26", [], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -2301,43 +2344,50 @@ $__System.registerDynamic("25", [], true, function ($__require, exports, module)
     exports.NodeIndeterminedEvent = NodeIndeterminedEvent;
 
 });
-$__System.registerDynamic("26", [], true, function ($__require, exports, module) {
+$__System.registerDynamic("1b", [], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
         GLOBAL = global;
     Object.defineProperty(exports, "__esModule", { value: true });
+    var DropPosition;
+    (function (DropPosition) {
+        DropPosition[DropPosition["Above"] = 0] = "Above";
+        DropPosition[DropPosition["Into"] = 1] = "Into";
+        DropPosition[DropPosition["Below"] = 2] = "Below";
+    })(DropPosition = exports.DropPosition || (exports.DropPosition = {}));
     var NodeDraggableEvent = function () {
-        function NodeDraggableEvent(captured, target) {
+        function NodeDraggableEvent(captured, target, position) {
             this.captured = captured;
             this.target = target;
+            this.position = position;
         }
         return NodeDraggableEvent;
     }();
     exports.NodeDraggableEvent = NodeDraggableEvent;
 
 });
-$__System.registerDynamic("1b", ["10", "24", "26"], true, function ($__require, exports, module) {
+$__System.registerDynamic("1c", ["10", "25", "1b"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
         GLOBAL = global;
     Object.defineProperty(exports, "__esModule", { value: true });
     var core_1 = $__require("10");
-    var Subject_1 = $__require("24");
-    var draggable_events_1 = $__require("26");
+    var Subject_1 = $__require("25");
+    var draggable_events_1 = $__require("1b");
     var NodeDraggableService = function () {
         function NodeDraggableService() {
             this.draggableNodeEvents$ = new Subject_1.Subject();
             this.checkedNodes = [];
         }
-        NodeDraggableService.prototype.fireNodeDragged = function (captured, target) {
+        NodeDraggableService.prototype.fireNodeDragged = function (captured, target, position) {
             if (captured.length === 0 || captured.every(function (cn) {
                 return !cn.tree || cn.tree.isStatic();
             })) {
                 return;
             }
-            this.draggableNodeEvents$.next(new draggable_events_1.NodeDraggableEvent(captured, target));
+            this.draggableNodeEvents$.next(new draggable_events_1.NodeDraggableEvent(captured, target, position));
         };
         NodeDraggableService.prototype.addCheckedNode = function (node) {
             this.checkedNodes.push(node);
@@ -2491,16 +2541,16 @@ $__System.registerDynamic("17", [], true, function ($__require, exports, module)
     exports.isNil = isNil;
 
 });
-$__System.registerDynamic("11", ["25", "24", "10", "1b", "17"], true, function ($__require, exports, module) {
+$__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
         GLOBAL = global;
     Object.defineProperty(exports, "__esModule", { value: true });
-    var tree_events_1 = $__require("25");
-    var Subject_1 = $__require("24");
+    var tree_events_1 = $__require("26");
+    var Subject_1 = $__require("25");
     var core_1 = $__require("10");
-    var node_draggable_service_1 = $__require("1b");
+    var node_draggable_service_1 = $__require("1c");
     var fn_utils_1 = $__require("17");
     var TreeService = function () {
         function TreeService(nodeDraggableService) {
@@ -2646,7 +2696,7 @@ $__System.registerDynamic("27", ["10", "28"], true, function ($__require, export
     exports.SafeHtmlPipe = SafeHtmlPipe;
 
 });
-$__System.registerDynamic("29", ["b", "10", "f", "18", "2a", "21", "1b", "22", "23", "19", "11", "27"], true, function ($__require, exports, module) {
+$__System.registerDynamic("29", ["b", "10", "f", "18", "2a", "22", "1c", "23", "24", "19", "11", "27"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -2657,10 +2707,10 @@ $__System.registerDynamic("29", ["b", "10", "f", "18", "2a", "21", "1b", "22", "
     var tree_component_1 = $__require("f");
     var tree_internal_component_1 = $__require("18");
     var common_1 = $__require("2a");
-    var node_draggable_directive_1 = $__require("21");
-    var node_draggable_service_1 = $__require("1b");
-    var node_editable_directive_1 = $__require("22");
-    var node_menu_component_1 = $__require("23");
+    var node_draggable_directive_1 = $__require("22");
+    var node_draggable_service_1 = $__require("1c");
+    var node_editable_directive_1 = $__require("23");
+    var node_menu_component_1 = $__require("24");
     var node_menu_service_1 = $__require("19");
     var tree_service_1 = $__require("11");
     var safe_html_pipe_1 = $__require("27");
@@ -2681,7 +2731,7 @@ $__System.registerDynamic("29", ["b", "10", "f", "18", "2a", "21", "1b", "22", "
     exports.TreeModule = TreeModule;
 
 });
-$__System.registerDynamic("a", ["12", "13", "15", "25", "f", "14", "29"], true, function ($__require, exports, module) {
+$__System.registerDynamic("a", ["12", "13", "15", "26", "f", "14", "29"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -2695,7 +2745,7 @@ $__System.registerDynamic("a", ["12", "13", "15", "25", "f", "14", "29"], true, 
   exports.Tree = tree_1.Tree;
   var menu_events_1 = $__require("15");
   exports.NodeMenuItemAction = menu_events_1.NodeMenuItemAction;
-  var tree_events_1 = $__require("25");
+  var tree_events_1 = $__require("26");
   exports.NodeEvent = tree_events_1.NodeEvent;
   exports.NodeCreatedEvent = tree_events_1.NodeCreatedEvent;
   exports.NodeRemovedEvent = tree_events_1.NodeRemovedEvent;

@@ -10,6 +10,7 @@ export declare class NodeDraggableDirective implements OnDestroy, OnInit {
     tree: Tree;
     private nodeNativeElement;
     private disposersForDragListeners;
+    private currentDropPosition;
     constructor(element: ElementRef, nodeDraggableService: NodeDraggableService, renderer: Renderer2);
     ngOnInit(): void;
     ngOnDestroy(): void;
@@ -19,7 +20,9 @@ export declare class NodeDraggableDirective implements OnDestroy, OnInit {
     private handleDragLeave(e);
     private handleDragEnd(e);
     private handleDrop(e);
+    private determineDropPosition(e);
     private getDragOverClassName();
+    private getDropPositionClassName(dropPosition);
     private isDropPossible(e);
     private releaseNodes();
     private containsElementAt(e);

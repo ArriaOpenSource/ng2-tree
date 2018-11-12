@@ -54,7 +54,7 @@
 }
 
 tree-internal ul {
-  padding: 3px 0 3px 25px;
+  padding-left: 25px;
 }
 
 tree-internal li {
@@ -63,11 +63,17 @@ tree-internal li {
   list-style: none;
 }
 
-tree-internal .over-drop-target {
-  border: 4px solid #757575;
-  transition: padding 0.2s ease-out;
-  padding: 5px;
-  border-radius: 5%;
+tree-internal .over-drop-into {
+  border: 3px solid #757575;
+  border-radius: 0.3em;
+}
+
+tree-internal .over-drop-above {
+  border-top: 3px solid #757575;
+}
+
+tree-internal .over-drop-below {
+  border-bottom: 3px solid #757575;
 }
 
 tree-internal .tree {
@@ -100,8 +106,16 @@ tree-internal .tree .node-value:after {
   transition: width 0.3s;
 }
 
+tree-internal .value-container {
+  padding: 5px 3px;
+}
+
 tree-internal .value-container:hover .node-value:after {
   width: 100%;
+}
+
+tree-internal .value-container:hover .drag-template {
+  visibility: visible;
 }
 
 tree-internal .tree .node-left-menu {
@@ -129,10 +143,6 @@ tree-internal .tree .drag-template * {
 tree-internal .tree .drag-template span:before {
   content: '\2630';
   line-height: 1;
-}
-
-tree-internal .value-container:hover .drag-template {
-  visibility: visible;
 }
 
 tree-internal .tree .node-selected:after {

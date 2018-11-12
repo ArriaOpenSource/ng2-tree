@@ -110,10 +110,11 @@ export declare class Tree {
     addChild(child: Tree, position?: number): Tree;
     private _addChild(child, position?);
     /**
-     * Swap position of the current node with the given sibling. If node passed as a parameter is not a sibling - nothing happens.
-     * @param {Tree} sibling - A sibling with which current node should be swapped.
+     * Moves a given before the current node.
+     * If node passed as a parameter is not a sibling - nothing happens.
+     * @param {Tree} sibling - A sibling to move
      */
-    swapWithSibling(sibling: Tree): void;
+    moveSiblingBefore(sibling: Tree): void;
     /**
      * Moves a given sibling after the current node.
      * If node passed as a parameter is not a sibling - nothing happens.

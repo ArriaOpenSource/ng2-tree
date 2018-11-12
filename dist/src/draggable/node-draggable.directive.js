@@ -4,6 +4,7 @@ var core_1 = require("@angular/core");
 var node_draggable_service_1 = require("./node-draggable.service");
 var captured_node_1 = require("./captured-node");
 var tree_1 = require("../tree");
+var draggable_events_1 = require("./draggable.events");
 var NodeDraggableDirective = (function () {
     function NodeDraggableDirective(element, nodeDraggableService, renderer) {
         this.element = element;
@@ -24,9 +25,7 @@ var NodeDraggableDirective = (function () {
         }
     };
     NodeDraggableDirective.prototype.ngOnDestroy = function () {
-        /* tslint:disable:typedef */
         this.disposersForDragListeners.forEach(function (dispose) { return dispose(); });
-        /* tslint:enable:typedef */
     };
     NodeDraggableDirective.prototype.handleDragStart = function (e) {
         if (this.tree.isBeingRenamed()) {
@@ -45,6 +44,10 @@ var NodeDraggableDirective = (function () {
     NodeDraggableDirective.prototype.handleDragOver = function (e) {
         e.preventDefault();
         e.dataTransfer.dropEffect = 'move';
+        var newDropPosition = this.determineDropPosition(e);
+        this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
+        this.addClasses([this.getDropPositionClassName(newDropPosition)]);
+        this.currentDropPosition = newDropPosition;
     };
     NodeDraggableDirective.prototype.handleDragEnter = function (e) {
         e.preventDefault();
@@ -54,11 +57,19 @@ var NodeDraggableDirective = (function () {
     };
     NodeDraggableDirective.prototype.handleDragLeave = function (e) {
         if (!this.containsElementAt(e)) {
-            this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+            this.removeClasses([
+                'over-drop-target',
+                this.getDragOverClassName(),
+                this.getDropPositionClassName(this.currentDropPosition)
+            ]);
         }
     };
     NodeDraggableDirective.prototype.handleDragEnd = function (e) {
-        this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+        this.removeClasses([
+            'over-drop-target',
+            this.getDragOverClassName(),
+            this.getDropPositionClassName(this.currentDropPosition)
+        ]);
         this.releaseNodes();
     };
     NodeDraggableDirective.prototype.handleDrop = function (e) {
@@ -66,7 +77,11 @@ var NodeDraggableDirective = (function () {
         if (e.stopPropagation) {
             e.stopPropagation();
         }
-        this.removeClasses(['over-drop-target', this.getDragOverClassName()]);
+        this.removeClasses([
+            'over-drop-target',
+            this.getDragOverClassName(),
+            this.getDropPositionClassName(this.currentDropPosition)
+        ]);
         if (!this.isDropPossible(e)) {
             return false;
         }
@@ -75,8 +90,47 @@ var NodeDraggableDirective = (function () {
             this.releaseNodes();
         }
     };
+    NodeDraggableDirective.prototype.determineDropPosition = function (e) {
+        var dropPosition;
+        var currentTarget = e.currentTarget;
+        var elemHeight = currentTarget.offsetHeight;
+        var relativeMousePosition = e.pageY - currentTarget.offsetTop;
+        if (this.tree.isBranch()) {
+            var third = elemHeight / 3;
+            var twoThirds = third * 2;
+            if (relativeMousePosition < third) {
+                dropPosition = draggable_events_1.DropPosition.Above;
+            }
+            else if (relativeMousePosition >= third && relativeMousePosition <= twoThirds) {
+                dropPosition = draggable_events_1.DropPosition.Into;
+            }
+            else {
+                dropPosition = draggable_events_1.DropPosition.Below;
+            }
+        }
+        else {
+            var half = elemHeight / 2;
+            if (relativeMousePosition <= half) {
+                dropPosition = draggable_events_1.DropPosition.Above;
+            }
+            else {
+                dropPosition = draggable_events_1.DropPosition.Below;
+            }
+        }
+        return dropPosition;
+    };
     NodeDraggableDirective.prototype.getDragOverClassName = function () {
         return this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
+    };
+    NodeDraggableDirective.prototype.getDropPositionClassName = function (dropPosition) {
+        switch (dropPosition) {
+            case draggable_events_1.DropPosition.Above:
+                return 'over-drop-above';
+            case draggable_events_1.DropPosition.Into:
+                return 'over-drop-into';
+            case draggable_events_1.DropPosition.Below:
+                return 'over-drop-below';
+        }
     };
     NodeDraggableDirective.prototype.isDropPossible = function (e) {
         var _this = this;
@@ -115,7 +169,7 @@ var NodeDraggableDirective = (function () {
     NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function () {
         var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
         var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
-        this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable);
+        this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
     };
     NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
     NodeDraggableDirective.decorators = [
