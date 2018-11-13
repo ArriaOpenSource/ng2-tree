@@ -125,7 +125,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       this.getDropPositionClassName(this.currentDropPosition)
     ]);
     this.removeDraggedNodeClasses();
-    this.releaseNodes();
+    this.nodeDraggableService.releaseDraggedNode();
   }
 
   private handleDrop(e: DragEvent): any {
