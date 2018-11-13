@@ -61,10 +61,11 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     if (e.stopPropagation) {
       e.stopPropagation();
     }
-
     if (!this.tree.checked) {
       this.nodeDraggableService.setDraggedNode(new CapturedNode(this.nodeDraggable, this.tree));
     }
+
+    this.applyDraggedNodeClasses();
 
     e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
     e.dataTransfer.effectAllowed = 'move';
@@ -72,7 +73,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
 
   private handleDragOver(e: DragEvent): any {
     const draggedNode = this.nodeDraggableService.getDraggedNode();
-    if (draggedNode.contains({ nativeElement: e.currentTarget })) {
+    if (draggedNode && draggedNode.contains({ nativeElement: e.currentTarget })) {
       // Cannot drag and drop on itself
       return;
     }
@@ -81,10 +82,15 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
 
     if (this.tree.isBranch() && this.tree.isNodeExpanded() && newDropPosition === DropPosition.Below) {
-      // Cannot drop below a branch if it's expanded
+      // Cannot drop below a branch node if it's expanded
       return;
     }
-    if (this.tree.isBranch() && this.tree.hasChild(draggedNode.tree) && newDropPosition === DropPosition.Into) {
+    if (
+      draggedNode &&
+      this.tree.isBranch() &&
+      this.tree.hasChild(draggedNode.tree) &&
+      newDropPosition === DropPosition.Into
+    ) {
       // Cannot drop into it's own parent
       return;
     }
@@ -118,6 +124,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       this.getDragOverClassName(),
       this.getDropPositionClassName(this.currentDropPosition)
     ]);
+    this.removeDraggedNodeClasses();
     this.releaseNodes();
   }
 
@@ -138,6 +145,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     }
 
     if (this.nodeDraggableService.getDraggedNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
+      this.removeDraggedNodeClasses();
       this.notifyThatNodeWasDropped();
       this.releaseNodes();
     }
@@ -192,7 +200,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       const capturedNodes = this.nodeDraggableService.getCheckedNodes();
       return (
         capturedNodes.length > 0 &&
-        capturedNodes.every(cn => cn.canBeDroppedAt(this.nodeDraggable)) &&
+        capturedNodes.some(cn => cn.canBeDroppedAt(this.nodeDraggable)) &&
         this.containsElementAt(e)
       );
     }
@@ -204,6 +212,26 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       this.nodeDraggableService.releaseDraggedNode();
     } else {
       this.nodeDraggableService.releaseCheckedNodes();
+    }
+  }
+
+  private applyDraggedNodeClasses(): void {
+    const draggedNode = this.nodeDraggableService.getDraggedNode();
+    if (draggedNode) {
+      draggedNode.element.nativeElement.classList.add('being-dragged');
+    } else {
+      this.nodeDraggableService.getCheckedNodes().forEach(n => n.element.nativeElement.classList.add('being-dragged'));
+    }
+  }
+
+  private removeDraggedNodeClasses(): void {
+    const draggedNode = this.nodeDraggableService.getDraggedNode();
+    if (draggedNode) {
+      draggedNode.element.nativeElement.classList.remove('being-dragged');
+    } else {
+      this.nodeDraggableService
+        .getCheckedNodes()
+        .forEach(n => n.element.nativeElement.classList.remove('being-dragged'));
     }
   }
 
