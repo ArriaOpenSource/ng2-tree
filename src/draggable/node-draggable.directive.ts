@@ -71,23 +71,31 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   private handleDragOver(e: DragEvent): any {
-    if (this.nodeDraggableService.getDraggedNode().contains({ nativeElement: e.currentTarget })) {
-      // cannot drag and drop on itself
+    const draggedNode = this.nodeDraggableService.getDraggedNode();
+    if (draggedNode.contains({ nativeElement: e.currentTarget })) {
+      // Cannot drag and drop on itself
       return;
     }
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
+
     const newDropPosition = this.determineDropPosition(e);
     this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
+
+    if (this.tree.isBranch() && this.tree.isNodeExpanded() && newDropPosition === DropPosition.Below) {
+      // Cannot drop below a branch if it's expanded
+      return;
+    }
+    if (this.tree.isBranch() && this.tree.hasChild(draggedNode.tree) && newDropPosition === DropPosition.Into) {
+      // Cannot drop into it's own parent
+      return;
+    }
+
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
     this.addClasses([this.getDropPositionClassName(newDropPosition)]);
     this.currentDropPosition = newDropPosition;
   }
 
   private handleDragEnter(e: DragEvent): any {
-    if (this.nodeDraggableService.getDraggedNode().contains({ nativeElement: e.currentTarget })) {
-      // cannot drag and drop on itself
-      return;
-    }
     e.preventDefault();
     if (this.containsElementAt(e)) {
       this.addClasses(['over-drop-target', this.getDragOverClassName()]);
