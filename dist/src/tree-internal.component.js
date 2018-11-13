@@ -61,7 +61,7 @@ var TreeInternalComponent = (function () {
                     _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
                 }
                 else if (_this.tree.hasSibling(node.tree)) {
-                    _this.moveSibling(node.tree, _this.tree);
+                    _this.moveSibling(node.tree, _this.tree, e.position);
                 }
                 else {
                     _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree, e.position);
@@ -82,9 +82,14 @@ var TreeInternalComponent = (function () {
         }
         this.subscriptions.forEach(function (sub) { return sub && sub.unsubscribe(); });
     };
-    TreeInternalComponent.prototype.moveSibling = function (sibling, tree) {
+    TreeInternalComponent.prototype.moveSibling = function (sibling, tree, position) {
         var previousPositionInParent = sibling.positionInParent;
-        tree.moveSibling(sibling);
+        if (position === draggable_events_1.DropPosition.Above) {
+            tree.moveSiblingAbove(sibling);
+        }
+        else {
+            tree.moveSiblingBelow(sibling);
+        }
         this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
     };
     TreeInternalComponent.prototype.moveNodeToThisTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {

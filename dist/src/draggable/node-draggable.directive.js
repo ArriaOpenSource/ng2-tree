@@ -38,14 +38,31 @@ var NodeDraggableDirective = (function () {
         if (!this.tree.checked) {
             this.nodeDraggableService.setDraggedNode(new captured_node_1.CapturedNode(this.nodeDraggable, this.tree));
         }
+        this.applyDraggedNodeClasses();
         e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
         e.dataTransfer.effectAllowed = 'move';
     };
     NodeDraggableDirective.prototype.handleDragOver = function (e) {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
+        if (draggedNode && draggedNode.contains({ nativeElement: e.currentTarget })) {
+            // Cannot drag and drop on itself
+            return;
+        }
         var newDropPosition = this.determineDropPosition(e);
         this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
+        if (this.tree.isBranch() && this.tree.isNodeExpanded() && newDropPosition === draggable_events_1.DropPosition.Below) {
+            // Cannot drop below a branch node if it's expanded
+            return;
+        }
+        if (draggedNode &&
+            this.tree.isBranch() &&
+            this.tree.hasChild(draggedNode.tree) &&
+            newDropPosition === draggable_events_1.DropPosition.Into) {
+            // Cannot drop into it's own parent
+            return;
+        }
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
         this.addClasses([this.getDropPositionClassName(newDropPosition)]);
         this.currentDropPosition = newDropPosition;
     };
@@ -70,7 +87,8 @@ var NodeDraggableDirective = (function () {
             this.getDragOverClassName(),
             this.getDropPositionClassName(this.currentDropPosition)
         ]);
-        this.releaseNodes();
+        this.removeDraggedNodeClasses();
+        this.nodeDraggableService.releaseDraggedNode();
     };
     NodeDraggableDirective.prototype.handleDrop = function (e) {
         e.preventDefault();
@@ -85,7 +103,8 @@ var NodeDraggableDirective = (function () {
         if (!this.isDropPossible(e)) {
             return false;
         }
-        if (this.nodeDraggableService.getDraggedNodeNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
+        if (this.nodeDraggableService.getDraggedNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
+            this.removeDraggedNodeClasses();
             this.notifyThatNodeWasDropped();
             this.releaseNodes();
         }
@@ -134,24 +153,44 @@ var NodeDraggableDirective = (function () {
     };
     NodeDraggableDirective.prototype.isDropPossible = function (e) {
         var _this = this;
-        var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
         if (draggedNode) {
             return draggedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
         }
         else {
             var capturedNodes = this.nodeDraggableService.getCheckedNodes();
             return (capturedNodes.length > 0 &&
-                capturedNodes.every(function (cn) { return cn.canBeDroppedAt(_this.nodeDraggable); }) &&
+                capturedNodes.some(function (cn) { return cn.canBeDroppedAt(_this.nodeDraggable); }) &&
                 this.containsElementAt(e));
         }
     };
     NodeDraggableDirective.prototype.releaseNodes = function () {
-        var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
         if (draggedNode) {
             this.nodeDraggableService.releaseDraggedNode();
         }
         else {
             this.nodeDraggableService.releaseCheckedNodes();
+        }
+    };
+    NodeDraggableDirective.prototype.applyDraggedNodeClasses = function () {
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
+        if (draggedNode) {
+            draggedNode.element.nativeElement.classList.add('being-dragged');
+        }
+        else {
+            this.nodeDraggableService.getCheckedNodes().forEach(function (n) { return n.element.nativeElement.classList.add('being-dragged'); });
+        }
+    };
+    NodeDraggableDirective.prototype.removeDraggedNodeClasses = function () {
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
+        if (draggedNode) {
+            draggedNode.element.nativeElement.classList.remove('being-dragged');
+        }
+        else {
+            this.nodeDraggableService
+                .getCheckedNodes()
+                .forEach(function (n) { return n.element.nativeElement.classList.remove('being-dragged'); });
         }
     };
     NodeDraggableDirective.prototype.containsElementAt = function (e) {
@@ -167,7 +206,7 @@ var NodeDraggableDirective = (function () {
         classList.remove.apply(classList, classNames);
     };
     NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function () {
-        var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
         var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
         this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
     };

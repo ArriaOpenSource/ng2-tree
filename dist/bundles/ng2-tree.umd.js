@@ -338,7 +338,7 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                     if (_this.tree.isBranch() && e.position === draggable_events_1.DropPosition.Into) {
                         _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
                     } else if (_this.tree.hasSibling(node.tree)) {
-                        _this.moveSibling(node.tree, _this.tree);
+                        _this.moveSibling(node.tree, _this.tree, e.position);
                     } else {
                         _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree, e.position);
                     }
@@ -361,9 +361,13 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                 return sub && sub.unsubscribe();
             });
         };
-        TreeInternalComponent.prototype.moveSibling = function (sibling, tree) {
+        TreeInternalComponent.prototype.moveSibling = function (sibling, tree, position) {
             var previousPositionInParent = sibling.positionInParent;
-            tree.moveSibling(sibling);
+            if (position === draggable_events_1.DropPosition.Above) {
+                tree.moveSiblingAbove(sibling);
+            } else {
+                tree.moveSiblingBelow(sibling);
+            }
             this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
         };
         TreeInternalComponent.prototype.moveNodeToThisTreeAndRemoveFromPreviousOne = function (capturedTree, moveToTree) {
@@ -1185,34 +1189,53 @@ $__System.registerDynamic("13", ["17", "21", "12", "20"], true, function ($__req
             return child;
         };
         /**
-         * Moves a given sibling above or below.
-         * The sibling will be moved immediately above this node if sibling's current position is somewhere below this node.
-         * The sibling will be moved immediately below this node if sibling's current position is somewhere above this node.
+         * Moves a given sibling above the this node.
          * If node passed as a parameter is not a sibling - nothing happens.
          * @param {Tree} sibling - A sibling to move
          */
         /**
-           * Moves a given sibling above or below.
-           * The sibling will be moved immediately above this node if sibling's current position is somewhere below this node.
-           * The sibling will be moved immediately below this node if sibling's current position is somewhere above this node.
+           * Moves a given sibling above the this node.
            * If node passed as a parameter is not a sibling - nothing happens.
            * @param {Tree} sibling - A sibling to move
            */
-        Tree.prototype.moveSibling = /**
-                                     * Moves a given sibling above or below.
-                                     * The sibling will be moved immediately above this node if sibling's current position is somewhere below this node.
-                                     * The sibling will be moved immediately below this node if sibling's current position is somewhere above this node.
-                                     * If node passed as a parameter is not a sibling - nothing happens.
-                                     * @param {Tree} sibling - A sibling to move
-                                     */
+        Tree.prototype.moveSiblingAbove = /**
+                                          * Moves a given sibling above the this node.
+                                          * If node passed as a parameter is not a sibling - nothing happens.
+                                          * @param {Tree} sibling - A sibling to move
+                                          */
+        function (sibling) {
+            // TODO
+            if (!this.hasSibling(sibling)) {
+                return;
+            }
+            var siblings = this.parent._children;
+            var siblingToMove = siblings.splice(sibling.positionInParent, 1)[0];
+            var insertAtIndex = this.positionInParent;
+            siblings.splice(insertAtIndex, 0, siblingToMove);
+        };
+        /**
+         * Moves a given sibling below the this node.
+         * If node passed as a parameter is not a sibling - nothing happens.
+         * @param {Tree} sibling - A sibling to move
+         */
+        /**
+           * Moves a given sibling below the this node.
+           * If node passed as a parameter is not a sibling - nothing happens.
+           * @param {Tree} sibling - A sibling to move
+           */
+        Tree.prototype.moveSiblingBelow = /**
+                                          * Moves a given sibling below the this node.
+                                          * If node passed as a parameter is not a sibling - nothing happens.
+                                          * @param {Tree} sibling - A sibling to move
+                                          */
         function (sibling) {
             if (!this.hasSibling(sibling)) {
                 return;
             }
-            var insertAtIndex = this.positionInParent;
-            var siblingIndex = sibling.positionInParent;
             var siblings = this.parent._children;
-            siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
+            var siblingToMove = siblings.splice(sibling.positionInParent, 1)[0];
+            var insertAtIndex = this.positionInParent + 1;
+            siblings.splice(insertAtIndex, 0, siblingToMove);
         };
         Object.defineProperty(Tree.prototype, "positionInParent", {
             /**
@@ -1799,14 +1822,28 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
             if (!this.tree.checked) {
                 this.nodeDraggableService.setDraggedNode(new captured_node_1.CapturedNode(this.nodeDraggable, this.tree));
             }
+            this.applyDraggedNodeClasses();
             e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
             e.dataTransfer.effectAllowed = 'move';
         };
         NodeDraggableDirective.prototype.handleDragOver = function (e) {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
+            var draggedNode = this.nodeDraggableService.getDraggedNode();
+            if (draggedNode && draggedNode.contains({ nativeElement: e.currentTarget })) {
+                // Cannot drag and drop on itself
+                return;
+            }
             var newDropPosition = this.determineDropPosition(e);
             this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
+            if (this.tree.isBranch() && this.tree.isNodeExpanded() && newDropPosition === draggable_events_1.DropPosition.Below) {
+                // Cannot drop below a branch node if it's expanded
+                return;
+            }
+            if (draggedNode && this.tree.isBranch() && this.tree.hasChild(draggedNode.tree) && newDropPosition === draggable_events_1.DropPosition.Into) {
+                // Cannot drop into it's own parent
+                return;
+            }
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
             this.addClasses([this.getDropPositionClassName(newDropPosition)]);
             this.currentDropPosition = newDropPosition;
         };
@@ -1823,7 +1860,8 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
         };
         NodeDraggableDirective.prototype.handleDragEnd = function (e) {
             this.removeClasses(['over-drop-target', this.getDragOverClassName(), this.getDropPositionClassName(this.currentDropPosition)]);
-            this.releaseNodes();
+            this.removeDraggedNodeClasses();
+            this.nodeDraggableService.releaseDraggedNode();
         };
         NodeDraggableDirective.prototype.handleDrop = function (e) {
             e.preventDefault();
@@ -1834,7 +1872,8 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
             if (!this.isDropPossible(e)) {
                 return false;
             }
-            if (this.nodeDraggableService.getDraggedNodeNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
+            if (this.nodeDraggableService.getDraggedNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
+                this.removeDraggedNodeClasses();
                 this.notifyThatNodeWasDropped();
                 this.releaseNodes();
             }
@@ -1879,22 +1918,42 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
         };
         NodeDraggableDirective.prototype.isDropPossible = function (e) {
             var _this = this;
-            var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+            var draggedNode = this.nodeDraggableService.getDraggedNode();
             if (draggedNode) {
                 return draggedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
             } else {
                 var capturedNodes = this.nodeDraggableService.getCheckedNodes();
-                return capturedNodes.length > 0 && capturedNodes.every(function (cn) {
+                return capturedNodes.length > 0 && capturedNodes.some(function (cn) {
                     return cn.canBeDroppedAt(_this.nodeDraggable);
                 }) && this.containsElementAt(e);
             }
         };
         NodeDraggableDirective.prototype.releaseNodes = function () {
-            var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+            var draggedNode = this.nodeDraggableService.getDraggedNode();
             if (draggedNode) {
                 this.nodeDraggableService.releaseDraggedNode();
             } else {
                 this.nodeDraggableService.releaseCheckedNodes();
+            }
+        };
+        NodeDraggableDirective.prototype.applyDraggedNodeClasses = function () {
+            var draggedNode = this.nodeDraggableService.getDraggedNode();
+            if (draggedNode) {
+                draggedNode.element.nativeElement.classList.add('being-dragged');
+            } else {
+                this.nodeDraggableService.getCheckedNodes().forEach(function (n) {
+                    return n.element.nativeElement.classList.add('being-dragged');
+                });
+            }
+        };
+        NodeDraggableDirective.prototype.removeDraggedNodeClasses = function () {
+            var draggedNode = this.nodeDraggableService.getDraggedNode();
+            if (draggedNode) {
+                draggedNode.element.nativeElement.classList.remove('being-dragged');
+            } else {
+                this.nodeDraggableService.getCheckedNodes().forEach(function (n) {
+                    return n.element.nativeElement.classList.remove('being-dragged');
+                });
             }
         };
         NodeDraggableDirective.prototype.containsElementAt = function (e) {
@@ -1913,7 +1972,7 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
             classList.remove.apply(classList, classNames);
         };
         NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function () {
-            var draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+            var draggedNode = this.nodeDraggableService.getDraggedNode();
             var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
             this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
         };
@@ -2387,7 +2446,7 @@ $__System.registerDynamic("1c", ["10", "25", "1b"], true, function ($__require, 
         NodeDraggableService.prototype.getCheckedNodes = function () {
             return this.checkedNodes;
         };
-        NodeDraggableService.prototype.getDraggedNodeNode = function () {
+        NodeDraggableService.prototype.getDraggedNode = function () {
             return this.draggedNode;
         };
         NodeDraggableService.prototype.releaseCheckedNodes = function () {

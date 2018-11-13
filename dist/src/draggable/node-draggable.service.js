@@ -35,7 +35,7 @@ var NodeDraggableService = (function () {
     NodeDraggableService.prototype.getCheckedNodes = function () {
         return this.checkedNodes;
     };
-    NodeDraggableService.prototype.getDraggedNodeNode = function () {
+    NodeDraggableService.prototype.getDraggedNode = function () {
         return this.draggedNode;
     };
     NodeDraggableService.prototype.releaseCheckedNodes = function () {

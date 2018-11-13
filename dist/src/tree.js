@@ -418,23 +418,42 @@ var Tree = (function () {
         return child;
     };
     /**
-     * Moves a given sibling above or below.
-     * The sibling will be moved immediately above this node if sibling's current position is somewhere below this node.
-     * The sibling will be moved immediately below this node if sibling's current position is somewhere above this node.
+     * Moves a given sibling above the this node.
      * If node passed as a parameter is not a sibling - nothing happens.
      * @param {Tree} sibling - A sibling to move
      */
     /**
-       * Moves a given sibling above or below.
-       * The sibling will be moved immediately above this node if sibling's current position is somewhere below this node.
-       * The sibling will be moved immediately below this node if sibling's current position is somewhere above this node.
+       * Moves a given sibling above the this node.
        * If node passed as a parameter is not a sibling - nothing happens.
        * @param {Tree} sibling - A sibling to move
        */
-    Tree.prototype.moveSibling = /**
-       * Moves a given sibling above or below.
-       * The sibling will be moved immediately above this node if sibling's current position is somewhere below this node.
-       * The sibling will be moved immediately below this node if sibling's current position is somewhere above this node.
+    Tree.prototype.moveSiblingAbove = /**
+       * Moves a given sibling above the this node.
+       * If node passed as a parameter is not a sibling - nothing happens.
+       * @param {Tree} sibling - A sibling to move
+       */
+    function (sibling) {
+        // TODO
+        if (!this.hasSibling(sibling)) {
+            return;
+        }
+        var siblings = this.parent._children;
+        var siblingToMove = siblings.splice(sibling.positionInParent, 1)[0];
+        var insertAtIndex = this.positionInParent;
+        siblings.splice(insertAtIndex, 0, siblingToMove);
+    };
+    /**
+     * Moves a given sibling below the this node.
+     * If node passed as a parameter is not a sibling - nothing happens.
+     * @param {Tree} sibling - A sibling to move
+     */
+    /**
+       * Moves a given sibling below the this node.
+       * If node passed as a parameter is not a sibling - nothing happens.
+       * @param {Tree} sibling - A sibling to move
+       */
+    Tree.prototype.moveSiblingBelow = /**
+       * Moves a given sibling below the this node.
        * If node passed as a parameter is not a sibling - nothing happens.
        * @param {Tree} sibling - A sibling to move
        */
@@ -442,10 +461,10 @@ var Tree = (function () {
         if (!this.hasSibling(sibling)) {
             return;
         }
-        var insertAtIndex = this.positionInParent;
-        var siblingIndex = sibling.positionInParent;
         var siblings = this.parent._children;
-        siblings.splice(insertAtIndex, 0, siblings.splice(siblingIndex, 1)[0]);
+        var siblingToMove = siblings.splice(sibling.positionInParent, 1)[0];
+        var insertAtIndex = this.positionInParent + 1;
+        siblings.splice(insertAtIndex, 0, siblingToMove);
     };
     Object.defineProperty(Tree.prototype, "positionInParent", {
         /**

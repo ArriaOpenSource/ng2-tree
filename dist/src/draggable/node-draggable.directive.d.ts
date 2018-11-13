@@ -25,6 +25,8 @@ export declare class NodeDraggableDirective implements OnDestroy, OnInit {
     private getDropPositionClassName(dropPosition);
     private isDropPossible(e);
     private releaseNodes();
+    private applyDraggedNodeClasses();
+    private removeDraggedNodeClasses();
     private containsElementAt(e);
     private addClasses(classNames);
     private removeClasses(classNames);

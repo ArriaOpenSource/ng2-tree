@@ -76,6 +76,10 @@ tree-internal .over-drop-below {
   border-bottom: 3px solid #757575;
 }
 
+tree-internal.being-dragged .value-container * {
+  color: #ababab;
+}
+
 tree-internal .tree {
   box-sizing: border-box;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

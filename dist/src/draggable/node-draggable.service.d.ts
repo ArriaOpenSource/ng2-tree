@@ -12,7 +12,7 @@ export declare class NodeDraggableService {
     removeCheckedNode(node: CapturedNode): void;
     removeCheckedNodeById(id: string | number): void;
     getCheckedNodes(): CapturedNode[];
-    getDraggedNodeNode(): CapturedNode;
+    getDraggedNode(): CapturedNode;
     releaseCheckedNodes(): void;
     releaseDraggedNode(): void;
 }
