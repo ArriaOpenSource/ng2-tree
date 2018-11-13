@@ -154,7 +154,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
           if (this.tree.isBranch() && e.position === DropPosition.Into) {
             this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
           } else if (this.tree.hasSibling(node.tree)) {
-            this.moveSibling(node.tree, this.tree);
+            this.moveSibling(node.tree, this.tree, e.position);
           } else {
             this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree, e.position);
           }
@@ -182,9 +182,13 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.subscriptions.forEach(sub => sub && sub.unsubscribe());
   }
 
-  private moveSibling(sibling: Tree, tree: Tree): void {
+  private moveSibling(sibling: Tree, tree: Tree, position: DropPosition): void {
     const previousPositionInParent = sibling.positionInParent;
-    tree.moveSibling(sibling);
+    if (position === DropPosition.Above) {
+      tree.moveSiblingAbove(sibling);
+    } else {
+      tree.moveSiblingBelow(sibling);
+    }
     this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
   }
 
