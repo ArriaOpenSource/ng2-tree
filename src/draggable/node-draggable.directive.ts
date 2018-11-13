@@ -71,6 +71,10 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   private handleDragOver(e: DragEvent): any {
+    if (this.nodeDraggableService.getDraggedNode().contains({ nativeElement: e.currentTarget })) {
+      // cannot drag and drop on itself
+      return;
+    }
     e.preventDefault();
     e.dataTransfer.dropEffect = 'move';
     const newDropPosition = this.determineDropPosition(e);
@@ -80,6 +84,10 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   private handleDragEnter(e: DragEvent): any {
+    if (this.nodeDraggableService.getDraggedNode().contains({ nativeElement: e.currentTarget })) {
+      // cannot drag and drop on itself
+      return;
+    }
     e.preventDefault();
     if (this.containsElementAt(e)) {
       this.addClasses(['over-drop-target', this.getDragOverClassName()]);
@@ -121,7 +129,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       return false;
     }
 
-    if (this.nodeDraggableService.getDraggedNodeNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
+    if (this.nodeDraggableService.getDraggedNode() || this.nodeDraggableService.getCheckedNodes().length > 0) {
       this.notifyThatNodeWasDropped();
       this.releaseNodes();
     }
@@ -169,7 +177,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   private isDropPossible(e: DragEvent): boolean {
-    const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+    const draggedNode = this.nodeDraggableService.getDraggedNode();
     if (draggedNode) {
       return draggedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
     } else {
@@ -183,7 +191,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   private releaseNodes(): void {
-    const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+    const draggedNode = this.nodeDraggableService.getDraggedNode();
     if (draggedNode) {
       this.nodeDraggableService.releaseDraggedNode();
     } else {
@@ -207,7 +215,7 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
   }
 
   private notifyThatNodeWasDropped(): void {
-    const draggedNode = this.nodeDraggableService.getDraggedNodeNode();
+    const draggedNode = this.nodeDraggableService.getDraggedNode();
     const nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
     this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
   }

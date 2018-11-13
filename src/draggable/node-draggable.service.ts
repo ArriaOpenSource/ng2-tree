@@ -44,7 +44,7 @@ export class NodeDraggableService {
     return this.checkedNodes;
   }
 
-  public getDraggedNodeNode(): CapturedNode {
+  public getDraggedNode(): CapturedNode {
     return this.draggedNode;
   }
 
