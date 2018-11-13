@@ -110,7 +110,7 @@ tree-internal .value-container {
   padding: 5px 3px;
 }
 
-tree-internal .value-container:hover .node-value:after {
+tree-internal .tree .node-value:hover:after {
   width: 100%;
 }
 
