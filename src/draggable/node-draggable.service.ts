@@ -1,11 +1,12 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { CapturedNode } from './captured-node';
-import { NodeDraggableEvent, DropPosition } from './draggable.events';
+import { NodeDraggableEvent, DropPosition, NodeDragStartEvent } from './draggable.events';
 
 @Injectable()
 export class NodeDraggableService {
   public draggableNodeEvents$: Subject<NodeDraggableEvent> = new Subject<NodeDraggableEvent>();
+  public nodeDragStartEvents$: Subject<NodeDragStartEvent> = new Subject<NodeDragStartEvent>();
 
   private checkedNodes: CapturedNode[] = [];
   private draggedNode: CapturedNode;
@@ -16,6 +17,14 @@ export class NodeDraggableService {
     }
 
     this.draggableNodeEvents$.next(new NodeDraggableEvent(captured, target, position));
+  }
+
+  public fireNodeDragStart(captured: CapturedNode[], target: ElementRef): void {
+    if (captured.length === 0 || captured.every(cn => !cn.tree || cn.tree.isStatic())) {
+      return;
+    }
+
+    this.nodeDragStartEvents$.next(new NodeDragStartEvent(captured, target));
   }
 
   public addCheckedNode(node: CapturedNode): void {

@@ -10,3 +10,7 @@ export enum DropPosition {
 export class NodeDraggableEvent {
   public constructor(public captured: CapturedNode[], public target: ElementRef, public position: DropPosition) {}
 }
+
+export class NodeDragStartEvent {
+  public constructor(public captured: CapturedNode[], public target: ElementRef) {}
+}

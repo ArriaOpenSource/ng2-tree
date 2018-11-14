@@ -20,12 +20,13 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { ElementRef, Inject, Injectable } from '@angular/core';
 import { NodeDraggableService } from './draggable/node-draggable.service';
-import { NodeDraggableEvent } from './draggable/draggable.events';
+import { NodeDraggableEvent, NodeDragStartEvent } from './draggable/draggable.events';
 import { isEmpty } from './utils/fn.utils';
 
 @Injectable()
 export class TreeService {
   public nodeMoved$: Subject<NodeMovedEvent> = new Subject<NodeMovedEvent>();
+  public nodeMoveStarted$: Subject<NodeDragStartEvent> = new Subject<NodeDragStartEvent>();
   public nodeRemoved$: Subject<NodeRemovedEvent> = new Subject<NodeRemovedEvent>();
   public nodeRenamed$: Subject<NodeRenamedEvent> = new Subject<NodeRenamedEvent>();
   public nodeCreated$: Subject<NodeCreatedEvent> = new Subject<NodeCreatedEvent>();
@@ -43,6 +44,9 @@ export class TreeService {
 
   public constructor(@Inject(NodeDraggableService) private nodeDraggableService: NodeDraggableService) {
     this.nodeRemoved$.subscribe((e: NodeRemovedEvent) => e.node.removeItselfFromParent());
+    this.nodeDraggableService.nodeDragStartEvents$.subscribe((e: NodeDragStartEvent) => {
+      this.nodeMoveStarted$.next(e);
+    });
   }
 
   public unselectStream(tree: Tree): Observable<NodeSelectedEvent> {

@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Ng2TreeSettings, NodeEvent, RenamableNode, TreeModel, TreeModelSettings } from '../../../index';
+import { Ng2TreeSettings, NodeEvent, RenamableNode, TreeModel } from '../../../index';
 import { NodeMenuItemAction } from '../../menu/menu.events';
 import { MenuItemSelectedEvent } from '../../tree.events';
+import { NodeDragStartEvent } from 'draggable/draggable.events';
 
 declare const alertify: any;
 
@@ -40,7 +41,8 @@ declare const alertify: any;
                       (nodeRenamed)="onNodeRenamed($event)"
                       (nodeSelected)="onNodeSelected($event)"
                       (nodeMoved)="onNodeMoved($event)"
-                      (nodeCreated)="onNodeCreated($event)">
+                      (nodeCreated)="onNodeCreated($event)"
+                      (nodeDragStarted)="onPlsNodeDragStarted($event)">
                 </tree>
             </div>
         </div>
@@ -556,7 +558,15 @@ export class AppComponent implements OnInit {
     alertify.message(`${message}: ${e.node.value}`);
   }
 
+  public dragImgElem: HTMLElement;
   public ngOnInit(): void {
+    const dragImg = (() => {
+      this.dragImgElem = document.createElement('div');
+      this.dragImgElem.id = 'node-drag-image';
+      this.dragImgElem.classList.add('node-drag-image');
+      document.body.appendChild(this.dragImgElem);
+      return 'node-drag-image';
+    })();
     setTimeout(() => {
       this.pls = {
         value: 'Programming languages by programming paradigm',
@@ -567,18 +577,21 @@ export class AppComponent implements OnInit {
               {
                 value: 'AspectJ',
                 settings: {
-                  dragIcon: true
+                  dragIcon: true,
+                  dragImageId: dragImg
                 }
               },
               {
                 value: 'AspectC++',
                 settings: {
-                  dragIcon: true
+                  dragIcon: true,
+                  dragImageId: dragImg
                 }
               }
             ],
             settings: {
-              dragIcon: true
+              dragIcon: true,
+              dragImageId: dragImg
             }
           },
           {
@@ -598,7 +611,8 @@ export class AppComponent implements OnInit {
                   dragIcon: true,
                   templates: {
                     dragIcon: '<i class="fa fa-sort" aria-hidden="true"></i>'
-                  }
+                  },
+                  dragImageId: dragImg
                 }
               },
               {
@@ -607,7 +621,8 @@ export class AppComponent implements OnInit {
                   dragIcon: true,
                   templates: {
                     dragIcon: '<i class="fa fa-sort" aria-hidden="true"></i>'
-                  }
+                  },
+                  dragImageId: dragImg
                 }
               },
               {
@@ -616,7 +631,8 @@ export class AppComponent implements OnInit {
                   dragIcon: true,
                   templates: {
                     dragIcon: '<i class="fa fa-sort" aria-hidden="true"></i>'
-                  }
+                  },
+                  dragImageId: dragImg
                 }
               }
             ],
@@ -624,7 +640,8 @@ export class AppComponent implements OnInit {
               dragIcon: true,
               templates: {
                 dragIcon: '<i class="fa fa-sort" aria-hidden="true"></i>'
-              }
+              },
+              dragImageId: dragImg
             }
           },
           {
@@ -636,7 +653,8 @@ export class AppComponent implements OnInit {
                   dragIcon: true,
                   templates: {
                     dragIcon: '<i class="fa fa-crosshairs" aria-hidden="true"></i>'
-                  }
+                  },
+                  dragImageId: dragImg
                 }
               },
               {
@@ -645,7 +663,8 @@ export class AppComponent implements OnInit {
                   dragIcon: true,
                   templates: {
                     dragIcon: '<i class="fa fa-crosshairs" aria-hidden="true"></i>'
-                  }
+                  },
+                  dragImageId: dragImg
                 }
               },
               {
@@ -654,7 +673,8 @@ export class AppComponent implements OnInit {
                   dragIcon: true,
                   templates: {
                     dragIcon: '<i class="fa fa-crosshairs" aria-hidden="true"></i>'
-                  }
+                  },
+                  dragImageId: dragImg
                 }
               }
             ],
@@ -662,12 +682,18 @@ export class AppComponent implements OnInit {
               dragIcon: true,
               templates: {
                 dragIcon: '<i class="fa fa-crosshairs" aria-hidden="true"></i>'
-              }
+              },
+              dragImageId: dragImg
             }
           }
         ]
       };
     }, 2000);
+  }
+
+  public onPlsNodeDragStarted(e: NodeDragStartEvent): void {
+    this.dragImgElem.textContent =
+      e.captured.length === 1 ? `Dragging "${e.captured[0].tree.value}"` : `Dragging ${e.captured.length} nodes`;
   }
 
   public onNodeRemoved(e: NodeEvent): void {

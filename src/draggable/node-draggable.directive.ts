@@ -65,6 +65,15 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       this.nodeDraggableService.setDraggedNode(new CapturedNode(this.nodeDraggable, this.tree));
     }
 
+    this.notifyThatNodeIsBeingDragged();
+
+    if (this.tree.node.settings.dragImageId) {
+      const elem = document.getElementById(this.tree.node.settings.dragImageId);
+      if (elem) {
+        e.dataTransfer.setDragImage(elem, 0, 0);
+      }
+    }
+
     this.applyDraggedNodeClasses();
 
     e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
@@ -254,5 +263,11 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     const draggedNode = this.nodeDraggableService.getDraggedNode();
     const nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
     this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
+  }
+
+  private notifyThatNodeIsBeingDragged(): void {
+    const draggedNode = this.nodeDraggableService.getDraggedNode();
+    const nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
+    this.nodeDraggableService.fireNodeDragStart(nodes, this.nodeDraggable);
   }
 }
