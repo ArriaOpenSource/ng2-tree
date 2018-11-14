@@ -4,6 +4,7 @@ import * as TreeTypes from './tree.types';
 import { NodeCheckedEvent, NodeUncheckedEvent } from './tree.events';
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
+import { NodeDragStartEvent } from 'draggable/draggable.events';
 export declare class TreeComponent implements OnInit, OnChanges, OnDestroy {
     private treeService;
     private static EMPTY_TREE;
@@ -14,6 +15,7 @@ export declare class TreeComponent implements OnInit, OnChanges, OnDestroy {
     nodeRenamed: EventEmitter<any>;
     nodeSelected: EventEmitter<any>;
     nodeUnselected: EventEmitter<any>;
+    nodeDragStarted: EventEmitter<NodeDragStartEvent>;
     nodeMoved: EventEmitter<any>;
     nodeExpanded: EventEmitter<any>;
     nodeCollapsed: EventEmitter<any>;

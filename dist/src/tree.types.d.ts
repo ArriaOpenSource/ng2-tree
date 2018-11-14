@@ -43,6 +43,15 @@ export declare class TreeModelSettings {
      */
     dragIcon?: boolean;
     /**
+     * Allows passing a custom drag image element to be used when node is being dragged.
+     * The element should be ready to use, i.e. either an image that is already loaded or
+     * an html element that is part of the document.
+     * @name TreeModelSettings#dragImage
+     * @type {string}
+     * @default undefined
+     */
+    dragImageId?: string;
+    /**
      * "leftMenu" property when set to true makes left menu available.
      * @name TreeModelSettings#leftMenu
      * @type boolean

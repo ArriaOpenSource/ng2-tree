@@ -15,4 +15,12 @@ var NodeDraggableEvent = (function () {
     return NodeDraggableEvent;
 }());
 exports.NodeDraggableEvent = NodeDraggableEvent;
+var NodeDragStartEvent = (function () {
+    function NodeDragStartEvent(captured, target) {
+        this.captured = captured;
+        this.target = target;
+    }
+    return NodeDragStartEvent;
+}());
+exports.NodeDragStartEvent = NodeDragStartEvent;
 //# sourceMappingURL=draggable.events.js.map

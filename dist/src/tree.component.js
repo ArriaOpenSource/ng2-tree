@@ -12,6 +12,7 @@ var TreeComponent = (function () {
         this.nodeRenamed = new core_1.EventEmitter();
         this.nodeSelected = new core_1.EventEmitter();
         this.nodeUnselected = new core_1.EventEmitter();
+        this.nodeDragStarted = new core_1.EventEmitter();
         this.nodeMoved = new core_1.EventEmitter();
         this.nodeExpanded = new core_1.EventEmitter();
         this.nodeCollapsed = new core_1.EventEmitter();
@@ -45,6 +46,9 @@ var TreeComponent = (function () {
         }));
         this.subscriptions.push(this.treeService.nodeUnselected$.subscribe(function (e) {
             _this.nodeUnselected.emit(e);
+        }));
+        this.subscriptions.push(this.treeService.nodeMoveStarted$.subscribe(function (e) {
+            _this.nodeDragStarted.emit(e);
         }));
         this.subscriptions.push(this.treeService.nodeMoved$.subscribe(function (e) {
             _this.nodeMoved.emit(e);
@@ -97,6 +101,7 @@ var TreeComponent = (function () {
         "nodeRenamed": [{ type: core_1.Output },],
         "nodeSelected": [{ type: core_1.Output },],
         "nodeUnselected": [{ type: core_1.Output },],
+        "nodeDragStarted": [{ type: core_1.Output },],
         "nodeMoved": [{ type: core_1.Output },],
         "nodeExpanded": [{ type: core_1.Output },],
         "nodeCollapsed": [{ type: core_1.Output },],

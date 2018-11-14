@@ -11,3 +11,8 @@ export declare class NodeDraggableEvent {
     position: DropPosition;
     constructor(captured: CapturedNode[], target: ElementRef, position: DropPosition);
 }
+export declare class NodeDragStartEvent {
+    captured: CapturedNode[];
+    target: ElementRef;
+    constructor(captured: CapturedNode[], target: ElementRef);
+}

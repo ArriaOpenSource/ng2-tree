@@ -1,3 +1,13 @@
+.node-drag-image {
+  padding: 10px;
+  background: #40a070;
+  color: #fff;
+  position: absolute;
+  display: block;
+  top: -100%;
+  left: -100%;
+}
+
 .node-menu {
   position: relative;
   width: 150px;

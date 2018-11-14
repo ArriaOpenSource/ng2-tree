@@ -38,6 +38,13 @@ var NodeDraggableDirective = (function () {
         if (!this.tree.checked) {
             this.nodeDraggableService.setDraggedNode(new captured_node_1.CapturedNode(this.nodeDraggable, this.tree));
         }
+        this.notifyThatNodeIsBeingDragged();
+        if (this.tree.node.settings.dragImageId) {
+            var elem = document.getElementById(this.tree.node.settings.dragImageId);
+            if (elem) {
+                e.dataTransfer.setDragImage(elem, 0, 0);
+            }
+        }
         this.applyDraggedNodeClasses();
         e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
         e.dataTransfer.effectAllowed = 'move';
@@ -209,6 +216,11 @@ var NodeDraggableDirective = (function () {
         var draggedNode = this.nodeDraggableService.getDraggedNode();
         var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
         this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
+    };
+    NodeDraggableDirective.prototype.notifyThatNodeIsBeingDragged = function () {
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
+        var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
+        this.nodeDraggableService.fireNodeDragStart(nodes, this.nodeDraggable);
     };
     NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
     NodeDraggableDirective.decorators = [

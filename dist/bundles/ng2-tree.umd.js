@@ -34,6 +34,7 @@ $__System.registerDynamic("f", ["10", "11", "12", "13"], true, function ($__requ
             this.nodeRenamed = new core_1.EventEmitter();
             this.nodeSelected = new core_1.EventEmitter();
             this.nodeUnselected = new core_1.EventEmitter();
+            this.nodeDragStarted = new core_1.EventEmitter();
             this.nodeMoved = new core_1.EventEmitter();
             this.nodeExpanded = new core_1.EventEmitter();
             this.nodeCollapsed = new core_1.EventEmitter();
@@ -66,6 +67,9 @@ $__System.registerDynamic("f", ["10", "11", "12", "13"], true, function ($__requ
             }));
             this.subscriptions.push(this.treeService.nodeUnselected$.subscribe(function (e) {
                 _this.nodeUnselected.emit(e);
+            }));
+            this.subscriptions.push(this.treeService.nodeMoveStarted$.subscribe(function (e) {
+                _this.nodeDragStarted.emit(e);
             }));
             this.subscriptions.push(this.treeService.nodeMoved$.subscribe(function (e) {
                 _this.nodeMoved.emit(e);
@@ -118,6 +122,7 @@ $__System.registerDynamic("f", ["10", "11", "12", "13"], true, function ($__requ
             "nodeRenamed": [{ type: core_1.Output }],
             "nodeSelected": [{ type: core_1.Output }],
             "nodeUnselected": [{ type: core_1.Output }],
+            "nodeDragStarted": [{ type: core_1.Output }],
             "nodeMoved": [{ type: core_1.Output }],
             "nodeExpanded": [{ type: core_1.Output }],
             "nodeCollapsed": [{ type: core_1.Output }],
@@ -658,6 +663,7 @@ $__System.registerDynamic("12", ["17"], true, function ($__require, exports, mod
                 static: false,
                 leftMenu: false,
                 rightMenu: true,
+                dragIcon: false,
                 isCollapsedOnInit: false,
                 checked: false,
                 keepNodesInDOM: false,
@@ -1822,6 +1828,13 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
             if (!this.tree.checked) {
                 this.nodeDraggableService.setDraggedNode(new captured_node_1.CapturedNode(this.nodeDraggable, this.tree));
             }
+            this.notifyThatNodeIsBeingDragged();
+            if (this.tree.node.settings.dragImageId) {
+                var elem = document.getElementById(this.tree.node.settings.dragImageId);
+                if (elem) {
+                    e.dataTransfer.setDragImage(elem, 0, 0);
+                }
+            }
             this.applyDraggedNodeClasses();
             e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
             e.dataTransfer.effectAllowed = 'move';
@@ -1975,6 +1988,11 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
             var draggedNode = this.nodeDraggableService.getDraggedNode();
             var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
             this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
+        };
+        NodeDraggableDirective.prototype.notifyThatNodeIsBeingDragged = function () {
+            var draggedNode = this.nodeDraggableService.getDraggedNode();
+            var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
+            this.nodeDraggableService.fireNodeDragStart(nodes, this.nodeDraggable);
         };
         NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
         NodeDraggableDirective.decorators = [{ type: core_1.Directive, args: [{
@@ -2399,6 +2417,14 @@ $__System.registerDynamic("1b", [], true, function ($__require, exports, module)
         return NodeDraggableEvent;
     }();
     exports.NodeDraggableEvent = NodeDraggableEvent;
+    var NodeDragStartEvent = function () {
+        function NodeDragStartEvent(captured, target) {
+            this.captured = captured;
+            this.target = target;
+        }
+        return NodeDragStartEvent;
+    }();
+    exports.NodeDragStartEvent = NodeDragStartEvent;
 
 });
 $__System.registerDynamic("1c", ["10", "25", "1b"], true, function ($__require, exports, module) {
@@ -2413,6 +2439,7 @@ $__System.registerDynamic("1c", ["10", "25", "1b"], true, function ($__require, 
     var NodeDraggableService = function () {
         function NodeDraggableService() {
             this.draggableNodeEvents$ = new Subject_1.Subject();
+            this.nodeDragStartEvents$ = new Subject_1.Subject();
             this.checkedNodes = [];
         }
         NodeDraggableService.prototype.fireNodeDragged = function (captured, target, position) {
@@ -2422,6 +2449,14 @@ $__System.registerDynamic("1c", ["10", "25", "1b"], true, function ($__require, 
                 return;
             }
             this.draggableNodeEvents$.next(new draggable_events_1.NodeDraggableEvent(captured, target, position));
+        };
+        NodeDraggableService.prototype.fireNodeDragStart = function (captured, target) {
+            if (captured.length === 0 || captured.every(function (cn) {
+                return !cn.tree || cn.tree.isStatic();
+            })) {
+                return;
+            }
+            this.nodeDragStartEvents$.next(new draggable_events_1.NodeDragStartEvent(captured, target));
         };
         NodeDraggableService.prototype.addCheckedNode = function (node) {
             this.checkedNodes.push(node);
@@ -2588,8 +2623,10 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
     var fn_utils_1 = $__require("17");
     var TreeService = function () {
         function TreeService(nodeDraggableService) {
+            var _this = this;
             this.nodeDraggableService = nodeDraggableService;
             this.nodeMoved$ = new Subject_1.Subject();
+            this.nodeMoveStarted$ = new Subject_1.Subject();
             this.nodeRemoved$ = new Subject_1.Subject();
             this.nodeRenamed$ = new Subject_1.Subject();
             this.nodeCreated$ = new Subject_1.Subject();
@@ -2605,6 +2642,9 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
             this.controllers = new Map();
             this.nodeRemoved$.subscribe(function (e) {
                 return e.node.removeItselfFromParent();
+            });
+            this.nodeDraggableService.nodeDragStartEvents$.subscribe(function (e) {
+                _this.nodeMoveStarted$.next(e);
             });
         }
         TreeService.prototype.unselectStream = function (tree) {

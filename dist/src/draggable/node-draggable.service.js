@@ -6,6 +6,7 @@ var draggable_events_1 = require("./draggable.events");
 var NodeDraggableService = (function () {
     function NodeDraggableService() {
         this.draggableNodeEvents$ = new Subject_1.Subject();
+        this.nodeDragStartEvents$ = new Subject_1.Subject();
         this.checkedNodes = [];
     }
     NodeDraggableService.prototype.fireNodeDragged = function (captured, target, position) {
@@ -13,6 +14,12 @@ var NodeDraggableService = (function () {
             return;
         }
         this.draggableNodeEvents$.next(new draggable_events_1.NodeDraggableEvent(captured, target, position));
+    };
+    NodeDraggableService.prototype.fireNodeDragStart = function (captured, target) {
+        if (captured.length === 0 || captured.every(function (cn) { return !cn.tree || cn.tree.isStatic(); })) {
+            return;
+        }
+        this.nodeDragStartEvents$.next(new draggable_events_1.NodeDragStartEvent(captured, target));
     };
     NodeDraggableService.prototype.addCheckedNode = function (node) {
         this.checkedNodes.push(node);

@@ -7,8 +7,10 @@ var node_draggable_service_1 = require("./draggable/node-draggable.service");
 var fn_utils_1 = require("./utils/fn.utils");
 var TreeService = (function () {
     function TreeService(nodeDraggableService) {
+        var _this = this;
         this.nodeDraggableService = nodeDraggableService;
         this.nodeMoved$ = new Subject_1.Subject();
+        this.nodeMoveStarted$ = new Subject_1.Subject();
         this.nodeRemoved$ = new Subject_1.Subject();
         this.nodeRenamed$ = new Subject_1.Subject();
         this.nodeCreated$ = new Subject_1.Subject();
@@ -23,6 +25,9 @@ var TreeService = (function () {
         this.nodeIndetermined$ = new Subject_1.Subject();
         this.controllers = new Map();
         this.nodeRemoved$.subscribe(function (e) { return e.node.removeItselfFromParent(); });
+        this.nodeDraggableService.nodeDragStartEvents$.subscribe(function (e) {
+            _this.nodeMoveStarted$.next(e);
+        });
     }
     TreeService.prototype.unselectStream = function (tree) {
         return this.nodeSelected$.filter(function (e) { return tree !== e.node; });

@@ -28,6 +28,7 @@ var TreeModelSettings = (function () {
             static: false,
             leftMenu: false,
             rightMenu: true,
+            dragIcon: false,
             isCollapsedOnInit: false,
             checked: false,
             keepNodesInDOM: false,

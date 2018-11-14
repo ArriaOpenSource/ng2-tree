@@ -6,10 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { ElementRef } from '@angular/core';
 import { NodeDraggableService } from './draggable/node-draggable.service';
-import { NodeDraggableEvent } from './draggable/draggable.events';
+import { NodeDraggableEvent, NodeDragStartEvent } from './draggable/draggable.events';
 export declare class TreeService {
     private nodeDraggableService;
     nodeMoved$: Subject<NodeMovedEvent>;
+    nodeMoveStarted$: Subject<NodeDragStartEvent>;
     nodeRemoved$: Subject<NodeRemovedEvent>;
     nodeRenamed$: Subject<NodeRenamedEvent>;
     nodeCreated$: Subject<NodeCreatedEvent>;
