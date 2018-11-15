@@ -143,9 +143,12 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
 
     this.subscriptions.push(
       this.treeService.draggedStream(this.tree, this.nodeElementRef).subscribe((e: NodeDraggableEvent) => {
-        let i = e.captured.length;
+        // Remove child nodes if parent is being moved (child nodes will move with the parent)
+        const nodesToMove = e.captured.filter(cn => !cn.tree.parent.checked);
+
+        let i = nodesToMove.length;
         while (i--) {
-          const node = e.captured[i];
+          const node = nodesToMove[i];
           const ctrl = this.treeService.getController(node.tree.id);
           if (ctrl && ctrl.isChecked()) {
             ctrl.uncheck();
