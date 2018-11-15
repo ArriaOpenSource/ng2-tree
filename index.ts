@@ -29,6 +29,8 @@ import {
   NodeUnselectedEvent
 } from './src/tree.events';
 
+import { NodeDragStartEvent, NodeDraggableEvent } from './src/draggable/draggable.events';
+
 import { TreeComponent } from './src/tree.component';
 import { TreeController } from './src/tree-controller';
 import { TreeModule } from './src/tree.module';
@@ -54,6 +56,8 @@ export {
   NodeCheckedEvent,
   NodeIndeterminedEvent,
   NodeUnselectedEvent,
+  NodeDragStartEvent,
+  NodeDraggableEvent,
   TreeComponent,
   TreeModule,
   NodeMenuItemAction,
