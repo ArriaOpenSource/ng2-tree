@@ -2825,7 +2825,7 @@ $__System.registerDynamic("29", ["b", "10", "f", "18", "2a", "22", "1c", "23", "
     exports.TreeModule = TreeModule;
 
 });
-$__System.registerDynamic("a", ["12", "13", "15", "26", "f", "14", "29"], true, function ($__require, exports, module) {
+$__System.registerDynamic("a", ["12", "13", "15", "26", "1b", "f", "14", "29"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -2854,6 +2854,9 @@ $__System.registerDynamic("a", ["12", "13", "15", "26", "f", "14", "29"], true, 
   exports.NodeCheckedEvent = tree_events_1.NodeCheckedEvent;
   exports.NodeIndeterminedEvent = tree_events_1.NodeIndeterminedEvent;
   exports.NodeUnselectedEvent = tree_events_1.NodeUnselectedEvent;
+  var draggable_events_1 = $__require("1b");
+  exports.NodeDragStartEvent = draggable_events_1.NodeDragStartEvent;
+  exports.NodeDraggableEvent = draggable_events_1.NodeDraggableEvent;
   var tree_component_1 = $__require("f");
   exports.TreeComponent = tree_component_1.TreeComponent;
   var tree_controller_1 = $__require("14");
