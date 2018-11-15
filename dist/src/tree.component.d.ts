@@ -4,7 +4,7 @@ import * as TreeTypes from './tree.types';
 import { NodeCheckedEvent, NodeUncheckedEvent } from './tree.events';
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
-import { NodeDragStartEvent } from 'draggable/draggable.events';
+import { NodeDragStartEvent } from './draggable/draggable.events';
 export declare class TreeComponent implements OnInit, OnChanges, OnDestroy {
     private treeService;
     private static EMPTY_TREE;

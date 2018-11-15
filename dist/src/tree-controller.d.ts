@@ -24,7 +24,7 @@ export declare class TreeController {
     setChildren(children: TreeModel[]): void;
     startRenaming(): void;
     check(): void;
-    uncheck(): void;
+    uncheck(ignoreChildren?: boolean): void;
     isChecked(): boolean;
     isIndetermined(): boolean;
     allowSelection(): void;

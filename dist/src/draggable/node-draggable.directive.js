@@ -55,6 +55,10 @@ var NodeDraggableDirective = (function () {
             // Cannot drag and drop on itself
             return;
         }
+        if (!draggedNode && this.tree.checked) {
+            // Cannot drop multiple items onto themselves
+            return;
+        }
         var newDropPosition = this.determineDropPosition(e);
         this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
         if (this.tree.isBranch() && this.tree.isNodeExpanded() && newDropPosition === draggable_events_1.DropPosition.Below) {

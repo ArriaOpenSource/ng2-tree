@@ -106,8 +106,9 @@ var TreeController = (function () {
     TreeController.prototype.check = function () {
         this.component.onNodeChecked();
     };
-    TreeController.prototype.uncheck = function () {
-        this.component.onNodeUnchecked();
+    TreeController.prototype.uncheck = function (ignoreChildren) {
+        if (ignoreChildren === void 0) { ignoreChildren = false; }
+        this.component.onNodeUnchecked(ignoreChildren);
     };
     TreeController.prototype.isChecked = function () {
         return this.tree.checked;

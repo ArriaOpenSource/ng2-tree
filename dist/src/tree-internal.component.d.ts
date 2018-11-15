@@ -50,7 +50,7 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     hasCustomMenu(): boolean;
     switchNodeCheckStatus(): void;
     onNodeChecked(): void;
-    onNodeUnchecked(): void;
+    onNodeUnchecked(ignoreChildren?: boolean): void;
     private executeOnChildController(executor);
     updateCheckboxState(): void;
     private eventContainsId(event);
