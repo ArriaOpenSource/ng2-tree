@@ -151,6 +151,11 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
             ctrl.uncheck();
           }
 
+          // Uncheck parent when moving an unchecked node
+          if (this.tree.parent.checked && !node.tree.checked) {
+            this.treeService.getController(this.tree.parent.id).uncheck(true);
+          }
+
           if (this.tree.isBranch() && e.position === DropPosition.Into) {
             this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
           } else if (this.tree.hasSibling(node.tree)) {
@@ -365,14 +370,16 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.tree.checked = true;
   }
 
-  public onNodeUnchecked(): void {
+  public onNodeUnchecked(ignoreChildren: boolean = false): void {
     if (!this.checkboxElementRef) {
       return;
     }
     this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
     this.checkboxElementRef.nativeElement.indeterminate = false;
     this.treeService.fireNodeUnchecked(this.tree);
-    this.executeOnChildController(controller => controller.uncheck());
+    if (!ignoreChildren) {
+      this.executeOnChildController(controller => controller.uncheck());
+    }
     this.tree.checked = false;
   }
 

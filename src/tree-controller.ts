@@ -135,8 +135,8 @@ export class TreeController {
     this.component.onNodeChecked();
   }
 
-  public uncheck(): void {
-    this.component.onNodeUnchecked();
+  public uncheck(ignoreChildren: boolean = false): void {
+    this.component.onNodeUnchecked(ignoreChildren);
   }
 
   public isChecked(): boolean {
