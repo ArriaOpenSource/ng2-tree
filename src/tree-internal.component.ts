@@ -39,11 +39,11 @@ import { CapturedNode } from './draggable/captured-node';
         [nodeDraggable]="nodeElementRef"
         [tree]="tree">
 
-        <div class="folding" (click)="onSwitchFoldingType()" [ngClass]="tree.foldingCssClass"></div>
-
         <div class="node-checkbox" *ngIf="settings.showCheckboxes">
-        <input checkbox  type="checkbox" [disabled]="isReadOnly" [checked]="tree.checked" (change)="switchNodeCheckStatus()" #checkbox />
-         </div>
+          <input checkbox  type="checkbox" [disabled]="isReadOnly" [checked]="tree.checked" (change)="switchNodeCheckStatus()" #checkbox />
+        </div>
+
+        <div class="folding" (click)="onSwitchFoldingType()" [ngClass]="tree.foldingCssClass"></div>
 
         <div class="node-value"
           *ngIf="!shouldShowInputForTreeValue()"
