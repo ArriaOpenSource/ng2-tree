@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Ng2TreeSettings, NodeEvent, RenamableNode, TreeModel } from '../../../index';
 import { NodeMenuItemAction } from '../../menu/menu.events';
 import { MenuItemSelectedEvent } from '../../tree.events';
-import { NodeDragStartEvent } from 'draggable/draggable.events';
+import { NodeDragStartEvent } from '../../draggable/draggable.events';
 
 declare const alertify: any;
 

@@ -87,6 +87,11 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
       return;
     }
 
+    if (!draggedNode && this.tree.checked) {
+      // Cannot drop multiple items onto themselves
+      return;
+    }
+
     const newDropPosition = this.determineDropPosition(e);
     this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
 

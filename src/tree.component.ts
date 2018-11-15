@@ -20,7 +20,7 @@ import { MenuItemSelectedEvent, NodeCheckedEvent, NodeEvent, NodeUncheckedEvent 
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
 import { Subscription } from 'rxjs/Subscription';
-import { NodeDragStartEvent } from 'draggable/draggable.events';
+import { NodeDragStartEvent } from './draggable/draggable.events';
 
 @Component({
   selector: 'tree',
@@ -30,9 +30,8 @@ import { NodeDragStartEvent } from 'draggable/draggable.events';
 export class TreeComponent implements OnInit, OnChanges, OnDestroy {
   private static EMPTY_TREE: Tree = new Tree({ value: '' });
 
-  /* tslint:disable:no-input-rename */
+  /* tslint:disable-next-line:no-input-rename */
   @Input('tree') public treeModel: TreeTypes.TreeModel;
-  /* tslint:enable:no-input-rename */
 
   @Input() public settings: TreeTypes.Ng2TreeSettings;
 
