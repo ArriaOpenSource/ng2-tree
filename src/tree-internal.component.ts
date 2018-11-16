@@ -361,15 +361,18 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     }
   }
 
-  public onNodeChecked(): void {
+  public onNodeChecked(ignoreChildren: boolean = false): void {
     if (!this.checkboxElementRef) {
       return;
     }
+
     this.nodeDraggableService.addCheckedNode(new CapturedNode(this.nodeElementRef, this.tree));
 
     this.checkboxElementRef.nativeElement.indeterminate = false;
     this.treeService.fireNodeChecked(this.tree);
-    this.executeOnChildController(controller => controller.check());
+    if (!ignoreChildren) {
+      this.executeOnChildController(controller => controller.check());
+    }
     this.tree.checked = true;
   }
 
