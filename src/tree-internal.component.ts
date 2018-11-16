@@ -358,31 +358,44 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   public onNodeChecked(ignoreChildren: boolean = false): void {
-    if (!this.checkboxElementRef) {
+    if (!this.checkboxElementRef || this.tree.checked === true) {
       return;
     }
 
     this.nodeDraggableService.addCheckedNode(new CapturedNode(this.nodeElementRef, this.tree));
+    this.onNodeIndeterminate(false);
 
-    this.checkboxElementRef.nativeElement.indeterminate = false;
+    this.tree.checked = true;
     this.treeService.fireNodeChecked(this.tree);
+
     if (!ignoreChildren) {
       this.executeOnChildController(controller => controller.check());
     }
-    this.tree.checked = true;
   }
 
   public onNodeUnchecked(ignoreChildren: boolean = false): void {
-    if (!this.checkboxElementRef) {
+    if (!this.checkboxElementRef || this.tree.checked === false) {
       return;
     }
+
     this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
-    this.checkboxElementRef.nativeElement.indeterminate = false;
+    this.onNodeIndeterminate(false);
+
+    this.tree.checked = false;
     this.treeService.fireNodeUnchecked(this.tree);
+
     if (!ignoreChildren) {
       this.executeOnChildController(controller => controller.uncheck());
     }
-    this.tree.checked = false;
+  }
+
+  public onNodeIndeterminate(indeterminate: boolean): void {
+    if (!this.checkboxElementRef || this.checkboxElementRef.nativeElement.indeterminate === indeterminate) {
+      return;
+    }
+
+    this.checkboxElementRef.nativeElement.indeterminate = indeterminate;
+    this.treeService.fireNodeIndeterminate(this.tree, indeterminate);
   }
 
   private executeOnChildController(executor: (controller: TreeController) => void) {
@@ -401,20 +414,20 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     setTimeout(() => {
       const checkedChildrenAmount = this.tree.checkedChildrenAmount();
       if (checkedChildrenAmount === 0) {
-        this.tree.checked = false;
-        this.checkboxElementRef.nativeElement.indeterminate = false;
-        this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
-        this.treeService.fireNodeUnchecked(this.tree);
+        if (!this.settings.ignoreParentOnCheck) {
+          this.onNodeUnchecked(true);
+        }
+        this.onNodeIndeterminate(false);
       } else if (checkedChildrenAmount === this.tree.loadedChildrenAmount()) {
-        this.tree.checked = true;
-        this.checkboxElementRef.nativeElement.indeterminate = false;
-        this.nodeDraggableService.addCheckedNode(new CapturedNode(this.nodeElementRef, this.tree));
-        this.treeService.fireNodeChecked(this.tree);
+        if (!this.settings.ignoreParentOnCheck) {
+          this.onNodeChecked(true);
+          this.onNodeIndeterminate(false);
+        }
       } else {
-        this.tree.checked = false;
-        this.checkboxElementRef.nativeElement.indeterminate = true;
-        this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
-        this.treeService.fireNodeIndeterminate(this.tree);
+        if (!this.settings.ignoreParentOnCheck) {
+          this.onNodeUnchecked(true);
+        }
+        this.onNodeIndeterminate(true);
       }
     });
   }
