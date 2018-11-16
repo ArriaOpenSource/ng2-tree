@@ -42,7 +42,7 @@
 
 ### Bug Fixes
 
-* **checkboxes:** get rid of performance issue with cyclic event firing; fix indetermined state ([55b975e](https://github.com/valor-software/ng2-tree/commit/55b975e))
+* **checkboxes:** get rid of performance issue with cyclic event firing; fix indeterminate state ([55b975e](https://github.com/valor-software/ng2-tree/commit/55b975e))
 * **custom-menu:** close menu when custom menu item gets clicked ([#218](https://github.com/valor-software/ng2-tree/issues/218)) ([ae75381](https://github.com/valor-software/ng2-tree/commit/ae75381))
 
 ### Features
@@ -55,7 +55,7 @@
 
 ### Bug Fixes
 
-* **checkboxes:** get rid of performance issue with cyclic event firing; fix indetermined state ([55b975e](https://github.com/valor-software/ng2-tree/commit/55b975e))
+* **checkboxes:** get rid of performance issue with cyclic event firing; fix indeterminate state ([55b975e](https://github.com/valor-software/ng2-tree/commit/55b975e))
 
 <a name="2.0.0-rc.5"></a>
 

@@ -143,7 +143,7 @@ export class TreeController {
     return this.tree.checked;
   }
 
-  public isIndetermined(): boolean {
+  public isIndeterminate(): boolean {
     return get(this.component, 'checkboxElementRef.nativeElement.indeterminate');
   }
 

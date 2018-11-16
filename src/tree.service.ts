@@ -38,7 +38,7 @@ export class TreeService {
   public loadNextLevel$: Subject<LoadNextLevelEvent> = new Subject<LoadNextLevelEvent>();
   public nodeChecked$: Subject<NodeCheckedEvent> = new Subject<NodeCheckedEvent>();
   public nodeUnchecked$: Subject<NodeUncheckedEvent> = new Subject<NodeUncheckedEvent>();
-  public nodeIndetermined$: Subject<NodeIndeterminateEvent> = new Subject<NodeIndeterminateEvent>();
+  public nodeIndeterminate$: Subject<NodeIndeterminateEvent> = new Subject<NodeIndeterminateEvent>();
 
   private controllers: Map<string | number, TreeController> = new Map();
 
@@ -154,7 +154,7 @@ export class TreeService {
     return shouldLoadNextLevel;
   }
 
-  public fireNodeIndeterminate(tree: Tree): void {
-    this.nodeIndetermined$.next(new NodeIndeterminateEvent(tree));
+  public fireNodeIndeterminate(tree: Tree, indeterminate: boolean): void {
+    this.nodeIndeterminate$.next(new NodeIndeterminateEvent(tree, indeterminate));
   }
 }
