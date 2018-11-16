@@ -139,6 +139,10 @@ export class TreeController {
     this.component.onNodeUnchecked(ignoreChildren);
   }
 
+  public updateCheckboxState(): void {
+    this.component.updateCheckboxState();
+  }
+
   public isChecked(): boolean {
     return this.tree.checked;
   }

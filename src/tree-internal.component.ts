@@ -154,11 +154,6 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
             ctrl.uncheck();
           }
 
-          // Uncheck parent when moving an unchecked node
-          if (this.tree.parent.checked && !node.tree.checked) {
-            this.treeService.getController(this.tree.parent.id).uncheck(true);
-          }
-
           if (this.tree.isBranch() && e.position === DropPosition.Into) {
             this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
           } else if (this.tree.hasSibling(node.tree)) {
@@ -167,6 +162,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
             this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree, e.position);
           }
         }
+        this.treeService.getController(this.tree.parent.id).updateCheckboxState();
       })
     );
 
