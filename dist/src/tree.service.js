@@ -22,7 +22,7 @@ var TreeService = (function () {
         this.loadNextLevel$ = new Subject_1.Subject();
         this.nodeChecked$ = new Subject_1.Subject();
         this.nodeUnchecked$ = new Subject_1.Subject();
-        this.nodeIndetermined$ = new Subject_1.Subject();
+        this.nodeIndeterminate$ = new Subject_1.Subject();
         this.controllers = new Map();
         this.nodeRemoved$.subscribe(function (e) { return e.node.removeItselfFromParent(); });
         this.nodeDraggableService.nodeDragStartEvents$.subscribe(function (e) {
@@ -111,8 +111,8 @@ var TreeService = (function () {
         }
         return shouldLoadNextLevel;
     };
-    TreeService.prototype.fireNodeIndetermined = function (tree) {
-        this.nodeIndetermined$.next(new tree_events_1.NodeIndeterminedEvent(tree));
+    TreeService.prototype.fireNodeIndeterminate = function (tree, indeterminate) {
+        this.nodeIndeterminate$.next(new tree_events_1.NodeIndeterminateEvent(tree, indeterminate));
     };
     TreeService.decorators = [
         { type: core_1.Injectable },

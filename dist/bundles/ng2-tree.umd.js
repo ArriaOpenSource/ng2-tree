@@ -258,10 +258,13 @@ $__System.registerDynamic("14", ["15", "16", "17"], true, function ($__require, 
             }
             this.component.onNodeUnchecked(ignoreChildren);
         };
+        TreeController.prototype.updateCheckboxState = function () {
+            this.component.updateCheckboxState();
+        };
         TreeController.prototype.isChecked = function () {
             return this.tree.checked;
         };
-        TreeController.prototype.isIndetermined = function () {
+        TreeController.prototype.isIndeterminate = function () {
             return fn_utils_1.get(this.component, 'checkboxElementRef.nativeElement.indeterminate');
         };
         TreeController.prototype.allowSelection = function () {
@@ -347,10 +350,6 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                     if (ctrl && ctrl.isChecked()) {
                         ctrl.uncheck();
                     }
-                    // Uncheck parent when moving an unchecked node
-                    if (_this.tree.parent.checked && !node.tree.checked) {
-                        _this.treeService.getController(_this.tree.parent.id).uncheck(true);
-                    }
                     if (_this.tree.isBranch() && e.position === draggable_events_1.DropPosition.Into) {
                         _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
                     } else if (_this.tree.hasSibling(node.tree)) {
@@ -359,6 +358,7 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                         _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree, e.position);
                     }
                 }
+                _this.treeService.getController(_this.tree.parent.id).updateCheckboxState();
             }));
             this.subscriptions.push(this.treeService.nodeChecked$.merge(this.treeService.nodeUnchecked$).filter(function (e) {
                 return _this.eventContainsId(e) && _this.tree.hasChild(e.node);
@@ -521,34 +521,46 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                 this.onNodeUnchecked();
             }
         };
-        TreeInternalComponent.prototype.onNodeChecked = function () {
-            if (!this.checkboxElementRef) {
+        TreeInternalComponent.prototype.onNodeChecked = function (ignoreChildren) {
+            if (ignoreChildren === void 0) {
+                ignoreChildren = false;
+            }
+            if (!this.checkboxElementRef || this.tree.checked === true) {
                 return;
             }
             this.nodeDraggableService.addCheckedNode(new captured_node_1.CapturedNode(this.nodeElementRef, this.tree));
-            this.checkboxElementRef.nativeElement.indeterminate = false;
-            this.treeService.fireNodeChecked(this.tree);
-            this.executeOnChildController(function (controller) {
-                return controller.check();
-            });
+            this.onNodeIndeterminate(false);
             this.tree.checked = true;
+            this.treeService.fireNodeChecked(this.tree);
+            if (!ignoreChildren) {
+                this.executeOnChildController(function (controller) {
+                    return controller.check();
+                });
+            }
         };
         TreeInternalComponent.prototype.onNodeUnchecked = function (ignoreChildren) {
             if (ignoreChildren === void 0) {
                 ignoreChildren = false;
             }
-            if (!this.checkboxElementRef) {
+            if (!this.checkboxElementRef || this.tree.checked === false) {
                 return;
             }
             this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
-            this.checkboxElementRef.nativeElement.indeterminate = false;
+            this.onNodeIndeterminate(false);
+            this.tree.checked = false;
             this.treeService.fireNodeUnchecked(this.tree);
             if (!ignoreChildren) {
                 this.executeOnChildController(function (controller) {
                     return controller.uncheck();
                 });
             }
-            this.tree.checked = false;
+        };
+        TreeInternalComponent.prototype.onNodeIndeterminate = function (indeterminate) {
+            if (!this.checkboxElementRef || this.checkboxElementRef.nativeElement.indeterminate === indeterminate) {
+                return;
+            }
+            this.checkboxElementRef.nativeElement.indeterminate = indeterminate;
+            this.treeService.fireNodeIndeterminate(this.tree, indeterminate);
         };
         TreeInternalComponent.prototype.executeOnChildController = function (executor) {
             var _this = this;
@@ -567,17 +579,20 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             setTimeout(function () {
                 var checkedChildrenAmount = _this.tree.checkedChildrenAmount();
                 if (checkedChildrenAmount === 0) {
-                    _this.checkboxElementRef.nativeElement.indeterminate = false;
-                    _this.tree.checked = false;
-                    _this.treeService.fireNodeUnchecked(_this.tree);
+                    if (!_this.settings.ignoreParentOnCheck) {
+                        _this.onNodeUnchecked(true);
+                    }
+                    _this.onNodeIndeterminate(false);
                 } else if (checkedChildrenAmount === _this.tree.loadedChildrenAmount()) {
-                    _this.checkboxElementRef.nativeElement.indeterminate = false;
-                    _this.tree.checked = true;
-                    _this.treeService.fireNodeChecked(_this.tree);
+                    if (!_this.settings.ignoreParentOnCheck) {
+                        _this.onNodeChecked(true);
+                        _this.onNodeIndeterminate(false);
+                    }
                 } else {
-                    _this.tree.checked = false;
-                    _this.checkboxElementRef.nativeElement.indeterminate = true;
-                    _this.treeService.fireNodeIndetermined(_this.tree);
+                    if (!_this.settings.ignoreParentOnCheck) {
+                        _this.onNodeUnchecked(true);
+                    }
+                    _this.onNodeIndeterminate(true);
                 }
             });
         };
@@ -700,6 +715,7 @@ $__System.registerDynamic("12", ["17"], true, function ($__require, exports, mod
             this.rootIsVisible = true;
             this.showCheckboxes = false;
             this.enableCheckboxes = true;
+            this.ignoreParentOnCheck = false;
         }
         return Ng2TreeSettings;
     }();
@@ -2406,14 +2422,14 @@ $__System.registerDynamic("26", [], true, function ($__require, exports, module)
         return NodeUncheckedEvent;
     }(NodeEvent);
     exports.NodeUncheckedEvent = NodeUncheckedEvent;
-    var NodeIndeterminedEvent = function (_super) {
-        __extends(NodeIndeterminedEvent, _super);
-        function NodeIndeterminedEvent(node) {
+    var NodeIndeterminateEvent = function (_super) {
+        __extends(NodeIndeterminateEvent, _super);
+        function NodeIndeterminateEvent(node, indeterminate) {
             return _super.call(this, node) || this;
         }
-        return NodeIndeterminedEvent;
+        return NodeIndeterminateEvent;
     }(NodeEvent);
-    exports.NodeIndeterminedEvent = NodeIndeterminedEvent;
+    exports.NodeIndeterminateEvent = NodeIndeterminateEvent;
 
 });
 $__System.registerDynamic("1b", [], true, function ($__require, exports, module) {
@@ -2658,7 +2674,7 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
             this.loadNextLevel$ = new Subject_1.Subject();
             this.nodeChecked$ = new Subject_1.Subject();
             this.nodeUnchecked$ = new Subject_1.Subject();
-            this.nodeIndetermined$ = new Subject_1.Subject();
+            this.nodeIndeterminate$ = new Subject_1.Subject();
             this.controllers = new Map();
             this.nodeRemoved$.subscribe(function (e) {
                 return e.node.removeItselfFromParent();
@@ -2751,8 +2767,8 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
             }
             return shouldLoadNextLevel;
         };
-        TreeService.prototype.fireNodeIndetermined = function (tree) {
-            this.nodeIndetermined$.next(new tree_events_1.NodeIndeterminedEvent(tree));
+        TreeService.prototype.fireNodeIndeterminate = function (tree, indeterminate) {
+            this.nodeIndeterminate$.next(new tree_events_1.NodeIndeterminateEvent(tree, indeterminate));
         };
         TreeService.decorators = [{ type: core_1.Injectable }];
         /** @nocollapse */
@@ -2852,7 +2868,7 @@ $__System.registerDynamic("a", ["12", "13", "15", "26", "1b", "f", "14", "29"], 
   exports.NodeDestructiveEvent = tree_events_1.NodeDestructiveEvent;
   exports.NodeUncheckedEvent = tree_events_1.NodeUncheckedEvent;
   exports.NodeCheckedEvent = tree_events_1.NodeCheckedEvent;
-  exports.NodeIndeterminedEvent = tree_events_1.NodeIndeterminedEvent;
+  exports.NodeIndeterminateEvent = tree_events_1.NodeIndeterminateEvent;
   exports.NodeUnselectedEvent = tree_events_1.NodeUnselectedEvent;
   var draggable_events_1 = $__require("1b");
   exports.NodeDragStartEvent = draggable_events_1.NodeDragStartEvent;

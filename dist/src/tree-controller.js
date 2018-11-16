@@ -110,10 +110,13 @@ var TreeController = (function () {
         if (ignoreChildren === void 0) { ignoreChildren = false; }
         this.component.onNodeUnchecked(ignoreChildren);
     };
+    TreeController.prototype.updateCheckboxState = function () {
+        this.component.updateCheckboxState();
+    };
     TreeController.prototype.isChecked = function () {
         return this.tree.checked;
     };
-    TreeController.prototype.isIndetermined = function () {
+    TreeController.prototype.isIndeterminate = function () {
         return fn_utils_1.get(this.component, 'checkboxElementRef.nativeElement.indeterminate');
     };
     TreeController.prototype.allowSelection = function () {

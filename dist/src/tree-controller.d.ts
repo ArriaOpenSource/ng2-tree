@@ -25,8 +25,9 @@ export declare class TreeController {
     startRenaming(): void;
     check(): void;
     uncheck(ignoreChildren?: boolean): void;
+    updateCheckboxState(): void;
     isChecked(): boolean;
-    isIndetermined(): boolean;
+    isIndeterminate(): boolean;
     allowSelection(): void;
     forbidSelection(): void;
     isSelectionAllowed(): boolean;

@@ -1,4 +1,4 @@
-import { LoadNextLevelEvent, MenuItemSelectedEvent, NodeCheckedEvent, NodeCollapsedEvent, NodeCreatedEvent, NodeExpandedEvent, NodeIndeterminedEvent, NodeMovedEvent, NodeRemovedEvent, NodeRenamedEvent, NodeSelectedEvent, NodeUncheckedEvent, NodeUnselectedEvent } from './tree.events';
+import { LoadNextLevelEvent, MenuItemSelectedEvent, NodeCheckedEvent, NodeCollapsedEvent, NodeCreatedEvent, NodeExpandedEvent, NodeIndeterminateEvent, NodeMovedEvent, NodeRemovedEvent, NodeRenamedEvent, NodeSelectedEvent, NodeUncheckedEvent, NodeUnselectedEvent } from './tree.events';
 import { RenamableNode } from './tree.types';
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
@@ -22,7 +22,7 @@ export declare class TreeService {
     loadNextLevel$: Subject<LoadNextLevelEvent>;
     nodeChecked$: Subject<NodeCheckedEvent>;
     nodeUnchecked$: Subject<NodeUncheckedEvent>;
-    nodeIndetermined$: Subject<NodeIndeterminedEvent>;
+    nodeIndeterminate$: Subject<NodeIndeterminateEvent>;
     private controllers;
     constructor(nodeDraggableService: NodeDraggableService);
     unselectStream(tree: Tree): Observable<NodeSelectedEvent>;
@@ -45,5 +45,5 @@ export declare class TreeService {
     getController(id: string | number): TreeController;
     hasController(id: string | number): boolean;
     private shouldFireLoadNextLevel(tree);
-    fireNodeIndetermined(tree: Tree): void;
+    fireNodeIndeterminate(tree: Tree, indeterminate: boolean): void;
 }

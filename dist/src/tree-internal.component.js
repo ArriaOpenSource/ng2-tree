@@ -59,10 +59,6 @@ var TreeInternalComponent = (function () {
                 if (ctrl && ctrl.isChecked()) {
                     ctrl.uncheck();
                 }
-                // Uncheck parent when moving an unchecked node
-                if (_this.tree.parent.checked && !node.tree.checked) {
-                    _this.treeService.getController(_this.tree.parent.id).uncheck(true);
-                }
                 if (_this.tree.isBranch() && e.position === draggable_events_1.DropPosition.Into) {
                     _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
                 }
@@ -73,6 +69,7 @@ var TreeInternalComponent = (function () {
                     _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree, e.position);
                 }
             }
+            _this.treeService.getController(_this.tree.parent.id).updateCheckboxState();
         }));
         this.subscriptions.push(this.treeService.nodeChecked$
             .merge(this.treeService.nodeUnchecked$)
@@ -234,28 +231,38 @@ var TreeInternalComponent = (function () {
             this.onNodeUnchecked();
         }
     };
-    TreeInternalComponent.prototype.onNodeChecked = function () {
-        if (!this.checkboxElementRef) {
+    TreeInternalComponent.prototype.onNodeChecked = function (ignoreChildren) {
+        if (ignoreChildren === void 0) { ignoreChildren = false; }
+        if (!this.checkboxElementRef || this.tree.checked === true) {
             return;
         }
         this.nodeDraggableService.addCheckedNode(new captured_node_1.CapturedNode(this.nodeElementRef, this.tree));
-        this.checkboxElementRef.nativeElement.indeterminate = false;
-        this.treeService.fireNodeChecked(this.tree);
-        this.executeOnChildController(function (controller) { return controller.check(); });
+        this.onNodeIndeterminate(false);
         this.tree.checked = true;
+        this.treeService.fireNodeChecked(this.tree);
+        if (!ignoreChildren) {
+            this.executeOnChildController(function (controller) { return controller.check(); });
+        }
     };
     TreeInternalComponent.prototype.onNodeUnchecked = function (ignoreChildren) {
         if (ignoreChildren === void 0) { ignoreChildren = false; }
-        if (!this.checkboxElementRef) {
+        if (!this.checkboxElementRef || this.tree.checked === false) {
             return;
         }
         this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
-        this.checkboxElementRef.nativeElement.indeterminate = false;
+        this.onNodeIndeterminate(false);
+        this.tree.checked = false;
         this.treeService.fireNodeUnchecked(this.tree);
         if (!ignoreChildren) {
             this.executeOnChildController(function (controller) { return controller.uncheck(); });
         }
-        this.tree.checked = false;
+    };
+    TreeInternalComponent.prototype.onNodeIndeterminate = function (indeterminate) {
+        if (!this.checkboxElementRef || this.checkboxElementRef.nativeElement.indeterminate === indeterminate) {
+            return;
+        }
+        this.checkboxElementRef.nativeElement.indeterminate = indeterminate;
+        this.treeService.fireNodeIndeterminate(this.tree, indeterminate);
     };
     TreeInternalComponent.prototype.executeOnChildController = function (executor) {
         var _this = this;
@@ -274,19 +281,22 @@ var TreeInternalComponent = (function () {
         setTimeout(function () {
             var checkedChildrenAmount = _this.tree.checkedChildrenAmount();
             if (checkedChildrenAmount === 0) {
-                _this.checkboxElementRef.nativeElement.indeterminate = false;
-                _this.tree.checked = false;
-                _this.treeService.fireNodeUnchecked(_this.tree);
+                if (!_this.settings.ignoreParentOnCheck) {
+                    _this.onNodeUnchecked(true);
+                }
+                _this.onNodeIndeterminate(false);
             }
             else if (checkedChildrenAmount === _this.tree.loadedChildrenAmount()) {
-                _this.checkboxElementRef.nativeElement.indeterminate = false;
-                _this.tree.checked = true;
-                _this.treeService.fireNodeChecked(_this.tree);
+                if (!_this.settings.ignoreParentOnCheck) {
+                    _this.onNodeChecked(true);
+                    _this.onNodeIndeterminate(false);
+                }
             }
             else {
-                _this.tree.checked = false;
-                _this.checkboxElementRef.nativeElement.indeterminate = true;
-                _this.treeService.fireNodeIndetermined(_this.tree);
+                if (!_this.settings.ignoreParentOnCheck) {
+                    _this.onNodeUnchecked(true);
+                }
+                _this.onNodeIndeterminate(true);
             }
         });
     };

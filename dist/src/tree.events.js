@@ -131,12 +131,12 @@ var NodeUncheckedEvent = (function (_super) {
     return NodeUncheckedEvent;
 }(NodeEvent));
 exports.NodeUncheckedEvent = NodeUncheckedEvent;
-var NodeIndeterminedEvent = (function (_super) {
-    __extends(NodeIndeterminedEvent, _super);
-    function NodeIndeterminedEvent(node) {
+var NodeIndeterminateEvent = (function (_super) {
+    __extends(NodeIndeterminateEvent, _super);
+    function NodeIndeterminateEvent(node, indeterminate) {
         return _super.call(this, node) || this;
     }
-    return NodeIndeterminedEvent;
+    return NodeIndeterminateEvent;
 }(NodeEvent));
-exports.NodeIndeterminedEvent = NodeIndeterminedEvent;
+exports.NodeIndeterminateEvent = NodeIndeterminateEvent;
 //# sourceMappingURL=tree.events.js.map
