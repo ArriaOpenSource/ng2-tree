@@ -5,7 +5,7 @@ import {
   NodeCollapsedEvent,
   NodeCreatedEvent,
   NodeExpandedEvent,
-  NodeIndeterminedEvent,
+  NodeIndeterminateEvent,
   NodeMovedEvent,
   NodeRemovedEvent,
   NodeRenamedEvent,
@@ -38,7 +38,7 @@ export class TreeService {
   public loadNextLevel$: Subject<LoadNextLevelEvent> = new Subject<LoadNextLevelEvent>();
   public nodeChecked$: Subject<NodeCheckedEvent> = new Subject<NodeCheckedEvent>();
   public nodeUnchecked$: Subject<NodeUncheckedEvent> = new Subject<NodeUncheckedEvent>();
-  public nodeIndetermined$: Subject<NodeIndeterminedEvent> = new Subject<NodeIndeterminedEvent>();
+  public nodeIndetermined$: Subject<NodeIndeterminateEvent> = new Subject<NodeIndeterminateEvent>();
 
   private controllers: Map<string | number, TreeController> = new Map();
 
@@ -155,6 +155,6 @@ export class TreeService {
   }
 
   public fireNodeIndeterminate(tree: Tree): void {
-    this.nodeIndetermined$.next(new NodeIndeterminedEvent(tree));
+    this.nodeIndetermined$.next(new NodeIndeterminateEvent(tree));
   }
 }

@@ -25,7 +25,7 @@ import {
   NodeDestructiveEvent,
   NodeUncheckedEvent,
   NodeCheckedEvent,
-  NodeIndeterminedEvent,
+  NodeIndeterminateEvent,
   NodeUnselectedEvent
 } from './src/tree.events';
 
@@ -54,7 +54,7 @@ export {
   NodeMenuEvent,
   NodeUncheckedEvent,
   NodeCheckedEvent,
-  NodeIndeterminedEvent,
+  NodeIndeterminateEvent,
   NodeUnselectedEvent,
   NodeDragStartEvent,
   NodeDraggableEvent,
