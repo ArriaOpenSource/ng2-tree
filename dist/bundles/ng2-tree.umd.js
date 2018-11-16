@@ -2425,7 +2425,9 @@ $__System.registerDynamic("26", [], true, function ($__require, exports, module)
     var NodeIndeterminateEvent = function (_super) {
         __extends(NodeIndeterminateEvent, _super);
         function NodeIndeterminateEvent(node, indeterminate) {
-            return _super.call(this, node) || this;
+            var _this = _super.call(this, node) || this;
+            _this.indeterminate = indeterminate;
+            return _this;
         }
         return NodeIndeterminateEvent;
     }(NodeEvent);

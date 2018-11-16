@@ -50,5 +50,6 @@ export declare class NodeUncheckedEvent extends NodeEvent {
     constructor(node: Tree);
 }
 export declare class NodeIndeterminateEvent extends NodeEvent {
+    indeterminate: boolean;
     constructor(node: Tree, indeterminate: boolean);
 }
