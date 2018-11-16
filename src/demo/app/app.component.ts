@@ -693,7 +693,7 @@ export class AppComponent implements OnInit {
 
   public onPlsNodeDragStarted(e: NodeDragStartEvent): void {
     this.dragImgElem.textContent =
-      e.captured.length === 1 ? `Dragging "${e.captured[0].tree.value}"` : `Dragging ${e.captured.length} nodes`;
+      e.captured.length === 1 ? `Moving "${e.captured[0].tree.value}"` : `Moving ${e.captured.length} nodes`;
   }
 
   public onNodeRemoved(e: NodeEvent): void {
