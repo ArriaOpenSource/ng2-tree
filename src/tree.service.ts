@@ -154,7 +154,7 @@ export class TreeService {
     return shouldLoadNextLevel;
   }
 
-  public fireNodeIndetermined(tree: Tree): void {
+  public fireNodeIndeterminate(tree: Tree): void {
     this.nodeIndetermined$.next(new NodeIndeterminedEvent(tree));
   }
 }

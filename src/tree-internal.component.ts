@@ -415,7 +415,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
         this.tree.checked = false;
         this.checkboxElementRef.nativeElement.indeterminate = true;
         this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
-        this.treeService.fireNodeIndetermined(this.tree);
+        this.treeService.fireNodeIndeterminate(this.tree);
       }
     });
   }
