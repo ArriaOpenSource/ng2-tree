@@ -8,6 +8,7 @@ var NodeMenuComponent = (function () {
     function NodeMenuComponent(renderer, nodeMenuService) {
         this.renderer = renderer;
         this.nodeMenuService = nodeMenuService;
+        this.visibility = 'hidden';
         this.menuItemSelected = new core_1.EventEmitter();
         this.availableMenuItems = [
             {
@@ -38,6 +39,9 @@ var NodeMenuComponent = (function () {
         this.disposersForGlobalListeners.push(this.renderer.listen('document', 'keyup', this.closeMenu.bind(this)));
         this.disposersForGlobalListeners.push(this.renderer.listen('document', 'mousedown', this.closeMenu.bind(this)));
     };
+    NodeMenuComponent.prototype.ngAfterViewInit = function () {
+        this.displayAboveOrBelow();
+    };
     NodeMenuComponent.prototype.ngOnDestroy = function () {
         this.disposersForGlobalListeners.forEach(function (dispose) { return dispose(); });
     };
@@ -48,6 +52,34 @@ var NodeMenuComponent = (function () {
                 nodeMenuItemSelected: selectedMenuItem.name
             });
             this.nodeMenuService.fireMenuEvent(e.target, menu_events_1.NodeMenuAction.Close);
+        }
+    };
+    NodeMenuComponent.prototype.displayAboveOrBelow = function () {
+        var _this = this;
+        var menuContainerElem = this.menuContainer.nativeElement;
+        var elemBCR = menuContainerElem.getBoundingClientRect();
+        var elemTop = elemBCR.top;
+        var elemHeight = elemBCR.height;
+        var defaultDisplay = menuContainerElem.style.display;
+        menuContainerElem.style.display = 'none';
+        var scrollContainer = this.getScrollParent(menuContainerElem);
+        menuContainerElem.style.display = defaultDisplay;
+        var containerBCR = scrollContainer.getBoundingClientRect();
+        var containerBottom = containerBCR.top + containerBCR.height;
+        var viewportBottom = containerBottom > window.innerHeight ? window.innerHeight : containerBottom;
+        var style = elemTop + elemHeight > viewportBottom ? 'bottom: 0' : 'top: 0';
+        menuContainerElem.setAttribute('style', style);
+        setTimeout(function () { return (_this.visibility = 'visible'); });
+    };
+    NodeMenuComponent.prototype.getScrollParent = function (node) {
+        if (node == null) {
+            return null;
+        }
+        if (node.clientHeight && node.clientHeight < node.scrollHeight) {
+            return node;
+        }
+        else {
+            return this.getScrollParent(node.parentElement);
         }
     };
     NodeMenuComponent.prototype.closeMenu = function (e) {
@@ -61,7 +93,7 @@ var NodeMenuComponent = (function () {
     NodeMenuComponent.decorators = [
         { type: core_1.Component, args: [{
                     selector: 'node-menu',
-                    template: "\n    <div class=\"node-menu\">\n      <ul class=\"node-menu-content\" #menuContainer>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
+                    template: "\n    <div class=\"node-menu\"  [ngStyle]=\"{'visibility': visibility}\">\n      <ul class=\"node-menu-content\" #menuContainer>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
                 },] },
     ];
     /** @nocollapse */

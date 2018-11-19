@@ -433,7 +433,6 @@ var Tree = (function () {
        * @param {Tree} sibling - A sibling to move
        */
     function (sibling) {
-        // TODO
         if (!this.hasSibling(sibling)) {
             return;
         }

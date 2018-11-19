@@ -358,7 +358,10 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                         _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree, e.position);
                     }
                 }
-                _this.treeService.getController(_this.tree.parent.id).updateCheckboxState();
+                var parentCtrl = _this.treeService.getController(_this.tree.parent.id);
+                if (parentCtrl) {
+                    parentCtrl.updateCheckboxState();
+                }
             }));
             this.subscriptions.push(this.treeService.nodeChecked$.merge(this.treeService.nodeUnchecked$).filter(function (e) {
                 return _this.eventContainsId(e) && _this.tree.hasChild(e.node);
@@ -579,19 +582,17 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             setTimeout(function () {
                 var checkedChildrenAmount = _this.tree.checkedChildrenAmount();
                 if (checkedChildrenAmount === 0) {
-                    if (!_this.settings.ignoreParentOnCheck) {
-                        _this.onNodeUnchecked(true);
-                    }
+                    _this.onNodeUnchecked(true);
                     _this.onNodeIndeterminate(false);
                 } else if (checkedChildrenAmount === _this.tree.loadedChildrenAmount()) {
                     if (!_this.settings.ignoreParentOnCheck) {
                         _this.onNodeChecked(true);
                         _this.onNodeIndeterminate(false);
+                    } else if (!_this.tree.checked) {
+                        _this.onNodeIndeterminate(true);
                     }
                 } else {
-                    if (!_this.settings.ignoreParentOnCheck) {
-                        _this.onNodeUnchecked(true);
-                    }
+                    _this.onNodeUnchecked(true);
                     _this.onNodeIndeterminate(true);
                 }
             });
@@ -1242,7 +1243,6 @@ $__System.registerDynamic("13", ["17", "21", "12", "20"], true, function ($__req
                                           * @param {Tree} sibling - A sibling to move
                                           */
         function (sibling) {
-            // TODO
             if (!this.hasSibling(sibling)) {
                 return;
             }
@@ -2156,6 +2156,7 @@ $__System.registerDynamic("24", ["10", "19", "15", "16"], true, function ($__req
         function NodeMenuComponent(renderer, nodeMenuService) {
             this.renderer = renderer;
             this.nodeMenuService = nodeMenuService;
+            this.visibility = 'hidden';
             this.menuItemSelected = new core_1.EventEmitter();
             this.availableMenuItems = [{
                 name: 'New tag',
@@ -2181,6 +2182,9 @@ $__System.registerDynamic("24", ["10", "19", "15", "16"], true, function ($__req
             this.disposersForGlobalListeners.push(this.renderer.listen('document', 'keyup', this.closeMenu.bind(this)));
             this.disposersForGlobalListeners.push(this.renderer.listen('document', 'mousedown', this.closeMenu.bind(this)));
         };
+        NodeMenuComponent.prototype.ngAfterViewInit = function () {
+            this.displayAboveOrBelow();
+        };
         NodeMenuComponent.prototype.ngOnDestroy = function () {
             this.disposersForGlobalListeners.forEach(function (dispose) {
                 return dispose();
@@ -2195,6 +2199,35 @@ $__System.registerDynamic("24", ["10", "19", "15", "16"], true, function ($__req
                 this.nodeMenuService.fireMenuEvent(e.target, menu_events_1.NodeMenuAction.Close);
             }
         };
+        NodeMenuComponent.prototype.displayAboveOrBelow = function () {
+            var _this = this;
+            var menuContainerElem = this.menuContainer.nativeElement;
+            var elemBCR = menuContainerElem.getBoundingClientRect();
+            var elemTop = elemBCR.top;
+            var elemHeight = elemBCR.height;
+            var defaultDisplay = menuContainerElem.style.display;
+            menuContainerElem.style.display = 'none';
+            var scrollContainer = this.getScrollParent(menuContainerElem);
+            menuContainerElem.style.display = defaultDisplay;
+            var containerBCR = scrollContainer.getBoundingClientRect();
+            var containerBottom = containerBCR.top + containerBCR.height;
+            var viewportBottom = containerBottom > window.innerHeight ? window.innerHeight : containerBottom;
+            var style = elemTop + elemHeight > viewportBottom ? 'bottom: 0' : 'top: 0';
+            menuContainerElem.setAttribute('style', style);
+            setTimeout(function () {
+                return _this.visibility = 'visible';
+            });
+        };
+        NodeMenuComponent.prototype.getScrollParent = function (node) {
+            if (node == null) {
+                return null;
+            }
+            if (node.clientHeight && node.clientHeight < node.scrollHeight) {
+                return node;
+            } else {
+                return this.getScrollParent(node.parentElement);
+            }
+        };
         NodeMenuComponent.prototype.closeMenu = function (e) {
             var mouseClicked = e instanceof MouseEvent;
             // Check if the click is fired on an element inside a menu
@@ -2205,7 +2238,7 @@ $__System.registerDynamic("24", ["10", "19", "15", "16"], true, function ($__req
         };
         NodeMenuComponent.decorators = [{ type: core_1.Component, args: [{
                 selector: 'node-menu',
-                template: "\n    <div class=\"node-menu\">\n      <ul class=\"node-menu-content\" #menuContainer>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
+                template: "\n    <div class=\"node-menu\"  [ngStyle]=\"{'visibility': visibility}\">\n      <ul class=\"node-menu-content\" #menuContainer>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
             }] }];
         /** @nocollapse */
         NodeMenuComponent.ctorParameters = function () {

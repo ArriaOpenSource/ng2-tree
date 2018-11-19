@@ -69,7 +69,10 @@ var TreeInternalComponent = (function () {
                     _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree, e.position);
                 }
             }
-            _this.treeService.getController(_this.tree.parent.id).updateCheckboxState();
+            var parentCtrl = _this.treeService.getController(_this.tree.parent.id);
+            if (parentCtrl) {
+                parentCtrl.updateCheckboxState();
+            }
         }));
         this.subscriptions.push(this.treeService.nodeChecked$
             .merge(this.treeService.nodeUnchecked$)
@@ -281,9 +284,7 @@ var TreeInternalComponent = (function () {
         setTimeout(function () {
             var checkedChildrenAmount = _this.tree.checkedChildrenAmount();
             if (checkedChildrenAmount === 0) {
-                if (!_this.settings.ignoreParentOnCheck) {
-                    _this.onNodeUnchecked(true);
-                }
+                _this.onNodeUnchecked(true);
                 _this.onNodeIndeterminate(false);
             }
             else if (checkedChildrenAmount === _this.tree.loadedChildrenAmount()) {
@@ -291,11 +292,12 @@ var TreeInternalComponent = (function () {
                     _this.onNodeChecked(true);
                     _this.onNodeIndeterminate(false);
                 }
+                else if (!_this.tree.checked) {
+                    _this.onNodeIndeterminate(true);
+                }
             }
             else {
-                if (!_this.settings.ignoreParentOnCheck) {
-                    _this.onNodeUnchecked(true);
-                }
+                _this.onNodeUnchecked(true);
                 _this.onNodeIndeterminate(true);
             }
         });
