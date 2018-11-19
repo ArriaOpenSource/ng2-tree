@@ -64,9 +64,15 @@ var NodeMenuComponent = (function () {
         menuContainerElem.style.display = 'none';
         var scrollContainer = this.getScrollParent(menuContainerElem);
         menuContainerElem.style.display = defaultDisplay;
-        var containerBCR = scrollContainer.getBoundingClientRect();
-        var containerBottom = containerBCR.top + containerBCR.height;
-        var viewportBottom = containerBottom > window.innerHeight ? window.innerHeight : containerBottom;
+        var viewportBottom;
+        if (scrollContainer) {
+            var containerBCR = scrollContainer.getBoundingClientRect();
+            var containerBottom = containerBCR.top + containerBCR.height;
+            viewportBottom = containerBottom > window.innerHeight ? window.innerHeight : containerBottom;
+        }
+        else {
+            viewportBottom = window.innerHeight;
+        }
         var style = elemTop + elemHeight > viewportBottom ? 'bottom: 0' : 'top: 0';
         menuContainerElem.setAttribute('style', style);
         setTimeout(function () { return (_this.visibility = 'visible'); });
