@@ -162,7 +162,10 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
             this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree, e.position);
           }
         }
-        this.treeService.getController(this.tree.parent.id).updateCheckboxState();
+        const parentCtrl = this.treeService.getController(this.tree.parent.id);
+        if (parentCtrl) {
+          parentCtrl.updateCheckboxState();
+        }
       })
     );
 
@@ -414,19 +417,17 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     setTimeout(() => {
       const checkedChildrenAmount = this.tree.checkedChildrenAmount();
       if (checkedChildrenAmount === 0) {
-        if (!this.settings.ignoreParentOnCheck) {
-          this.onNodeUnchecked(true);
-        }
+        this.onNodeUnchecked(true);
         this.onNodeIndeterminate(false);
       } else if (checkedChildrenAmount === this.tree.loadedChildrenAmount()) {
         if (!this.settings.ignoreParentOnCheck) {
           this.onNodeChecked(true);
           this.onNodeIndeterminate(false);
+        } else if (!this.tree.checked) {
+          this.onNodeIndeterminate(true);
         }
       } else {
-        if (!this.settings.ignoreParentOnCheck) {
-          this.onNodeUnchecked(true);
-        }
+        this.onNodeUnchecked(true);
         this.onNodeIndeterminate(true);
       }
     });

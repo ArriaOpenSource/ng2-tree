@@ -200,7 +200,8 @@ declare const alertify: any;
 export class AppComponent implements OnInit {
   public settings: Ng2TreeSettings = {
     rootIsVisible: false,
-    showCheckboxes: true
+    showCheckboxes: true,
+    ignoreParentOnCheck: true
   };
 
   public plsSettings: Ng2TreeSettings = {
