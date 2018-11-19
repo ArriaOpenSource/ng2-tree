@@ -105,10 +105,14 @@ export class NodeMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     const scrollContainer = this.getScrollParent(menuContainerElem);
     menuContainerElem.style.display = defaultDisplay;
 
-    const containerBCR = scrollContainer.getBoundingClientRect();
-    const containerBottom = containerBCR.top + containerBCR.height;
-
-    const viewportBottom = containerBottom > window.innerHeight ? window.innerHeight : containerBottom;
+    let viewportBottom;
+    if (scrollContainer) {
+      const containerBCR = scrollContainer.getBoundingClientRect();
+      const containerBottom = containerBCR.top + containerBCR.height;
+      viewportBottom = containerBottom > window.innerHeight ? window.innerHeight : containerBottom;
+    } else {
+      viewportBottom = window.innerHeight;
+    }
 
     const style = elemTop + elemHeight > viewportBottom ? 'bottom: 0' : 'top: 0';
     menuContainerElem.setAttribute('style', style);
