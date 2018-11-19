@@ -95,13 +95,36 @@ export class NodeMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private displayAboveOrBelow(): void {
     const menuContainerElem = this.menuContainer.nativeElement as HTMLElement;
-    const boundingClientRect = menuContainerElem.getBoundingClientRect();
-    const elemTop = boundingClientRect.top;
-    const elemHeight = boundingClientRect.height;
-    const viewportHeight = window.innerHeight;
-    const style = elemTop + elemHeight > viewportHeight ? 'bottom: 0' : 'top: 0';
+
+    const elemBCR = menuContainerElem.getBoundingClientRect();
+    const elemTop = elemBCR.top;
+    const elemHeight = elemBCR.height;
+
+    const defaultDisplay = menuContainerElem.style.display;
+    menuContainerElem.style.display = 'none';
+    const scrollContainer = this.getScrollParent(menuContainerElem);
+    menuContainerElem.style.display = defaultDisplay;
+
+    const containerBCR = scrollContainer.getBoundingClientRect();
+    const containerBottom = containerBCR.top + containerBCR.height;
+
+    const viewportBottom = containerBottom > window.innerHeight ? window.innerHeight : containerBottom;
+
+    const style = elemTop + elemHeight > viewportBottom ? 'bottom: 0' : 'top: 0';
     menuContainerElem.setAttribute('style', style);
     setTimeout(() => (this.visibility = 'visible'));
+  }
+
+  private getScrollParent(node: HTMLElement): HTMLElement {
+    if (node == null) {
+      return null;
+    }
+
+    if (node.clientHeight && node.clientHeight < node.scrollHeight) {
+      return node;
+    } else {
+      return this.getScrollParent(node.parentElement);
+    }
   }
 
   private closeMenu(e: MouseEvent | KeyboardEvent): void {
