@@ -1,4 +1,15 @@
-import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  Renderer2,
+  ViewChild,
+  AfterViewInit
+} from '@angular/core';
 import { NodeMenuService } from './node-menu.service';
 import { NodeMenuAction, NodeMenuItemAction, NodeMenuItemSelectedEvent } from './menu.events';
 import { isEscapePressed, isLeftButtonClicked } from '../utils/event.utils';
@@ -6,7 +17,7 @@ import { isEscapePressed, isLeftButtonClicked } from '../utils/event.utils';
 @Component({
   selector: 'node-menu',
   template: `
-    <div class="node-menu">
+    <div class="node-menu"  [ngStyle]="{'visibility': visibility}">
       <ul class="node-menu-content" #menuContainer>
         <li class="node-menu-item" *ngFor="let menuItem of availableMenuItems"
           (click)="onMenuItemSelected($event, menuItem)">
@@ -17,7 +28,9 @@ import { isEscapePressed, isLeftButtonClicked } from '../utils/event.utils';
     </div>
   `
 })
-export class NodeMenuComponent implements OnInit, OnDestroy {
+export class NodeMenuComponent implements OnInit, AfterViewInit, OnDestroy {
+  public visibility = 'hidden';
+
   @Output()
   public menuItemSelected: EventEmitter<NodeMenuItemSelectedEvent> = new EventEmitter<NodeMenuItemSelectedEvent>();
 
@@ -61,6 +74,10 @@ export class NodeMenuComponent implements OnInit, OnDestroy {
     this.disposersForGlobalListeners.push(this.renderer.listen('document', 'mousedown', this.closeMenu.bind(this)));
   }
 
+  public ngAfterViewInit(): void {
+    this.displayAboveOrBelow();
+  }
+
   public ngOnDestroy(): void {
     this.disposersForGlobalListeners.forEach((dispose: Function) => dispose());
   }
@@ -74,6 +91,17 @@ export class NodeMenuComponent implements OnInit, OnDestroy {
 
       this.nodeMenuService.fireMenuEvent(e.target as HTMLElement, NodeMenuAction.Close);
     }
+  }
+
+  private displayAboveOrBelow(): void {
+    const menuContainerElem = this.menuContainer.nativeElement as HTMLElement;
+    const boundingClientRect = menuContainerElem.getBoundingClientRect();
+    const elemTop = boundingClientRect.top;
+    const elemHeight = boundingClientRect.height;
+    const viewportHeight = window.innerHeight;
+    const style = elemTop + elemHeight > viewportHeight ? 'bottom: 0' : 'top: 0';
+    menuContainerElem.setAttribute('style', style);
+    setTimeout(() => (this.visibility = 'visible'));
   }
 
   private closeMenu(e: MouseEvent | KeyboardEvent): void {

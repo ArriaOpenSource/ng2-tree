@@ -326,7 +326,6 @@ export class Tree {
    * @param {Tree} sibling - A sibling to move
    */
   public moveSiblingAbove(sibling: Tree): void {
-    // TODO
     if (!this.hasSibling(sibling)) {
       return;
     }
