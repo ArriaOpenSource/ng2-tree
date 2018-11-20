@@ -361,15 +361,16 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   public onNodeChecked(ignoreChildren: boolean = false): void {
-    if (!this.checkboxElementRef || this.tree.checked === true) {
+    if (!this.checkboxElementRef) {
       return;
     }
 
-    this.nodeDraggableService.addCheckedNode(new CapturedNode(this.nodeElementRef, this.tree));
-    this.onNodeIndeterminate(false);
-
-    this.tree.checked = true;
-    this.treeService.fireNodeChecked(this.tree);
+    if (!this.tree.checked) {
+      this.nodeDraggableService.addCheckedNode(new CapturedNode(this.nodeElementRef, this.tree));
+      this.onNodeIndeterminate(false);
+      this.tree.checked = true;
+      this.treeService.fireNodeChecked(this.tree);
+    }
 
     if (!ignoreChildren) {
       this.executeOnChildController(controller => controller.check());
@@ -377,15 +378,16 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   public onNodeUnchecked(ignoreChildren: boolean = false): void {
-    if (!this.checkboxElementRef || this.tree.checked === false) {
+    if (!this.checkboxElementRef) {
       return;
     }
 
-    this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
-    this.onNodeIndeterminate(false);
-
-    this.tree.checked = false;
-    this.treeService.fireNodeUnchecked(this.tree);
+    if (this.tree.checked) {
+      this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
+      this.onNodeIndeterminate(false);
+      this.tree.checked = false;
+      this.treeService.fireNodeUnchecked(this.tree);
+    }
 
     if (!ignoreChildren) {
       this.executeOnChildController(controller => controller.uncheck());
