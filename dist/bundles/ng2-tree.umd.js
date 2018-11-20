@@ -528,13 +528,15 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             if (ignoreChildren === void 0) {
                 ignoreChildren = false;
             }
-            if (!this.checkboxElementRef || this.tree.checked === true) {
+            if (!this.checkboxElementRef) {
                 return;
             }
-            this.nodeDraggableService.addCheckedNode(new captured_node_1.CapturedNode(this.nodeElementRef, this.tree));
-            this.onNodeIndeterminate(false);
-            this.tree.checked = true;
-            this.treeService.fireNodeChecked(this.tree);
+            if (!this.tree.checked) {
+                this.nodeDraggableService.addCheckedNode(new captured_node_1.CapturedNode(this.nodeElementRef, this.tree));
+                this.onNodeIndeterminate(false);
+                this.tree.checked = true;
+                this.treeService.fireNodeChecked(this.tree);
+            }
             if (!ignoreChildren) {
                 this.executeOnChildController(function (controller) {
                     return controller.check();
@@ -545,13 +547,15 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             if (ignoreChildren === void 0) {
                 ignoreChildren = false;
             }
-            if (!this.checkboxElementRef || this.tree.checked === false) {
+            if (!this.checkboxElementRef) {
                 return;
             }
-            this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
-            this.onNodeIndeterminate(false);
-            this.tree.checked = false;
-            this.treeService.fireNodeUnchecked(this.tree);
+            if (this.tree.checked) {
+                this.nodeDraggableService.removeCheckedNodeById(this.tree.id);
+                this.onNodeIndeterminate(false);
+                this.tree.checked = false;
+                this.treeService.fireNodeUnchecked(this.tree);
+            }
             if (!ignoreChildren) {
                 this.executeOnChildController(function (controller) {
                     return controller.uncheck();
