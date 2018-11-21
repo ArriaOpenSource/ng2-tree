@@ -17,7 +17,6 @@ declare const alertify: any;
             <div class="tree-content">
                 <tree #treeFonts
                       [tree]="fonts"
-                      [settings]="{rootIsVisible: false}"
                       (menuItemSelected)="onMenuItemSelected($event)"
                       (nodeRemoved)="onNodeRemoved($event)"
                       (nodeRenamed)="onNodeRenamed($event)"
@@ -213,7 +212,7 @@ export class AppComponent implements OnInit {
   public fonts: TreeModel = {
     value: 'Fonts',
     settings: {
-      isCollapsedOnInit: true
+      isCollapsedOnInit: false
     },
     children: [
       {
