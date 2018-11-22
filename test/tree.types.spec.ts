@@ -1,4 +1,4 @@
-import { TreeModelSettings, TreeModel, FoldingType } from '../src/tree.types';
+import { TreeModelSettings, FoldingType } from '../src/tree.types';
 import { TreeDataProvider } from './data-provider/tree.data-provider';
 
 const using = require('jasmine-data-provider');

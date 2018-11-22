@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Component, ElementRef, DebugElement } from '@angular/core';
 import { TreeInternalComponent } from '../src/tree-internal.component';
@@ -10,20 +10,19 @@ import { NodeMenuComponent } from '../src/menu/node-menu.component';
 import { NodeDraggableService } from '../src/draggable/node-draggable.service';
 import { NodeDraggableDirective } from '../src/draggable/node-draggable.directive';
 import { NodeEditableDirective } from '../src/editable/node-editable.directive';
-import { NodeMenuAction } from '../src/menu/menu.events';
 import * as EventUtils from '../src/utils/event.utils';
 import { CapturedNode } from '../src/draggable/captured-node';
 import { SafeHtmlPipe } from '../src/utils/safe-html.pipe';
+import { DropPosition } from '../src/draggable/draggable.events';
 
 let fixture;
 let masterInternalTreeEl;
 let masterComponentInstance;
 let lordInternalTreeEl;
-let lordComponentInstance;
 let faceInternalTreeEl;
 let faceComponentInstance;
 let nodeMenuService;
-let nodeDraggableService;
+let nodeDraggableService: NodeDraggableService;
 let treeService;
 let safeHtml;
 
@@ -105,8 +104,6 @@ describe('TreeInternalComponent', () => {
     masterComponentInstance = masterInternalTreeEl.componentInstance;
 
     lordInternalTreeEl = fixture.debugElement.query(By.css('#lord')).query(By.directive(TreeInternalComponent));
-    lordComponentInstance = lordInternalTreeEl.componentInstance;
-
     faceInternalTreeEl = fixture.debugElement.query(By.css('#face')).query(By.directive(TreeInternalComponent));
     faceComponentInstance = faceInternalTreeEl.componentInstance;
 
@@ -186,7 +183,11 @@ describe('TreeInternalComponent', () => {
       servant1InternalTreeEl.componentInstance.nodeElementRef,
       servant1InternalTreeEl.componentInstance.tree
     );
-    nodeDraggableService.fireNodeDragged(capturedNode, servant2InternalTreeEl.componentInstance.nodeElementRef);
+    nodeDraggableService.fireNodeDragged(
+      [capturedNode],
+      servant2InternalTreeEl.componentInstance.nodeElementRef,
+      DropPosition.Below
+    );
 
     fixture.detectChanges();
 
@@ -219,7 +220,11 @@ describe('TreeInternalComponent', () => {
       disciple1InternalTreeEl.componentInstance.nodeElementRef,
       disciple1InternalTreeEl.componentInstance.tree
     );
-    nodeDraggableService.fireNodeDragged(capturedNode, disciple2InternalTreeEl.componentInstance.nodeElementRef);
+    nodeDraggableService.fireNodeDragged(
+      [capturedNode],
+      disciple2InternalTreeEl.componentInstance.nodeElementRef,
+      DropPosition.Below
+    );
 
     fixture.detectChanges();
 
@@ -247,7 +252,11 @@ describe('TreeInternalComponent', () => {
     const servant2InternalTreeEl = internalTreeChildren[1];
 
     const capturedNode = new CapturedNode(masterComponentInstance.nodeElementRef, masterComponentInstance.tree);
-    nodeDraggableService.fireNodeDragged(capturedNode, servant2InternalTreeEl.componentInstance.nodeElementRef);
+    nodeDraggableService.fireNodeDragged(
+      [capturedNode],
+      servant2InternalTreeEl.componentInstance.nodeElementRef,
+      DropPosition.Below
+    );
 
     fixture.detectChanges();
 
@@ -262,124 +271,148 @@ describe('TreeInternalComponent', () => {
     expect(nodeValues[2].innerText).toEqual('Servant#2');
   });
 
-  it('should be possible to drag node from one subtree to another subtree in the same parent tree', () => {
-    const internalTreeChildren = lordInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
-    const disciple1InternalTreeEl = internalTreeChildren[0];
-    const subDisciple1InternalTreeEl = internalTreeChildren[1];
-    const subDisciple2InternalTreeEl = internalTreeChildren[2];
-    const disciple2InternalTreeEl = internalTreeChildren[3];
+  it(
+    'should be possible to drag node from one subtree to another subtree in the same parent tree',
+    fakeAsync(() => {
+      const internalTreeChildren = lordInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
+      const disciple1InternalTreeEl = internalTreeChildren[0];
+      const subDisciple1InternalTreeEl = internalTreeChildren[1];
+      const subDisciple2InternalTreeEl = internalTreeChildren[2];
+      const disciple2InternalTreeEl = internalTreeChildren[3];
 
-    expect(disciple1InternalTreeEl.componentInstance.tree.value).toEqual('Disciple#1');
-    expect(subDisciple1InternalTreeEl.componentInstance.tree.value).toEqual('SubDisciple#1');
-    expect(subDisciple2InternalTreeEl.componentInstance.tree.value).toEqual('SubDisciple#2');
-    expect(disciple2InternalTreeEl.componentInstance.tree.value).toEqual('Disciple#2');
+      expect(disciple1InternalTreeEl.componentInstance.tree.value).toEqual('Disciple#1');
+      expect(subDisciple1InternalTreeEl.componentInstance.tree.value).toEqual('SubDisciple#1');
+      expect(subDisciple2InternalTreeEl.componentInstance.tree.value).toEqual('SubDisciple#2');
+      expect(disciple2InternalTreeEl.componentInstance.tree.value).toEqual('Disciple#2');
 
-    const capturedNode = new CapturedNode(
-      subDisciple1InternalTreeEl.componentInstance.nodeElementRef,
-      subDisciple1InternalTreeEl.componentInstance.tree
-    );
-    nodeDraggableService.fireNodeDragged(capturedNode, disciple2InternalTreeEl.componentInstance.nodeElementRef);
+      const capturedNode = new CapturedNode(
+        subDisciple1InternalTreeEl.componentInstance.nodeElementRef,
+        subDisciple1InternalTreeEl.componentInstance.tree
+      );
+      nodeDraggableService.fireNodeDragged(
+        [capturedNode],
+        disciple2InternalTreeEl.componentInstance.nodeElementRef,
+        DropPosition.Into
+      );
 
-    fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-    expect(lordInternalTreeEl.componentInstance.tree.children.length).toEqual(3);
-    expect(lordInternalTreeEl.componentInstance.tree.children[0].value).toEqual('Disciple#1');
-    expect(lordInternalTreeEl.componentInstance.tree.children[1].value).toEqual('SubDisciple#1');
-    expect(lordInternalTreeEl.componentInstance.tree.children[2].value).toEqual('Disciple#2');
+      expect(lordInternalTreeEl.componentInstance.tree.children.length).toEqual(3);
+      expect(lordInternalTreeEl.componentInstance.tree.children[0].value).toEqual('Disciple#1');
+      expect(lordInternalTreeEl.componentInstance.tree.children[1].value).toEqual('SubDisciple#1');
+      expect(lordInternalTreeEl.componentInstance.tree.children[2].value).toEqual('Disciple#2');
 
-    expect(disciple1InternalTreeEl.componentInstance.tree.children.length).toEqual(1);
-    expect(disciple1InternalTreeEl.componentInstance.tree.children[0].value).toEqual('SubDisciple#2');
+      expect(disciple1InternalTreeEl.componentInstance.tree.children.length).toEqual(1);
+      expect(disciple1InternalTreeEl.componentInstance.tree.children[0].value).toEqual('SubDisciple#2');
 
-    const lordElement = lordInternalTreeEl.nativeElement;
-    const nodeValues = lordElement.querySelectorAll('.node-value');
+      const lordElement = lordInternalTreeEl.nativeElement;
+      const nodeValues = lordElement.querySelectorAll('.node-value');
 
-    expect(nodeValues[0].innerText).toEqual('Lord');
-    expect(nodeValues[1].innerText).toEqual('Disciple#1');
-    expect(nodeValues[2].innerText).toEqual('SubDisciple#2');
-    expect(nodeValues[3].innerText).toEqual('SubDisciple#1');
-    expect(nodeValues[4].innerText).toEqual('Disciple#2');
-  });
+      expect(nodeValues[0].innerText).toEqual('Lord');
+      expect(nodeValues[1].innerText).toEqual('Disciple#1');
+      expect(nodeValues[2].innerText).toEqual('SubDisciple#2');
+      expect(nodeValues[3].innerText).toEqual('SubDisciple#1');
+      expect(nodeValues[4].innerText).toEqual('Disciple#2');
+    })
+  );
 
-  it('should be possible to drag node from one subtree to another subtree in different parent trees', () => {
-    const lordInternalTreeChildren = lordInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
-    const disciple1InternalTreeEl = lordInternalTreeChildren[0];
-    const subDisciple1InternalTreeEl = lordInternalTreeChildren[1];
+  it(
+    'should be possible to drag node from one subtree to another subtree in different parent trees',
+    fakeAsync(() => {
+      const lordInternalTreeChildren = lordInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
+      const disciple1InternalTreeEl = lordInternalTreeChildren[0];
+      const subDisciple1InternalTreeEl = lordInternalTreeChildren[1];
 
-    const masterInternalTreeChildren = masterInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
-    const servant1InternalTreeEl = masterInternalTreeChildren[0];
+      const masterInternalTreeChildren = masterInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
+      const servant1InternalTreeEl = masterInternalTreeChildren[0];
 
-    const capturedNode = new CapturedNode(
-      servant1InternalTreeEl.componentInstance.nodeElementRef,
-      servant1InternalTreeEl.componentInstance.tree
-    );
-    nodeDraggableService.fireNodeDragged(capturedNode, subDisciple1InternalTreeEl.componentInstance.nodeElementRef);
+      const capturedNode = new CapturedNode(
+        servant1InternalTreeEl.componentInstance.nodeElementRef,
+        servant1InternalTreeEl.componentInstance.tree
+      );
+      nodeDraggableService.fireNodeDragged(
+        [capturedNode],
+        subDisciple1InternalTreeEl.componentInstance.nodeElementRef,
+        DropPosition.Into
+      );
 
-    fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-    expect(disciple1InternalTreeEl.componentInstance.tree.children.length).toEqual(3);
-    expect(disciple1InternalTreeEl.componentInstance.tree.children[0].value).toEqual('Servant#1');
-    expect(disciple1InternalTreeEl.componentInstance.tree.children[1].value).toEqual('SubDisciple#1');
-    expect(disciple1InternalTreeEl.componentInstance.tree.children[2].value).toEqual('SubDisciple#2');
+      expect(disciple1InternalTreeEl.componentInstance.tree.children.length).toEqual(3);
+      expect(disciple1InternalTreeEl.componentInstance.tree.children[0].value).toEqual('Servant#1');
+      expect(disciple1InternalTreeEl.componentInstance.tree.children[1].value).toEqual('SubDisciple#1');
+      expect(disciple1InternalTreeEl.componentInstance.tree.children[2].value).toEqual('SubDisciple#2');
 
-    expect(masterInternalTreeEl.componentInstance.tree.children.length).toEqual(1);
-    expect(masterInternalTreeEl.componentInstance.tree.children[0].value).toEqual('Servant#2');
+      expect(masterInternalTreeEl.componentInstance.tree.children.length).toEqual(1);
+      expect(masterInternalTreeEl.componentInstance.tree.children[0].value).toEqual('Servant#2');
 
-    const lordElement = lordInternalTreeEl.nativeElement;
-    const lordNodeValues = lordElement.querySelectorAll('.node-value');
+      const lordElement = lordInternalTreeEl.nativeElement;
+      const lordNodeValues = lordElement.querySelectorAll('.node-value');
 
-    expect(lordNodeValues[0].innerText).toEqual('Lord');
-    expect(lordNodeValues[1].innerText).toEqual('Disciple#1');
-    expect(lordNodeValues[2].innerText).toEqual('Servant#1');
-    expect(lordNodeValues[3].innerText).toEqual('SubDisciple#1');
-    expect(lordNodeValues[4].innerText).toEqual('SubDisciple#2');
-    expect(lordNodeValues[5].innerText).toEqual('Disciple#2');
+      expect(lordNodeValues[0].innerText).toEqual('Lord');
+      expect(lordNodeValues[1].innerText).toEqual('Disciple#1');
+      expect(lordNodeValues[2].innerText).toEqual('Servant#1');
+      expect(lordNodeValues[3].innerText).toEqual('SubDisciple#1');
+      expect(lordNodeValues[4].innerText).toEqual('SubDisciple#2');
+      expect(lordNodeValues[5].innerText).toEqual('Disciple#2');
 
-    const masterElement = masterInternalTreeEl.nativeElement;
-    const masterNodeValues = masterElement.querySelectorAll('.node-value');
+      const masterElement = masterInternalTreeEl.nativeElement;
+      const masterNodeValues = masterElement.querySelectorAll('.node-value');
 
-    expect(masterNodeValues[0].innerText).toEqual('Master');
-    expect(masterNodeValues[1].innerText).toEqual('Servant#2');
-  });
+      expect(masterNodeValues[0].innerText).toEqual('Master');
+      expect(masterNodeValues[1].innerText).toEqual('Servant#2');
+    })
+  );
 
-  it('add node to its children', () => {
-    const lordInternalTreeChildren = lordInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
-    const disciple1InternalTreeEl = lordInternalTreeChildren[0];
+  it(
+    'add node to its children',
+    fakeAsync(() => {
+      const lordInternalTreeChildren = lordInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
+      const disciple1InternalTreeEl = lordInternalTreeChildren[0];
 
-    const masterInternalTreeChildren = masterInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
-    const servant1InternalTreeEl = masterInternalTreeChildren[0];
+      const masterInternalTreeChildren = masterInternalTreeEl.queryAll(By.directive(TreeInternalComponent));
+      const servant1InternalTreeEl = masterInternalTreeChildren[0];
 
-    const capturedNode = new CapturedNode(
-      servant1InternalTreeEl.componentInstance.nodeElementRef,
-      servant1InternalTreeEl.componentInstance.tree
-    );
-    nodeDraggableService.fireNodeDragged(capturedNode, disciple1InternalTreeEl.componentInstance.nodeElementRef);
+      const capturedNode = new CapturedNode(
+        servant1InternalTreeEl.componentInstance.nodeElementRef,
+        servant1InternalTreeEl.componentInstance.tree
+      );
+      nodeDraggableService.fireNodeDragged(
+        [capturedNode],
+        disciple1InternalTreeEl.componentInstance.nodeElementRef,
+        DropPosition.Into
+      );
 
-    fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-    expect(disciple1InternalTreeEl.componentInstance.tree.children.length).toEqual(3);
-    expect(disciple1InternalTreeEl.componentInstance.tree.children[0].value).toEqual('SubDisciple#1');
-    expect(disciple1InternalTreeEl.componentInstance.tree.children[1].value).toEqual('SubDisciple#2');
-    expect(disciple1InternalTreeEl.componentInstance.tree.children[2].value).toEqual('Servant#1');
+      expect(disciple1InternalTreeEl.componentInstance.tree.children.length).toEqual(3);
+      expect(disciple1InternalTreeEl.componentInstance.tree.children[0].value).toEqual('SubDisciple#1');
+      expect(disciple1InternalTreeEl.componentInstance.tree.children[1].value).toEqual('SubDisciple#2');
+      expect(disciple1InternalTreeEl.componentInstance.tree.children[2].value).toEqual('Servant#1');
 
-    expect(masterInternalTreeEl.componentInstance.tree.children.length).toEqual(1);
-    expect(masterInternalTreeEl.componentInstance.tree.children[0].value).toEqual('Servant#2');
+      expect(masterInternalTreeEl.componentInstance.tree.children.length).toEqual(1);
+      expect(masterInternalTreeEl.componentInstance.tree.children[0].value).toEqual('Servant#2');
 
-    const lordElement = lordInternalTreeEl.nativeElement;
-    const lordNodeValues = lordElement.querySelectorAll('.node-value');
+      const lordElement = lordInternalTreeEl.nativeElement;
+      const lordNodeValues = lordElement.querySelectorAll('.node-value');
 
-    expect(lordNodeValues[0].innerText).toEqual('Lord');
-    expect(lordNodeValues[1].innerText).toEqual('Disciple#1');
-    expect(lordNodeValues[2].innerText).toEqual('SubDisciple#1');
-    expect(lordNodeValues[3].innerText).toEqual('SubDisciple#2');
-    expect(lordNodeValues[4].innerText).toEqual('Servant#1');
-    expect(lordNodeValues[5].innerText).toEqual('Disciple#2');
+      expect(lordNodeValues[0].innerText).toEqual('Lord');
+      expect(lordNodeValues[1].innerText).toEqual('Disciple#1');
+      expect(lordNodeValues[2].innerText).toEqual('SubDisciple#1');
+      expect(lordNodeValues[3].innerText).toEqual('SubDisciple#2');
+      expect(lordNodeValues[4].innerText).toEqual('Servant#1');
+      expect(lordNodeValues[5].innerText).toEqual('Disciple#2');
 
-    const masterElement = masterInternalTreeEl.nativeElement;
-    const masterNodeValues = masterElement.querySelectorAll('.node-value');
+      const masterElement = masterInternalTreeEl.nativeElement;
+      const masterNodeValues = masterElement.querySelectorAll('.node-value');
 
-    expect(masterNodeValues[0].innerText).toEqual('Master');
-    expect(masterNodeValues[1].innerText).toEqual('Servant#2');
-  });
+      expect(masterNodeValues[0].innerText).toEqual('Master');
+      expect(masterNodeValues[1].innerText).toEqual('Servant#2');
+    })
+  );
 
   it('should be possible to collapse node', () => {
     const foldingControl = masterInternalTreeEl.query(By.css('.folding'));
@@ -502,7 +535,7 @@ describe('TreeInternalComponent', () => {
       expect(lipsEl.componentInstance.tree.positionInParent).toEqual(1);
 
       const capturedNode = new CapturedNode(eyesEl.componentInstance.nodeElementRef, eyesEl.componentInstance.tree);
-      nodeDraggableService.fireNodeDragged(capturedNode, lipsEl.componentInstance.nodeElementRef);
+      nodeDraggableService.fireNodeDragged([capturedNode], lipsEl.componentInstance.nodeElementRef, DropPosition.Below);
 
       fixture.detectChanges();
 

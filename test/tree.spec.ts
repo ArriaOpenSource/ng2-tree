@@ -642,44 +642,6 @@ describe('Tree', () => {
     masterTree.removeItselfFromParent();
   });
 
-  it('can swap its position in parent with sibling', () => {
-    const masterTree = new Tree({
-      value: 'Master',
-      children: [{ value: 'Servant#1' }, { value: 'Servant#2' }]
-    });
-
-    const servantNumber1Tree = masterTree.children[0];
-    const servantNumber2Tree = masterTree.children[1];
-
-    expect(servantNumber1Tree.positionInParent).toEqual(0);
-    expect(servantNumber2Tree.positionInParent).toEqual(1);
-
-    servantNumber1Tree.swapWithSibling(servantNumber2Tree);
-
-    expect(servantNumber1Tree.positionInParent).toEqual(1);
-    expect(servantNumber2Tree.positionInParent).toEqual(0);
-  });
-
-  it('cannot swap its position in parent with node that is not its sibling', () => {
-    const masterTree = new Tree({
-      value: 'Master',
-      children: [{ value: 'Servant#1' }, { value: 'Servant#2' }]
-    });
-
-    const imposter = new Tree({ value: 'HA-HA-HA!!!' });
-
-    const servantNumber1Tree = masterTree.children[0];
-    const servantNumber2Tree = masterTree.children[1];
-
-    expect(servantNumber1Tree.positionInParent).toEqual(0);
-    expect(servantNumber2Tree.positionInParent).toEqual(1);
-
-    servantNumber1Tree.swapWithSibling(imposter);
-
-    expect(servantNumber1Tree.positionInParent).toEqual(0);
-    expect(servantNumber2Tree.positionInParent).toEqual(1);
-  });
-
   it('has "Leaf" folding type if it is leaf (by default for leaves)', () => {
     const masterTree = new Tree({
       value: 'Master'
@@ -1049,7 +1011,8 @@ describe('Tree', () => {
         rightMenu: true,
         checked: true,
         selectionAllowed: true,
-        keepNodesInDOM: true
+        keepNodesInDOM: true,
+        dragIcon: false
       },
       children: [
         {
@@ -1062,7 +1025,8 @@ describe('Tree', () => {
             rightMenu: true,
             checked: true,
             selectionAllowed: true,
-            keepNodesInDOM: true
+            keepNodesInDOM: true,
+            dragIcon: false
           }
         }
       ]

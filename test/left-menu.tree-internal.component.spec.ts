@@ -14,6 +14,7 @@ import { NodeMenuAction } from '../src/menu/menu.events';
 import * as EventUtils from '../src/utils/event.utils';
 import { CapturedNode } from '../src/draggable/captured-node';
 import { SafeHtmlPipe } from '../src/utils/safe-html.pipe';
+import { DropPosition } from '../src/draggable/draggable.events';
 
 let fixture;
 let masterInternalTreeEl;
@@ -23,7 +24,7 @@ let leftMenuComponentInstance;
 let staticInternalTreeEl;
 let staticComponentInstance;
 let nodeMenuService;
-let nodeDraggableService;
+let nodeDraggableService: NodeDraggableService;
 let treeService;
 
 const tree: TreeModel = {
@@ -635,7 +636,7 @@ describe('LeftMenu-TreeInternalComponent', () => {
       expect(staticInternalTreeEl.componentInstance.tree.children[2].value).toEqual('Lips');
 
       const capturedNode = new CapturedNode(eyesEl.componentInstance.nodeElementRef, eyesEl.componentInstance.tree);
-      nodeDraggableService.fireNodeDragged(capturedNode, lipsEl.componentInstance.nodeElementRef);
+      nodeDraggableService.fireNodeDragged([capturedNode], lipsEl.componentInstance.nodeElementRef, DropPosition.Below);
 
       fixture.detectChanges();
 
@@ -673,7 +674,11 @@ describe('LeftMenu-TreeInternalComponent', () => {
         eyelashEl.componentInstance.nodeElementRef,
         eyelashEl.componentInstance.tree
       );
-      nodeDraggableService.fireNodeDragged(capturedNode, eyebowEl.componentInstance.nodeElementRef);
+      nodeDraggableService.fireNodeDragged(
+        [capturedNode],
+        eyebowEl.componentInstance.nodeElementRef,
+        DropPosition.Below
+      );
 
       fixture.detectChanges();
 

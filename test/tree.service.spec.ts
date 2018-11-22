@@ -14,11 +14,11 @@ import {
   NodeSelectedEvent
 } from '../src/tree.events';
 import { ElementRef } from '@angular/core';
-import { NodeDraggableEvent } from '../src/draggable/draggable.events';
+import { NodeDraggableEvent, DropPosition } from '../src/draggable/draggable.events';
 import { CapturedNode } from '../src/draggable/captured-node';
 
 let treeService;
-let draggableService;
+let draggableService: NodeDraggableService;
 
 describe('TreeService', () => {
   beforeEach(() => {
@@ -172,12 +172,12 @@ describe('TreeService', () => {
     const elementRef = new ElementRef(null);
 
     treeService.draggedStream(tree, elementRef).subscribe((e: NodeDraggableEvent) => {
-      expect(e.captured.tree).toBe(masterTree);
-      expect(e.captured.element).toBe(elementRef);
+      expect(e.captured[0].tree).toBe(masterTree);
+      expect(e.captured[0].element).toBe(elementRef);
       done();
     });
 
-    draggableService.fireNodeDragged(new CapturedNode(elementRef, masterTree), elementRef);
+    draggableService.fireNodeDragged([new CapturedNode(elementRef, masterTree)], elementRef, DropPosition.Below);
   });
 
   it('does not fire "expanded", "collapsed" events for a leaf node', () => {

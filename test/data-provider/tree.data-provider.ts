@@ -10,7 +10,8 @@ export class TreeDataProvider {
         isCollapsedOnInit: false,
         checked: false,
         selectionAllowed: true,
-        keepNodesInDOM: false
+        keepNodesInDOM: false,
+        dragIcon: false
       }
     },
     'first settings source has higher priority': {
@@ -23,7 +24,8 @@ export class TreeDataProvider {
           isCollapsedOnInit: true,
           checked: true,
           selectionAllowed: false,
-          keepNodesInDOM: true
+          keepNodesInDOM: true,
+          dragIcon: false
         }
       },
       treeModelB: {
@@ -45,7 +47,8 @@ export class TreeDataProvider {
         isCollapsedOnInit: true,
         checked: true,
         selectionAllowed: false,
-        keepNodesInDOM: true
+        keepNodesInDOM: true,
+        dragIcon: false
       }
     },
     'second settings source has priority if first settings source does not have the option': {
@@ -59,7 +62,8 @@ export class TreeDataProvider {
           isCollapsedOnInit: true,
           checked: true,
           selectionAllowed: false,
-          keepNodesInDOM: true
+          keepNodesInDOM: true,
+          dragIcon: false
         }
       },
       result: {
@@ -69,7 +73,8 @@ export class TreeDataProvider {
         isCollapsedOnInit: true,
         checked: true,
         selectionAllowed: true,
-        keepNodesInDOM: true
+        keepNodesInDOM: true,
+        dragIcon: false
       }
     },
     'first expanded property of cssClasses has higher priority': {
@@ -86,7 +91,8 @@ export class TreeDataProvider {
         checked: false,
         keepNodesInDOM: false,
         selectionAllowed: true,
-        cssClasses: { expanded: 'arrow-down-o', collapsed: 'arrow-right', empty: 'arrow-gray', leaf: 'dot' }
+        cssClasses: { expanded: 'arrow-down-o', collapsed: 'arrow-right', empty: 'arrow-gray', leaf: 'dot' },
+        dragIcon: false
       }
     },
     'first collapsed property of cssClasses has higher priority': {
@@ -103,7 +109,8 @@ export class TreeDataProvider {
         keepNodesInDOM: false,
         checked: false,
         selectionAllowed: true,
-        cssClasses: { expanded: 'arrow-down', collapsed: 'arrow-right-o', empty: 'arrow-gray', leaf: 'dot' }
+        cssClasses: { expanded: 'arrow-down', collapsed: 'arrow-right-o', empty: 'arrow-gray', leaf: 'dot' },
+        dragIcon: false
       }
     },
     'first empty property of cssClasses has higher priority': {
@@ -120,7 +127,8 @@ export class TreeDataProvider {
         keepNodesInDOM: false,
         checked: false,
         selectionAllowed: true,
-        cssClasses: { expanded: 'arrow-down', collapsed: 'arrow-right', empty: 'arrow-gray-o', leaf: 'dot' }
+        cssClasses: { expanded: 'arrow-down', collapsed: 'arrow-right', empty: 'arrow-gray-o', leaf: 'dot' },
+        dragIcon: false
       }
     },
     'first leaf property of cssClasses has higher priority': {
@@ -137,7 +145,8 @@ export class TreeDataProvider {
         keepNodesInDOM: false,
         checked: false,
         selectionAllowed: true,
-        cssClasses: { expanded: 'arrow-down', collapsed: 'arrow-right', empty: 'arrow-gray', leaf: 'dot-o' }
+        cssClasses: { expanded: 'arrow-down', collapsed: 'arrow-right', empty: 'arrow-gray', leaf: 'dot-o' },
+        dragIcon: false
       }
     },
     'first properties of cssClasses has higher priority': {
@@ -159,7 +168,8 @@ export class TreeDataProvider {
         keepNodesInDOM: false,
         checked: false,
         selectionAllowed: true,
-        cssClasses: { expanded: 'arrow-down-o', collapsed: 'arrow-right-o', empty: 'arrow-gray-o', leaf: 'dot-o' }
+        cssClasses: { expanded: 'arrow-down-o', collapsed: 'arrow-right-o', empty: 'arrow-gray-o', leaf: 'dot-o' },
+        dragIcon: false
       }
     },
     'second properties of cssClasses in settings has priority, if first source does not have them': {
@@ -178,7 +188,8 @@ export class TreeDataProvider {
         keepNodesInDOM: false,
         checked: false,
         selectionAllowed: true,
-        cssClasses: { expanded: 'arrow-down-o', collapsed: 'arrow-right-o', empty: 'arrow-gray-o', leaf: 'dot-o' }
+        cssClasses: { expanded: 'arrow-down-o', collapsed: 'arrow-right-o', empty: 'arrow-gray-o', leaf: 'dot-o' },
+        dragIcon: false
       }
     },
     'first node property of templates has higher priority': {
@@ -205,7 +216,8 @@ export class TreeDataProvider {
           node: '<i class="folder-o"></i>',
           leaf: '<i class="file"></i>',
           leftMenu: '<i class="navigation"></i>'
-        }
+        },
+        dragIcon: false
       }
     },
     'first leaf property in templates has higher priority': {
@@ -232,7 +244,8 @@ export class TreeDataProvider {
           node: '<i class="folder"></i>',
           leaf: '<i class="file-o"></i>',
           leftMenu: '<i class="navigation"></i>'
-        }
+        },
+        dragIcon: false
       }
     },
     'first leftMenu property in templates has higher priority': {
@@ -259,7 +272,8 @@ export class TreeDataProvider {
           node: '<i class="folder"></i>',
           leaf: '<i class="file"></i>',
           leftMenu: '<i class="navigation-o"></i>'
-        }
+        },
+        dragIcon: false
       }
     },
     'first properties of templates has higher priority': {
@@ -295,7 +309,8 @@ export class TreeDataProvider {
           node: '<i class="folder-o"></i>',
           leaf: '<i class="file-o"></i>',
           leftMenu: '<i class="navigation-o"></i>'
-        }
+        },
+        dragIcon: false
       }
     },
     'second properties of templates in settings has priority, if first source does not have them': {
@@ -322,7 +337,8 @@ export class TreeDataProvider {
           node: '<i class="folder-o"></i>',
           leaf: '<i class="file-o"></i>',
           leftMenu: '<i class="navigation-o"></i>'
-        }
+        },
+        dragIcon: false
       }
     }
   };

@@ -59,8 +59,8 @@ describe('NodeMenuComponent', () => {
   });
 
   it('should render basic menu items', () => {
+    componentInstance.visibility = 'visible';
     fixture.detectChanges();
-
     const menuItems = fixture.debugElement.queryAll(By.css('.node-menu-item'));
     expect(menuItems).not.toBeNull();
     expect(menuItems.length).toEqual(4);

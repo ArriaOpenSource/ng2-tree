@@ -4,13 +4,12 @@ import { Component, ElementRef } from '@angular/core';
 import { NodeDraggableDirective } from '../../src/draggable/node-draggable.directive';
 import { NodeDraggableService } from '../../src/draggable/node-draggable.service';
 import { CapturedNode } from '../../src/draggable/captured-node';
-import { NodeDraggableEvent } from '../../src/draggable/draggable.events';
 import { Tree } from '../../src/tree';
 
 let fixture;
 let directiveEl;
-let directiveInstance;
-let nodeDraggableService;
+let directiveInstance: NodeDraggableDirective;
+let nodeDraggableService: NodeDraggableService;
 
 @Component({
   template: '<div id="draggableTarget" [nodeDraggable]="draggableTarget" [tree]="tree"></div>'
@@ -113,6 +112,7 @@ describe('NodeDraggableDirective', () => {
   it('should set dropEffect to "move" on dragover', () => {
     fixture.detectChanges();
 
+    spyOn(directiveInstance as any, 'determineDropPosition');
     const dragenterEvent = jasmine.createSpyObj('event', ['preventDefault']);
     dragenterEvent.dataTransfer = {};
 
@@ -132,7 +132,7 @@ describe('NodeDraggableDirective', () => {
 
     expect(dragenterEvent.stopPropagation).toHaveBeenCalledTimes(1);
 
-    const capturedNode: CapturedNode = nodeDraggableService.getCapturedNode();
+    const capturedNode: CapturedNode = nodeDraggableService.getDraggedNode();
     expect(capturedNode.element).toBe(directiveInstance.nodeDraggable);
     expect(capturedNode.tree).toBe(directiveInstance.tree);
 
@@ -186,12 +186,12 @@ describe('NodeDraggableDirective', () => {
     draggableElementClassList.add('over-drop-target');
     expect(draggableElementClassList.contains('over-drop-target')).toBe(true);
 
-    spyOn(nodeDraggableService, 'releaseCapturedNode');
+    spyOn(nodeDraggableService, 'releaseDraggedNode');
 
     directiveEl.triggerEventHandler('dragend');
 
     expect(draggableElementClassList.contains('over-drop-target')).toBe(false);
-    expect(nodeDraggableService.releaseCapturedNode).toHaveBeenCalled();
+    expect(nodeDraggableService.releaseDraggedNode).toHaveBeenCalled();
   });
 
   it('should handle drop event: prevent default action and stop event propagation', () => {
@@ -200,13 +200,13 @@ describe('NodeDraggableDirective', () => {
     const dragenterEvent = jasmine.createSpyObj('e', ['stopPropagation', 'preventDefault']);
 
     spyOn(nodeDraggableService, 'fireNodeDragged');
-    spyOn(nodeDraggableService, 'getCapturedNode').and.returnValue(null);
+    spyOn(nodeDraggableService, 'getDraggedNode').and.returnValue(null);
 
     directiveEl.triggerEventHandler('drop', dragenterEvent);
 
     expect(dragenterEvent.stopPropagation).toHaveBeenCalledTimes(1);
     expect(dragenterEvent.preventDefault).toHaveBeenCalledTimes(1);
-    expect(nodeDraggableService.getCapturedNode).toHaveBeenCalledTimes(1);
+    expect(nodeDraggableService.getDraggedNode).toHaveBeenCalledTimes(1);
     expect(nodeDraggableService.fireNodeDragged).not.toHaveBeenCalled();
   });
 
@@ -216,7 +216,7 @@ describe('NodeDraggableDirective', () => {
     const dragenterEvent = jasmine.createSpyObj('e', ['stopPropagation', 'preventDefault']);
 
     spyOn(nodeDraggableService, 'fireNodeDragged');
-    spyOn(nodeDraggableService, 'getCapturedNode').and.returnValue(null);
+    spyOn(nodeDraggableService, 'getDraggedNode').and.returnValue(null);
 
     spyOn(directiveEl.nativeElement.classList, 'remove');
 
@@ -225,10 +225,14 @@ describe('NodeDraggableDirective', () => {
     expect(dragenterEvent.stopPropagation).toHaveBeenCalledTimes(1);
     expect(dragenterEvent.preventDefault).toHaveBeenCalledTimes(1);
 
-    expect(directiveEl.nativeElement.classList.remove).toHaveBeenCalledWith('over-drop-target');
+    expect(directiveEl.nativeElement.classList.remove).toHaveBeenCalledWith(
+      'over-drop-target',
+      'over-drop-leaf',
+      undefined
+    );
     expect(directiveEl.nativeElement.classList.remove).toHaveBeenCalledTimes(1);
 
-    expect(nodeDraggableService.getCapturedNode).toHaveBeenCalledTimes(1);
+    expect(nodeDraggableService.getDraggedNode).toHaveBeenCalledTimes(1);
     expect(nodeDraggableService.fireNodeDragged).not.toHaveBeenCalled();
   });
 
@@ -242,14 +246,14 @@ describe('NodeDraggableDirective', () => {
     const capturedNode = new CapturedNode(directiveInstance.nodeDraggable, directiveInstance.tree);
     spyOn(capturedNode, 'canBeDroppedAt').and.returnValue(true);
 
-    spyOn(nodeDraggableService, 'getCapturedNode').and.returnValue(capturedNode);
+    spyOn(nodeDraggableService, 'getDraggedNode').and.returnValue(capturedNode);
     spyOn(document, 'elementFromPoint').and.returnValue(null);
 
     directiveEl.triggerEventHandler('drop', dragenterEvent);
 
     expect(capturedNode.canBeDroppedAt).toHaveBeenCalledWith(directiveInstance.nodeDraggable);
     expect(capturedNode.canBeDroppedAt).toHaveBeenCalledTimes(1);
-    expect(nodeDraggableService.getCapturedNode).toHaveBeenCalledTimes(1);
+    expect(nodeDraggableService.getDraggedNode).toHaveBeenCalledTimes(1);
     expect(nodeDraggableService.fireNodeDragged).not.toHaveBeenCalled();
   });
 
@@ -263,7 +267,7 @@ describe('NodeDraggableDirective', () => {
     const capturedNode = new CapturedNode(directiveInstance.nodeDraggable, directiveInstance.tree);
     spyOn(capturedNode, 'canBeDroppedAt').and.returnValue(true);
 
-    spyOn(nodeDraggableService, 'getCapturedNode').and.returnValue(capturedNode);
+    spyOn(nodeDraggableService, 'getDraggedNode').and.returnValue(capturedNode);
     spyOn(document, 'elementFromPoint').and.returnValue(directiveEl.nativeElement);
 
     directiveEl.triggerEventHandler('drop', dragenterEvent);
@@ -271,12 +275,12 @@ describe('NodeDraggableDirective', () => {
     expect(capturedNode.canBeDroppedAt).toHaveBeenCalledWith(directiveInstance.nodeDraggable);
     expect(capturedNode.canBeDroppedAt).toHaveBeenCalledTimes(1);
 
-    expect(nodeDraggableService.getCapturedNode).toHaveBeenCalledTimes(3);
+    expect(nodeDraggableService.getDraggedNode).toHaveBeenCalledTimes(5);
     expect(nodeDraggableService.fireNodeDragged).toHaveBeenCalledTimes(1);
 
-    const fireCapturedNode = nodeDraggableService.fireNodeDragged.calls.argsFor(0)[0];
-    const fireTarget = nodeDraggableService.fireNodeDragged.calls.argsFor(0)[1];
-    expect(fireCapturedNode).toBe(capturedNode);
+    const fireCapturedNode = (nodeDraggableService.fireNodeDragged as jasmine.Spy).calls.argsFor(0)[0];
+    const fireTarget = (nodeDraggableService.fireNodeDragged as jasmine.Spy).calls.argsFor(0)[1];
+    expect(fireCapturedNode).toEqual([capturedNode]);
     expect(fireTarget).toBe(directiveInstance.nodeDraggable);
   });
 
