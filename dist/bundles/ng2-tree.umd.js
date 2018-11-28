@@ -347,7 +347,7 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                 while (i--) {
                     var node = nodesToMove[i];
                     var ctrl = _this.treeService.getController(node.tree.id);
-                    if (ctrl && ctrl.isChecked()) {
+                    if (ctrl.isChecked()) {
                         ctrl.uncheck();
                     }
                     if (_this.tree.isBranch() && e.position === draggable_events_1.DropPosition.Into) {
@@ -2778,6 +2778,9 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
         TreeService.prototype.fireNodeUnchecked = function (tree) {
             this.nodeUnchecked$.next(new tree_events_1.NodeUncheckedEvent(tree));
         };
+        TreeService.prototype.fireNodeIndeterminate = function (tree, indeterminate) {
+            this.nodeIndeterminate$.next(new tree_events_1.NodeIndeterminateEvent(tree, indeterminate));
+        };
         TreeService.prototype.draggedStream = function (tree, element) {
             return this.nodeDraggableService.draggableNodeEvents$.filter(function (e) {
                 return e.target === element;
@@ -2810,9 +2813,6 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
                 tree.loadingChildrenRequested();
             }
             return shouldLoadNextLevel;
-        };
-        TreeService.prototype.fireNodeIndeterminate = function (tree, indeterminate) {
-            this.nodeIndeterminate$.next(new tree_events_1.NodeIndeterminateEvent(tree, indeterminate));
         };
         TreeService.decorators = [{ type: core_1.Injectable }];
         /** @nocollapse */

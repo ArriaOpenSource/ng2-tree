@@ -79,6 +79,9 @@ var TreeService = (function () {
     TreeService.prototype.fireNodeUnchecked = function (tree) {
         this.nodeUnchecked$.next(new tree_events_1.NodeUncheckedEvent(tree));
     };
+    TreeService.prototype.fireNodeIndeterminate = function (tree, indeterminate) {
+        this.nodeIndeterminate$.next(new tree_events_1.NodeIndeterminateEvent(tree, indeterminate));
+    };
     TreeService.prototype.draggedStream = function (tree, element) {
         return this.nodeDraggableService.draggableNodeEvents$
             .filter(function (e) { return e.target === element; })
@@ -110,9 +113,6 @@ var TreeService = (function () {
             tree.loadingChildrenRequested();
         }
         return shouldLoadNextLevel;
-    };
-    TreeService.prototype.fireNodeIndeterminate = function (tree, indeterminate) {
-        this.nodeIndeterminate$.next(new tree_events_1.NodeIndeterminateEvent(tree, indeterminate));
     };
     TreeService.decorators = [
         { type: core_1.Injectable },

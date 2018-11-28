@@ -39,11 +39,11 @@ export declare class TreeService {
     private fireLoadNextLevel(tree);
     fireNodeChecked(tree: Tree): void;
     fireNodeUnchecked(tree: Tree): void;
+    fireNodeIndeterminate(tree: Tree, indeterminate: boolean): void;
     draggedStream(tree: Tree, element: ElementRef): Observable<NodeDraggableEvent>;
     setController(id: string | number, controller: TreeController): void;
     deleteController(id: string | number): void;
     getController(id: string | number): TreeController;
     hasController(id: string | number): boolean;
     private shouldFireLoadNextLevel(tree);
-    fireNodeIndeterminate(tree: Tree, indeterminate: boolean): void;
 }

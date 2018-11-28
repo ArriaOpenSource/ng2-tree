@@ -56,7 +56,7 @@ var TreeInternalComponent = (function () {
             while (i--) {
                 var node = nodesToMove[i];
                 var ctrl = _this.treeService.getController(node.tree.id);
-                if (ctrl && ctrl.isChecked()) {
+                if (ctrl.isChecked()) {
                     ctrl.uncheck();
                 }
                 if (_this.tree.isBranch() && e.position === draggable_events_1.DropPosition.Into) {
