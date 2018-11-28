@@ -112,6 +112,10 @@ export class TreeService {
     this.nodeUnchecked$.next(new NodeUncheckedEvent(tree));
   }
 
+  public fireNodeIndeterminate(tree: Tree, indeterminate: boolean): void {
+    this.nodeIndeterminate$.next(new NodeIndeterminateEvent(tree, indeterminate));
+  }
+
   public draggedStream(tree: Tree, element: ElementRef): Observable<NodeDraggableEvent> {
     return this.nodeDraggableService.draggableNodeEvents$
       .filter((e: NodeDraggableEvent) => e.target === element)
@@ -152,9 +156,5 @@ export class TreeService {
     }
 
     return shouldLoadNextLevel;
-  }
-
-  public fireNodeIndeterminate(tree: Tree, indeterminate: boolean): void {
-    this.nodeIndeterminate$.next(new NodeIndeterminateEvent(tree, indeterminate));
   }
 }

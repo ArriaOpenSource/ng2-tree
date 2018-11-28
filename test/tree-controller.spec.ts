@@ -121,6 +121,14 @@ describe('TreeController', () => {
     expect(controller.isChecked()).toBe(false);
   });
 
+  it('can update checkbox state', () => {
+    const controller = treeService.getController(lordInternalTreeInstance.tree.id);
+    spyOn((controller as any).component, 'updateCheckboxState');
+
+    controller.updateCheckboxState();
+    expect((controller as any).component.updateCheckboxState).toHaveBeenCalled();
+  });
+
   it('forbids selection', () => {
     const controller = treeService.getController(lordInternalTreeInstance.tree.id);
     expect(controller.isSelectionAllowed()).toBe(true);

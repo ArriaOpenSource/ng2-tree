@@ -11,7 +11,8 @@ import {
   NodeMovedEvent,
   NodeRemovedEvent,
   NodeRenamedEvent,
-  NodeSelectedEvent
+  NodeSelectedEvent,
+  NodeIndeterminateEvent
 } from '../src/tree.events';
 import { ElementRef } from '@angular/core';
 import { NodeDraggableEvent, DropPosition } from '../src/draggable/draggable.events';
@@ -69,10 +70,10 @@ describe('TreeService', () => {
     const parent = new Tree({ value: 'Master Pa' });
     const tree = new Tree({ value: 'Master' }, parent);
 
-    treeService.fireNodeMoved(tree, parent);
+    treeService.fireNodeMoved(tree, parent, 1);
 
     expect(treeService.nodeMoved$.next).toHaveBeenCalledTimes(1);
-    expect(treeService.nodeMoved$.next).toHaveBeenCalledWith(new NodeMovedEvent(tree, parent));
+    expect(treeService.nodeMoved$.next).toHaveBeenCalledWith(new NodeMovedEvent(tree, parent, 1));
   });
 
   it('fires node created events', () => {
@@ -128,6 +129,17 @@ describe('TreeService', () => {
 
     expect(treeService.nodeCollapsed$.next).toHaveBeenCalledTimes(1);
     expect(treeService.nodeCollapsed$.next).toHaveBeenCalledWith(new NodeCollapsedEvent(tree));
+  });
+
+  it('fires node indeterminate events', () => {
+    spyOn(treeService.nodeIndeterminate$, 'next');
+
+    const tree = new Tree({ value: 'Master' });
+
+    treeService.fireNodeIndeterminate(tree, true);
+
+    expect(treeService.nodeIndeterminate$.next).toHaveBeenCalledTimes(1);
+    expect(treeService.nodeIndeterminate$.next).toHaveBeenCalledWith(new NodeIndeterminateEvent(tree, true));
   });
 
   it('fires events on which other tree should remove selection', done => {
