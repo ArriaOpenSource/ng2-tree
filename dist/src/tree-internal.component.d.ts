@@ -30,6 +30,7 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     private moveSibling(sibling, tree, position);
     private moveNodeToThisTreeAndRemoveFromPreviousOne(capturedTree, moveToTree);
     private moveNodeToParentTreeAndRemoveFromPreviousOne(capturedTree, moveToTree, position);
+    onNodeDoubleClicked(): void;
     onNodeSelected(e: {
         button: number;
     }): void;
