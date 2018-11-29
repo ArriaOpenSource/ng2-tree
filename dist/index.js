@@ -11,6 +11,7 @@ exports.NodeMenuItemAction = menu_events_1.NodeMenuItemAction;
 var tree_events_1 = require("./src/tree.events");
 exports.NodeEvent = tree_events_1.NodeEvent;
 exports.NodeCreatedEvent = tree_events_1.NodeCreatedEvent;
+exports.NodeDoubleClickedEvent = tree_events_1.NodeDoubleClickedEvent;
 exports.NodeRemovedEvent = tree_events_1.NodeRemovedEvent;
 exports.NodeRenamedEvent = tree_events_1.NodeRenamedEvent;
 exports.NodeMovedEvent = tree_events_1.NodeMovedEvent;

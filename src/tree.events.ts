@@ -5,6 +5,12 @@ export class NodeEvent {
   public constructor(public node: Tree) {}
 }
 
+export class NodeDoubleClickedEvent extends NodeEvent {
+  public constructor(node: Tree) {
+    super(node);
+  }
+}
+
 export class NodeSelectedEvent extends NodeEvent {
   public constructor(node: Tree) {
     super(node);

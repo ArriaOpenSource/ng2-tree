@@ -4,6 +4,7 @@ import {
   NodeCheckedEvent,
   NodeCollapsedEvent,
   NodeCreatedEvent,
+  NodeDoubleClickedEvent,
   NodeExpandedEvent,
   NodeIndeterminateEvent,
   NodeMovedEvent,
@@ -30,6 +31,7 @@ export class TreeService {
   public nodeRemoved$: Subject<NodeRemovedEvent> = new Subject<NodeRemovedEvent>();
   public nodeRenamed$: Subject<NodeRenamedEvent> = new Subject<NodeRenamedEvent>();
   public nodeCreated$: Subject<NodeCreatedEvent> = new Subject<NodeCreatedEvent>();
+  public nodeDoubleClicked$: Subject<NodeDoubleClickedEvent> = new Subject<NodeDoubleClickedEvent>();
   public nodeSelected$: Subject<NodeSelectedEvent> = new Subject<NodeSelectedEvent>();
   public nodeUnselected$: Subject<NodeUnselectedEvent> = new Subject<NodeUnselectedEvent>();
   public nodeExpanded$: Subject<NodeExpandedEvent> = new Subject<NodeExpandedEvent>();
@@ -59,6 +61,10 @@ export class TreeService {
 
   public fireNodeCreated(tree: Tree): void {
     this.nodeCreated$.next(new NodeCreatedEvent(tree));
+  }
+
+  public fireNodeDoubleClicked(tree: Tree): void {
+    this.nodeDoubleClicked$.next(new NodeDoubleClickedEvent(tree));
   }
 
   public fireNodeSelected(tree: Tree): void {

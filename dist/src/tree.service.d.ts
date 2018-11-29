@@ -1,4 +1,4 @@
-import { LoadNextLevelEvent, MenuItemSelectedEvent, NodeCheckedEvent, NodeCollapsedEvent, NodeCreatedEvent, NodeExpandedEvent, NodeIndeterminateEvent, NodeMovedEvent, NodeRemovedEvent, NodeRenamedEvent, NodeSelectedEvent, NodeUncheckedEvent, NodeUnselectedEvent } from './tree.events';
+import { LoadNextLevelEvent, MenuItemSelectedEvent, NodeCheckedEvent, NodeCollapsedEvent, NodeCreatedEvent, NodeDoubleClickedEvent, NodeExpandedEvent, NodeIndeterminateEvent, NodeMovedEvent, NodeRemovedEvent, NodeRenamedEvent, NodeSelectedEvent, NodeUncheckedEvent, NodeUnselectedEvent } from './tree.events';
 import { RenamableNode } from './tree.types';
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
@@ -14,6 +14,7 @@ export declare class TreeService {
     nodeRemoved$: Subject<NodeRemovedEvent>;
     nodeRenamed$: Subject<NodeRenamedEvent>;
     nodeCreated$: Subject<NodeCreatedEvent>;
+    nodeDoubleClicked$: Subject<NodeDoubleClickedEvent>;
     nodeSelected$: Subject<NodeSelectedEvent>;
     nodeUnselected$: Subject<NodeUnselectedEvent>;
     nodeExpanded$: Subject<NodeExpandedEvent>;
@@ -28,6 +29,7 @@ export declare class TreeService {
     unselectStream(tree: Tree): Observable<NodeSelectedEvent>;
     fireNodeRemoved(tree: Tree): void;
     fireNodeCreated(tree: Tree): void;
+    fireNodeDoubleClicked(tree: Tree): void;
     fireNodeSelected(tree: Tree): void;
     fireNodeUnselected(tree: Tree): void;
     fireNodeRenamed(oldValue: RenamableNode | string, tree: Tree): void;

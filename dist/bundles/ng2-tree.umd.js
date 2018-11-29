@@ -409,6 +409,12 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                 _this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
             });
         };
+        TreeInternalComponent.prototype.onNodeDoubleClicked = function () {
+            if (!this.tree.selectionAllowed) {
+                return;
+            }
+            this.treeService.fireNodeDoubleClicked(this.tree);
+        };
         TreeInternalComponent.prototype.onNodeSelected = function (e) {
             if (!this.tree.selectionAllowed) {
                 return;
@@ -610,7 +616,7 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
         };
         TreeInternalComponent.decorators = [{ type: core_1.Component, args: [{
                 selector: 'tree-internal',
-                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n          <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n        </div>\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (click)=\"onNodeSelected($event)\">\n            <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n            <span *ngIf=\"!template\" class=\"node-name\" [innerHTML]=\"tree.value | safeHtml\"></span>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
+                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n          <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n        </div>\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (dblClick)=\"onNodeDoubleClicked()\"\n          (click)=\"onNodeSelected($event)\">\n            <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n            <span *ngIf=\"!template\" class=\"node-name\" [innerHTML]=\"tree.value | safeHtml\"></span>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
             }] }];
         /** @nocollapse */
         TreeInternalComponent.ctorParameters = function () {
@@ -2350,6 +2356,14 @@ $__System.registerDynamic("26", [], true, function ($__require, exports, module)
         return NodeEvent;
     }();
     exports.NodeEvent = NodeEvent;
+    var NodeDoubleClickedEvent = function (_super) {
+        __extends(NodeDoubleClickedEvent, _super);
+        function NodeDoubleClickedEvent(node) {
+            return _super.call(this, node) || this;
+        }
+        return NodeDoubleClickedEvent;
+    }(NodeEvent);
+    exports.NodeDoubleClickedEvent = NodeDoubleClickedEvent;
     var NodeSelectedEvent = function (_super) {
         __extends(NodeSelectedEvent, _super);
         function NodeSelectedEvent(node) {
@@ -2710,6 +2724,7 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
             this.nodeRemoved$ = new Subject_1.Subject();
             this.nodeRenamed$ = new Subject_1.Subject();
             this.nodeCreated$ = new Subject_1.Subject();
+            this.nodeDoubleClicked$ = new Subject_1.Subject();
             this.nodeSelected$ = new Subject_1.Subject();
             this.nodeUnselected$ = new Subject_1.Subject();
             this.nodeExpanded$ = new Subject_1.Subject();
@@ -2737,6 +2752,9 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
         };
         TreeService.prototype.fireNodeCreated = function (tree) {
             this.nodeCreated$.next(new tree_events_1.NodeCreatedEvent(tree));
+        };
+        TreeService.prototype.fireNodeDoubleClicked = function (tree) {
+            this.nodeDoubleClicked$.next(new tree_events_1.NodeDoubleClickedEvent(tree));
         };
         TreeService.prototype.fireNodeSelected = function (tree) {
             this.nodeSelected$.next(new tree_events_1.NodeSelectedEvent(tree));
@@ -2902,6 +2920,7 @@ $__System.registerDynamic("a", ["12", "13", "15", "26", "1b", "f", "14", "29"], 
   var tree_events_1 = $__require("26");
   exports.NodeEvent = tree_events_1.NodeEvent;
   exports.NodeCreatedEvent = tree_events_1.NodeCreatedEvent;
+  exports.NodeDoubleClickedEvent = tree_events_1.NodeDoubleClickedEvent;
   exports.NodeRemovedEvent = tree_events_1.NodeRemovedEvent;
   exports.NodeRenamedEvent = tree_events_1.NodeRenamedEvent;
   exports.NodeMovedEvent = tree_events_1.NodeMovedEvent;

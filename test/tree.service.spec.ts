@@ -7,6 +7,7 @@ import {
   MenuItemSelectedEvent,
   NodeCollapsedEvent,
   NodeCreatedEvent,
+  NodeDoubleClickedEvent,
   NodeExpandedEvent,
   NodeMovedEvent,
   NodeRemovedEvent,
@@ -96,6 +97,16 @@ describe('TreeService', () => {
 
     expect(treeService.nodeSelected$.next).toHaveBeenCalledTimes(1);
     expect(treeService.nodeSelected$.next).toHaveBeenCalledWith(new NodeSelectedEvent(tree));
+  });
+
+  it('fires node double clicked events', () => {
+    spyOn(treeService.nodeDoubleClicked$, 'next');
+
+    const tree = new Tree({ value: 'Master' });
+
+    treeService.fireNodeDoubleClicked(tree);
+    expect(treeService.nodeDoubleClicked$.next).toHaveBeenCalledTimes(1);
+    expect(treeService.nodeDoubleClicked$.next).toHaveBeenCalledWith(new NodeDoubleClickedEvent(tree));
   });
 
   it('fires node renamed events', () => {

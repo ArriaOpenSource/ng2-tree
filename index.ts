@@ -15,6 +15,7 @@ import { NodeMenuItem } from './src/menu/node-menu.component';
 import {
   NodeEvent,
   NodeCreatedEvent,
+  NodeDoubleClickedEvent,
   NodeRemovedEvent,
   NodeRenamedEvent,
   NodeMovedEvent,
@@ -44,6 +45,7 @@ export {
   FoldingType,
   NodeEvent,
   NodeCreatedEvent,
+  NodeDoubleClickedEvent,
   NodeRemovedEvent,
   NodeRenamedEvent,
   NodeMovedEvent,
