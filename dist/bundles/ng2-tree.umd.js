@@ -490,7 +490,9 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             this.isLeftMenuVisible = false;
         };
         TreeInternalComponent.prototype.onRemoveSelected = function () {
-            this.treeService.deleteController(fn_utils_1.get(this.tree, 'node.id', ''));
+            var nodeId = fn_utils_1.get(this.tree, 'node.id', '');
+            this.nodeDraggableService.removeCheckedNodeById(nodeId);
+            this.treeService.deleteController(nodeId);
             this.treeService.fireNodeRemoved(this.tree);
         };
         TreeInternalComponent.prototype.onCustomSelected = function () {

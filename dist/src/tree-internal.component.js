@@ -199,7 +199,9 @@ var TreeInternalComponent = (function () {
         this.isLeftMenuVisible = false;
     };
     TreeInternalComponent.prototype.onRemoveSelected = function () {
-        this.treeService.deleteController(fn_utils_1.get(this.tree, 'node.id', ''));
+        var nodeId = fn_utils_1.get(this.tree, 'node.id', '');
+        this.nodeDraggableService.removeCheckedNodeById(nodeId);
+        this.treeService.deleteController(nodeId);
         this.treeService.fireNodeRemoved(this.tree);
     };
     TreeInternalComponent.prototype.onCustomSelected = function () {
