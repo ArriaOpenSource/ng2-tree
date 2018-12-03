@@ -318,7 +318,9 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   private onRemoveSelected(): void {
-    this.treeService.deleteController(get(this.tree, 'node.id', ''));
+    const nodeId = get(this.tree, 'node.id', '');
+    this.nodeDraggableService.removeCheckedNodeById(nodeId);
+    this.treeService.deleteController(nodeId);
     this.treeService.fireNodeRemoved(this.tree);
   }
 
