@@ -115,6 +115,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   public ngAfterViewInit(): void {
     if (this.tree.checked && !(this.tree as any).firstCheckedFired) {
       (this.tree as any).firstCheckedFired = true;
+      this.nodeDraggableService.addCheckedNode(new CapturedNode(this.nodeElementRef, this.tree));
       this.treeService.fireNodeChecked(this.tree);
     }
   }
