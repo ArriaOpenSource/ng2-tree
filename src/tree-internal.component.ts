@@ -188,7 +188,8 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     if (get(this.tree, 'node.id', '') && !(this.tree.parent && this.tree.parent.children.indexOf(this.tree) > -1)) {
       this.treeService.deleteController(this.tree.node.id);
     }
-
+    this.nodeDraggableService.releaseDraggedNode();
+    this.nodeDraggableService.releaseCheckedNodes();
     this.subscriptions.forEach(sub => sub && sub.unsubscribe());
   }
 
