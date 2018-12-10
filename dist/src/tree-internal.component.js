@@ -88,6 +88,8 @@ var TreeInternalComponent = (function () {
         if (fn_utils_1.get(this.tree, 'node.id', '') && !(this.tree.parent && this.tree.parent.children.indexOf(this.tree) > -1)) {
             this.treeService.deleteController(this.tree.node.id);
         }
+        this.nodeDraggableService.releaseDraggedNode();
+        this.nodeDraggableService.releaseCheckedNodes();
         this.subscriptions.forEach(function (sub) { return sub && sub.unsubscribe(); });
     };
     TreeInternalComponent.prototype.moveSibling = function (sibling, tree, position) {

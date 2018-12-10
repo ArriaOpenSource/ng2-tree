@@ -378,6 +378,8 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             if (fn_utils_1.get(this.tree, 'node.id', '') && !(this.tree.parent && this.tree.parent.children.indexOf(this.tree) > -1)) {
                 this.treeService.deleteController(this.tree.node.id);
             }
+            this.nodeDraggableService.releaseDraggedNode();
+            this.nodeDraggableService.releaseCheckedNodes();
             this.subscriptions.forEach(function (sub) {
                 return sub && sub.unsubscribe();
             });
