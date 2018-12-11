@@ -29,6 +29,7 @@ var TreeInternalComponent = (function () {
     TreeInternalComponent.prototype.ngAfterViewInit = function () {
         if (this.tree.checked && !this.tree.firstCheckedFired) {
             this.tree.firstCheckedFired = true;
+            this.nodeDraggableService.addCheckedNode(new captured_node_1.CapturedNode(this.nodeElementRef, this.tree));
             this.treeService.fireNodeChecked(this.tree);
         }
     };
@@ -49,33 +50,9 @@ var TreeInternalComponent = (function () {
             _this.isLeftMenuVisible = false;
         }));
         this.subscriptions.push(this.treeService.unselectStream(this.tree).subscribe(function () { return (_this.isSelected = false); }));
-        this.subscriptions.push(this.treeService.draggedStream(this.tree, this.nodeElementRef).subscribe(function (e) {
-            // Remove child nodes if parent is being moved (child nodes will move with the parent)
-            var nodesToMove = e.captured.filter(function (cn) { return !cn.tree.parent.checked; });
-            var i = nodesToMove.length;
-            while (i--) {
-                var node = nodesToMove[i];
-                if (node.tree.id) {
-                    var ctrl = _this.treeService.getController(node.tree.id);
-                    if (ctrl.isChecked()) {
-                        ctrl.uncheck();
-                    }
-                }
-                if (_this.tree.isBranch() && e.position === draggable_events_1.DropPosition.Into) {
-                    _this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, _this.tree);
-                }
-                else if (_this.tree.hasSibling(node.tree)) {
-                    _this.moveSibling(node.tree, _this.tree, e.position);
-                }
-                else {
-                    _this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, _this.tree, e.position);
-                }
-            }
-            var parentCtrl = _this.treeService.getController(_this.tree.parent.id);
-            if (parentCtrl) {
-                parentCtrl.updateCheckboxState();
-            }
-        }));
+        this.subscriptions.push(this.treeService
+            .draggedStream(this.tree, this.nodeElementRef)
+            .subscribe(function (e) { return _this.nodeDraggedHandler(e); }));
         this.subscriptions.push(this.treeService.nodeChecked$
             .merge(this.treeService.nodeUnchecked$)
             .filter(function (e) { return _this.eventContainsId(e) && _this.tree.hasChild(e.node); })
@@ -88,7 +65,36 @@ var TreeInternalComponent = (function () {
         if (fn_utils_1.get(this.tree, 'node.id', '') && !(this.tree.parent && this.tree.parent.children.indexOf(this.tree) > -1)) {
             this.treeService.deleteController(this.tree.node.id);
         }
+        this.nodeDraggableService.releaseDraggedNode();
+        this.nodeDraggableService.releaseCheckedNodes();
         this.subscriptions.forEach(function (sub) { return sub && sub.unsubscribe(); });
+    };
+    TreeInternalComponent.prototype.nodeDraggedHandler = function (e) {
+        // Remove child nodes if parent is being moved (child nodes will move with the parent)
+        var nodesToMove = e.captured.filter(function (cn) { return !cn.tree.parent.checked; });
+        var i = nodesToMove.length;
+        while (i--) {
+            var node = nodesToMove[i];
+            if (node.tree.id) {
+                var ctrl = this.treeService.getController(node.tree.id);
+                if (ctrl.isChecked()) {
+                    ctrl.uncheck();
+                }
+            }
+            if (this.tree.isBranch() && e.position === draggable_events_1.DropPosition.Into) {
+                this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
+            }
+            else if (this.tree.hasSibling(node.tree)) {
+                this.moveSibling(node.tree, this.tree, e.position);
+            }
+            else {
+                this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree, e.position);
+            }
+        }
+        var parentCtrl = this.treeService.getController(this.tree.parent.id);
+        if (parentCtrl) {
+            parentCtrl.updateCheckboxState();
+        }
     };
     TreeInternalComponent.prototype.moveSibling = function (sibling, tree, position) {
         var previousPositionInParent = sibling.positionInParent;

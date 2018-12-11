@@ -115,6 +115,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   public ngAfterViewInit(): void {
     if (this.tree.checked && !(this.tree as any).firstCheckedFired) {
       (this.tree as any).firstCheckedFired = true;
+      this.nodeDraggableService.addCheckedNode(new CapturedNode(this.nodeElementRef, this.tree));
       this.treeService.fireNodeChecked(this.tree);
     }
   }
@@ -143,33 +144,9 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     this.subscriptions.push(this.treeService.unselectStream(this.tree).subscribe(() => (this.isSelected = false)));
 
     this.subscriptions.push(
-      this.treeService.draggedStream(this.tree, this.nodeElementRef).subscribe((e: NodeDraggableEvent) => {
-        // Remove child nodes if parent is being moved (child nodes will move with the parent)
-        const nodesToMove = e.captured.filter(cn => !cn.tree.parent.checked);
-
-        let i = nodesToMove.length;
-        while (i--) {
-          const node = nodesToMove[i];
-          if (node.tree.id) {
-            const ctrl = this.treeService.getController(node.tree.id);
-            if (ctrl.isChecked()) {
-              ctrl.uncheck();
-            }
-          }
-
-          if (this.tree.isBranch() && e.position === DropPosition.Into) {
-            this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
-          } else if (this.tree.hasSibling(node.tree)) {
-            this.moveSibling(node.tree, this.tree, e.position);
-          } else {
-            this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree, e.position);
-          }
-        }
-        const parentCtrl = this.treeService.getController(this.tree.parent.id);
-        if (parentCtrl) {
-          parentCtrl.updateCheckboxState();
-        }
-      })
+      this.treeService
+        .draggedStream(this.tree, this.nodeElementRef)
+        .subscribe((e: NodeDraggableEvent) => this.nodeDraggedHandler(e))
     );
 
     this.subscriptions.push(
@@ -188,8 +165,37 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     if (get(this.tree, 'node.id', '') && !(this.tree.parent && this.tree.parent.children.indexOf(this.tree) > -1)) {
       this.treeService.deleteController(this.tree.node.id);
     }
-
+    this.nodeDraggableService.releaseDraggedNode();
+    this.nodeDraggableService.releaseCheckedNodes();
     this.subscriptions.forEach(sub => sub && sub.unsubscribe());
+  }
+
+  private nodeDraggedHandler(e: NodeDraggableEvent): void {
+    // Remove child nodes if parent is being moved (child nodes will move with the parent)
+    const nodesToMove = e.captured.filter(cn => !cn.tree.parent.checked);
+
+    let i = nodesToMove.length;
+    while (i--) {
+      const node = nodesToMove[i];
+      if (node.tree.id) {
+        const ctrl = this.treeService.getController(node.tree.id);
+        if (ctrl.isChecked()) {
+          ctrl.uncheck();
+        }
+      }
+
+      if (this.tree.isBranch() && e.position === DropPosition.Into) {
+        this.moveNodeToThisTreeAndRemoveFromPreviousOne(node.tree, this.tree);
+      } else if (this.tree.hasSibling(node.tree)) {
+        this.moveSibling(node.tree, this.tree, e.position);
+      } else {
+        this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree, e.position);
+      }
+    }
+    const parentCtrl = this.treeService.getController(this.tree.parent.id);
+    if (parentCtrl) {
+      parentCtrl.updateCheckboxState();
+    }
   }
 
   private moveSibling(sibling: Tree, tree: Tree, position: DropPosition): void {
