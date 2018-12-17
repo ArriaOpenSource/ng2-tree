@@ -232,8 +232,8 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     });
   }
 
-  public onNodeDoubleClicked(evt: MouseEvent): void {
-    this.treeService.fireNodeDoubleClicked(this.tree, evt);
+  public onNodeDoubleClicked(e: MouseEvent): void {
+    this.treeService.fireNodeDoubleClicked(this.tree, e);
   }
 
   public onNodeSelected(e: { button: number }): void {
