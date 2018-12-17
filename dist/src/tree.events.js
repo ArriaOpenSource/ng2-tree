@@ -19,10 +19,9 @@ var NodeEvent = (function () {
 exports.NodeEvent = NodeEvent;
 var NodeDoubleClickedEvent = (function (_super) {
     __extends(NodeDoubleClickedEvent, _super);
-    function NodeDoubleClickedEvent(node, evt) {
+    function NodeDoubleClickedEvent(node, e) {
         var _this = _super.call(this, node) || this;
-        _this.evt = evt;
-        console.log('Constructor: ', evt);
+        _this.e = e;
         return _this;
     }
     return NodeDoubleClickedEvent;

@@ -417,8 +417,8 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
                 _this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
             });
         };
-        TreeInternalComponent.prototype.onNodeDoubleClicked = function (evt) {
-            this.treeService.fireNodeDoubleClicked(this.tree, evt);
+        TreeInternalComponent.prototype.onNodeDoubleClicked = function (e) {
+            this.treeService.fireNodeDoubleClicked(this.tree, e);
         };
         TreeInternalComponent.prototype.onNodeSelected = function (e) {
             if (!this.tree.selectionAllowed) {
@@ -2365,10 +2365,9 @@ $__System.registerDynamic("26", [], true, function ($__require, exports, module)
     exports.NodeEvent = NodeEvent;
     var NodeDoubleClickedEvent = function (_super) {
         __extends(NodeDoubleClickedEvent, _super);
-        function NodeDoubleClickedEvent(node, evt) {
+        function NodeDoubleClickedEvent(node, e) {
             var _this = _super.call(this, node) || this;
-            _this.evt = evt;
-            console.log('Constructor: ', evt);
+            _this.e = e;
             return _this;
         }
         return NodeDoubleClickedEvent;
@@ -2763,8 +2762,10 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
         TreeService.prototype.fireNodeCreated = function (tree) {
             this.nodeCreated$.next(new tree_events_1.NodeCreatedEvent(tree));
         };
-        TreeService.prototype.fireNodeDoubleClicked = function (tree, evt) {
-            this.nodeDoubleClicked$.next(new tree_events_1.NodeDoubleClickedEvent(tree, evt));
+        TreeService.prototype.fireNodeDoubleClicked = function (tree, e) {
+            var me = new tree_events_1.NodeDoubleClickedEvent(tree, e);
+            console.log('update1', me);
+            this.nodeDoubleClicked$.next(me);
         };
         TreeService.prototype.fireNodeSelected = function (tree) {
             this.nodeSelected$.next(new tree_events_1.NodeSelectedEvent(tree));

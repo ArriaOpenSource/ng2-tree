@@ -29,7 +29,7 @@ export declare class TreeService {
     unselectStream(tree: Tree): Observable<NodeSelectedEvent>;
     fireNodeRemoved(tree: Tree): void;
     fireNodeCreated(tree: Tree): void;
-    fireNodeDoubleClicked(tree: Tree, evt: MouseEvent): void;
+    fireNodeDoubleClicked(tree: Tree, e: MouseEvent): void;
     fireNodeSelected(tree: Tree): void;
     fireNodeUnselected(tree: Tree): void;
     fireNodeRenamed(oldValue: RenamableNode | string, tree: Tree): void;

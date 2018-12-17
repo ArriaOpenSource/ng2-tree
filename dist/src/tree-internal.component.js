@@ -126,8 +126,8 @@ var TreeInternalComponent = (function () {
             _this.treeService.fireNodeMoved(addedSibling, capturedTree.parent);
         });
     };
-    TreeInternalComponent.prototype.onNodeDoubleClicked = function (evt) {
-        this.treeService.fireNodeDoubleClicked(this.tree, evt);
+    TreeInternalComponent.prototype.onNodeDoubleClicked = function (e) {
+        this.treeService.fireNodeDoubleClicked(this.tree, e);
     };
     TreeInternalComponent.prototype.onNodeSelected = function (e) {
         if (!this.tree.selectionAllowed) {
