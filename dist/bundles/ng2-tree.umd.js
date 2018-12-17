@@ -32,6 +32,7 @@ $__System.registerDynamic("f", ["10", "11", "12", "13"], true, function ($__requ
             this.nodeCreated = new core_1.EventEmitter();
             this.nodeRemoved = new core_1.EventEmitter();
             this.nodeRenamed = new core_1.EventEmitter();
+            this.nodeDoubleClicked = new core_1.EventEmitter();
             this.nodeSelected = new core_1.EventEmitter();
             this.nodeUnselected = new core_1.EventEmitter();
             this.nodeDragStarted = new core_1.EventEmitter();
@@ -61,6 +62,9 @@ $__System.registerDynamic("f", ["10", "11", "12", "13"], true, function ($__requ
             }));
             this.subscriptions.push(this.treeService.nodeCreated$.subscribe(function (e) {
                 _this.nodeCreated.emit(e);
+            }));
+            this.subscriptions.push(this.treeService.nodeDoubleClicked$.subscribe(function (e) {
+                _this.nodeDoubleClicked.emit(e);
             }));
             this.subscriptions.push(this.treeService.nodeSelected$.subscribe(function (e) {
                 _this.nodeSelected.emit(e);
@@ -120,6 +124,7 @@ $__System.registerDynamic("f", ["10", "11", "12", "13"], true, function ($__requ
             "nodeCreated": [{ type: core_1.Output }],
             "nodeRemoved": [{ type: core_1.Output }],
             "nodeRenamed": [{ type: core_1.Output }],
+            "nodeDoubleClicked": [{ type: core_1.Output }],
             "nodeSelected": [{ type: core_1.Output }],
             "nodeUnselected": [{ type: core_1.Output }],
             "nodeDragStarted": [{ type: core_1.Output }],
@@ -2763,9 +2768,7 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
             this.nodeCreated$.next(new tree_events_1.NodeCreatedEvent(tree));
         };
         TreeService.prototype.fireNodeDoubleClicked = function (tree, e) {
-            var me = new tree_events_1.NodeDoubleClickedEvent(tree, e);
-            console.log('update1', me);
-            this.nodeDoubleClicked$.next(me);
+            this.nodeDoubleClicked$.next(new tree_events_1.NodeDoubleClickedEvent(tree, e));
         };
         TreeService.prototype.fireNodeSelected = function (tree) {
             this.nodeSelected$.next(new tree_events_1.NodeSelectedEvent(tree));
