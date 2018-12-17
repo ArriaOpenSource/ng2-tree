@@ -5,6 +5,7 @@ export declare class NodeEvent {
     constructor(node: Tree);
 }
 export declare class NodeDoubleClickedEvent extends NodeEvent {
+    evt: MouseEvent;
     constructor(node: Tree, evt: MouseEvent);
 }
 export declare class NodeSelectedEvent extends NodeEvent {

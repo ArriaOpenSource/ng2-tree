@@ -2366,7 +2366,10 @@ $__System.registerDynamic("26", [], true, function ($__require, exports, module)
     var NodeDoubleClickedEvent = function (_super) {
         __extends(NodeDoubleClickedEvent, _super);
         function NodeDoubleClickedEvent(node, evt) {
-            return _super.call(this, node) || this;
+            var _this = _super.call(this, node) || this;
+            _this.evt = evt;
+            console.log('Constructor: ', evt);
+            return _this;
         }
         return NodeDoubleClickedEvent;
     }(NodeEvent);
