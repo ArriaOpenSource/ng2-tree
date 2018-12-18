@@ -56,7 +56,7 @@ import { CapturedNode } from './draggable/captured-node';
             <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: tree.node }"></ng-template>
         </div>
 
-        <input type="text" class="node-value"
+        <input type="text" class="node-value" id="rename-input"
            *ngIf="shouldShowInputForTreeValue()"
            [nodeEditable]="tree.value"
            (valueChanged)="applyNewValue($event)"/>
