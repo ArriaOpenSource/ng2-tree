@@ -1153,18 +1153,74 @@ describe('Tree', () => {
   });
 
   describe('moveSiblingAbove', () => {
-    it('TODO', () => {});
+    it('should move a given sibling node above current node', () => {
+      const model: TreeModel = {
+        value: 'root',
+        children: [{ value: 'First' }, { value: 'Second' }]
+      };
+      const tree = new Tree(model);
+      const childTree = tree.children[0];
+
+      spyOn(childTree, 'hasSibling').and.returnValue(true);
+
+      childTree.moveSiblingAbove(tree.children[1]);
+
+      expect(childTree.hasSibling).toHaveBeenCalled();
+      expect(tree.children[0].value).toEqual('Second');
+      expect(tree.children[1].value).toEqual('First');
+    });
   });
 
   describe('moveSiblingBelow', () => {
-    it('TODO', () => {});
+    it('should move a given sibling node below current node', () => {
+      const model: TreeModel = {
+        value: 'root',
+        children: [{ value: 'First' }, { value: 'Second' }]
+      };
+      const tree = new Tree(model);
+      const childTree = tree.children[1];
+
+      spyOn(childTree, 'hasSibling').and.returnValue(true);
+
+      childTree.moveSiblingBelow(tree.children[0]);
+
+      expect(childTree.hasSibling).toHaveBeenCalled();
+      expect(tree.children[0].value).toEqual('Second');
+      expect(tree.children[1].value).toEqual('First');
+    });
   });
 
   describe('hasDragIcon', () => {
-    it('TODO', () => {});
+    it('should get dragIcon value from settings', () => {
+      const model: TreeModel = {
+        value: 'root',
+        settings: {
+          dragIcon: true
+        }
+      };
+      const tree = new Tree(model);
+      expect(tree.hasDragIcon()).toBe(true);
+    });
   });
 
   describe('dragTemplate', () => {
-    it('TODO', () => {});
+    it('should get templates.dragIcon value from settings', () => {
+      const model: TreeModel = {
+        value: 'root'
+      };
+      const tree = new Tree(model);
+      expect(tree.dragTemplate).toBe('<span></span>');
+
+      const model2: TreeModel = {
+        value: 'root',
+        settings: {
+          templates: {
+            dragIcon: 'drag icon template'
+          }
+        }
+      };
+      const tree2 = new Tree(model2);
+      expect(tree2.dragTemplate).toBe('drag icon template');
+    });
   });
 });

@@ -148,7 +148,14 @@ describe('NodeDraggableService', function() {
   it(
     'should release checked captured node',
     inject([NodeDraggableService], (nodeDraggableService: NodeDraggableService) => {
-      // TODO releaseCheckedNodes()
+      const stubCapturedNode = new CapturedNode(null, null);
+
+      nodeDraggableService.addCheckedNode(stubCapturedNode);
+      expect(nodeDraggableService.getCheckedNodes().length).toBe(1);
+      expect(nodeDraggableService.getCheckedNodes()[0]).toBe(stubCapturedNode);
+
+      nodeDraggableService.releaseCheckedNodes();
+      expect(nodeDraggableService.getCheckedNodes().length).toBe(0);
     })
   );
 
