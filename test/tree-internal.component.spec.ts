@@ -555,4 +555,48 @@ describe('TreeInternalComponent', () => {
       expect(nodeValues[4].innerText).toEqual('Lips');
     });
   });
+
+  describe('nodeDraggedHandler', () => {
+    it('TODO', () => {});
+  });
+
+  describe('ngOnDestroy', () => {
+    it('TODO', () => {});
+  });
+
+  describe('moveSibling', () => {
+    it('TODO', () => {});
+  });
+
+  describe('moveNodeToThisTreeAndRemoveFromPreviousOne', () => {
+    it('TODO', () => {});
+  });
+
+  describe('moveNodeToParentTreeAndRemoveFromPreviousOne', () => {
+    it('TODO', () => {});
+  });
+
+  describe('moveNodeToParentTreeAndRemoveFromPreviousOne', () => {
+    it('TODO', () => {});
+  });
+
+  describe('onRemoveSelected', () => {
+    it('TODO', () => {});
+  });
+
+  describe('onNodeDoubleClicked', () => {
+    it('TODO', () => {});
+  });
+
+  describe('onNodeChecked', () => {
+    it('TODO', () => {});
+  });
+
+  describe('onNodeIndeterminate', () => {
+    it('TODO', () => {});
+  });
+
+  describe('updateCheckboxState', () => {
+    it('TODO', () => {});
+  });
 });

@@ -122,11 +122,12 @@ describe('NodeDraggableDirective', () => {
     expect(dragenterEvent.dataTransfer.dropEffect).toBe('move');
   });
 
-  it('should captutre a node on dragstart', () => {
+  it('should capture a node on dragstart and notify that it is being dragged', () => {
     fixture.detectChanges();
 
     const dragenterEvent = jasmine.createSpyObj('e', ['stopPropagation']);
     dragenterEvent.dataTransfer = jasmine.createSpyObj('dataTransfer', ['setData']);
+    spyOn(nodeDraggableService, 'fireNodeDragStart');
 
     directiveEl.triggerEventHandler('dragstart', dragenterEvent);
 
@@ -135,7 +136,7 @@ describe('NodeDraggableDirective', () => {
     const capturedNode: CapturedNode = nodeDraggableService.getDraggedNode();
     expect(capturedNode.element).toBe(directiveInstance.nodeDraggable);
     expect(capturedNode.tree).toBe(directiveInstance.tree);
-
+    expect(nodeDraggableService.fireNodeDragStart).toHaveBeenCalled();
     expect(dragenterEvent.dataTransfer.setData).toHaveBeenCalledWith(
       'text',
       NodeDraggableDirective.DATA_TRANSFER_STUB_DATA
@@ -257,7 +258,7 @@ describe('NodeDraggableDirective', () => {
     expect(nodeDraggableService.fireNodeDragged).not.toHaveBeenCalled();
   });
 
-  it('should handle drop event: should notfy about successfully dropped node', () => {
+  it('should handle drop event: should notify about successfully dropped node', () => {
     fixture.detectChanges();
 
     const dragenterEvent = jasmine.createSpyObj('e', ['stopPropagation', 'preventDefault']);
@@ -285,4 +286,64 @@ describe('NodeDraggableDirective', () => {
   });
 
   it('TODO: should not make tree draggable if it is static', () => {});
+
+  describe('handleDragStart', () => {
+    it('TODO', () => {});
+  });
+
+  describe('handleDragOver', () => {
+    it('TODO', () => {});
+  });
+
+  describe('handleDragEnter', () => {
+    it('TODO', () => {});
+  });
+
+  describe('handleDragLeave', () => {
+    it('TODO', () => {});
+  });
+
+  describe('handleDragEnd', () => {
+    it('TODO', () => {});
+  });
+
+  describe('handleDrop', () => {
+    it('TODO', () => {});
+  });
+
+  describe('determineDropPosition', () => {
+    it('TODO', () => {});
+  });
+
+  describe('getDragOverClassName', () => {
+    it('TODO', () => {});
+  });
+
+  describe('getDropPositionClassName', () => {
+    it('TODO', () => {});
+  });
+
+  describe('isDropPossible', () => {
+    it('TODO', () => {});
+  });
+
+  describe('releaseNodes', () => {
+    it('TODO', () => {});
+  });
+
+  describe('applyDraggedNodeClasses', () => {
+    it('TODO', () => {});
+  });
+
+  describe('removeDraggedNodeClasses', () => {
+    it('TODO', () => {});
+  });
+
+  describe('notifyThatNodeWasDropped', () => {
+    it('TODO', () => {});
+  });
+
+  describe('notifyThatNodeIsBeingDragged', () => {
+    it('TODO', () => {});
+  });
 });

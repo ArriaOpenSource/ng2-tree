@@ -122,7 +122,7 @@ describe('NodeDraggableService', function() {
   );
 
   it(
-    'should capture node',
+    'should capture dragged node',
     inject([NodeDraggableService], (nodeDraggableService: NodeDraggableService) => {
       const stubCapturedNode = new CapturedNode(null, null);
 
@@ -143,6 +143,12 @@ describe('NodeDraggableService', function() {
 
       nodeDraggableService.releaseDraggedNode();
       expect(nodeDraggableService.getDraggedNode()).toBeNull();
+    })
+  );
+  it(
+    'should release checked captured node',
+    inject([NodeDraggableService], (nodeDraggableService: NodeDraggableService) => {
+      // TODO releaseCheckedNodes()
     })
   );
 

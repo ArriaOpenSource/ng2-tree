@@ -182,4 +182,16 @@ describe('NodeMenuComponent', () => {
 
     expect(nodeMenuService.nodeMenuEvents$.next).not.toHaveBeenCalled();
   });
+
+  describe('ngAfterViewInit', () => {
+    it('TODO', () => {});
+  });
+
+  describe('displayAboveOrBelow', () => {
+    it('TODO', () => {});
+  });
+
+  describe('getScrollParent', () => {
+    it('TODO', () => {});
+  });
 });

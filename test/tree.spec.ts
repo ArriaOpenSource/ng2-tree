@@ -1151,4 +1151,20 @@ describe('Tree', () => {
 
     expect(tree.hasCustomMenu()).toBe(false);
   });
+
+  describe('moveSiblingAbove', () => {
+    it('TODO', () => {});
+  });
+
+  describe('moveSiblingBelow', () => {
+    it('TODO', () => {});
+  });
+
+  describe('hasDragIcon', () => {
+    it('TODO', () => {});
+  });
+
+  describe('dragTemplate', () => {
+    it('TODO', () => {});
+  });
 });
