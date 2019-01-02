@@ -48,7 +48,7 @@ import { CapturedNode } from './draggable/captured-node';
         <div class="node-value"
           *ngIf="!shouldShowInputForTreeValue()"
           [class.node-selected]="isSelected"
-          (dblClick)="onNodeDoubleClicked()"
+          (dblclick)="onNodeDoubleClicked($event)"
           (click)="onNodeSelected($event)">
             <div *ngIf="tree.nodeTemplate" class="node-template" [innerHTML]="tree.nodeTemplate | safeHtml"></div>
             <span *ngIf="!template" class="node-name" [innerHTML]="tree.value | safeHtml"></span>
@@ -56,7 +56,7 @@ import { CapturedNode } from './draggable/captured-node';
             <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: tree.node }"></ng-template>
         </div>
 
-        <input type="text" class="node-value"
+        <input type="text" class="node-value" id="rename-input"
            *ngIf="shouldShowInputForTreeValue()"
            [nodeEditable]="tree.value"
            (valueChanged)="applyNewValue($event)"/>
@@ -237,12 +237,8 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     });
   }
 
-  public onNodeDoubleClicked(): void {
-    if (!this.tree.selectionAllowed) {
-      return;
-    }
-
-    this.treeService.fireNodeDoubleClicked(this.tree);
+  public onNodeDoubleClicked(e: MouseEvent): void {
+    this.treeService.fireNodeDoubleClicked(this.tree, e);
   }
 
   public onNodeSelected(e: { button: number }): void {

@@ -15,7 +15,13 @@ import {
 import { TreeService } from './tree.service';
 import * as TreeTypes from './tree.types';
 
-import { MenuItemSelectedEvent, NodeCheckedEvent, NodeEvent, NodeUncheckedEvent } from './tree.events';
+import {
+  MenuItemSelectedEvent,
+  NodeCheckedEvent,
+  NodeEvent,
+  NodeUncheckedEvent,
+  NodeDoubleClickedEvent
+} from './tree.events';
 
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
@@ -40,6 +46,8 @@ export class TreeComponent implements OnInit, OnChanges, OnDestroy {
   @Output() public nodeRemoved: EventEmitter<any> = new EventEmitter();
 
   @Output() public nodeRenamed: EventEmitter<any> = new EventEmitter();
+
+  @Output() public nodeDoubleClicked: EventEmitter<NodeDoubleClickedEvent> = new EventEmitter();
 
   @Output() public nodeSelected: EventEmitter<any> = new EventEmitter();
 
@@ -95,6 +103,12 @@ export class TreeComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.push(
       this.treeService.nodeCreated$.subscribe((e: NodeEvent) => {
         this.nodeCreated.emit(e);
+      })
+    );
+
+    this.subscriptions.push(
+      this.treeService.nodeDoubleClicked$.subscribe((e: NodeDoubleClickedEvent) => {
+        this.nodeDoubleClicked.emit(e);
       })
     );
 

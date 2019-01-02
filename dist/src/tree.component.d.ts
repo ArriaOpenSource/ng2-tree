@@ -1,7 +1,7 @@
 import { EventEmitter, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { TreeService } from './tree.service';
 import * as TreeTypes from './tree.types';
-import { NodeCheckedEvent, NodeUncheckedEvent } from './tree.events';
+import { NodeCheckedEvent, NodeUncheckedEvent, NodeDoubleClickedEvent } from './tree.events';
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
 import { NodeDragStartEvent } from './draggable/draggable.events';
@@ -13,6 +13,7 @@ export declare class TreeComponent implements OnInit, OnChanges, OnDestroy {
     nodeCreated: EventEmitter<any>;
     nodeRemoved: EventEmitter<any>;
     nodeRenamed: EventEmitter<any>;
+    nodeDoubleClicked: EventEmitter<NodeDoubleClickedEvent>;
     nodeSelected: EventEmitter<any>;
     nodeUnselected: EventEmitter<any>;
     nodeDragStarted: EventEmitter<NodeDragStartEvent>;

@@ -63,8 +63,8 @@ export class TreeService {
     this.nodeCreated$.next(new NodeCreatedEvent(tree));
   }
 
-  public fireNodeDoubleClicked(tree: Tree): void {
-    this.nodeDoubleClicked$.next(new NodeDoubleClickedEvent(tree));
+  public fireNodeDoubleClicked(tree: Tree, e: MouseEvent): void {
+    this.nodeDoubleClicked$.next(new NodeDoubleClickedEvent(tree, e));
   }
 
   public fireNodeSelected(tree: Tree): void {

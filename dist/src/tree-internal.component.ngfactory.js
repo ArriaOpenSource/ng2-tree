@@ -29,8 +29,8 @@ function View_TreeInternalComponent_4(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵel
 function View_TreeInternalComponent_5(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 1, "span", [["class", "node-name"]], [[8, "innerHTML", 1]], null, null, null, null)), i0.ɵppd(1, 1)], null, function (_ck, _v) { var _co = _v.component; var currVal_0 = i0.ɵunv(_v, 0, 0, _ck(_v, 1, 0, i0.ɵnov(_v.parent.parent.parent, 0), _co.tree.value)); _ck(_v, 0, 0, currVal_0); }); }
 function View_TreeInternalComponent_6(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 0, "span", [["class", "loading-children"]], null, null, null, null, null))], null, null); }
 function View_TreeInternalComponent_7(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵand(0, null, null, 0))], null, null); }
-function View_TreeInternalComponent_3(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 9, "div", [["class", "node-value"]], [[2, "node-selected", null]], [[null, "dblClick"], [null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("dblClick" === en)) {
-        var pd_0 = (_co.onNodeDoubleClicked() !== false);
+function View_TreeInternalComponent_3(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 9, "div", [["class", "node-value"]], [[2, "node-selected", null]], [[null, "dblclick"], [null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("dblclick" === en)) {
+        var pd_0 = (_co.onNodeDoubleClicked($event) !== false);
         ad = (pd_0 && ad);
     } if (("click" === en)) {
         var pd_1 = (_co.onNodeSelected($event) !== false);

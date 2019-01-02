@@ -6,7 +6,7 @@ export class NodeEvent {
 }
 
 export class NodeDoubleClickedEvent extends NodeEvent {
-  public constructor(node: Tree) {
+  public constructor(node: Tree, public e: MouseEvent) {
     super(node);
   }
 }

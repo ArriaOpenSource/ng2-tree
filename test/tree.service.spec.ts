@@ -103,10 +103,11 @@ describe('TreeService', () => {
     spyOn(treeService.nodeDoubleClicked$, 'next');
 
     const tree = new Tree({ value: 'Master' });
+    const mickey = new MouseEvent(null, null);
 
     treeService.fireNodeDoubleClicked(tree);
     expect(treeService.nodeDoubleClicked$.next).toHaveBeenCalledTimes(1);
-    expect(treeService.nodeDoubleClicked$.next).toHaveBeenCalledWith(new NodeDoubleClickedEvent(tree));
+    expect(treeService.nodeDoubleClicked$.next).toHaveBeenCalledWith(new NodeDoubleClickedEvent(tree, mickey));
   });
 
   it('fires node renamed events', () => {

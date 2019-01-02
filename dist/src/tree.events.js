@@ -19,8 +19,10 @@ var NodeEvent = (function () {
 exports.NodeEvent = NodeEvent;
 var NodeDoubleClickedEvent = (function (_super) {
     __extends(NodeDoubleClickedEvent, _super);
-    function NodeDoubleClickedEvent(node) {
-        return _super.call(this, node) || this;
+    function NodeDoubleClickedEvent(node, e) {
+        var _this = _super.call(this, node) || this;
+        _this.e = e;
+        return _this;
     }
     return NodeDoubleClickedEvent;
 }(NodeEvent));
