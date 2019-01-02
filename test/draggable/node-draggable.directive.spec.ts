@@ -394,7 +394,35 @@ describe('NodeDraggableDirective', () => {
   });
 
   describe('handleDrop', () => {
-    it('TODO', () => {});
+    it('should remove css classes and notify that node was dropped', () => {
+      const e = jasmine.createSpyObj('event', ['preventDefault', 'stopPropagation']);
+      spyOn(directiveInstance as any, 'getDragOverClassName').and.returnValue('drag-over');
+      spyOn(directiveInstance as any, 'getDropPositionClassName').and.returnValue('drop-into');
+      spyOn(directiveInstance as any, 'removeClasses');
+      spyOn(directiveInstance as any, 'isDropPossible').and.returnValue(true);
+      spyOn(directiveInstance as any, 'removeDraggedNodeClasses');
+      spyOn(directiveInstance as any, 'notifyThatNodeWasDropped');
+      spyOn(directiveInstance as any, 'releaseNodes');
+      spyOn((directiveInstance as any).nodeDraggableService, 'getDraggedNode').and.returnValue({});
+      spyOn((directiveInstance as any).nodeDraggableService, 'getCheckedNodes').and.returnValue([{}]);
+      (directiveInstance as any).currentDropPosition = 1;
+
+      (directiveInstance as any).handleDrop(e);
+      expect(e.preventDefault).toHaveBeenCalled();
+      expect(e.stopPropagation).toHaveBeenCalled();
+      expect((directiveInstance as any).getDragOverClassName).toHaveBeenCalled();
+      expect((directiveInstance as any).getDropPositionClassName).toHaveBeenCalledWith(1);
+      expect((directiveInstance as any).removeClasses).toHaveBeenCalledWith([
+        'over-drop-target',
+        'drag-over',
+        'drop-into'
+      ]);
+      expect((directiveInstance as any).isDropPossible).toHaveBeenCalled();
+      expect((directiveInstance as any).nodeDraggableService.getDraggedNode).toHaveBeenCalled();
+      expect((directiveInstance as any).removeDraggedNodeClasses).toHaveBeenCalled();
+      expect((directiveInstance as any).notifyThatNodeWasDropped).toHaveBeenCalled();
+      expect((directiveInstance as any).releaseNodes).toHaveBeenCalled();
+    });
   });
 
   describe('determineDropPosition', () => {
@@ -421,7 +449,31 @@ describe('NodeDraggableDirective', () => {
   });
 
   describe('isDropPossible', () => {
-    it('TODO', () => {});
+    it('should return boolean whether the dragged node(s) can be dropped at current node', () => {
+      // Dragged node
+      const e = jasmine.createSpyObj('event', ['preventDefault', 'stopPropagation']);
+      const draggedNode = jasmine.createSpyObj('draggedNode', ['canBeDroppedAt']);
+      draggedNode.canBeDroppedAt.and.returnValue(true);
+      spyOn((directiveInstance as any).nodeDraggableService, 'getDraggedNode').and.returnValue(draggedNode);
+      spyOn(directiveInstance as any, 'containsElementAt').and.returnValue(true);
+      directiveInstance.nodeDraggable = {} as any;
+
+      expect((directiveInstance as any).isDropPossible(e)).toBe(true);
+      expect((directiveInstance as any).nodeDraggableService.getDraggedNode).toHaveBeenCalled();
+      expect(draggedNode.canBeDroppedAt).toHaveBeenCalledWith(directiveInstance.nodeDraggable);
+      expect((directiveInstance as any).containsElementAt).toHaveBeenCalledWith(e);
+
+      // Checked nodes
+      draggedNode.canBeDroppedAt.calls.reset();
+      (directiveInstance as any).containsElementAt.calls.reset();
+      (directiveInstance as any).nodeDraggableService.getDraggedNode.and.returnValue(null);
+      spyOn((directiveInstance as any).nodeDraggableService, 'getCheckedNodes').and.returnValue([draggedNode]);
+
+      expect((directiveInstance as any).isDropPossible(e)).toBe(true);
+      expect((directiveInstance as any).nodeDraggableService.getCheckedNodes).toHaveBeenCalled();
+      expect(draggedNode.canBeDroppedAt).toHaveBeenCalledWith(directiveInstance.nodeDraggable);
+      expect((directiveInstance as any).containsElementAt).toHaveBeenCalledWith(e);
+    });
   });
 
   describe('releaseNodes', () => {
