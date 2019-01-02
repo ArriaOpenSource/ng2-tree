@@ -182,4 +182,57 @@ describe('NodeMenuComponent', () => {
 
     expect(nodeMenuService.nodeMenuEvents$.next).not.toHaveBeenCalled();
   });
+
+  describe('ngAfterViewInit', () => {
+    it('should display the menu', () => {
+      spyOn(componentInstance, 'displayAboveOrBelow');
+      componentInstance.ngAfterViewInit();
+      expect(componentInstance.displayAboveOrBelow).toHaveBeenCalled();
+    });
+  });
+
+  describe('displayAboveOrBelow', () => {
+    it('should determine if menu should open upwards or downwards based on available space', () => {
+      const scrollableParent = document.createElement('div');
+      scrollableParent.style.height = '300px';
+
+      const menuContainerElem = document.createElement('div');
+      menuContainerElem.style.height = '100px';
+
+      scrollableParent.appendChild(menuContainerElem);
+      document.body.appendChild(scrollableParent);
+      componentInstance.menuContainer = { nativeElement: menuContainerElem };
+
+      componentInstance.displayAboveOrBelow();
+      expect(menuContainerElem.getAttribute('style')).toEqual('top: 0');
+
+      menuContainerElem.setAttribute('style', 'height: 200px');
+      scrollableParent.insertBefore(menuContainerElem.cloneNode(true), menuContainerElem);
+      scrollableParent.insertBefore(menuContainerElem.cloneNode(true), menuContainerElem);
+
+      componentInstance.displayAboveOrBelow();
+      expect(menuContainerElem.getAttribute('style')).toEqual('bottom: 0');
+
+      document.body.removeChild(scrollableParent);
+    });
+  });
+
+  describe('getScrollParent', () => {
+    it('should recursively find the closest scrollable parent', () => {
+      const scrollableParent = document.createElement('div');
+      scrollableParent.style.height = '100px';
+
+      const scrollChild = document.createElement('div');
+      scrollChild.style.height = '200px';
+      scrollableParent.appendChild(scrollChild);
+      document.body.appendChild(scrollableParent);
+
+      spyOn(componentInstance, 'getScrollParent').and.callThrough();
+      const result = componentInstance.getScrollParent(scrollChild);
+
+      expect(componentInstance.getScrollParent).toHaveBeenCalledTimes(2);
+      expect(result).toBe(scrollableParent);
+      document.body.removeChild(scrollableParent);
+    });
+  });
 });

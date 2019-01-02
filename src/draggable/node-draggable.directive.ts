@@ -61,6 +61,8 @@ export class NodeDraggableDirective implements OnDestroy, OnInit {
     if (e.stopPropagation) {
       e.stopPropagation();
     }
+    // Checked nodes are already added to the service in checkedNodes array
+    // This is like so to allow differentiating if dragging a list of checked nodes or single unchecked node.
     if (!this.tree.checked) {
       this.nodeDraggableService.setDraggedNode(new CapturedNode(this.nodeDraggable, this.tree));
     }

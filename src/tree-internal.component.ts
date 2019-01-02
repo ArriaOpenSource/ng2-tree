@@ -172,7 +172,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
 
   private nodeDraggedHandler(e: NodeDraggableEvent): void {
     // Remove child nodes if parent is being moved (child nodes will move with the parent)
-    const nodesToMove = e.captured.filter(cn => !cn.tree.parent.checked);
+    const nodesToMove = e.captured.filter(cn => !cn.tree.parent || !cn.tree.parent.checked);
 
     let i = nodesToMove.length;
     while (i--) {
@@ -192,9 +192,11 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
         this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree, e.position);
       }
     }
-    const parentCtrl = this.treeService.getController(this.tree.parent.id);
-    if (parentCtrl) {
-      parentCtrl.updateCheckboxState();
+    if (!this.tree.isRoot()) {
+      const parentCtrl = this.treeService.getController(this.tree.parent.id);
+      if (parentCtrl) {
+        parentCtrl.updateCheckboxState();
+      }
     }
   }
 
@@ -202,8 +204,11 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     const previousPositionInParent = sibling.positionInParent;
     if (position === DropPosition.Above) {
       tree.moveSiblingAbove(sibling);
-    } else {
+    } else if (position === DropPosition.Below) {
       tree.moveSiblingBelow(sibling);
+    } else {
+      console.error(`Invalid drop position: ${DropPosition[position]}`);
+      return;
     }
     this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
   }

@@ -13,12 +13,14 @@ import { NodeEditableDirective } from '../src/editable/node-editable.directive';
 import * as EventUtils from '../src/utils/event.utils';
 import { CapturedNode } from '../src/draggable/captured-node';
 import { SafeHtmlPipe } from '../src/utils/safe-html.pipe';
-import { DropPosition } from '../src/draggable/draggable.events';
+import { DropPosition, NodeDraggableEvent } from '../src/draggable/draggable.events';
+import { noop } from '../src/rxjs-imports';
 
 let fixture;
 let masterInternalTreeEl;
 let masterComponentInstance;
 let lordInternalTreeEl;
+let lordComponentInstance;
 let faceInternalTreeEl;
 let faceComponentInstance;
 let nodeMenuService;
@@ -28,11 +30,13 @@ let safeHtml;
 
 const tree: TreeModel = {
   value: 'Master',
+  id: 'master',
   children: [{ value: 'Servant#1' }, { value: 'Servant#2' }]
 };
 
 const tree2: TreeModel = {
   value: 'Lord',
+  id: 'lord',
   children: [
     {
       value: 'Disciple#1',
@@ -53,9 +57,7 @@ const tree3: TreeModel = {
       children: [
         {
           value: 'Retina',
-          settings: {
-            static: false
-          }
+          settings: { static: false }
         },
         { value: 'Eyebrow' }
       ]
@@ -77,7 +79,8 @@ class TestComponent {
   public tree3: TreeModel = tree3;
 
   public settings: Ng2TreeSettings = {
-    rootIsVisible: false
+    rootIsVisible: false,
+    showCheckboxes: true
   };
 
   public constructor(public treeHolder: ElementRef) {}
@@ -104,6 +107,8 @@ describe('TreeInternalComponent', () => {
     masterComponentInstance = masterInternalTreeEl.componentInstance;
 
     lordInternalTreeEl = fixture.debugElement.query(By.css('#lord')).query(By.directive(TreeInternalComponent));
+    lordComponentInstance = lordInternalTreeEl.componentInstance;
+
     faceInternalTreeEl = fixture.debugElement.query(By.css('#face')).query(By.directive(TreeInternalComponent));
     faceComponentInstance = faceInternalTreeEl.componentInstance;
 
@@ -554,5 +559,223 @@ describe('TreeInternalComponent', () => {
       expect(nodeValues[3].innerText).toEqual('Eyebrow');
       expect(nodeValues[4].innerText).toEqual('Lips');
     });
+  });
+
+  describe('nodeDraggedHandler', () => {
+    it(`should call correct 'move' function for each dragged item and uncheck moved items`, () => {
+      const mockCtrl = { isChecked: noop, uncheck: noop };
+      spyOn(mockCtrl, 'isChecked').and.returnValue(true);
+      spyOn(mockCtrl, 'uncheck');
+      spyOn(lordComponentInstance.treeService, 'getController').and.returnValue(mockCtrl);
+      spyOn(lordComponentInstance.tree, 'isBranch').and.returnValue(true);
+      spyOn(lordComponentInstance.tree, 'hasSibling').and.returnValue(true);
+      spyOn(lordComponentInstance, 'moveNodeToThisTreeAndRemoveFromPreviousOne');
+      spyOn(lordComponentInstance, 'moveSibling');
+      spyOn(lordComponentInstance, 'moveNodeToParentTreeAndRemoveFromPreviousOne');
+
+      const e1 = new NodeDraggableEvent(
+        [new CapturedNode({} as ElementRef, masterComponentInstance.tree)],
+        null,
+        DropPosition.Into
+      );
+      lordComponentInstance.nodeDraggedHandler(e1);
+      expect(lordComponentInstance.treeService.getController).toHaveBeenCalled();
+      expect(mockCtrl.isChecked).toHaveBeenCalled();
+      expect(mockCtrl.uncheck).toHaveBeenCalled();
+      expect(lordComponentInstance.tree.isBranch).toHaveBeenCalled();
+      expect(lordComponentInstance.moveNodeToThisTreeAndRemoveFromPreviousOne).toHaveBeenCalled();
+
+      lordComponentInstance.tree.isBranch.and.returnValue(false);
+      const e2 = new NodeDraggableEvent(
+        [new CapturedNode({} as ElementRef, masterComponentInstance.tree)],
+        null,
+        DropPosition.Above
+      );
+      lordComponentInstance.nodeDraggedHandler(e2);
+      expect(lordComponentInstance.tree.hasSibling).toHaveBeenCalled();
+      expect(lordComponentInstance.moveSibling).toHaveBeenCalled();
+
+      lordComponentInstance.tree.hasSibling.and.returnValue(false);
+      const e3 = new NodeDraggableEvent(
+        [new CapturedNode({} as ElementRef, masterComponentInstance.tree)],
+        null,
+        DropPosition.Below
+      );
+      lordComponentInstance.nodeDraggedHandler(e3);
+      expect(lordComponentInstance.moveNodeToParentTreeAndRemoveFromPreviousOne).toHaveBeenCalled();
+    });
+  });
+
+  describe('ngOnDestroy', () => {
+    it('should delete the controller and release checked/dragged nodes', () => {
+      spyOn(masterComponentInstance.nodeDraggableService, 'releaseDraggedNode');
+      spyOn(masterComponentInstance.nodeDraggableService, 'releaseCheckedNodes');
+      spyOn(masterComponentInstance.treeService, 'deleteController');
+
+      masterComponentInstance.ngOnDestroy();
+      expect(masterComponentInstance.nodeDraggableService.releaseDraggedNode).toHaveBeenCalled();
+      expect(masterComponentInstance.nodeDraggableService.releaseCheckedNodes).toHaveBeenCalled();
+      expect(masterComponentInstance.treeService.deleteController).toHaveBeenCalled();
+    });
+  });
+
+  describe('moveSibling', () => {
+    it('should move sibling either above ore below the current tree, based on the option passed', () => {
+      const mockTree = { moveSiblingAbove: noop, moveSiblingBelow: noop };
+      const mockSibling = { parent: mockTree, positionInParent: 0 };
+      spyOn(mockTree, 'moveSiblingAbove');
+      spyOn(mockTree, 'moveSiblingBelow');
+      spyOn(masterComponentInstance.treeService, 'fireNodeMoved');
+
+      masterComponentInstance.moveSibling(mockSibling, mockTree, DropPosition.Above);
+      expect(mockTree.moveSiblingAbove).toHaveBeenCalledWith(mockSibling);
+      expect(masterComponentInstance.treeService.fireNodeMoved).toHaveBeenCalledWith(
+        mockSibling,
+        mockSibling.parent,
+        mockSibling.positionInParent
+      );
+
+      masterComponentInstance.moveSibling(mockSibling, mockTree, DropPosition.Below);
+      expect(mockTree.moveSiblingBelow).toHaveBeenCalledWith(mockSibling);
+    });
+  });
+
+  describe('moveNodeToThisTreeAndRemoveFromPreviousOne', () => {
+    it(
+      'should move given node to a given tree as a child',
+      fakeAsync(() => {
+        const capturedTree = { parent: {}, removeItselfFromParent: noop };
+        const moveToTree = { addChild: noop };
+
+        spyOn(capturedTree, 'removeItselfFromParent');
+        spyOn(moveToTree, 'addChild').and.returnValue(capturedTree);
+        spyOn(masterComponentInstance.treeService, 'fireNodeMoved');
+
+        masterComponentInstance.moveNodeToThisTreeAndRemoveFromPreviousOne(capturedTree, moveToTree);
+        expect(capturedTree.removeItselfFromParent).toHaveBeenCalled();
+        tick();
+        expect(moveToTree.addChild).toHaveBeenCalledWith(capturedTree);
+        expect(masterComponentInstance.treeService.fireNodeMoved).toHaveBeenCalledWith(
+          capturedTree,
+          capturedTree.parent
+        );
+      })
+    );
+  });
+
+  describe('moveNodeToParentTreeAndRemoveFromPreviousOne', () => {
+    it(
+      'should move given node to a given tree as a sibling',
+      fakeAsync(() => {
+        const capturedTree = { parent: {}, removeItselfFromParent: noop };
+        const moveToTree = { addSibling: noop, positionInParent: 0 };
+
+        spyOn(capturedTree, 'removeItselfFromParent');
+        spyOn(moveToTree, 'addSibling').and.returnValue(capturedTree);
+        spyOn(masterComponentInstance.treeService, 'fireNodeMoved');
+
+        masterComponentInstance.moveNodeToParentTreeAndRemoveFromPreviousOne(
+          capturedTree,
+          moveToTree,
+          DropPosition.Below
+        );
+        expect(capturedTree.removeItselfFromParent).toHaveBeenCalled();
+        tick();
+        expect(moveToTree.addSibling).toHaveBeenCalledWith(capturedTree, 1);
+        expect(masterComponentInstance.treeService.fireNodeMoved).toHaveBeenCalledWith(
+          capturedTree,
+          capturedTree.parent
+        );
+      })
+    );
+  });
+
+  describe('onRemoveSelected', () => {
+    it('should fire node removed event', () => {
+      spyOn(masterComponentInstance.nodeDraggableService, 'removeCheckedNodeById');
+      spyOn(masterComponentInstance.treeService, 'deleteController');
+      spyOn(masterComponentInstance.treeService, 'fireNodeRemoved');
+
+      masterComponentInstance.onRemoveSelected();
+      expect(masterComponentInstance.nodeDraggableService.removeCheckedNodeById).toHaveBeenCalledWith('master');
+      expect(masterComponentInstance.treeService.deleteController).toHaveBeenCalledWith('master');
+      expect(masterComponentInstance.treeService.fireNodeRemoved).toHaveBeenCalledWith(masterComponentInstance.tree);
+    });
+  });
+
+  describe('onNodeDoubleClicked', () => {
+    it('should fire node double clicked event', () => {
+      spyOn(masterComponentInstance.treeService, 'fireNodeDoubleClicked');
+      masterComponentInstance.onNodeDoubleClicked();
+      expect(masterComponentInstance.treeService.fireNodeDoubleClicked).toHaveBeenCalledWith(
+        masterComponentInstance.tree
+      );
+    });
+  });
+
+  describe('onNodeChecked', () => {
+    it('should fire node checked event', () => {
+      spyOn(faceComponentInstance.nodeDraggableService, 'addCheckedNode');
+      spyOn(faceComponentInstance, 'onNodeIndeterminate');
+      spyOn(faceComponentInstance.treeService, 'fireNodeChecked');
+      spyOn(faceComponentInstance, 'executeOnChildController');
+
+      faceComponentInstance.onNodeChecked();
+      expect(faceComponentInstance.nodeDraggableService.addCheckedNode).toHaveBeenCalled();
+      expect(faceComponentInstance.onNodeIndeterminate).toHaveBeenCalled();
+      expect(faceComponentInstance.treeService.fireNodeChecked).toHaveBeenCalledWith(faceComponentInstance.tree);
+      expect(faceComponentInstance.executeOnChildController).toHaveBeenCalled();
+      expect(faceComponentInstance.tree.checked).toBe(true);
+    });
+  });
+
+  describe('onNodeIndeterminate', () => {
+    it('should fire node indeterminate event', () => {
+      spyOn(faceComponentInstance.treeService, 'fireNodeIndeterminate');
+      faceComponentInstance.onNodeIndeterminate(true);
+      expect(faceComponentInstance.treeService.fireNodeIndeterminate).toHaveBeenCalledWith(
+        faceComponentInstance.tree,
+        true
+      );
+    });
+  });
+
+  describe('updateCheckboxState', () => {
+    it(
+      'should update checkbox state based on children states',
+      fakeAsync(() => {
+        spyOn(masterComponentInstance.tree, 'checkedChildrenAmount').and.returnValue(0);
+        spyOn(masterComponentInstance.tree, 'loadedChildrenAmount');
+        spyOn(masterComponentInstance, 'onNodeUnchecked');
+        spyOn(masterComponentInstance, 'onNodeIndeterminate');
+        spyOn(masterComponentInstance, 'onNodeChecked');
+
+        masterComponentInstance.updateCheckboxState();
+        tick();
+        expect(masterComponentInstance.tree.checkedChildrenAmount).toHaveBeenCalled();
+        expect(masterComponentInstance.onNodeUnchecked).toHaveBeenCalledWith(true);
+        expect(masterComponentInstance.onNodeIndeterminate).toHaveBeenCalledWith(false);
+
+        masterComponentInstance.onNodeUnchecked.calls.reset();
+        masterComponentInstance.onNodeIndeterminate.calls.reset();
+        masterComponentInstance.tree.checkedChildrenAmount.and.returnValue(1);
+        masterComponentInstance.tree.loadedChildrenAmount.and.returnValue(1);
+
+        masterComponentInstance.updateCheckboxState();
+        tick();
+        expect(masterComponentInstance.tree.loadedChildrenAmount).toHaveBeenCalled();
+        expect(masterComponentInstance.onNodeChecked).toHaveBeenCalledWith(true);
+        expect(masterComponentInstance.onNodeIndeterminate).toHaveBeenCalledWith(false);
+
+        masterComponentInstance.onNodeChecked.calls.reset();
+        masterComponentInstance.onNodeIndeterminate.calls.reset();
+        masterComponentInstance.tree.loadedChildrenAmount.and.returnValue(2);
+
+        masterComponentInstance.updateCheckboxState();
+        tick();
+        expect(masterComponentInstance.onNodeUnchecked).toHaveBeenCalledWith(true);
+        expect(masterComponentInstance.onNodeIndeterminate).toHaveBeenCalledWith(true);
+      })
+    );
   });
 });
