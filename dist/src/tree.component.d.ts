@@ -23,6 +23,7 @@ export declare class TreeComponent implements OnInit, OnChanges, OnDestroy {
     loadNextLevel: EventEmitter<any>;
     nodeChecked: EventEmitter<NodeCheckedEvent>;
     nodeUnchecked: EventEmitter<NodeUncheckedEvent>;
+    nodeRenameKeydown: EventEmitter<KeyboardEvent>;
     menuItemSelected: EventEmitter<any>;
     tree: Tree;
     rootComponent: any;

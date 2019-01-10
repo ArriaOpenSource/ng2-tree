@@ -36,7 +36,7 @@ function View_TreeInternalComponent_3(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵel
         var pd_1 = (_co.onNodeSelected($event) !== false);
         ad = (pd_1 && ad);
     } return ad; }, null, null)), (_l()(), i0.ɵand(16777216, null, null, 1, null, View_TreeInternalComponent_4)), i0.ɵdid(2, 16384, null, 0, i1.NgIf, [i0.ViewContainerRef, i0.TemplateRef], { ngIf: [0, "ngIf"] }, null), (_l()(), i0.ɵand(16777216, null, null, 1, null, View_TreeInternalComponent_5)), i0.ɵdid(4, 16384, null, 0, i1.NgIf, [i0.ViewContainerRef, i0.TemplateRef], { ngIf: [0, "ngIf"] }, null), (_l()(), i0.ɵand(16777216, null, null, 1, null, View_TreeInternalComponent_6)), i0.ɵdid(6, 16384, null, 0, i1.NgIf, [i0.ViewContainerRef, i0.TemplateRef], { ngIf: [0, "ngIf"] }, null), (_l()(), i0.ɵand(16777216, null, null, 2, null, View_TreeInternalComponent_7)), i0.ɵdid(8, 540672, null, 0, i1.NgTemplateOutlet, [i0.ViewContainerRef], { ngTemplateOutletContext: [0, "ngTemplateOutletContext"], ngTemplateOutlet: [1, "ngTemplateOutlet"] }, null), i0.ɵpod(9, { $implicit: 0 })], function (_ck, _v) { var _co = _v.component; var currVal_1 = _co.tree.nodeTemplate; _ck(_v, 2, 0, currVal_1); var currVal_2 = !_co.template; _ck(_v, 4, 0, currVal_2); var currVal_3 = _co.tree.childrenAreBeingLoaded(); _ck(_v, 6, 0, currVal_3); var currVal_4 = _ck(_v, 9, 0, _co.tree.node); var currVal_5 = _co.template; _ck(_v, 8, 0, currVal_4, currVal_5); }, function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.isSelected; _ck(_v, 0, 0, currVal_0); }); }
-function View_TreeInternalComponent_8(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 1, "input", [["class", "node-value"], ["type", "text"]], null, [[null, "valueChanged"], [null, "keyup.enter"], [null, "blur"], [null, "keyup.esc"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("keyup.enter" === en)) {
+function View_TreeInternalComponent_8(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 1, "input", [["class", "node-value"], ["id", "rename-input"], ["type", "text"]], null, [[null, "keydown"], [null, "valueChanged"], [null, "keyup.enter"], [null, "blur"], [null, "keyup.esc"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("keyup.enter" === en)) {
         var pd_0 = (i0.ɵnov(_v, 1).applyNewValue($event.target.value) !== false);
         ad = (pd_0 && ad);
     } if (("blur" === en)) {
@@ -45,9 +45,12 @@ function View_TreeInternalComponent_8(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵel
     } if (("keyup.esc" === en)) {
         var pd_2 = (i0.ɵnov(_v, 1).cancelEditing() !== false);
         ad = (pd_2 && ad);
-    } if (("valueChanged" === en)) {
-        var pd_3 = (_co.applyNewValue($event) !== false);
+    } if (("keydown" === en)) {
+        var pd_3 = (_co.keydownHandler($event) !== false);
         ad = (pd_3 && ad);
+    } if (("valueChanged" === en)) {
+        var pd_4 = (_co.applyNewValue($event) !== false);
+        ad = (pd_4 && ad);
     } return ad; }, null, null)), i0.ɵdid(1, 81920, null, 0, i2.NodeEditableDirective, [i0.Renderer2, i0.ElementRef], { nodeValue: [0, "nodeValue"] }, { valueChanged: "valueChanged" })], function (_ck, _v) { var _co = _v.component; var currVal_0 = _co.tree.value; _ck(_v, 1, 0, currVal_0); }, null); }
 function View_TreeInternalComponent_9(_l) { return i0.ɵvid(0, [(_l()(), i0.ɵeld(0, 0, null, null, 0, "div", [["class", "node-left-menu"]], [[8, "innerHTML", 1]], [[null, "click"]], function (_v, en, $event) { var ad = true; var _co = _v.component; if (("click" === en)) {
         var pd_0 = (_co.showLeftMenu($event) !== false);

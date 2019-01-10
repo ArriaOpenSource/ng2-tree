@@ -24,9 +24,11 @@ export declare class TreeService {
     nodeChecked$: Subject<NodeCheckedEvent>;
     nodeUnchecked$: Subject<NodeUncheckedEvent>;
     nodeIndeterminate$: Subject<NodeIndeterminateEvent>;
+    nodeRenameKeydown$: Subject<KeyboardEvent>;
     private controllers;
     constructor(nodeDraggableService: NodeDraggableService);
     unselectStream(tree: Tree): Observable<NodeSelectedEvent>;
+    fireNodeRenameKeydownEvent(e: KeyboardEvent): void;
     fireNodeRemoved(tree: Tree): void;
     fireNodeCreated(tree: Tree): void;
     fireNodeDoubleClicked(tree: Tree, e: MouseEvent): void;
