@@ -60,6 +60,7 @@ import { CapturedNode } from './draggable/captured-node';
            *ngIf="shouldShowInputForTreeValue()"
            [nodeEditable]="tree.value"
            (keydown)="keydownHandler($event)"
+           (input)="inputChangeHandler($event)"
            (valueChanged)="applyNewValue($event)"/>
 
         <div class="node-left-menu" *ngIf="tree.hasLeftMenu()" (click)="showLeftMenu($event)" [innerHTML]="tree.leftMenuTemplate">
@@ -344,6 +345,10 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
 
   public keydownHandler(e: KeyboardEvent): void {
     this.treeService.fireNodeRenameKeydownEvent(e);
+  }
+
+  public inputChangeHandler(e: Event): void {
+    this.treeService.fireNodeRenameInputChanged(e);
   }
 
   public applyNewValue(e: NodeEditableEvent): void {

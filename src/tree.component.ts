@@ -54,6 +54,7 @@ export class TreeComponent implements OnInit, OnChanges, OnDestroy {
   @Output() public nodeChecked: EventEmitter<NodeCheckedEvent> = new EventEmitter();
   @Output() public nodeUnchecked: EventEmitter<NodeUncheckedEvent> = new EventEmitter();
   @Output() public nodeRenameKeydown: EventEmitter<KeyboardEvent> = new EventEmitter();
+  @Output() public nodeRenameInputChange: EventEmitter<Event> = new EventEmitter();
   @Output() public menuItemSelected: EventEmitter<any> = new EventEmitter();
 
   public tree: Tree;
@@ -162,6 +163,12 @@ export class TreeComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.push(
       this.treeService.nodeRenameKeydown$.subscribe((e: KeyboardEvent) => {
         this.nodeRenameKeydown.emit(e);
+      })
+    );
+
+    this.subscriptions.push(
+      this.treeService.nodeRenameInputChange$.subscribe((e: KeyboardEvent) => {
+        this.nodeRenameInputChange.emit(e);
       })
     );
   }

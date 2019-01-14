@@ -42,6 +42,7 @@ export class TreeService {
   public nodeUnchecked$: Subject<NodeUncheckedEvent> = new Subject();
   public nodeIndeterminate$: Subject<NodeIndeterminateEvent> = new Subject();
   public nodeRenameKeydown$: Subject<KeyboardEvent> = new Subject();
+  public nodeRenameInputChange$: Subject<Event> = new Subject();
 
   private controllers: Map<string | number, TreeController> = new Map();
 
@@ -58,6 +59,10 @@ export class TreeService {
 
   public fireNodeRenameKeydownEvent(e: KeyboardEvent): void {
     this.nodeRenameKeydown$.next(e);
+  }
+
+  public fireNodeRenameInputChanged(e: Event): void {
+    this.nodeRenameInputChange$.next(e);
   }
 
   public fireNodeRemoved(tree: Tree): void {
