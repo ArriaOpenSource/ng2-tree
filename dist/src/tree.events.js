@@ -151,4 +151,24 @@ var NodeIndeterminateEvent = (function (_super) {
     return NodeIndeterminateEvent;
 }(NodeEvent));
 exports.NodeIndeterminateEvent = NodeIndeterminateEvent;
+var NodeRenameKeydownEvent = (function (_super) {
+    __extends(NodeRenameKeydownEvent, _super);
+    function NodeRenameKeydownEvent(node, domEvent) {
+        var _this = _super.call(this, node) || this;
+        _this.domEvent = domEvent;
+        return _this;
+    }
+    return NodeRenameKeydownEvent;
+}(NodeEvent));
+exports.NodeRenameKeydownEvent = NodeRenameKeydownEvent;
+var NodeRenameInputChangeEvent = (function (_super) {
+    __extends(NodeRenameInputChangeEvent, _super);
+    function NodeRenameInputChangeEvent(node, domEvent) {
+        var _this = _super.call(this, node) || this;
+        _this.domEvent = domEvent;
+        return _this;
+    }
+    return NodeRenameInputChangeEvent;
+}(NodeEvent));
+exports.NodeRenameInputChangeEvent = NodeRenameInputChangeEvent;
 //# sourceMappingURL=tree.events.js.map

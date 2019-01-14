@@ -222,10 +222,10 @@ var TreeInternalComponent = (function () {
         this.treeService.fireNodeSwitchFoldingType(this.tree);
     };
     TreeInternalComponent.prototype.keydownHandler = function (e) {
-        this.treeService.fireNodeRenameKeydownEvent(e);
+        this.treeService.fireNodeRenameKeydownEvent(this.tree, e);
     };
     TreeInternalComponent.prototype.inputChangeHandler = function (e) {
-        this.treeService.fireNodeRenameInputChanged(e);
+        this.treeService.fireNodeRenameInputChanged(this.tree, e);
     };
     TreeInternalComponent.prototype.applyNewValue = function (e) {
         if ((e.action === editable_events_1.NodeEditableEventAction.Cancel || this.tree.isNew()) && tree_1.Tree.isValueEmpty(e.value)) {

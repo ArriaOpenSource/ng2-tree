@@ -527,10 +527,10 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             this.treeService.fireNodeSwitchFoldingType(this.tree);
         };
         TreeInternalComponent.prototype.keydownHandler = function (e) {
-            this.treeService.fireNodeRenameKeydownEvent(e);
+            this.treeService.fireNodeRenameKeydownEvent(this.tree, e);
         };
         TreeInternalComponent.prototype.inputChangeHandler = function (e) {
-            this.treeService.fireNodeRenameInputChanged(e);
+            this.treeService.fireNodeRenameInputChanged(this.tree, e);
         };
         TreeInternalComponent.prototype.applyNewValue = function (e) {
             if ((e.action === editable_events_1.NodeEditableEventAction.Cancel || this.tree.isNew()) && tree_1.Tree.isValueEmpty(e.value)) {
@@ -2525,6 +2525,26 @@ $__System.registerDynamic("26", [], true, function ($__require, exports, module)
         return NodeIndeterminateEvent;
     }(NodeEvent);
     exports.NodeIndeterminateEvent = NodeIndeterminateEvent;
+    var NodeRenameKeydownEvent = function (_super) {
+        __extends(NodeRenameKeydownEvent, _super);
+        function NodeRenameKeydownEvent(node, domEvent) {
+            var _this = _super.call(this, node) || this;
+            _this.domEvent = domEvent;
+            return _this;
+        }
+        return NodeRenameKeydownEvent;
+    }(NodeEvent);
+    exports.NodeRenameKeydownEvent = NodeRenameKeydownEvent;
+    var NodeRenameInputChangeEvent = function (_super) {
+        __extends(NodeRenameInputChangeEvent, _super);
+        function NodeRenameInputChangeEvent(node, domEvent) {
+            var _this = _super.call(this, node) || this;
+            _this.domEvent = domEvent;
+            return _this;
+        }
+        return NodeRenameInputChangeEvent;
+    }(NodeEvent);
+    exports.NodeRenameInputChangeEvent = NodeRenameInputChangeEvent;
 
 });
 $__System.registerDynamic("1b", [], true, function ($__require, exports, module) {
@@ -2786,11 +2806,11 @@ $__System.registerDynamic("11", ["26", "25", "10", "1c", "17"], true, function (
                 return tree !== e.node;
             });
         };
-        TreeService.prototype.fireNodeRenameKeydownEvent = function (e) {
-            this.nodeRenameKeydown$.next(e);
+        TreeService.prototype.fireNodeRenameKeydownEvent = function (tree, e) {
+            this.nodeRenameKeydown$.next(new tree_events_1.NodeRenameKeydownEvent(tree, e));
         };
-        TreeService.prototype.fireNodeRenameInputChanged = function (e) {
-            this.nodeRenameInputChange$.next(e);
+        TreeService.prototype.fireNodeRenameInputChanged = function (tree, e) {
+            this.nodeRenameInputChange$.next(new tree_events_1.NodeRenameInputChangeEvent(tree, e));
         };
         TreeService.prototype.fireNodeRemoved = function (tree) {
             this.nodeRemoved$.next(new tree_events_1.NodeRemovedEvent(tree, tree.positionInParent));
@@ -2978,6 +2998,8 @@ $__System.registerDynamic("a", ["12", "13", "15", "26", "1b", "f", "14", "29"], 
   exports.NodeCheckedEvent = tree_events_1.NodeCheckedEvent;
   exports.NodeIndeterminateEvent = tree_events_1.NodeIndeterminateEvent;
   exports.NodeUnselectedEvent = tree_events_1.NodeUnselectedEvent;
+  exports.NodeRenameKeydownEvent = tree_events_1.NodeRenameKeydownEvent;
+  exports.NodeRenameInputChangeEvent = tree_events_1.NodeRenameInputChangeEvent;
   var draggable_events_1 = $__require("1b");
   exports.NodeDragStartEvent = draggable_events_1.NodeDragStartEvent;
   exports.NodeDraggableEvent = draggable_events_1.NodeDraggableEvent;
