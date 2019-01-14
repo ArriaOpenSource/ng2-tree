@@ -243,6 +243,8 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
 
   public onNodeSelected(e: { button: number }): void {
     if (!this.tree.selectionAllowed) {
+      // Expand/collapse folder on click
+      this.treeService.fireNodeSwitchFoldingType(this.tree);
       return;
     }
 
