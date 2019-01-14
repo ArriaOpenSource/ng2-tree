@@ -706,9 +706,11 @@ describe('TreeInternalComponent', () => {
   describe('onNodeDoubleClicked', () => {
     it('should fire node double clicked event', () => {
       spyOn(masterComponentInstance.treeService, 'fireNodeDoubleClicked');
-      masterComponentInstance.onNodeDoubleClicked();
+      const e = {};
+      masterComponentInstance.onNodeDoubleClicked(e);
       expect(masterComponentInstance.treeService.fireNodeDoubleClicked).toHaveBeenCalledWith(
-        masterComponentInstance.tree
+        masterComponentInstance.tree,
+        e
       );
     });
   });
