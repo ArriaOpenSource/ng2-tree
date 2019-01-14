@@ -47,6 +47,7 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     private onCustomSelected();
     onSwitchFoldingType(): void;
     keydownHandler(e: KeyboardEvent): void;
+    inputChangeHandler(e: Event): void;
     applyNewValue(e: NodeEditableEvent): void;
     shouldShowInputForTreeValue(): boolean;
     isRootHidden(): boolean;

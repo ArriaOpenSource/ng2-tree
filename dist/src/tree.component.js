@@ -21,6 +21,7 @@ var TreeComponent = (function () {
         this.nodeChecked = new core_1.EventEmitter();
         this.nodeUnchecked = new core_1.EventEmitter();
         this.nodeRenameKeydown = new core_1.EventEmitter();
+        this.nodeRenameInputChange = new core_1.EventEmitter();
         this.menuItemSelected = new core_1.EventEmitter();
         this.subscriptions = [];
     }
@@ -79,6 +80,9 @@ var TreeComponent = (function () {
         this.subscriptions.push(this.treeService.nodeRenameKeydown$.subscribe(function (e) {
             _this.nodeRenameKeydown.emit(e);
         }));
+        this.subscriptions.push(this.treeService.nodeRenameInputChange$.subscribe(function (e) {
+            _this.nodeRenameInputChange.emit(e);
+        }));
     };
     TreeComponent.prototype.getController = function () {
         return this.rootComponent.controller;
@@ -118,6 +122,7 @@ var TreeComponent = (function () {
         "nodeChecked": [{ type: core_1.Output },],
         "nodeUnchecked": [{ type: core_1.Output },],
         "nodeRenameKeydown": [{ type: core_1.Output },],
+        "nodeRenameInputChange": [{ type: core_1.Output },],
         "menuItemSelected": [{ type: core_1.Output },],
         "rootComponent": [{ type: core_1.ViewChild, args: ['rootComponent',] },],
         "template": [{ type: core_1.ContentChild, args: [core_1.TemplateRef,] },],
