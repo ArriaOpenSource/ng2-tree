@@ -71,7 +71,7 @@ var TreeInternalComponent = (function () {
     };
     TreeInternalComponent.prototype.nodeDraggedHandler = function (e) {
         // Remove child nodes if parent is being moved (child nodes will move with the parent)
-        var nodesToMove = e.captured.filter(function (cn) { return !cn.tree.parent.checked; });
+        var nodesToMove = e.captured.filter(function (cn) { return !cn.tree.parent || !cn.tree.parent.checked; });
         var i = nodesToMove.length;
         while (i--) {
             var node = nodesToMove[i];
@@ -91,9 +91,11 @@ var TreeInternalComponent = (function () {
                 this.moveNodeToParentTreeAndRemoveFromPreviousOne(node.tree, this.tree, e.position);
             }
         }
-        var parentCtrl = this.treeService.getController(this.tree.parent.id);
-        if (parentCtrl) {
-            parentCtrl.updateCheckboxState();
+        if (!this.tree.isRoot()) {
+            var parentCtrl = this.treeService.getController(this.tree.parent.id);
+            if (parentCtrl) {
+                parentCtrl.updateCheckboxState();
+            }
         }
     };
     TreeInternalComponent.prototype.moveSibling = function (sibling, tree, position) {
@@ -101,8 +103,12 @@ var TreeInternalComponent = (function () {
         if (position === draggable_events_1.DropPosition.Above) {
             tree.moveSiblingAbove(sibling);
         }
-        else {
+        else if (position === draggable_events_1.DropPosition.Below) {
             tree.moveSiblingBelow(sibling);
+        }
+        else {
+            console.error("Invalid drop position: " + draggable_events_1.DropPosition[position]);
+            return;
         }
         this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
     };
@@ -131,6 +137,8 @@ var TreeInternalComponent = (function () {
     };
     TreeInternalComponent.prototype.onNodeSelected = function (e) {
         if (!this.tree.selectionAllowed) {
+            // Expand/collapse folder on click
+            this.treeService.fireNodeSwitchFoldingType(this.tree);
             return;
         }
         if (EventUtils.isLeftButtonClicked(e)) {
