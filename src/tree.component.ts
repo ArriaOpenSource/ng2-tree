@@ -20,7 +20,9 @@ import {
   NodeCheckedEvent,
   NodeEvent,
   NodeUncheckedEvent,
-  NodeDoubleClickedEvent
+  NodeDoubleClickedEvent,
+  NodeRenameKeydownEvent,
+  NodeRenameInputChangeEvent
 } from './tree.events';
 
 import { Tree } from './tree';
@@ -53,8 +55,8 @@ export class TreeComponent implements OnInit, OnChanges, OnDestroy {
   @Output() public loadNextLevel: EventEmitter<any> = new EventEmitter();
   @Output() public nodeChecked: EventEmitter<NodeCheckedEvent> = new EventEmitter();
   @Output() public nodeUnchecked: EventEmitter<NodeUncheckedEvent> = new EventEmitter();
-  @Output() public nodeRenameKeydown: EventEmitter<KeyboardEvent> = new EventEmitter();
-  @Output() public nodeRenameInputChange: EventEmitter<Event> = new EventEmitter();
+  @Output() public nodeRenameKeydown: EventEmitter<NodeRenameKeydownEvent> = new EventEmitter();
+  @Output() public nodeRenameInputChange: EventEmitter<NodeRenameInputChangeEvent> = new EventEmitter();
   @Output() public menuItemSelected: EventEmitter<any> = new EventEmitter();
 
   public tree: Tree;
@@ -161,13 +163,13 @@ export class TreeComponent implements OnInit, OnChanges, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.treeService.nodeRenameKeydown$.subscribe((e: KeyboardEvent) => {
+      this.treeService.nodeRenameKeydown$.subscribe((e: NodeRenameKeydownEvent) => {
         this.nodeRenameKeydown.emit(e);
       })
     );
 
     this.subscriptions.push(
-      this.treeService.nodeRenameInputChange$.subscribe((e: KeyboardEvent) => {
+      this.treeService.nodeRenameInputChange$.subscribe((e: NodeRenameInputChangeEvent) => {
         this.nodeRenameInputChange.emit(e);
       })
     );

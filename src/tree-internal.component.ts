@@ -344,11 +344,11 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   public keydownHandler(e: KeyboardEvent): void {
-    this.treeService.fireNodeRenameKeydownEvent(e);
+    this.treeService.fireNodeRenameKeydownEvent(this.tree, e);
   }
 
   public inputChangeHandler(e: Event): void {
-    this.treeService.fireNodeRenameInputChanged(e);
+    this.treeService.fireNodeRenameInputChanged(this.tree, e);
   }
 
   public applyNewValue(e: NodeEditableEvent): void {

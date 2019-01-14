@@ -12,7 +12,9 @@ import {
   NodeRenamedEvent,
   NodeSelectedEvent,
   NodeUncheckedEvent,
-  NodeUnselectedEvent
+  NodeUnselectedEvent,
+  NodeRenameKeydownEvent,
+  NodeRenameInputChangeEvent
 } from './tree.events';
 import { RenamableNode } from './tree.types';
 import { Tree } from './tree';
@@ -41,8 +43,8 @@ export class TreeService {
   public nodeChecked$: Subject<NodeCheckedEvent> = new Subject();
   public nodeUnchecked$: Subject<NodeUncheckedEvent> = new Subject();
   public nodeIndeterminate$: Subject<NodeIndeterminateEvent> = new Subject();
-  public nodeRenameKeydown$: Subject<KeyboardEvent> = new Subject();
-  public nodeRenameInputChange$: Subject<Event> = new Subject();
+  public nodeRenameKeydown$: Subject<NodeRenameKeydownEvent> = new Subject();
+  public nodeRenameInputChange$: Subject<NodeRenameInputChangeEvent> = new Subject();
 
   private controllers: Map<string | number, TreeController> = new Map();
 
@@ -57,12 +59,12 @@ export class TreeService {
     return this.nodeSelected$.filter((e: NodeSelectedEvent) => tree !== e.node);
   }
 
-  public fireNodeRenameKeydownEvent(e: KeyboardEvent): void {
-    this.nodeRenameKeydown$.next(e);
+  public fireNodeRenameKeydownEvent(tree: Tree, e: KeyboardEvent): void {
+    this.nodeRenameKeydown$.next(new NodeRenameKeydownEvent(tree, e));
   }
 
-  public fireNodeRenameInputChanged(e: Event): void {
-    this.nodeRenameInputChange$.next(e);
+  public fireNodeRenameInputChanged(tree: Tree, e: Event): void {
+    this.nodeRenameInputChange$.next(new NodeRenameInputChangeEvent(tree, e));
   }
 
   public fireNodeRemoved(tree: Tree): void {
