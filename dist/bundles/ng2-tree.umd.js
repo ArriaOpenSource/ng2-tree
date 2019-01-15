@@ -431,11 +431,11 @@ $__System.registerDynamic("18", ["10", "12", "13", "14", "19", "15", "1a", "11",
             this.treeService.fireNodeDoubleClicked(this.tree, e);
         };
         TreeInternalComponent.prototype.onNodeSelected = function (e) {
+            if (this.tree.isBranch()) {
+                // Expand/collapse folder on click
+                this.onSwitchFoldingType();
+            }
             if (!this.tree.selectionAllowed) {
-                if (this.tree.isBranch()) {
-                    // Expand/collapse folder on click
-                    this.onSwitchFoldingType();
-                }
                 return;
             }
             if (EventUtils.isLeftButtonClicked(e)) {
