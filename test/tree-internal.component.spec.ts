@@ -703,6 +703,15 @@ describe('TreeInternalComponent', () => {
     });
   });
 
+  describe('onNodeSelected', () => {
+    it('should expand/collapse branches when fired', () => {
+      spyOn(masterComponentInstance, 'onSwitchFoldingType');
+      masterComponentInstance.tree.selectionAllowed = false;
+      masterComponentInstance.onNodeSelected();
+      expect(masterComponentInstance.onSwitchFoldingType).toHaveBeenCalled();
+    });
+  });
+
   describe('onNodeDoubleClicked', () => {
     it('should fire node double clicked event', () => {
       spyOn(masterComponentInstance.treeService, 'fireNodeDoubleClicked');
