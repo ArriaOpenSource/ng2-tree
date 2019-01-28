@@ -12,7 +12,9 @@ import {
   NodeRenamedEvent,
   NodeSelectedEvent,
   NodeUncheckedEvent,
-  NodeUnselectedEvent
+  NodeUnselectedEvent,
+  NodeRenameKeydownEvent,
+  NodeRenameInputChangeEvent
 } from './tree.events';
 import { RenamableNode } from './tree.types';
 import { Tree } from './tree';
@@ -26,21 +28,23 @@ import { isEmpty } from './utils/fn.utils';
 
 @Injectable()
 export class TreeService {
-  public nodeMoved$: Subject<NodeMovedEvent> = new Subject<NodeMovedEvent>();
-  public nodeMoveStarted$: Subject<NodeDragStartEvent> = new Subject<NodeDragStartEvent>();
-  public nodeRemoved$: Subject<NodeRemovedEvent> = new Subject<NodeRemovedEvent>();
-  public nodeRenamed$: Subject<NodeRenamedEvent> = new Subject<NodeRenamedEvent>();
-  public nodeCreated$: Subject<NodeCreatedEvent> = new Subject<NodeCreatedEvent>();
-  public nodeDoubleClicked$: Subject<NodeDoubleClickedEvent> = new Subject<NodeDoubleClickedEvent>();
-  public nodeSelected$: Subject<NodeSelectedEvent> = new Subject<NodeSelectedEvent>();
-  public nodeUnselected$: Subject<NodeUnselectedEvent> = new Subject<NodeUnselectedEvent>();
-  public nodeExpanded$: Subject<NodeExpandedEvent> = new Subject<NodeExpandedEvent>();
-  public nodeCollapsed$: Subject<NodeCollapsedEvent> = new Subject<NodeCollapsedEvent>();
-  public menuItemSelected$: Subject<MenuItemSelectedEvent> = new Subject<MenuItemSelectedEvent>();
-  public loadNextLevel$: Subject<LoadNextLevelEvent> = new Subject<LoadNextLevelEvent>();
-  public nodeChecked$: Subject<NodeCheckedEvent> = new Subject<NodeCheckedEvent>();
-  public nodeUnchecked$: Subject<NodeUncheckedEvent> = new Subject<NodeUncheckedEvent>();
-  public nodeIndeterminate$: Subject<NodeIndeterminateEvent> = new Subject<NodeIndeterminateEvent>();
+  public nodeMoved$: Subject<NodeMovedEvent> = new Subject();
+  public nodeMoveStarted$: Subject<NodeDragStartEvent> = new Subject();
+  public nodeRemoved$: Subject<NodeRemovedEvent> = new Subject();
+  public nodeRenamed$: Subject<NodeRenamedEvent> = new Subject();
+  public nodeCreated$: Subject<NodeCreatedEvent> = new Subject();
+  public nodeDoubleClicked$: Subject<NodeDoubleClickedEvent> = new Subject();
+  public nodeSelected$: Subject<NodeSelectedEvent> = new Subject();
+  public nodeUnselected$: Subject<NodeUnselectedEvent> = new Subject();
+  public nodeExpanded$: Subject<NodeExpandedEvent> = new Subject();
+  public nodeCollapsed$: Subject<NodeCollapsedEvent> = new Subject();
+  public menuItemSelected$: Subject<MenuItemSelectedEvent> = new Subject();
+  public loadNextLevel$: Subject<LoadNextLevelEvent> = new Subject();
+  public nodeChecked$: Subject<NodeCheckedEvent> = new Subject();
+  public nodeUnchecked$: Subject<NodeUncheckedEvent> = new Subject();
+  public nodeIndeterminate$: Subject<NodeIndeterminateEvent> = new Subject();
+  public nodeRenameKeydown$: Subject<NodeRenameKeydownEvent> = new Subject();
+  public nodeRenameInputChange$: Subject<NodeRenameInputChangeEvent> = new Subject();
 
   private controllers: Map<string | number, TreeController> = new Map();
 
@@ -53,6 +57,14 @@ export class TreeService {
 
   public unselectStream(tree: Tree): Observable<NodeSelectedEvent> {
     return this.nodeSelected$.filter((e: NodeSelectedEvent) => tree !== e.node);
+  }
+
+  public fireNodeRenameKeydownEvent(tree: Tree, e: KeyboardEvent): void {
+    this.nodeRenameKeydown$.next(new NodeRenameKeydownEvent(tree, e));
+  }
+
+  public fireNodeRenameInputChanged(tree: Tree, e: Event): void {
+    this.nodeRenameInputChange$.next(new NodeRenameInputChangeEvent(tree, e));
   }
 
   public fireNodeRemoved(tree: Tree): void {

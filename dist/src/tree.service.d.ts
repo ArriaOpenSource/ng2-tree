@@ -1,4 +1,4 @@
-import { LoadNextLevelEvent, MenuItemSelectedEvent, NodeCheckedEvent, NodeCollapsedEvent, NodeCreatedEvent, NodeDoubleClickedEvent, NodeExpandedEvent, NodeIndeterminateEvent, NodeMovedEvent, NodeRemovedEvent, NodeRenamedEvent, NodeSelectedEvent, NodeUncheckedEvent, NodeUnselectedEvent } from './tree.events';
+import { LoadNextLevelEvent, MenuItemSelectedEvent, NodeCheckedEvent, NodeCollapsedEvent, NodeCreatedEvent, NodeDoubleClickedEvent, NodeExpandedEvent, NodeIndeterminateEvent, NodeMovedEvent, NodeRemovedEvent, NodeRenamedEvent, NodeSelectedEvent, NodeUncheckedEvent, NodeUnselectedEvent, NodeRenameKeydownEvent, NodeRenameInputChangeEvent } from './tree.events';
 import { RenamableNode } from './tree.types';
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
@@ -24,9 +24,13 @@ export declare class TreeService {
     nodeChecked$: Subject<NodeCheckedEvent>;
     nodeUnchecked$: Subject<NodeUncheckedEvent>;
     nodeIndeterminate$: Subject<NodeIndeterminateEvent>;
+    nodeRenameKeydown$: Subject<NodeRenameKeydownEvent>;
+    nodeRenameInputChange$: Subject<NodeRenameInputChangeEvent>;
     private controllers;
     constructor(nodeDraggableService: NodeDraggableService);
     unselectStream(tree: Tree): Observable<NodeSelectedEvent>;
+    fireNodeRenameKeydownEvent(tree: Tree, e: KeyboardEvent): void;
+    fireNodeRenameInputChanged(tree: Tree, e: Event): void;
     fireNodeRemoved(tree: Tree): void;
     fireNodeCreated(tree: Tree): void;
     fireNodeDoubleClicked(tree: Tree, e: MouseEvent): void;

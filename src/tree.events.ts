@@ -94,3 +94,15 @@ export class NodeIndeterminateEvent extends NodeEvent {
     super(node);
   }
 }
+
+export class NodeRenameKeydownEvent extends NodeEvent {
+  public constructor(node: Tree, public domEvent: KeyboardEvent) {
+    super(node);
+  }
+}
+
+export class NodeRenameInputChangeEvent extends NodeEvent {
+  public constructor(node: Tree, public domEvent: Event) {
+    super(node);
+  }
+}

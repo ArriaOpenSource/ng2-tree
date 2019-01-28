@@ -103,9 +103,9 @@ describe('TreeService', () => {
     spyOn(treeService.nodeDoubleClicked$, 'next');
 
     const tree = new Tree({ value: 'Master' });
-    const mickey = new MouseEvent(null, null);
+    const mickey = document.createEvent('MouseEvent');
 
-    treeService.fireNodeDoubleClicked(tree);
+    treeService.fireNodeDoubleClicked(tree, mickey);
     expect(treeService.nodeDoubleClicked$.next).toHaveBeenCalledTimes(1);
     expect(treeService.nodeDoubleClicked$.next).toHaveBeenCalledWith(new NodeDoubleClickedEvent(tree, mickey));
   });

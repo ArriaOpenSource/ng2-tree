@@ -27,7 +27,9 @@ import {
   NodeUncheckedEvent,
   NodeCheckedEvent,
   NodeIndeterminateEvent,
-  NodeUnselectedEvent
+  NodeUnselectedEvent,
+  NodeRenameKeydownEvent,
+  NodeRenameInputChangeEvent
 } from './src/tree.events';
 
 import { NodeDragStartEvent, NodeDraggableEvent } from './src/draggable/draggable.events';
@@ -57,6 +59,8 @@ export {
   NodeUncheckedEvent,
   NodeCheckedEvent,
   NodeIndeterminateEvent,
+  NodeRenameKeydownEvent,
+  NodeRenameInputChangeEvent,
   NodeUnselectedEvent,
   NodeDragStartEvent,
   NodeDraggableEvent,

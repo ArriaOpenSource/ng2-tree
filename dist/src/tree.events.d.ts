@@ -57,3 +57,11 @@ export declare class NodeIndeterminateEvent extends NodeEvent {
     indeterminate: boolean;
     constructor(node: Tree, indeterminate: boolean);
 }
+export declare class NodeRenameKeydownEvent extends NodeEvent {
+    domEvent: KeyboardEvent;
+    constructor(node: Tree, domEvent: KeyboardEvent);
+}
+export declare class NodeRenameInputChangeEvent extends NodeEvent {
+    domEvent: Event;
+    constructor(node: Tree, domEvent: Event);
+}

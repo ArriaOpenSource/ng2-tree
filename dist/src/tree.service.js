@@ -24,6 +24,8 @@ var TreeService = (function () {
         this.nodeChecked$ = new Subject_1.Subject();
         this.nodeUnchecked$ = new Subject_1.Subject();
         this.nodeIndeterminate$ = new Subject_1.Subject();
+        this.nodeRenameKeydown$ = new Subject_1.Subject();
+        this.nodeRenameInputChange$ = new Subject_1.Subject();
         this.controllers = new Map();
         this.nodeRemoved$.subscribe(function (e) { return e.node.removeItselfFromParent(); });
         this.nodeDraggableService.nodeDragStartEvents$.subscribe(function (e) {
@@ -32,6 +34,12 @@ var TreeService = (function () {
     }
     TreeService.prototype.unselectStream = function (tree) {
         return this.nodeSelected$.filter(function (e) { return tree !== e.node; });
+    };
+    TreeService.prototype.fireNodeRenameKeydownEvent = function (tree, e) {
+        this.nodeRenameKeydown$.next(new tree_events_1.NodeRenameKeydownEvent(tree, e));
+    };
+    TreeService.prototype.fireNodeRenameInputChanged = function (tree, e) {
+        this.nodeRenameInputChange$.next(new tree_events_1.NodeRenameInputChangeEvent(tree, e));
     };
     TreeService.prototype.fireNodeRemoved = function (tree) {
         this.nodeRemoved$.next(new tree_events_1.NodeRemovedEvent(tree, tree.positionInParent));

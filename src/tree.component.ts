@@ -20,7 +20,9 @@ import {
   NodeCheckedEvent,
   NodeEvent,
   NodeUncheckedEvent,
-  NodeDoubleClickedEvent
+  NodeDoubleClickedEvent,
+  NodeRenameKeydownEvent,
+  NodeRenameInputChangeEvent
 } from './tree.events';
 
 import { Tree } from './tree';
@@ -38,35 +40,23 @@ export class TreeComponent implements OnInit, OnChanges, OnDestroy {
 
   /* tslint:disable-next-line:no-input-rename */
   @Input('tree') public treeModel: TreeTypes.TreeModel;
-
   @Input() public settings: TreeTypes.Ng2TreeSettings;
 
   @Output() public nodeCreated: EventEmitter<any> = new EventEmitter();
-
   @Output() public nodeRemoved: EventEmitter<any> = new EventEmitter();
-
   @Output() public nodeRenamed: EventEmitter<any> = new EventEmitter();
-
   @Output() public nodeDoubleClicked: EventEmitter<NodeDoubleClickedEvent> = new EventEmitter();
-
   @Output() public nodeSelected: EventEmitter<any> = new EventEmitter();
-
   @Output() public nodeUnselected: EventEmitter<any> = new EventEmitter();
-
   @Output() public nodeDragStarted: EventEmitter<NodeDragStartEvent> = new EventEmitter();
-
   @Output() public nodeMoved: EventEmitter<any> = new EventEmitter();
-
   @Output() public nodeExpanded: EventEmitter<any> = new EventEmitter();
-
   @Output() public nodeCollapsed: EventEmitter<any> = new EventEmitter();
-
   @Output() public loadNextLevel: EventEmitter<any> = new EventEmitter();
-
   @Output() public nodeChecked: EventEmitter<NodeCheckedEvent> = new EventEmitter();
-
   @Output() public nodeUnchecked: EventEmitter<NodeUncheckedEvent> = new EventEmitter();
-
+  @Output() public nodeRenameKeydown: EventEmitter<NodeRenameKeydownEvent> = new EventEmitter();
+  @Output() public nodeRenameInputChange: EventEmitter<NodeRenameInputChangeEvent> = new EventEmitter();
   @Output() public menuItemSelected: EventEmitter<any> = new EventEmitter();
 
   public tree: Tree;
@@ -169,6 +159,18 @@ export class TreeComponent implements OnInit, OnChanges, OnDestroy {
     this.subscriptions.push(
       this.treeService.nodeUnchecked$.subscribe((e: NodeUncheckedEvent) => {
         this.nodeUnchecked.emit(e);
+      })
+    );
+
+    this.subscriptions.push(
+      this.treeService.nodeRenameKeydown$.subscribe((e: NodeRenameKeydownEvent) => {
+        this.nodeRenameKeydown.emit(e);
+      })
+    );
+
+    this.subscriptions.push(
+      this.treeService.nodeRenameInputChange$.subscribe((e: NodeRenameInputChangeEvent) => {
+        this.nodeRenameInputChange.emit(e);
       })
     );
   }
