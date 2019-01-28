@@ -137,6 +137,10 @@ var TreeInternalComponent = (function () {
     };
     TreeInternalComponent.prototype.onNodeSelected = function (e) {
         if (!this.tree.selectionAllowed) {
+            if (this.tree.isBranch()) {
+                // Expand/collapse folder on click
+                this.onSwitchFoldingType();
+            }
             return;
         }
         if (EventUtils.isLeftButtonClicked(e)) {
