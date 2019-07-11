@@ -49,6 +49,7 @@ var NodeDraggableDirective = (function () {
         }
         this.applyDraggedNodeClasses();
         e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
+        e.dataTransfer.setData('nodeValue', this.tree.node.value.toString());
         e.dataTransfer.effectAllowed = 'move';
     };
     NodeDraggableDirective.prototype.handleDragOver = function (e) {
