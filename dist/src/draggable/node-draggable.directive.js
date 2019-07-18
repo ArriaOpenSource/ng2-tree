@@ -50,7 +50,7 @@ var NodeDraggableDirective = (function () {
         this.applyDraggedNodeClasses();
         e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
         e.dataTransfer.setData('nodeValue', this.tree.node.value.toString());
-        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.effectAllowed = 'copyMove';
     };
     NodeDraggableDirective.prototype.handleDragOver = function (e) {
         var draggedNode = this.nodeDraggableService.getDraggedNode();

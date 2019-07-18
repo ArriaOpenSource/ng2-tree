@@ -1919,7 +1919,7 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
             this.applyDraggedNodeClasses();
             e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
             e.dataTransfer.setData('nodeValue', this.tree.node.value.toString());
-            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.effectAllowed = 'copyMove';
         };
         NodeDraggableDirective.prototype.handleDragOver = function (e) {
             var draggedNode = this.nodeDraggableService.getDraggedNode();
