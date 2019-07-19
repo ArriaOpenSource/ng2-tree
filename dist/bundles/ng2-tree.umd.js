@@ -1918,7 +1918,6 @@ $__System.registerDynamic("22", ["10", "1c", "1d", "13", "1b"], true, function (
             }
             this.applyDraggedNodeClasses();
             e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
-            e.dataTransfer.setData('nodeValue', this.tree.node.value.toString());
             e.dataTransfer.effectAllowed = 'all';
         };
         NodeDraggableDirective.prototype.handleDragOver = function (e) {
