@@ -143,7 +143,7 @@ describe('NodeDraggableDirective', () => {
       'text',
       NodeDraggableDirective.DATA_TRANSFER_STUB_DATA
     );
-    expect(dragenterEvent.dataTransfer.effectAllowed).toBe('move');
+    expect(dragenterEvent.dataTransfer.effectAllowed).toBe('all');
   });
 
   it('should remove "over-drop-target" class on dragleave if dragging left target element', () => {
@@ -333,7 +333,7 @@ describe('NodeDraggableDirective', () => {
       expect(e.dataTransfer.setDragImage).toHaveBeenCalled();
       expect((directiveInstance as any).applyDraggedNodeClasses).toHaveBeenCalled();
       expect(e.dataTransfer.setData).toHaveBeenCalled();
-      expect(e.dataTransfer.effectAllowed).toBe('move');
+      expect(e.dataTransfer.effectAllowed).toBe('all');
     });
   });
 
