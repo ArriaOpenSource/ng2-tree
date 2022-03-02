@@ -143,10 +143,12 @@ export class Ng2TreeSettings {
    * @name Ng2TreeSettings#rootIsVisible
    * @type boolean
    */
+  /* tslint:disable */
   rootIsVisible? = true;
   showCheckboxes? = false;
   enableCheckboxes? = true;
   ignoreParentOnCheck? = false;
+  /* tslint:enable */
 }
 
 export enum TreeStatus {
