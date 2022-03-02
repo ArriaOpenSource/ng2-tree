@@ -27,8 +27,8 @@ import {
 
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
-import { Subscription } from 'rxjs/Subscription';
 import { NodeDragStartEvent } from './draggable/draggable.events';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'tree',

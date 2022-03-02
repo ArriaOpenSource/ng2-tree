@@ -22,10 +22,11 @@ import { NodeCheckedEvent, NodeEvent } from './tree.events';
 import { TreeService } from './tree.service';
 import * as EventUtils from './utils/event.utils';
 import { NodeDraggableEvent, DropPosition } from './draggable/draggable.events';
-import { Subscription } from 'rxjs/Subscription';
 import { get, isNil } from './utils/fn.utils';
 import { NodeDraggableService } from './draggable/node-draggable.service';
 import { CapturedNode } from './draggable/captured-node';
+import { merge, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'tree-internal',
@@ -152,9 +153,8 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     );
 
     this.subscriptions.push(
-      this.treeService.nodeChecked$
-        .merge(this.treeService.nodeUnchecked$)
-        .filter((e: NodeCheckedEvent) => this.eventContainsId(e) && this.tree.hasChild(e.node))
+      merge(this.treeService.nodeChecked$, this.treeService.nodeUnchecked$)
+        .pipe(filter((e: NodeCheckedEvent) => this.eventContainsId(e) && this.tree.hasChild(e.node)))
         .subscribe((e: NodeCheckedEvent) => this.updateCheckboxState())
     );
   }

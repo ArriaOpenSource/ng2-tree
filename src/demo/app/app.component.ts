@@ -167,11 +167,11 @@ declare const alertify: any;
         font-style: italic;
       }
 
-      :host /deep/ .fa {
+      :host ::ng-deep .fa {
         cursor: pointer;
       }
 
-      :host /deep/ .fa.disabled {
+      :host ::ng-deep .fa.disabled {
         cursor: inherit;
         color: #757575;
       }
