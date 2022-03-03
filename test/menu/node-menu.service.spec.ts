@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { NodeMenuService } from '../../src/menu/node-menu.service';
-import { Subject } from 'rxjs/Subject';
 import { ElementRef } from '@angular/core';
 import { NodeMenuEvent, NodeMenuAction } from '../../src/menu/menu.events';
+import { Subject } from 'rxjs';
 
 let nodeMenuService;
 
@@ -28,7 +28,7 @@ describe('NodeMenuService', () => {
     initiatorElementRef.nativeElement = {};
 
     nodeMenuService.hideMenuStream(elementRef).subscribe((e: NodeMenuEvent) => {
-      expect(e.sender).toBe(initiatorElementRef.nativeElement);
+      expect(e.sender).toBe(initiatorElementRef.nativeElement as any);
       expect(e.action).toBe(NodeMenuAction.Close);
       done();
     });
