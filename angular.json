@@ -65,10 +65,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/demo/../../test/test.ts",
+            "main": "test/test.ts",
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/demo/polyfills.ts",
-            "tsConfig": "src/demo/../../test/tsconfig.spec.json",
+            "tsConfig": "test/tsconfig.spec.json",
             "scripts": ["node_modules/alertifyjs/build/alertify.js"],
             "styles": [
               "node_modules/alertifyjs/build/css/alertify.css",

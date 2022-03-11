@@ -45,7 +45,7 @@
     "start": "ng serve",
     "build:demo": "ng build",
     "test": "ng test",
-    "test:w": "ng test --w",
+    "test:w": "ng test --watch",
     "test:cov": "ng test --sr --cc",
     "lint": "ng lint --type-check",
     "e2e": "ng e2e",
