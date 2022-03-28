@@ -712,7 +712,7 @@ export class AppComponent implements OnInit {
     AppComponent.logEvent(e, 'Created');
   }
 
-  public onNodeFFSCreated(e: NodeEvent, controller): void {
+  public onNodeFFSCreated(e: NodeEvent, controller?): void {
     AppComponent.logEvent(e, 'Created');
     if (controller) {
       controller.changeNodeId(++this.lastFFSNodeId);
