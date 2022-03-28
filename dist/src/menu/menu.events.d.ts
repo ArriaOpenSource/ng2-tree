@@ -3,10 +3,10 @@ export declare enum NodeMenuItemAction {
     NewTag = 1,
     Rename = 2,
     Remove = 3,
-    Custom = 4,
+    Custom = 4
 }
 export declare enum NodeMenuAction {
-    Close = 0,
+    Close = 0
 }
 export interface NodeMenuEvent {
     sender: HTMLElement;

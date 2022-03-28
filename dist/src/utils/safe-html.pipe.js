@@ -1,23 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var SafeHtmlPipe = (function () {
-    function SafeHtmlPipe(sanitizer) {
+import { Pipe } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import * as i0 from "@angular/core";
+import * as i1 from "@angular/platform-browser";
+export class SafeHtmlPipe {
+    constructor(sanitizer) {
         this.sanitizer = sanitizer;
     }
-    SafeHtmlPipe.prototype.transform = function (value) {
+    transform(value) {
         // return value;
         return this.sanitizer.bypassSecurityTrustHtml(value);
-    };
-    SafeHtmlPipe.decorators = [
-        { type: core_1.Pipe, args: [{ name: 'safeHtml' },] },
-    ];
-    /** @nocollapse */
-    SafeHtmlPipe.ctorParameters = function () { return [
-        { type: platform_browser_1.DomSanitizer, },
-    ]; };
-    return SafeHtmlPipe;
-}());
-exports.SafeHtmlPipe = SafeHtmlPipe;
+    }
+}
+SafeHtmlPipe.ɵfac = function SafeHtmlPipe_Factory(t) { return new (t || SafeHtmlPipe)(i0.ɵɵdirectiveInject(i1.DomSanitizer, 16)); };
+SafeHtmlPipe.ɵpipe = /*@__PURE__*/ i0.ɵɵdefinePipe({ name: "safeHtml", type: SafeHtmlPipe, pure: true });
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(SafeHtmlPipe, [{
+        type: Pipe,
+        args: [{ name: 'safeHtml' }]
+    }], function () { return [{ type: i1.DomSanitizer }]; }, null); })();
 //# sourceMappingURL=safe-html.pipe.js.map

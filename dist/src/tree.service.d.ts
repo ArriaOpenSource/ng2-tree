@@ -2,11 +2,11 @@ import { LoadNextLevelEvent, MenuItemSelectedEvent, NodeCheckedEvent, NodeCollap
 import { RenamableNode } from './tree.types';
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import { ElementRef } from '@angular/core';
 import { NodeDraggableService } from './draggable/node-draggable.service';
 import { NodeDraggableEvent, NodeDragStartEvent } from './draggable/draggable.events';
+import { Observable, Subject } from 'rxjs';
+import * as i0 from "@angular/core";
 export declare class TreeService {
     private nodeDraggableService;
     nodeMoved$: Subject<NodeMovedEvent>;
@@ -40,9 +40,9 @@ export declare class TreeService {
     fireNodeMoved(tree: Tree, parent: Tree, previousPosition?: number): void;
     fireMenuItemSelected(tree: Tree, selectedItem: string): void;
     fireNodeSwitchFoldingType(tree: Tree): void;
-    private fireNodeExpanded(tree);
-    private fireNodeCollapsed(tree);
-    private fireLoadNextLevel(tree);
+    private fireNodeExpanded;
+    private fireNodeCollapsed;
+    private fireLoadNextLevel;
     fireNodeChecked(tree: Tree): void;
     fireNodeUnchecked(tree: Tree): void;
     fireNodeIndeterminate(tree: Tree, indeterminate: boolean): void;
@@ -51,5 +51,7 @@ export declare class TreeService {
     deleteController(id: string | number): void;
     getController(id: string | number): TreeController;
     hasController(id: string | number): boolean;
-    private shouldFireLoadNextLevel(tree);
+    private shouldFireLoadNextLevel;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TreeService, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<TreeService>;
 }

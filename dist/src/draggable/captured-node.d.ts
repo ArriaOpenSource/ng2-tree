@@ -7,6 +7,6 @@ export declare class CapturedNode {
     canBeDroppedAt(element: ElementRef): boolean;
     contains(other: ElementRef): boolean;
     sameAs(other: ElementRef): boolean;
-    readonly element: ElementRef;
-    readonly tree: Tree;
+    get element(): ElementRef;
+    get tree(): Tree;
 }

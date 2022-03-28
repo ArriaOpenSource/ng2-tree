@@ -1,26 +1,20 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var DropPosition;
+export var DropPosition;
 (function (DropPosition) {
     DropPosition[DropPosition["Above"] = 0] = "Above";
     DropPosition[DropPosition["Into"] = 1] = "Into";
     DropPosition[DropPosition["Below"] = 2] = "Below";
-})(DropPosition = exports.DropPosition || (exports.DropPosition = {}));
-var NodeDraggableEvent = (function () {
-    function NodeDraggableEvent(captured, target, position) {
+})(DropPosition || (DropPosition = {}));
+export class NodeDraggableEvent {
+    constructor(captured, target, position) {
         this.captured = captured;
         this.target = target;
         this.position = position;
     }
-    return NodeDraggableEvent;
-}());
-exports.NodeDraggableEvent = NodeDraggableEvent;
-var NodeDragStartEvent = (function () {
-    function NodeDragStartEvent(captured, target) {
+}
+export class NodeDragStartEvent {
+    constructor(captured, target) {
         this.captured = captured;
         this.target = target;
     }
-    return NodeDragStartEvent;
-}());
-exports.NodeDragStartEvent = NodeDragStartEvent;
+}
 //# sourceMappingURL=draggable.events.js.map

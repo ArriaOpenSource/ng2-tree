@@ -3,7 +3,7 @@ import { CapturedNode } from './captured-node';
 export declare enum DropPosition {
     Above = 0,
     Into = 1,
-    Below = 2,
+    Below = 2
 }
 export declare class NodeDraggableEvent {
     captured: CapturedNode[];

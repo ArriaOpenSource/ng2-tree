@@ -6,7 +6,7 @@ export declare class FoldingType {
     static Empty: FoldingType;
     static Leaf: FoldingType;
     constructor(_cssClass: string);
-    readonly cssClass: string;
+    get cssClass(): string;
 }
 export declare type ChildrenLoadingFunction = (callback: (children: TreeModel[]) => void) => void;
 export interface TreeModel {
@@ -99,7 +99,7 @@ export declare class Ng2TreeSettings {
 export declare enum TreeStatus {
     New = 0,
     Modified = 1,
-    IsBeingRenamed = 2,
+    IsBeingRenamed = 2
 }
 export interface RenamableNode {
     /**

@@ -7,6 +7,7 @@ import { NodeMenuItemSelectedEvent } from './menu/menu.events';
 import { NodeEditableEvent } from './editable/editable.events';
 import { TreeService } from './tree.service';
 import { NodeDraggableService } from './draggable/node-draggable.service';
+import * as i0 from "@angular/core";
 export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
     private nodeMenuService;
     treeService: TreeService;
@@ -27,10 +28,10 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
-    private nodeDraggedHandler(e);
-    private moveSibling(sibling, tree, position);
-    private moveNodeToThisTreeAndRemoveFromPreviousOne(capturedTree, moveToTree);
-    private moveNodeToParentTreeAndRemoveFromPreviousOne(capturedTree, moveToTree, position);
+    private nodeDraggedHandler;
+    private moveSibling;
+    private moveNodeToThisTreeAndRemoveFromPreviousOne;
+    private moveNodeToParentTreeAndRemoveFromPreviousOne;
     onNodeDoubleClicked(e: MouseEvent): void;
     onNodeSelected(e: {
         button: number;
@@ -41,10 +42,10 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     showRightMenu(e: MouseEvent): void;
     showLeftMenu(e: MouseEvent): void;
     onMenuItemSelected(e: NodeMenuItemSelectedEvent): void;
-    private onNewSelected(e);
-    private onRenameSelected();
-    private onRemoveSelected();
-    private onCustomSelected();
+    private onNewSelected;
+    private onRenameSelected;
+    private onRemoveSelected;
+    private onCustomSelected;
     onSwitchFoldingType(): void;
     keydownHandler(e: KeyboardEvent): void;
     inputChangeHandler(e: Event): void;
@@ -56,7 +57,9 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     onNodeChecked(ignoreChildren?: boolean): void;
     onNodeUnchecked(ignoreChildren?: boolean): void;
     onNodeIndeterminate(indeterminate: boolean): void;
-    private executeOnChildController(executor);
+    private executeOnChildController;
     updateCheckboxState(): void;
-    private eventContainsId(event);
+    private eventContainsId;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TreeInternalComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<TreeInternalComponent, "tree-internal", never, { "tree": "tree"; "settings": "settings"; "template": "template"; }, {}, never, never>;
 }
