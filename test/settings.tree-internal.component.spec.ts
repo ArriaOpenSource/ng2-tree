@@ -88,7 +88,7 @@ describe('settings on tree model', () => {
       foldingEl.nativeElement.click();
       fixture.detectChanges();
 
-      expect(foldingEl.classes).toEqual({ folding: true, fa: true, 'fa-caret-down': false, 'fa-caret-right': true });
+      expect(foldingEl.classes).toEqual({ folding: true, fa: true, 'fa-caret-right': true });
     });
 
     it('adds appropriate css classes for a leaf', () => {
