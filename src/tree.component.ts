@@ -38,7 +38,7 @@ import { Subscription } from 'rxjs';
 export class TreeComponent implements OnInit, OnChanges, OnDestroy {
   private static EMPTY_TREE: Tree = new Tree({ value: '' });
 
-  /* tslint:disable-next-line:no-input-rename */
+  /* eslint-disable-next-line @angular-eslint/no-input-rename */
   @Input('tree') public treeModel: TreeTypes.TreeModel;
   @Input() public settings: TreeTypes.Ng2TreeSettings;
 

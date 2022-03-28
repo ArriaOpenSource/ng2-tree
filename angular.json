@@ -14,7 +14,7 @@
             "outputPath": "dist-demo",
             "index": "src/demo/index.html",
             "main": "src/demo/main.ts",
-            "tsConfig": "src/demo/tsconfig.app.json",
+            "tsConfig": "src/demo/tsconfig.json",
             "polyfills": "src/demo/polyfills.ts",
             "assets": ["src/demo/assets", "src/demo/favicon.ico"],
             "styles": [
@@ -80,10 +80,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["src/demo/tsconfig.app.json", "test/tsconfig.spec.json"],
-            "exclude": []
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -99,13 +98,6 @@
             "protractorConfig": "./protractor.conf.js",
             "devServerTarget": "ng2-tree:serve"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["e2e/tsconfig.e2e.json"],
-            "exclude": []
-          }
         }
       }
     }
@@ -119,5 +111,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }

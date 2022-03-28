@@ -15,9 +15,9 @@ import { NodeEditableEvent, NodeEditableEventAction } from './editable.events';
   selector: '[nodeEditable]'
 })
 export class NodeEditableDirective implements OnInit {
-  /* tslint:disable:no-input-rename */
+  /* eslint-disable @angular-eslint/no-input-rename */
   @Input('nodeEditable') public nodeValue: string;
-  /* tslint:enable:no-input-rename */
+  /* eslint-enable @angular-eslint/no-input-rename */
 
   @Output() public valueChanged: EventEmitter<NodeEditableEvent> = new EventEmitter<NodeEditableEvent>(false);
 
