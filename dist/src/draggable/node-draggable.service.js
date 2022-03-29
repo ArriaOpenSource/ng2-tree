@@ -1,59 +1,64 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { NodeDraggableEvent, NodeDragStartEvent } from './draggable.events';
-import * as i0 from "@angular/core";
-export class NodeDraggableService {
-    constructor() {
-        this.draggableNodeEvents$ = new Subject();
-        this.nodeDragStartEvents$ = new Subject();
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeDraggableService = void 0;
+var core_1 = require("@angular/core");
+var rxjs_1 = require("rxjs");
+var draggable_events_1 = require("./draggable.events");
+var i0 = require("@angular/core");
+var NodeDraggableService = /** @class */ (function () {
+    function NodeDraggableService() {
+        this.draggableNodeEvents$ = new rxjs_1.Subject();
+        this.nodeDragStartEvents$ = new rxjs_1.Subject();
         this.checkedNodes = [];
     }
-    fireNodeDragged(captured, target, position) {
-        if (captured.length === 0 || captured.every(cn => !cn.tree || cn.tree.isStatic())) {
+    NodeDraggableService.prototype.fireNodeDragged = function (captured, target, position) {
+        if (captured.length === 0 || captured.every(function (cn) { return !cn.tree || cn.tree.isStatic(); })) {
             return;
         }
-        this.draggableNodeEvents$.next(new NodeDraggableEvent(captured, target, position));
-    }
-    fireNodeDragStart(captured, target) {
-        if (captured.length === 0 || captured.every(cn => !cn.tree || cn.tree.isStatic())) {
+        this.draggableNodeEvents$.next(new draggable_events_1.NodeDraggableEvent(captured, target, position));
+    };
+    NodeDraggableService.prototype.fireNodeDragStart = function (captured, target) {
+        if (captured.length === 0 || captured.every(function (cn) { return !cn.tree || cn.tree.isStatic(); })) {
             return;
         }
-        this.nodeDragStartEvents$.next(new NodeDragStartEvent(captured, target));
-    }
-    addCheckedNode(node) {
+        this.nodeDragStartEvents$.next(new draggable_events_1.NodeDragStartEvent(captured, target));
+    };
+    NodeDraggableService.prototype.addCheckedNode = function (node) {
         this.checkedNodes.push(node);
-    }
-    setDraggedNode(node) {
+    };
+    NodeDraggableService.prototype.setDraggedNode = function (node) {
         this.draggedNode = node;
-    }
-    removeCheckedNode(node) {
-        const i = this.checkedNodes.indexOf(node);
+    };
+    NodeDraggableService.prototype.removeCheckedNode = function (node) {
+        var i = this.checkedNodes.indexOf(node);
         if (i > -1) {
             this.checkedNodes.splice(i, 1);
         }
-    }
-    removeCheckedNodeById(id) {
-        const i = this.checkedNodes.findIndex(cn => cn.tree.id === id);
+    };
+    NodeDraggableService.prototype.removeCheckedNodeById = function (id) {
+        var i = this.checkedNodes.findIndex(function (cn) { return cn.tree.id === id; });
         if (i > -1) {
             this.checkedNodes.splice(i, 1);
         }
-    }
-    getCheckedNodes() {
+    };
+    NodeDraggableService.prototype.getCheckedNodes = function () {
         return this.checkedNodes;
-    }
-    getDraggedNode() {
+    };
+    NodeDraggableService.prototype.getDraggedNode = function () {
         return this.draggedNode;
-    }
-    releaseCheckedNodes() {
+    };
+    NodeDraggableService.prototype.releaseCheckedNodes = function () {
         this.checkedNodes = [];
-    }
-    releaseDraggedNode() {
+    };
+    NodeDraggableService.prototype.releaseDraggedNode = function () {
         this.draggedNode = null;
-    }
-}
-NodeDraggableService.ɵfac = function NodeDraggableService_Factory(t) { return new (t || NodeDraggableService)(); };
-NodeDraggableService.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: NodeDraggableService, factory: NodeDraggableService.ɵfac });
+    };
+    NodeDraggableService.ɵfac = function NodeDraggableService_Factory(t) { return new (t || NodeDraggableService)(); };
+    NodeDraggableService.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: NodeDraggableService, factory: NodeDraggableService.ɵfac });
+    return NodeDraggableService;
+}());
+exports.NodeDraggableService = NodeDraggableService;
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NodeDraggableService, [{
-        type: Injectable
+        type: core_1.Injectable
     }], null, null); })();
 //# sourceMappingURL=node-draggable.service.js.map

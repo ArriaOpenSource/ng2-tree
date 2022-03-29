@@ -1,127 +1,135 @@
-import { NodeMenuItemAction } from './menu/menu.events';
-import { MouseButtons } from './utils/event.utils';
-import { get } from './utils/fn.utils';
-export class TreeController {
-    constructor(component) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeController = void 0;
+var menu_events_1 = require("./menu/menu.events");
+var event_utils_1 = require("./utils/event.utils");
+var fn_utils_1 = require("./utils/fn.utils");
+var TreeController = /** @class */ (function () {
+    function TreeController(component) {
         this.component = component;
         this.tree = this.component.tree;
         this.treeService = this.component.treeService;
     }
-    select() {
+    TreeController.prototype.select = function () {
         if (!this.isSelected()) {
-            this.component.onNodeSelected({ button: MouseButtons.Left });
+            this.component.onNodeSelected({ button: event_utils_1.MouseButtons.Left });
         }
-    }
-    unselect() {
+    };
+    TreeController.prototype.unselect = function () {
         if (this.isSelected()) {
-            this.component.onNodeUnselected({ button: MouseButtons.Left });
+            this.component.onNodeUnselected({ button: event_utils_1.MouseButtons.Left });
         }
-    }
-    isSelected() {
+    };
+    TreeController.prototype.isSelected = function () {
         return this.component.isSelected;
-    }
-    expand() {
+    };
+    TreeController.prototype.expand = function () {
         if (this.isCollapsed()) {
             this.component.onSwitchFoldingType();
         }
-    }
-    expandToParent(tree = this.tree) {
+    };
+    TreeController.prototype.expandToParent = function (tree) {
+        var _this = this;
+        if (tree === void 0) { tree = this.tree; }
         if (tree) {
-            const controller = this.treeService.getController(tree.id);
-            if (controller) {
-                requestAnimationFrame(() => {
-                    controller.expand();
-                    this.expandToParent(tree.parent);
+            var controller_1 = this.treeService.getController(tree.id);
+            if (controller_1) {
+                requestAnimationFrame(function () {
+                    controller_1.expand();
+                    _this.expandToParent(tree.parent);
                 });
             }
         }
-    }
-    isExpanded() {
+    };
+    TreeController.prototype.isExpanded = function () {
         return this.tree.isNodeExpanded();
-    }
-    collapse() {
+    };
+    TreeController.prototype.collapse = function () {
         if (this.isExpanded()) {
             this.component.onSwitchFoldingType();
         }
-    }
-    isCollapsed() {
+    };
+    TreeController.prototype.isCollapsed = function () {
         return this.tree.isNodeCollapsed();
-    }
-    toTreeModel() {
+    };
+    TreeController.prototype.toTreeModel = function () {
         return this.tree.toTreeModel();
-    }
-    rename(newValue) {
+    };
+    TreeController.prototype.rename = function (newValue) {
         this.tree.markAsBeingRenamed();
         this.component.applyNewValue({ type: 'keyup', value: newValue });
-    }
-    remove() {
-        this.component.onMenuItemSelected({ nodeMenuItemAction: NodeMenuItemAction.Remove });
-    }
-    addChild(newNode) {
+    };
+    TreeController.prototype.remove = function () {
+        this.component.onMenuItemSelected({ nodeMenuItemAction: menu_events_1.NodeMenuItemAction.Remove });
+    };
+    TreeController.prototype.addChild = function (newNode) {
         if (this.tree.hasDeferredChildren() && !this.tree.childrenWereLoaded()) {
             return;
         }
-        const newTree = this.tree.createNode(Array.isArray(newNode.children), newNode);
+        var newTree = this.tree.createNode(Array.isArray(newNode.children), newNode);
         this.treeService.fireNodeCreated(newTree);
-    }
-    addChildAsync(newNode) {
+    };
+    TreeController.prototype.addChildAsync = function (newNode) {
         if (this.tree.hasDeferredChildren() && !this.tree.childrenWereLoaded()) {
             return Promise.reject(new Error('This node loads its children asynchronously, hence child cannot be added this way'));
         }
-        const newTree = this.tree.createNode(Array.isArray(newNode.children), newNode);
+        var newTree = this.tree.createNode(Array.isArray(newNode.children), newNode);
         this.treeService.fireNodeCreated(newTree);
         // This will give TreeInternalComponent to set up a controller for the node
-        return new Promise(resolve => {
-            setTimeout(() => {
+        return new Promise(function (resolve) {
+            setTimeout(function () {
                 resolve(newTree);
             });
         });
-    }
-    changeNodeId(id) {
+    };
+    TreeController.prototype.changeNodeId = function (id) {
         if (!id) {
             throw Error('You should supply an id!');
         }
         if (this.treeService.hasController(id)) {
-            throw Error(`Controller already exists for the given id: ${id}`);
+            throw Error("Controller already exists for the given id: ".concat(id));
         }
         this.treeService.deleteController(this.tree.id);
         this.tree.id = id;
         this.treeService.setController(this.tree.id, this);
-    }
-    reloadChildren() {
+    };
+    TreeController.prototype.reloadChildren = function () {
         this.tree.reloadChildren();
-    }
-    setChildren(children) {
+    };
+    TreeController.prototype.setChildren = function (children) {
         if (!this.tree.isLeaf()) {
             this.tree.setChildren(children);
         }
-    }
-    startRenaming() {
+    };
+    TreeController.prototype.startRenaming = function () {
         this.tree.markAsBeingRenamed();
-    }
-    check() {
+    };
+    TreeController.prototype.check = function () {
         this.component.onNodeChecked();
-    }
-    uncheck(ignoreChildren = false) {
+    };
+    TreeController.prototype.uncheck = function (ignoreChildren) {
+        if (ignoreChildren === void 0) { ignoreChildren = false; }
         this.component.onNodeUnchecked(ignoreChildren);
-    }
-    updateCheckboxState() {
+    };
+    TreeController.prototype.updateCheckboxState = function () {
         this.component.updateCheckboxState();
-    }
-    isChecked() {
+    };
+    TreeController.prototype.isChecked = function () {
         return this.tree.checked;
-    }
-    isIndeterminate() {
-        return get(this.component, 'checkboxElementRef.nativeElement.indeterminate');
-    }
-    allowSelection() {
+    };
+    TreeController.prototype.isIndeterminate = function () {
+        return (0, fn_utils_1.get)(this.component, 'checkboxElementRef.nativeElement.indeterminate');
+    };
+    TreeController.prototype.allowSelection = function () {
         this.tree.selectionAllowed = true;
-    }
-    forbidSelection() {
+    };
+    TreeController.prototype.forbidSelection = function () {
         this.tree.selectionAllowed = false;
-    }
-    isSelectionAllowed() {
+    };
+    TreeController.prototype.isSelectionAllowed = function () {
         return this.tree.selectionAllowed;
-    }
-}
+    };
+    return TreeController;
+}());
+exports.TreeController = TreeController;
 //# sourceMappingURL=tree-controller.js.map

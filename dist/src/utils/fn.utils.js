@@ -1,4 +1,7 @@
-export function isEmpty(value) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isNil = exports.includes = exports.defaultsDeep = exports.once = exports.size = exports.omit = exports.get = exports.isFunction = exports.has = exports.trim = exports.isEmpty = void 0;
+function isEmpty(value) {
     if (typeof value === 'string') {
         return !/\S/.test(value);
     }
@@ -7,18 +10,23 @@ export function isEmpty(value) {
     }
     return isNil(value);
 }
-export function trim(value) {
+exports.isEmpty = isEmpty;
+function trim(value) {
     return isNil(value) ? '' : value.trim();
 }
-export function has(value, prop) {
+exports.trim = trim;
+function has(value, prop) {
     return value && typeof value === 'object' && value.hasOwnProperty(prop);
 }
-export function isFunction(value) {
+exports.has = has;
+function isFunction(value) {
     return typeof value === 'function';
 }
-export function get(value, path, defaultValue) {
-    let result = value;
-    for (const prop of path.split('.')) {
+exports.isFunction = isFunction;
+function get(value, path, defaultValue) {
+    var result = value;
+    for (var _i = 0, _a = path.split('.'); _i < _a.length; _i++) {
+        var prop = _a[_i];
         if (!result || !Reflect.has(result, prop)) {
             return defaultValue;
         }
@@ -26,24 +34,32 @@ export function get(value, path, defaultValue) {
     }
     return isNil(result) || result === value ? defaultValue : result;
 }
-export function omit(value, propsToSkip) {
+exports.get = get;
+function omit(value, propsToSkip) {
     if (!value) {
         return value;
     }
-    const normalizedPropsToSkip = typeof propsToSkip === 'string' ? [propsToSkip] : propsToSkip;
-    return Object.keys(value).reduce((result, prop) => {
+    var normalizedPropsToSkip = typeof propsToSkip === 'string' ? [propsToSkip] : propsToSkip;
+    return Object.keys(value).reduce(function (result, prop) {
+        var _a;
         if (includes(normalizedPropsToSkip, prop)) {
             return result;
         }
-        return Object.assign(result, { [prop]: value[prop] });
+        return Object.assign(result, (_a = {}, _a[prop] = value[prop], _a));
     }, {});
 }
-export function size(value) {
+exports.omit = omit;
+function size(value) {
     return isEmpty(value) ? 0 : value.length;
 }
-export function once(fn) {
-    let result;
-    return (...args) => {
+exports.size = size;
+function once(fn) {
+    var result;
+    return function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
         if (fn) {
             result = fn.apply(null, args);
             fn = null;
@@ -51,12 +67,17 @@ export function once(fn) {
         return result;
     };
 }
-export function defaultsDeep(target, ...sources) {
-    return [target].concat(sources).reduce((result, source) => {
+exports.once = once;
+function defaultsDeep(target) {
+    var sources = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        sources[_i - 1] = arguments[_i];
+    }
+    return [target].concat(sources).reduce(function (result, source) {
         if (!source) {
             return result;
         }
-        Object.keys(source).forEach(prop => {
+        Object.keys(source).forEach(function (prop) {
             if (isNil(result[prop])) {
                 result[prop] = source[prop];
                 return;
@@ -69,14 +90,17 @@ export function defaultsDeep(target, ...sources) {
         return result;
     }, {});
 }
-export function includes(target, value) {
+exports.defaultsDeep = defaultsDeep;
+function includes(target, value) {
     if (isNil(target)) {
         return false;
     }
-    const index = typeof target === 'string' ? target.indexOf(value) : target.indexOf(value);
+    var index = typeof target === 'string' ? target.indexOf(value) : target.indexOf(value);
     return index > -1;
 }
-export function isNil(value) {
+exports.includes = includes;
+function isNil(value) {
     return value === undefined || value === null;
 }
+exports.isNil = isNil;
 //# sourceMappingURL=fn.utils.js.map

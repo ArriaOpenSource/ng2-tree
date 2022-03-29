@@ -1,62 +1,67 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Inject, Input, Output, Renderer2 } from '@angular/core';
-import { NodeEditableEventAction } from './editable.events';
-import * as i0 from "@angular/core";
-export class NodeEditableDirective {
-    constructor(renderer, elementRef) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeEditableDirective = void 0;
+var core_1 = require("@angular/core");
+var editable_events_1 = require("./editable.events");
+var i0 = require("@angular/core");
+var NodeEditableDirective = /** @class */ (function () {
+    function NodeEditableDirective(renderer, elementRef) {
         this.renderer = renderer;
         this.elementRef = elementRef;
         /* eslint-enable @angular-eslint/no-input-rename */
-        this.valueChanged = new EventEmitter(false);
+        this.valueChanged = new core_1.EventEmitter(false);
     }
-    ngOnInit() {
-        const nativeElement = this.elementRef.nativeElement;
+    NodeEditableDirective.prototype.ngOnInit = function () {
+        var nativeElement = this.elementRef.nativeElement;
         if (nativeElement) {
             nativeElement.focus();
         }
         this.renderer.setProperty(nativeElement, 'value', this.nodeValue);
-    }
-    applyNewValue(newNodeValue) {
+    };
+    NodeEditableDirective.prototype.applyNewValue = function (newNodeValue) {
         this.valueChanged.emit({ type: 'keyup', value: newNodeValue });
-    }
-    applyNewValueByLoosingFocus(newNodeValue) {
+    };
+    NodeEditableDirective.prototype.applyNewValueByLoosingFocus = function (newNodeValue) {
         this.valueChanged.emit({ type: 'blur', value: newNodeValue });
-    }
-    cancelEditing() {
+    };
+    NodeEditableDirective.prototype.cancelEditing = function () {
         this.valueChanged.emit({
             type: 'keyup',
             value: this.nodeValue,
-            action: NodeEditableEventAction.Cancel
+            action: editable_events_1.NodeEditableEventAction.Cancel
         });
-    }
-}
-NodeEditableDirective.ɵfac = function NodeEditableDirective_Factory(t) { return new (t || NodeEditableDirective)(i0.ɵɵdirectiveInject(Renderer2), i0.ɵɵdirectiveInject(ElementRef)); };
-NodeEditableDirective.ɵdir = /*@__PURE__*/ i0.ɵɵdefineDirective({ type: NodeEditableDirective, selectors: [["", "nodeEditable", ""]], hostBindings: function NodeEditableDirective_HostBindings(rf, ctx) { if (rf & 1) {
-        i0.ɵɵlistener("keyup.enter", function NodeEditableDirective_keyup_enter_HostBindingHandler($event) { return ctx.applyNewValue($event.target.value); })("blur", function NodeEditableDirective_blur_HostBindingHandler($event) { return ctx.applyNewValueByLoosingFocus($event.target.value); })("keyup.esc", function NodeEditableDirective_keyup_esc_HostBindingHandler() { return ctx.cancelEditing(); });
-    } }, inputs: { nodeValue: ["nodeEditable", "nodeValue"] }, outputs: { valueChanged: "valueChanged" } });
+    };
+    NodeEditableDirective.ɵfac = function NodeEditableDirective_Factory(t) { return new (t || NodeEditableDirective)(i0.ɵɵdirectiveInject(core_1.Renderer2), i0.ɵɵdirectiveInject(core_1.ElementRef)); };
+    NodeEditableDirective.ɵdir = /*@__PURE__*/ i0.ɵɵdefineDirective({ type: NodeEditableDirective, selectors: [["", "nodeEditable", ""]], hostBindings: function NodeEditableDirective_HostBindings(rf, ctx) { if (rf & 1) {
+            i0.ɵɵlistener("keyup.enter", function NodeEditableDirective_keyup_enter_HostBindingHandler($event) { return ctx.applyNewValue($event.target.value); })("blur", function NodeEditableDirective_blur_HostBindingHandler($event) { return ctx.applyNewValueByLoosingFocus($event.target.value); })("keyup.esc", function NodeEditableDirective_keyup_esc_HostBindingHandler() { return ctx.cancelEditing(); });
+        } }, inputs: { nodeValue: ["nodeEditable", "nodeValue"] }, outputs: { valueChanged: "valueChanged" } });
+    return NodeEditableDirective;
+}());
+exports.NodeEditableDirective = NodeEditableDirective;
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NodeEditableDirective, [{
-        type: Directive,
+        type: core_1.Directive,
         args: [{
                 selector: '[nodeEditable]'
             }]
     }], function () { return [{ type: i0.Renderer2, decorators: [{
-                type: Inject,
-                args: [Renderer2]
+                type: core_1.Inject,
+                args: [core_1.Renderer2]
             }] }, { type: i0.ElementRef, decorators: [{
-                type: Inject,
-                args: [ElementRef]
+                type: core_1.Inject,
+                args: [core_1.ElementRef]
             }] }]; }, { nodeValue: [{
-            type: Input,
+            type: core_1.Input,
             args: ['nodeEditable']
         }], valueChanged: [{
-            type: Output
+            type: core_1.Output
         }], applyNewValue: [{
-            type: HostListener,
+            type: core_1.HostListener,
             args: ['keyup.enter', ['$event.target.value']]
         }], applyNewValueByLoosingFocus: [{
-            type: HostListener,
+            type: core_1.HostListener,
             args: ['blur', ['$event.target.value']]
         }], cancelEditing: [{
-            type: HostListener,
+            type: core_1.HostListener,
             args: ['keyup.esc']
         }] }); })();
 //# sourceMappingURL=node-editable.directive.js.map

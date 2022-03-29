@@ -1,19 +1,22 @@
-import { Directive, ElementRef, Inject, Input, Renderer2 } from '@angular/core';
-import { NodeDraggableService } from './node-draggable.service';
-import { CapturedNode } from './captured-node';
-import { Tree } from '../tree';
-import { DropPosition } from './draggable.events';
-import * as i0 from "@angular/core";
-import * as i1 from "./node-draggable.service";
-export class NodeDraggableDirective {
-    constructor(element, nodeDraggableService, renderer) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeDraggableDirective = void 0;
+var core_1 = require("@angular/core");
+var node_draggable_service_1 = require("./node-draggable.service");
+var captured_node_1 = require("./captured-node");
+var tree_1 = require("../tree");
+var draggable_events_1 = require("./draggable.events");
+var i0 = require("@angular/core");
+var i1 = require("./node-draggable.service");
+var NodeDraggableDirective = /** @class */ (function () {
+    function NodeDraggableDirective(element, nodeDraggableService, renderer) {
         this.element = element;
         this.nodeDraggableService = nodeDraggableService;
         this.renderer = renderer;
         this.disposersForDragListeners = [];
         this.nodeNativeElement = element.nativeElement;
     }
-    ngOnInit() {
+    NodeDraggableDirective.prototype.ngOnInit = function () {
         if (!this.tree.isStatic()) {
             this.renderer.setAttribute(this.nodeNativeElement, 'draggable', 'true');
             this.disposersForDragListeners.push(this.renderer.listen(this.nodeNativeElement, 'dragenter', this.handleDragEnter.bind(this)));
@@ -23,11 +26,11 @@ export class NodeDraggableDirective {
             this.disposersForDragListeners.push(this.renderer.listen(this.nodeNativeElement, 'drop', this.handleDrop.bind(this)));
             this.disposersForDragListeners.push(this.renderer.listen(this.nodeNativeElement, 'dragend', this.handleDragEnd.bind(this)));
         }
-    }
-    ngOnDestroy() {
-        this.disposersForDragListeners.forEach(dispose => dispose());
-    }
-    handleDragStart(e) {
+    };
+    NodeDraggableDirective.prototype.ngOnDestroy = function () {
+        this.disposersForDragListeners.forEach(function (dispose) { return dispose(); });
+    };
+    NodeDraggableDirective.prototype.handleDragStart = function (e) {
         if (this.tree.isBeingRenamed()) {
             e.preventDefault();
             return;
@@ -38,11 +41,11 @@ export class NodeDraggableDirective {
         // Checked nodes are already added to the service in checkedNodes array
         // This is like so to allow differentiating if dragging a list of checked nodes or single unchecked node.
         if (!this.tree.checked) {
-            this.nodeDraggableService.setDraggedNode(new CapturedNode(this.nodeDraggable, this.tree));
+            this.nodeDraggableService.setDraggedNode(new captured_node_1.CapturedNode(this.nodeDraggable, this.tree));
         }
         this.notifyThatNodeIsBeingDragged();
         if (this.tree.node.settings.dragImageId) {
-            const elem = document.getElementById(this.tree.node.settings.dragImageId);
+            var elem = document.getElementById(this.tree.node.settings.dragImageId);
             if (elem) {
                 e.dataTransfer.setDragImage(elem, 0, 0);
             }
@@ -50,9 +53,9 @@ export class NodeDraggableDirective {
         this.applyDraggedNodeClasses();
         e.dataTransfer.setData('text', NodeDraggableDirective.DATA_TRANSFER_STUB_DATA);
         e.dataTransfer.effectAllowed = 'all';
-    }
-    handleDragOver(e) {
-        const draggedNode = this.nodeDraggableService.getDraggedNode();
+    };
+    NodeDraggableDirective.prototype.handleDragOver = function (e) {
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
         if (draggedNode && draggedNode.contains({ nativeElement: e.currentTarget })) {
             // Cannot drag and drop on itself
             return;
@@ -61,16 +64,16 @@ export class NodeDraggableDirective {
             // Cannot drop multiple items onto themselves
             return;
         }
-        const newDropPosition = this.determineDropPosition(e);
+        var newDropPosition = this.determineDropPosition(e);
         this.removeClasses([this.getDropPositionClassName(this.currentDropPosition)]);
-        if (this.tree.isBranch() && this.tree.isNodeExpanded() && newDropPosition === DropPosition.Below) {
+        if (this.tree.isBranch() && this.tree.isNodeExpanded() && newDropPosition === draggable_events_1.DropPosition.Below) {
             // Cannot drop below a branch node if it's expanded
             return;
         }
         if (draggedNode &&
             this.tree.isBranch() &&
             this.tree.hasChild(draggedNode.tree) &&
-            newDropPosition === DropPosition.Into) {
+            newDropPosition === draggable_events_1.DropPosition.Into) {
             // Cannot drop into it's own parent
             return;
         }
@@ -78,14 +81,14 @@ export class NodeDraggableDirective {
         e.dataTransfer.dropEffect = 'move';
         this.addClasses([this.getDropPositionClassName(newDropPosition)]);
         this.currentDropPosition = newDropPosition;
-    }
-    handleDragEnter(e) {
+    };
+    NodeDraggableDirective.prototype.handleDragEnter = function (e) {
         e.preventDefault();
         if (this.containsElementAt(e)) {
             this.addClasses(['over-drop-target', this.getDragOverClassName()]);
         }
-    }
-    handleDragLeave(e) {
+    };
+    NodeDraggableDirective.prototype.handleDragLeave = function (e) {
         if (!this.containsElementAt(e)) {
             this.removeClasses([
                 'over-drop-target',
@@ -93,8 +96,8 @@ export class NodeDraggableDirective {
                 this.getDropPositionClassName(this.currentDropPosition)
             ]);
         }
-    }
-    handleDragEnd(e) {
+    };
+    NodeDraggableDirective.prototype.handleDragEnd = function (e) {
         this.removeClasses([
             'over-drop-target',
             this.getDragOverClassName(),
@@ -102,8 +105,8 @@ export class NodeDraggableDirective {
         ]);
         this.removeDraggedNodeClasses();
         this.nodeDraggableService.releaseDraggedNode();
-    }
-    handleDrop(e) {
+    };
+    NodeDraggableDirective.prototype.handleDrop = function (e) {
         e.preventDefault();
         if (e.stopPropagation) {
             e.stopPropagation();
@@ -121,133 +124,136 @@ export class NodeDraggableDirective {
             this.notifyThatNodeWasDropped();
             this.releaseNodes();
         }
-    }
-    determineDropPosition(e) {
-        let dropPosition;
-        const currentTarget = e.currentTarget;
-        const elemHeight = currentTarget.offsetHeight;
-        const relativeMousePosition = e.clientY - currentTarget.getBoundingClientRect().top;
+    };
+    NodeDraggableDirective.prototype.determineDropPosition = function (e) {
+        var dropPosition;
+        var currentTarget = e.currentTarget;
+        var elemHeight = currentTarget.offsetHeight;
+        var relativeMousePosition = e.clientY - currentTarget.getBoundingClientRect().top;
         if (this.tree.isBranch()) {
-            const third = elemHeight / 3;
-            const twoThirds = third * 2;
+            var third = elemHeight / 3;
+            var twoThirds = third * 2;
             if (relativeMousePosition < third) {
-                dropPosition = DropPosition.Above;
+                dropPosition = draggable_events_1.DropPosition.Above;
             }
             else if (relativeMousePosition >= third && relativeMousePosition <= twoThirds) {
-                dropPosition = DropPosition.Into;
+                dropPosition = draggable_events_1.DropPosition.Into;
             }
             else {
-                dropPosition = DropPosition.Below;
+                dropPosition = draggable_events_1.DropPosition.Below;
             }
         }
         else {
-            const half = elemHeight / 2;
+            var half = elemHeight / 2;
             if (relativeMousePosition <= half) {
-                dropPosition = DropPosition.Above;
+                dropPosition = draggable_events_1.DropPosition.Above;
             }
             else {
-                dropPosition = DropPosition.Below;
+                dropPosition = draggable_events_1.DropPosition.Below;
             }
         }
         return dropPosition;
-    }
-    getDragOverClassName() {
+    };
+    NodeDraggableDirective.prototype.getDragOverClassName = function () {
         return this.tree.isBranch() ? 'over-drop-branch' : 'over-drop-leaf';
-    }
-    getDropPositionClassName(dropPosition) {
+    };
+    NodeDraggableDirective.prototype.getDropPositionClassName = function (dropPosition) {
         switch (dropPosition) {
-            case DropPosition.Above:
+            case draggable_events_1.DropPosition.Above:
                 return 'over-drop-above';
-            case DropPosition.Into:
+            case draggable_events_1.DropPosition.Into:
                 return 'over-drop-into';
-            case DropPosition.Below:
+            case draggable_events_1.DropPosition.Below:
                 return 'over-drop-below';
         }
-    }
-    isDropPossible(e) {
-        const draggedNode = this.nodeDraggableService.getDraggedNode();
+    };
+    NodeDraggableDirective.prototype.isDropPossible = function (e) {
+        var _this = this;
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
         if (draggedNode) {
             return draggedNode.canBeDroppedAt(this.nodeDraggable) && this.containsElementAt(e);
         }
         else {
-            const capturedNodes = this.nodeDraggableService.getCheckedNodes();
+            var capturedNodes = this.nodeDraggableService.getCheckedNodes();
             return (capturedNodes.length > 0 &&
-                capturedNodes.some(cn => cn.canBeDroppedAt(this.nodeDraggable)) &&
+                capturedNodes.some(function (cn) { return cn.canBeDroppedAt(_this.nodeDraggable); }) &&
                 this.containsElementAt(e));
         }
-    }
-    releaseNodes() {
-        const draggedNode = this.nodeDraggableService.getDraggedNode();
+    };
+    NodeDraggableDirective.prototype.releaseNodes = function () {
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
         if (draggedNode) {
             this.nodeDraggableService.releaseDraggedNode();
         }
         else {
             this.nodeDraggableService.releaseCheckedNodes();
         }
-    }
-    applyDraggedNodeClasses() {
-        const draggedNode = this.nodeDraggableService.getDraggedNode();
+    };
+    NodeDraggableDirective.prototype.applyDraggedNodeClasses = function () {
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
         if (draggedNode) {
             draggedNode.element.nativeElement.classList.add('being-dragged');
         }
         else {
-            this.nodeDraggableService.getCheckedNodes().forEach(n => n.element.nativeElement.classList.add('being-dragged'));
+            this.nodeDraggableService.getCheckedNodes().forEach(function (n) { return n.element.nativeElement.classList.add('being-dragged'); });
         }
-    }
-    removeDraggedNodeClasses() {
-        const draggedNode = this.nodeDraggableService.getDraggedNode();
+    };
+    NodeDraggableDirective.prototype.removeDraggedNodeClasses = function () {
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
         if (draggedNode) {
             draggedNode.element.nativeElement.classList.remove('being-dragged');
         }
         else {
             this.nodeDraggableService
                 .getCheckedNodes()
-                .forEach(n => n.element.nativeElement.classList.remove('being-dragged'));
+                .forEach(function (n) { return n.element.nativeElement.classList.remove('being-dragged'); });
         }
-    }
-    containsElementAt(e) {
-        const { x = e.clientX, y = e.clientY } = e;
+    };
+    NodeDraggableDirective.prototype.containsElementAt = function (e) {
+        var _a = e.x, x = _a === void 0 ? e.clientX : _a, _b = e.y, y = _b === void 0 ? e.clientY : _b;
         return this.nodeNativeElement.contains(document.elementFromPoint(x, y));
-    }
-    addClasses(classNames) {
-        const classList = this.nodeNativeElement.classList;
-        classList.add(...classNames);
-    }
-    removeClasses(classNames) {
-        const classList = this.nodeNativeElement.classList;
-        classList.remove(...classNames);
-    }
-    notifyThatNodeWasDropped() {
-        const draggedNode = this.nodeDraggableService.getDraggedNode();
-        const nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
+    };
+    NodeDraggableDirective.prototype.addClasses = function (classNames) {
+        var classList = this.nodeNativeElement.classList;
+        classList.add.apply(classList, classNames);
+    };
+    NodeDraggableDirective.prototype.removeClasses = function (classNames) {
+        var classList = this.nodeNativeElement.classList;
+        classList.remove.apply(classList, classNames);
+    };
+    NodeDraggableDirective.prototype.notifyThatNodeWasDropped = function () {
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
+        var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
         this.nodeDraggableService.fireNodeDragged(nodes, this.nodeDraggable, this.currentDropPosition);
-    }
-    notifyThatNodeIsBeingDragged() {
-        const draggedNode = this.nodeDraggableService.getDraggedNode();
-        const nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
+    };
+    NodeDraggableDirective.prototype.notifyThatNodeIsBeingDragged = function () {
+        var draggedNode = this.nodeDraggableService.getDraggedNode();
+        var nodes = draggedNode ? [draggedNode] : this.nodeDraggableService.getCheckedNodes();
         this.nodeDraggableService.fireNodeDragStart(nodes, this.nodeDraggable);
-    }
-}
-NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
-NodeDraggableDirective.ɵfac = function NodeDraggableDirective_Factory(t) { return new (t || NodeDraggableDirective)(i0.ɵɵdirectiveInject(ElementRef), i0.ɵɵdirectiveInject(NodeDraggableService), i0.ɵɵdirectiveInject(Renderer2)); };
-NodeDraggableDirective.ɵdir = /*@__PURE__*/ i0.ɵɵdefineDirective({ type: NodeDraggableDirective, selectors: [["", "nodeDraggable", ""]], inputs: { nodeDraggable: "nodeDraggable", tree: "tree" } });
+    };
+    NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
+    NodeDraggableDirective.ɵfac = function NodeDraggableDirective_Factory(t) { return new (t || NodeDraggableDirective)(i0.ɵɵdirectiveInject(core_1.ElementRef), i0.ɵɵdirectiveInject(node_draggable_service_1.NodeDraggableService), i0.ɵɵdirectiveInject(core_1.Renderer2)); };
+    NodeDraggableDirective.ɵdir = /*@__PURE__*/ i0.ɵɵdefineDirective({ type: NodeDraggableDirective, selectors: [["", "nodeDraggable", ""]], inputs: { nodeDraggable: "nodeDraggable", tree: "tree" } });
+    return NodeDraggableDirective;
+}());
+exports.NodeDraggableDirective = NodeDraggableDirective;
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NodeDraggableDirective, [{
-        type: Directive,
+        type: core_1.Directive,
         args: [{
                 selector: '[nodeDraggable]'
             }]
     }], function () { return [{ type: i0.ElementRef, decorators: [{
-                type: Inject,
-                args: [ElementRef]
+                type: core_1.Inject,
+                args: [core_1.ElementRef]
             }] }, { type: i1.NodeDraggableService, decorators: [{
-                type: Inject,
-                args: [NodeDraggableService]
+                type: core_1.Inject,
+                args: [node_draggable_service_1.NodeDraggableService]
             }] }, { type: i0.Renderer2, decorators: [{
-                type: Inject,
-                args: [Renderer2]
+                type: core_1.Inject,
+                args: [core_1.Renderer2]
             }] }]; }, { nodeDraggable: [{
-            type: Input
+            type: core_1.Input
         }], tree: [{
-            type: Input
+            type: core_1.Input
         }] }); })();
 //# sourceMappingURL=node-draggable.directive.js.map

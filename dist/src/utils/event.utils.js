@@ -1,19 +1,25 @@
-export var Keys;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isEscapePressed = exports.isRightButtonClicked = exports.isLeftButtonClicked = exports.MouseButtons = exports.Keys = void 0;
+var Keys;
 (function (Keys) {
     Keys[Keys["Escape"] = 27] = "Escape";
-})(Keys || (Keys = {}));
-export var MouseButtons;
+})(Keys = exports.Keys || (exports.Keys = {}));
+var MouseButtons;
 (function (MouseButtons) {
     MouseButtons[MouseButtons["Left"] = 0] = "Left";
     MouseButtons[MouseButtons["Right"] = 2] = "Right";
-})(MouseButtons || (MouseButtons = {}));
-export function isLeftButtonClicked(e) {
+})(MouseButtons = exports.MouseButtons || (exports.MouseButtons = {}));
+function isLeftButtonClicked(e) {
     return e.button === MouseButtons.Left;
 }
-export function isRightButtonClicked(e) {
+exports.isLeftButtonClicked = isLeftButtonClicked;
+function isRightButtonClicked(e) {
     return e.button === MouseButtons.Right;
 }
-export function isEscapePressed(e) {
+exports.isRightButtonClicked = isRightButtonClicked;
+function isEscapePressed(e) {
     return e.keyCode === Keys.Escape;
 }
+exports.isEscapePressed = isEscapePressed;
 //# sourceMappingURL=event.utils.js.map
