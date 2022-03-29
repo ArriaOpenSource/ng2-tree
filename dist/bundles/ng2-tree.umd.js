@@ -4151,7 +4151,7 @@ $traceurRuntime.getModule("traceur-runtime@0.0.105/src/runtime/polyfills/polyfil
 System = curSystem; })();
 !function(e){function t(e){Object.defineProperty(this,e,{enumerable:!0,get:function(){return this[v][e]}})}function r(e){if("undefined"!=typeof System&&System.isModule?System.isModule(e):"[object Module]"===Object.prototype.toString.call(e))return e;var t={default:e,__useDefault:e};if(e&&e.__esModule)for(var r in e)Object.hasOwnProperty.call(e,r)&&(t[r]=e[r]);return new o(t)}function o(e){Object.defineProperty(this,v,{value:e}),Object.keys(e).forEach(t,this)}function n(e){return"@node/"===e.substr(0,6)?c(e,r(m(e.substr(6))),{}):p[e]}function u(e){var t=n(e);if(!t)throw new Error('Module "'+e+'" expected, but not contained in build.');if(t.module)return t.module;var r=t.linkRecord;return i(t,r),a(t,r,[]),t.module}function i(e,t){if(!t.depLoads){t.declare&&d(e,t),t.depLoads=[];for(var r=0;r<t.deps.length;r++){var o=n(t.deps[r]);t.depLoads.push(o),o.linkRecord&&i(o,o.linkRecord);var u=t.setters&&t.setters[r];u&&(u(o.module||o.linkRecord.moduleObj),o.importerSetters.push(u))}return e}}function d(t,r){var o=r.moduleObj,n=t.importerSetters,u=!1,i=r.declare.call(e,function(e,t){if(!u){if("object"==typeof e)for(var r in e)"__useDefault"!==r&&(o[r]=e[r]);else o[e]=t;u=!0;for(var i=0;i<n.length;i++)n[i](o);return u=!1,t}},{id:t.key});"function"!=typeof i?(r.setters=i.setters,r.execute=i.execute):(r.setters=[],r.execute=i)}function l(e,t,r){return p[e]={key:e,module:void 0,importerSetters:[],linkRecord:{deps:t,depLoads:void 0,declare:r,setters:void 0,execute:void 0,moduleObj:{}}}}function f(e,t,r,o){var n={};return p[e]={key:e,module:void 0,importerSetters:[],linkRecord:{deps:t,depLoads:void 0,declare:void 0,execute:o,executingRequire:r,moduleObj:{default:n,__useDefault:n},setters:void 0}}}function s(e,t,r){return function(o){for(var n=0;n<e.length;n++)if(e[n]===o){var u,i=t[n],d=i.linkRecord;return u=d?-1===r.indexOf(i)?a(i,d,r):d.moduleObj:i.module,"__useDefault"in u?u.__useDefault:u}}}function a(t,r,n){if(n.push(t),t.module)return t.module;var u;if(r.setters){for(var i=0;i<r.deps.length;i++){var d=r.depLoads[i],l=d.linkRecord;l&&-1===n.indexOf(d)&&(u=a(d,l,l.setters?n:[]))}r.execute.call(y)}else{var f={id:t.key},c=r.moduleObj;Object.defineProperty(f,"exports",{configurable:!0,set:function(e){c.default=c.__useDefault=e},get:function(){return c.__useDefault}});var p=s(r.deps,r.depLoads,n);if(!r.executingRequire)for(var i=0;i<r.deps.length;i++)p(r.deps[i]);var v=r.execute.call(e,p,c.__useDefault,f);void 0!==v?c.default=c.__useDefault=v:f.exports!==c.__useDefault&&(c.default=c.__useDefault=f.exports);var m=c.__useDefault;if(m&&m.__esModule)for(var b in m)Object.hasOwnProperty.call(m,b)&&(c[b]=m[b])}var f=t.module=new o(r.moduleObj);if(!r.setters)for(var i=0;i<t.importerSetters.length;i++)t.importerSetters[i](f);return f}function c(e,t){return p[e]={key:e,module:t,importerSetters:[],linkRecord:void 0}}var p={},v="undefined"!=typeof Symbol?Symbol():"@@baseObject";o.prototype=Object.create(null),"undefined"!=typeof Symbol&&Symbol.toStringTag&&(o.prototype[Symbol.toStringTag]="Module");var m="undefined"!=typeof System&&System._nodeRequire||"undefined"!=typeof require&&"undefined"!=typeof require.resolve&&"undefined"!=typeof process&&process.platform&&require,y={};return Object.freeze&&Object.freeze(y),function(e,t,n,i){return function(d){d(function(d){var s={_nodeRequire:m,register:l,registerDynamic:f,registry:{get:function(e){return p[e].module},set:c},newModule:function(e){return new o(e)}};c("@empty",new o({}));for(var a=0;a<t.length;a++)c(t[a],r(arguments[a],{}));i(s);var v=u(e[0]);if(e.length>1)for(var a=1;a<e.length;a++)u(e[a]);return n?v.__useDefault:(v instanceof o&&Object.defineProperty(v,"__esModule",{value:!0}),v)})}}}("undefined"!=typeof self?self:"undefined"!=typeof global?global:this)
 
-(["a"], ["1d","d","24","1b","1c"], false, function($__System) {
+(["a"], ["1d","d","2d","1b","1c"], false, function($__System) {
 var require = this.require, exports = this.exports, module = this.module;
 $__System.register("b", [], function($__export) {
   "use strict";
@@ -5431,105 +5431,447 @@ $__System.register("f", ["15"], function($__export) {
   };
 });
 
-!function (r, n) {
-  "object" == typeof exports && "undefined" != typeof module ? n(exports) : "function" == "function" && true ? $__System.registerDynamic("22", [], false, function ($__require, $__exports, $__module) {
-    if (typeof n === "function") {
-      return n.call($__exports, $__exports);
-    } else {
-      return n;
-    }
-  }) : n((r = r || self).uuid = {});
-}(this, function (r) {
+$__System.registerDynamic("22", ["23", "24"], true, function ($__require, exports, module) {
   "use strict";
-  var n = "undefined" != typeof crypto && crypto.getRandomValues && crypto.getRandomValues.bind(crypto) || "undefined" != typeof msCrypto && "function" == typeof msCrypto.getRandomValues && msCrypto.getRandomValues.bind(msCrypto),
-      e = new Uint8Array(16);function t() {
-    if (!n) throw new Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");return n(e);
-  }for (var o, a, u = [], f = 0; f < 256; ++f) u[f] = (f + 256).toString(16).substr(1);function c(r, n) {
-    var e = n || 0,
-        t = u;return [t[r[e++]], t[r[e++]], t[r[e++]], t[r[e++]], "-", t[r[e++]], t[r[e++]], "-", t[r[e++]], t[r[e++]], "-", t[r[e++]], t[r[e++]], "-", t[r[e++]], t[r[e++]], t[r[e++]], t[r[e++]], t[r[e++]], t[r[e++]]].join("");
-  }var i = 0,
-      s = 0;function v(r, n, e) {
-    var t = function (r, t, o, a) {
-      var u = o && a || 0;if ("string" == typeof r && (r = function (r) {
-        r = unescape(encodeURIComponent(r));for (var n = new Array(r.length), e = 0; e < r.length; e++) n[e] = r.charCodeAt(e);return n;
-      }(r)), "string" == typeof t && (t = function (r) {
-        var n = [];return r.replace(/[a-fA-F0-9]{2}/g, function (r) {
-          n.push(parseInt(r, 16));
-        }), n;
-      }(t)), !Array.isArray(r)) throw TypeError("value must be an array of bytes");if (!Array.isArray(t) || 16 !== t.length) throw TypeError("namespace must be uuid string or an Array of 16 byte values");var f = e(t.concat(r));if (f[6] = 15 & f[6] | n, f[8] = 63 & f[8] | 128, o) for (var i = 0; i < 16; ++i) o[u + i] = f[i];return o || c(f);
-    };try {
-      t.name = r;
-    } catch (r) {}return t.DNS = "6ba7b810-9dad-11d1-80b4-00c04fd430c8", t.URL = "6ba7b811-9dad-11d1-80b4-00c04fd430c8", t;
-  }function d(r, n) {
-    var e = (65535 & r) + (65535 & n);return (r >> 16) + (n >> 16) + (e >> 16) << 16 | 65535 & e;
-  }function l(r, n, e, t, o, a) {
-    return d((u = d(d(n, r), d(t, a))) << (f = o) | u >>> 32 - f, e);var u, f;
-  }function p(r, n, e, t, o, a, u) {
-    return l(n & e | ~n & t, r, n, o, a, u);
-  }function y(r, n, e, t, o, a, u) {
-    return l(n & t | e & ~t, r, n, o, a, u);
-  }function h(r, n, e, t, o, a, u) {
-    return l(n ^ e ^ t, r, n, o, a, u);
-  }function g(r, n, e, t, o, a, u) {
-    return l(e ^ (n | ~t), r, n, o, a, u);
-  }var m = v("v3", 48, function (r) {
-    if ("string" == typeof r) {
-      var n = unescape(encodeURIComponent(r));r = new Array(n.length);for (var e = 0; e < n.length; e++) r[e] = n.charCodeAt(e);
-    }return function (r) {
-      var n,
-          e,
-          t,
-          o = [],
-          a = 32 * r.length;for (n = 0; n < a; n += 8) e = r[n >> 5] >>> n % 32 & 255, t = parseInt("0123456789abcdef".charAt(e >>> 4 & 15) + "0123456789abcdef".charAt(15 & e), 16), o.push(t);return o;
-    }(function (r, n) {
-      var e, t, o, a, u;r[n >> 5] |= 128 << n % 32, r[14 + (n + 64 >>> 9 << 4)] = n;var f = 1732584193,
-          c = -271733879,
-          i = -1732584194,
-          s = 271733878;for (e = 0; e < r.length; e += 16) t = f, o = c, a = i, u = s, f = p(f, c, i, s, r[e], 7, -680876936), s = p(s, f, c, i, r[e + 1], 12, -389564586), i = p(i, s, f, c, r[e + 2], 17, 606105819), c = p(c, i, s, f, r[e + 3], 22, -1044525330), f = p(f, c, i, s, r[e + 4], 7, -176418897), s = p(s, f, c, i, r[e + 5], 12, 1200080426), i = p(i, s, f, c, r[e + 6], 17, -1473231341), c = p(c, i, s, f, r[e + 7], 22, -45705983), f = p(f, c, i, s, r[e + 8], 7, 1770035416), s = p(s, f, c, i, r[e + 9], 12, -1958414417), i = p(i, s, f, c, r[e + 10], 17, -42063), c = p(c, i, s, f, r[e + 11], 22, -1990404162), f = p(f, c, i, s, r[e + 12], 7, 1804603682), s = p(s, f, c, i, r[e + 13], 12, -40341101), i = p(i, s, f, c, r[e + 14], 17, -1502002290), c = p(c, i, s, f, r[e + 15], 22, 1236535329), f = y(f, c, i, s, r[e + 1], 5, -165796510), s = y(s, f, c, i, r[e + 6], 9, -1069501632), i = y(i, s, f, c, r[e + 11], 14, 643717713), c = y(c, i, s, f, r[e], 20, -373897302), f = y(f, c, i, s, r[e + 5], 5, -701558691), s = y(s, f, c, i, r[e + 10], 9, 38016083), i = y(i, s, f, c, r[e + 15], 14, -660478335), c = y(c, i, s, f, r[e + 4], 20, -405537848), f = y(f, c, i, s, r[e + 9], 5, 568446438), s = y(s, f, c, i, r[e + 14], 9, -1019803690), i = y(i, s, f, c, r[e + 3], 14, -187363961), c = y(c, i, s, f, r[e + 8], 20, 1163531501), f = y(f, c, i, s, r[e + 13], 5, -1444681467), s = y(s, f, c, i, r[e + 2], 9, -51403784), i = y(i, s, f, c, r[e + 7], 14, 1735328473), c = y(c, i, s, f, r[e + 12], 20, -1926607734), f = h(f, c, i, s, r[e + 5], 4, -378558), s = h(s, f, c, i, r[e + 8], 11, -2022574463), i = h(i, s, f, c, r[e + 11], 16, 1839030562), c = h(c, i, s, f, r[e + 14], 23, -35309556), f = h(f, c, i, s, r[e + 1], 4, -1530992060), s = h(s, f, c, i, r[e + 4], 11, 1272893353), i = h(i, s, f, c, r[e + 7], 16, -155497632), c = h(c, i, s, f, r[e + 10], 23, -1094730640), f = h(f, c, i, s, r[e + 13], 4, 681279174), s = h(s, f, c, i, r[e], 11, -358537222), i = h(i, s, f, c, r[e + 3], 16, -722521979), c = h(c, i, s, f, r[e + 6], 23, 76029189), f = h(f, c, i, s, r[e + 9], 4, -640364487), s = h(s, f, c, i, r[e + 12], 11, -421815835), i = h(i, s, f, c, r[e + 15], 16, 530742520), c = h(c, i, s, f, r[e + 2], 23, -995338651), f = g(f, c, i, s, r[e], 6, -198630844), s = g(s, f, c, i, r[e + 7], 10, 1126891415), i = g(i, s, f, c, r[e + 14], 15, -1416354905), c = g(c, i, s, f, r[e + 5], 21, -57434055), f = g(f, c, i, s, r[e + 12], 6, 1700485571), s = g(s, f, c, i, r[e + 3], 10, -1894986606), i = g(i, s, f, c, r[e + 10], 15, -1051523), c = g(c, i, s, f, r[e + 1], 21, -2054922799), f = g(f, c, i, s, r[e + 8], 6, 1873313359), s = g(s, f, c, i, r[e + 15], 10, -30611744), i = g(i, s, f, c, r[e + 6], 15, -1560198380), c = g(c, i, s, f, r[e + 13], 21, 1309151649), f = g(f, c, i, s, r[e + 4], 6, -145523070), s = g(s, f, c, i, r[e + 11], 10, -1120210379), i = g(i, s, f, c, r[e + 2], 15, 718787259), c = g(c, i, s, f, r[e + 9], 21, -343485551), f = d(f, t), c = d(c, o), i = d(i, a), s = d(s, u);return [f, c, i, s];
-    }(function (r) {
-      var n,
-          e = [];for (e[(r.length >> 2) - 1] = void 0, n = 0; n < e.length; n += 1) e[n] = 0;var t = 8 * r.length;for (n = 0; n < t; n += 8) e[n >> 5] |= (255 & r[n / 8]) << n % 32;return e;
-    }(r), 8 * r.length));
-  });function b(r, n, e, t) {
-    switch (r) {case 0:
-        return n & e ^ ~n & t;case 1:
-        return n ^ e ^ t;case 2:
-        return n & e ^ n & t ^ e & t;case 3:
-        return n ^ e ^ t;}
-  }function A(r, n) {
-    return r << n | r >>> 32 - n;
-  }var w = v("v5", 80, function (r) {
-    var n = [1518500249, 1859775393, 2400959708, 3395469782],
-        e = [1732584193, 4023233417, 2562383102, 271733878, 3285377520];if ("string" == typeof r) {
-      var t = unescape(encodeURIComponent(r));r = new Array(t.length);for (var o = 0; o < t.length; o++) r[o] = t.charCodeAt(o);
-    }r.push(128);var a = r.length / 4 + 2,
-        u = Math.ceil(a / 16),
-        f = new Array(u);for (o = 0; o < u; o++) {
-      f[o] = new Array(16);for (var c = 0; c < 16; c++) f[o][c] = r[64 * o + 4 * c] << 24 | r[64 * o + 4 * c + 1] << 16 | r[64 * o + 4 * c + 2] << 8 | r[64 * o + 4 * c + 3];
-    }for (f[u - 1][14] = 8 * (r.length - 1) / Math.pow(2, 32), f[u - 1][14] = Math.floor(f[u - 1][14]), f[u - 1][15] = 8 * (r.length - 1) & 4294967295, o = 0; o < u; o++) {
-      for (var i = new Array(80), s = 0; s < 16; s++) i[s] = f[o][s];for (s = 16; s < 80; s++) i[s] = A(i[s - 3] ^ i[s - 8] ^ i[s - 14] ^ i[s - 16], 1);var v = e[0],
-          d = e[1],
-          l = e[2],
-          p = e[3],
-          y = e[4];for (s = 0; s < 80; s++) {
-        var h = Math.floor(s / 20),
-            g = A(v, 5) + b(h, d, l, p) + y + n[h] + i[s] >>> 0;y = p, p = l, l = A(d, 30) >>> 0, d = v, v = g;
-      }e[0] = e[0] + v >>> 0, e[1] = e[1] + d >>> 0, e[2] = e[2] + l >>> 0, e[3] = e[3] + p >>> 0, e[4] = e[4] + y >>> 0;
-    }return [e[0] >> 24 & 255, e[0] >> 16 & 255, e[0] >> 8 & 255, 255 & e[0], e[1] >> 24 & 255, e[1] >> 16 & 255, e[1] >> 8 & 255, 255 & e[1], e[2] >> 24 & 255, e[2] >> 16 & 255, e[2] >> 8 & 255, 255 & e[2], e[3] >> 24 & 255, e[3] >> 16 & 255, e[3] >> 8 & 255, 255 & e[3], e[4] >> 24 & 255, e[4] >> 16 & 255, e[4] >> 8 & 255, 255 & e[4]];
-  });r.v1 = function (r, n, e) {
-    var u = n && e || 0,
-        f = n || [],
-        v = (r = r || {}).node || o,
-        d = void 0 !== r.clockseq ? r.clockseq : a;if (null == v || null == d) {
-      var l = r.random || (r.rng || t)();null == v && (v = o = [1 | l[0], l[1], l[2], l[3], l[4], l[5]]), null == d && (d = a = 16383 & (l[6] << 8 | l[7]));
-    }var p = void 0 !== r.msecs ? r.msecs : new Date().getTime(),
-        y = void 0 !== r.nsecs ? r.nsecs : s + 1,
-        h = p - i + (y - s) / 1e4;if (h < 0 && void 0 === r.clockseq && (d = d + 1 & 16383), (h < 0 || p > i) && void 0 === r.nsecs && (y = 0), y >= 1e4) throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");i = p, s = y, a = d;var g = (1e4 * (268435455 & (p += 122192928e5)) + y) % 4294967296;f[u++] = g >>> 24 & 255, f[u++] = g >>> 16 & 255, f[u++] = g >>> 8 & 255, f[u++] = 255 & g;var m = p / 4294967296 * 1e4 & 268435455;f[u++] = m >>> 8 & 255, f[u++] = 255 & m, f[u++] = m >>> 24 & 15 | 16, f[u++] = m >>> 16 & 255, f[u++] = d >>> 8 | 128, f[u++] = 255 & d;for (var b = 0; b < 6; ++b) f[u + b] = v[b];return n || c(f);
-  }, r.v3 = m, r.v4 = function (r, n, e) {
-    var o = n && e || 0;"string" == typeof r && (n = "binary" === r ? new Array(16) : null, r = null);var a = (r = r || {}).random || (r.rng || t)();if (a[6] = 15 & a[6] | 64, a[8] = 63 & a[8] | 128, n) for (var u = 0; u < 16; ++u) n[o + u] = a[u];return n || c(a);
-  }, r.v5 = w, Object.defineProperty(r, "__esModule", { value: !0 });
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _rng = _interopRequireDefault($__require("23"));
+
+  var _bytesToUuid = _interopRequireDefault($__require("24"));
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+
+  // **`v1()` - Generate time-based UUID**
+  //
+  // Inspired by https://github.com/LiosK/UUID.js
+  // and http://docs.python.org/library/uuid.html
+  var _nodeId;
+
+  var _clockseq; // Previous uuid creation time
+
+
+  var _lastMSecs = 0;
+  var _lastNSecs = 0; // See https://github.com/uuidjs/uuid for API details
+
+  function v1(options, buf, offset) {
+    var i = buf && offset || 0;
+    var b = buf || [];
+    options = options || {};
+    var node = options.node || _nodeId;
+    var clockseq = options.clockseq !== undefined ? options.clockseq : _clockseq; // node and clockseq need to be initialized to random values if they're not
+    // specified.  We do this lazily to minimize issues related to insufficient
+    // system entropy.  See #189
+
+    if (node == null || clockseq == null) {
+      var seedBytes = options.random || (options.rng || _rng.default)();
+
+      if (node == null) {
+        // Per 4.5, create and 48-bit node id, (47 random bits + multicast bit = 1)
+        node = _nodeId = [seedBytes[0] | 0x01, seedBytes[1], seedBytes[2], seedBytes[3], seedBytes[4], seedBytes[5]];
+      }
+
+      if (clockseq == null) {
+        // Per 4.2.2, randomize (14 bit) clockseq
+        clockseq = _clockseq = (seedBytes[6] << 8 | seedBytes[7]) & 0x3fff;
+      }
+    } // UUID timestamps are 100 nano-second units since the Gregorian epoch,
+    // (1582-10-15 00:00).  JSNumbers aren't precise enough for this, so
+    // time is handled internally as 'msecs' (integer milliseconds) and 'nsecs'
+    // (100-nanoseconds offset from msecs) since unix epoch, 1970-01-01 00:00.
+
+
+    var msecs = options.msecs !== undefined ? options.msecs : new Date().getTime(); // Per 4.2.1.2, use count of uuid's generated during the current clock
+    // cycle to simulate higher resolution clock
+
+    var nsecs = options.nsecs !== undefined ? options.nsecs : _lastNSecs + 1; // Time since last uuid creation (in msecs)
+
+    var dt = msecs - _lastMSecs + (nsecs - _lastNSecs) / 10000; // Per 4.2.1.2, Bump clockseq on clock regression
+
+    if (dt < 0 && options.clockseq === undefined) {
+      clockseq = clockseq + 1 & 0x3fff;
+    } // Reset nsecs if clock regresses (new clockseq) or we've moved onto a new
+    // time interval
+
+
+    if ((dt < 0 || msecs > _lastMSecs) && options.nsecs === undefined) {
+      nsecs = 0;
+    } // Per 4.2.1.2 Throw error if too many uuids are requested
+
+
+    if (nsecs >= 10000) {
+      throw new Error("uuid.v1(): Can't create more than 10M uuids/sec");
+    }
+
+    _lastMSecs = msecs;
+    _lastNSecs = nsecs;
+    _clockseq = clockseq; // Per 4.1.4 - Convert from unix epoch to Gregorian epoch
+
+    msecs += 12219292800000; // `time_low`
+
+    var tl = ((msecs & 0xfffffff) * 10000 + nsecs) % 0x100000000;
+    b[i++] = tl >>> 24 & 0xff;
+    b[i++] = tl >>> 16 & 0xff;
+    b[i++] = tl >>> 8 & 0xff;
+    b[i++] = tl & 0xff; // `time_mid`
+
+    var tmh = msecs / 0x100000000 * 10000 & 0xfffffff;
+    b[i++] = tmh >>> 8 & 0xff;
+    b[i++] = tmh & 0xff; // `time_high_and_version`
+
+    b[i++] = tmh >>> 24 & 0xf | 0x10; // include version
+
+    b[i++] = tmh >>> 16 & 0xff; // `clock_seq_hi_and_reserved` (Per 4.2.2 - include variant)
+
+    b[i++] = clockseq >>> 8 | 0x80; // `clock_seq_low`
+
+    b[i++] = clockseq & 0xff; // `node`
+
+    for (var n = 0; n < 6; ++n) {
+      b[i + n] = node[n];
+    }
+
+    return buf ? buf : (0, _bytesToUuid.default)(b);
+  }
+
+  var _default = v1;
+  exports.default = _default;
+  module.exports = exports.default;
 });
-$__System.register("10", ["15", "f", "22", "1b"], function($__export) {
+$__System.registerDynamic("25", ["@empty"], true, function ($__require, exports, module) {
+  "use strict";
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _crypto = _interopRequireDefault($__require("@empty"));
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+
+  function md5(bytes) {
+    if (Array.isArray(bytes)) {
+      bytes = Buffer.from(bytes);
+    } else if (typeof bytes === 'string') {
+      bytes = Buffer.from(bytes, 'utf8');
+    }
+
+    return _crypto.default.createHash('md5').update(bytes).digest();
+  }
+
+  var _default = md5;
+  exports.default = _default;
+  module.exports = exports.default;
+});
+$__System.registerDynamic("26", ["27", "25"], true, function ($__require, exports, module) {
+  "use strict";
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _v = _interopRequireDefault($__require("27"));
+
+  var _md = _interopRequireDefault($__require("25"));
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+
+  const v3 = (0, _v.default)('v3', 0x30, _md.default);
+  var _default = v3;
+  exports.default = _default;
+  module.exports = exports.default;
+});
+$__System.registerDynamic("23", ["@empty"], true, function ($__require, exports, module) {
+  "use strict";
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = rng;
+
+  var _crypto = _interopRequireDefault($__require("@empty"));
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+
+  function rng() {
+    return _crypto.default.randomBytes(16);
+  }
+
+  module.exports = exports.default;
+});
+$__System.registerDynamic("28", ["23", "24"], true, function ($__require, exports, module) {
+  "use strict";
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _rng = _interopRequireDefault($__require("23"));
+
+  var _bytesToUuid = _interopRequireDefault($__require("24"));
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+
+  function v4(options, buf, offset) {
+    var i = buf && offset || 0;
+
+    if (typeof options == 'string') {
+      buf = options === 'binary' ? new Array(16) : null;
+      options = null;
+    }
+
+    options = options || {};
+
+    var rnds = options.random || (options.rng || _rng.default)(); // Per 4.4, set bits for version and `clock_seq_hi_and_reserved`
+
+
+    rnds[6] = rnds[6] & 0x0f | 0x40;
+    rnds[8] = rnds[8] & 0x3f | 0x80; // Copy bytes to buffer, if provided
+
+    if (buf) {
+      for (var ii = 0; ii < 16; ++ii) {
+        buf[i + ii] = rnds[ii];
+      }
+    }
+
+    return buf || (0, _bytesToUuid.default)(rnds);
+  }
+
+  var _default = v4;
+  exports.default = _default;
+  module.exports = exports.default;
+});
+$__System.registerDynamic("24", [], true, function ($__require, exports, module) {
+  "use strict";
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  /**
+   * Convert array of 16 byte values to UUID string format of the form:
+   * XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+   */
+  var byteToHex = [];
+
+  for (var i = 0; i < 256; ++i) {
+    byteToHex[i] = (i + 0x100).toString(16).substr(1);
+  }
+
+  function bytesToUuid(buf, offset) {
+    var i = offset || 0;
+    var bth = byteToHex; // join used to fix memory issue caused by concatenation: https://bugs.chromium.org/p/v8/issues/detail?id=3175#c4
+
+    return [bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], '-', bth[buf[i++]], bth[buf[i++]], '-', bth[buf[i++]], bth[buf[i++]], '-', bth[buf[i++]], bth[buf[i++]], '-', bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], bth[buf[i++]], bth[buf[i++]]].join('');
+  }
+
+  var _default = bytesToUuid;
+  exports.default = _default;
+  module.exports = exports.default;
+});
+$__System.registerDynamic("27", ["24"], true, function ($__require, exports, module) {
+  "use strict";
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = _default;
+  exports.URL = exports.DNS = void 0;
+
+  var _bytesToUuid = _interopRequireDefault($__require("24"));
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+
+  function uuidToBytes(uuid) {
+    // Note: We assume we're being passed a valid uuid string
+    var bytes = [];
+    uuid.replace(/[a-fA-F0-9]{2}/g, function (hex) {
+      bytes.push(parseInt(hex, 16));
+    });
+    return bytes;
+  }
+
+  function stringToBytes(str) {
+    str = unescape(encodeURIComponent(str)); // UTF8 escape
+
+    var bytes = new Array(str.length);
+
+    for (var i = 0; i < str.length; i++) {
+      bytes[i] = str.charCodeAt(i);
+    }
+
+    return bytes;
+  }
+
+  const DNS = '6ba7b810-9dad-11d1-80b4-00c04fd430c8';
+  exports.DNS = DNS;
+  const URL = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
+  exports.URL = URL;
+
+  function _default(name, version, hashfunc) {
+    var generateUUID = function (value, namespace, buf, offset) {
+      var off = buf && offset || 0;
+      if (typeof value == 'string') value = stringToBytes(value);
+      if (typeof namespace == 'string') namespace = uuidToBytes(namespace);
+      if (!Array.isArray(value)) throw TypeError('value must be an array of bytes');
+      if (!Array.isArray(namespace) || namespace.length !== 16) throw TypeError('namespace must be uuid string or an Array of 16 byte values'); // Per 4.3
+
+      var bytes = hashfunc(namespace.concat(value));
+      bytes[6] = bytes[6] & 0x0f | version;
+      bytes[8] = bytes[8] & 0x3f | 0x80;
+
+      if (buf) {
+        for (var idx = 0; idx < 16; ++idx) {
+          buf[off + idx] = bytes[idx];
+        }
+      }
+
+      return buf || (0, _bytesToUuid.default)(bytes);
+    }; // Function#name is not settable on some platforms (#270)
+
+
+    try {
+      generateUUID.name = name;
+    } catch (err) {} // For CommonJS default export support
+
+
+    generateUUID.DNS = DNS;
+    generateUUID.URL = URL;
+    return generateUUID;
+  }
+});
+$__System.registerDynamic("29", ["@empty"], true, function ($__require, exports, module) {
+  "use strict";
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _crypto = _interopRequireDefault($__require("@empty"));
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+
+  function sha1(bytes) {
+    if (Array.isArray(bytes)) {
+      bytes = Buffer.from(bytes);
+    } else if (typeof bytes === 'string') {
+      bytes = Buffer.from(bytes, 'utf8');
+    }
+
+    return _crypto.default.createHash('sha1').update(bytes).digest();
+  }
+
+  var _default = sha1;
+  exports.default = _default;
+  module.exports = exports.default;
+});
+$__System.registerDynamic("2a", ["27", "29"], true, function ($__require, exports, module) {
+  "use strict";
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = void 0;
+
+  var _v = _interopRequireDefault($__require("27"));
+
+  var _sha = _interopRequireDefault($__require("29"));
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+
+  const v5 = (0, _v.default)('v5', 0x50, _sha.default);
+  var _default = v5;
+  exports.default = _default;
+  module.exports = exports.default;
+});
+$__System.registerDynamic("2b", ["22", "26", "28", "2a"], true, function ($__require, exports, module) {
+  "use strict";
+
+  var global = this || self,
+      GLOBAL = global;
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(exports, "v1", {
+    enumerable: true,
+    get: function () {
+      return _v.default;
+    }
+  });
+  Object.defineProperty(exports, "v3", {
+    enumerable: true,
+    get: function () {
+      return _v2.default;
+    }
+  });
+  Object.defineProperty(exports, "v4", {
+    enumerable: true,
+    get: function () {
+      return _v3.default;
+    }
+  });
+  Object.defineProperty(exports, "v5", {
+    enumerable: true,
+    get: function () {
+      return _v4.default;
+    }
+  });
+
+  var _v = _interopRequireDefault($__require("22"));
+
+  var _v2 = _interopRequireDefault($__require("26"));
+
+  var _v3 = _interopRequireDefault($__require("28"));
+
+  var _v4 = _interopRequireDefault($__require("2a"));
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : { default: obj };
+  }
+});
+$__System.register("10", ["15", "f", "2b", "1b"], function($__export) {
   "use strict";
   var defaultsDeep,
       get,
@@ -6732,7 +7074,7 @@ $__System.register("16", ["d", "1b", "1c", "13"], function($__export) {
   };
 });
 
-$__System.register("23", [], function($__export) {
+$__System.register("2c", [], function($__export) {
   "use strict";
   var NodeEvent,
       NodeDoubleClickedEvent,
@@ -7155,7 +7497,7 @@ $__System.register("15", [], function($__export) {
   };
 });
 
-$__System.register("e", ["23", "d", "19", "15", "1b", "1c"], function($__export) {
+$__System.register("e", ["2c", "d", "19", "15", "1b", "1c"], function($__export) {
   "use strict";
   var LoadNextLevelEvent,
       MenuItemSelectedEvent,
@@ -7366,7 +7708,7 @@ $__System.register("e", ["23", "d", "19", "15", "1b", "1c"], function($__export)
   };
 });
 
-$__System.register("21", ["d", "24"], function($__export) {
+$__System.register("21", ["d", "2d"], function($__export) {
   "use strict";
   var Pipe,
       DomSanitizer,
@@ -7411,7 +7753,7 @@ $__System.register("21", ["d", "24"], function($__export) {
   };
 });
 
-$__System.register("25", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "20", "16", "e", "21"], function($__export) {
+$__System.register("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "20", "16", "e", "21"], function($__export) {
   "use strict";
   var NgModule,
       TreeComponent,
@@ -7487,7 +7829,7 @@ $__System.register("25", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "20", "16
   };
 });
 
-$__System.register("a", ["f", "10", "13", "23", "18", "c", "12", "25"], function($__export) {
+$__System.register("a", ["f", "10", "13", "2c", "18", "c", "12", "2e"], function($__export) {
   "use strict";
   var TreeModelSettings,
       Ng2TreeSettings,

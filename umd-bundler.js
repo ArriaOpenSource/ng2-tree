@@ -58,7 +58,7 @@ function getSystemJsBundleConfig() {
       typescript: './node_modules/typescript/lib/typescript.js',
       '@angular': './node_modules/@angular',
       rxjs: './node_modules/rxjs/bundles',
-      uuid: './node_modules/uuid/dist/umd/uuid.min.js',
+      uuid: './node_modules/uuid/dist/index',
       crypto: '@empty'
     },
     paths: {
