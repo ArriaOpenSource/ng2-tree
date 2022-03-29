@@ -19,8 +19,8 @@ export declare class NodeMenuComponent implements OnInit, AfterViewInit, OnDestr
     private displayAboveOrBelow;
     private getScrollParent;
     private closeMenu;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NodeMenuComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<NodeMenuComponent, "node-menu", never, { "menuItems": "menuItems"; }, { "menuItemSelected": "menuItemSelected"; }, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<NodeMenuComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<NodeMenuComponent, "node-menu", never, { "menuItems": "menuItems"; }, { "menuItemSelected": "menuItemSelected"; }, never, never>;
 }
 export interface NodeMenuItem {
     name: string;

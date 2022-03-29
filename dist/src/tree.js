@@ -19,11 +19,11 @@ var Tree = /** @class */ (function () {
      * @param {boolean} [isBranch] - An option that makes a branch from created tree. Branch can have children.
      */
     function Tree(node, parent, isBranch) {
+        var _this = this;
         if (parent === void 0) { parent = null; }
         if (isBranch === void 0) { isBranch = false; }
-        var _this = this;
         this._childrenLoadingState = ChildrenLoadingState.NotStarted;
-        this._childrenAsyncOnce = (0, fn_utils_1.once)(function () {
+        this._childrenAsyncOnce = fn_utils_1.once(function () {
             return new rxjs_1.Observable(function (observer) {
                 setTimeout(function () {
                     _this._childrenLoadingState = ChildrenLoadingState.Loading;
@@ -46,7 +46,7 @@ var Tree = /** @class */ (function () {
      * @static
      */
     Tree.isValueEmpty = function (value) {
-        return (0, fn_utils_1.isEmpty)((0, fn_utils_1.trim)(value));
+        return fn_utils_1.isEmpty(fn_utils_1.trim(value));
     };
     /**
      * Check whether a given value can be considered RenamableNode.
@@ -55,9 +55,9 @@ var Tree = /** @class */ (function () {
      * @static
      */
     Tree.isRenamable = function (value) {
-        return ((0, fn_utils_1.has)(value, 'setName') &&
-            (0, fn_utils_1.isFunction)(value.setName) &&
-            ((0, fn_utils_1.has)(value, 'toString') && (0, fn_utils_1.isFunction)(value.toString) && value.toString !== Object.toString));
+        return (fn_utils_1.has(value, 'setName') &&
+            fn_utils_1.isFunction(value.setName) &&
+            (fn_utils_1.has(value, 'toString') && fn_utils_1.isFunction(value.toString) && value.toString !== Object.toString));
     };
     Tree.cloneTreeShallow = function (origin) {
         var tree = new Tree(Object.assign({}, origin.node));
@@ -72,12 +72,12 @@ var Tree = /** @class */ (function () {
     Tree.prototype.buildTreeFromModel = function (model, parent, isBranch) {
         var _this = this;
         this.parent = parent;
-        this.node = Object.assign((0, fn_utils_1.omit)(model, 'children'), { settings: tree_types_1.TreeModelSettings.merge(model, (0, fn_utils_1.get)(parent, 'node')) }, { emitLoadNextLevel: model.emitLoadNextLevel === true });
-        if ((0, fn_utils_1.isFunction)(this.node.loadChildren)) {
+        this.node = Object.assign(fn_utils_1.omit(model, 'children'), { settings: tree_types_1.TreeModelSettings.merge(model, fn_utils_1.get(parent, 'node')) }, { emitLoadNextLevel: model.emitLoadNextLevel === true });
+        if (fn_utils_1.isFunction(this.node.loadChildren)) {
             this._loadChildren = this.node.loadChildren;
         }
         else {
-            (0, fn_utils_1.get)(model, 'children', []).forEach(function (child, index) {
+            fn_utils_1.get(model, 'children', []).forEach(function (child, index) {
                 _this._addChild(new Tree(child, _this), index);
             });
         }
@@ -142,7 +142,7 @@ var Tree = /** @class */ (function () {
             if (this.canLoadChildren()) {
                 return this._childrenAsyncOnce();
             }
-            return (0, rxjs_1.of)(this.children);
+            return rxjs_1.of(this.children);
         },
         enumerable: false,
         configurable: true
@@ -182,7 +182,7 @@ var Tree = /** @class */ (function () {
         if (!model.id) {
             tree.markAsNew();
         }
-        tree.id = tree.id || (0, uuid_1.v4)();
+        tree.id = tree.id || uuid_1.v4();
         if (this.childrenShouldBeLoaded() && !(this.childrenAreBeingLoaded() || this.childrenWereLoaded())) {
             return null;
         }
@@ -222,7 +222,7 @@ var Tree = /** @class */ (function () {
     });
     Object.defineProperty(Tree.prototype, "checked", {
         get: function () {
-            return !!(0, fn_utils_1.get)(this.node.settings, 'checked');
+            return !!fn_utils_1.get(this.node.settings, 'checked');
         },
         set: function (checked) {
             this.node.settings = Object.assign({}, this.node.settings, { checked: checked });
@@ -239,8 +239,8 @@ var Tree = /** @class */ (function () {
     });
     Object.defineProperty(Tree.prototype, "selectionAllowed", {
         get: function () {
-            var value = (0, fn_utils_1.get)(this.node.settings, 'selectionAllowed');
-            return (0, fn_utils_1.isNil)(value) ? true : !!value;
+            var value = fn_utils_1.get(this.node.settings, 'selectionAllowed');
+            return fn_utils_1.isNil(value) ? true : !!value;
         },
         set: function (selectionAllowed) {
             this.node.settings = Object.assign({}, this.node.settings, { selectionAllowed: selectionAllowed });
@@ -249,13 +249,13 @@ var Tree = /** @class */ (function () {
         configurable: true
     });
     Tree.prototype.hasLoadedChildren = function () {
-        return !(0, fn_utils_1.isEmpty)(this.children);
+        return !fn_utils_1.isEmpty(this.children);
     };
     Tree.prototype.loadedChildrenAmount = function () {
-        return (0, fn_utils_1.size)(this.children);
+        return fn_utils_1.size(this.children);
     };
     Tree.prototype.checkedChildrenAmount = function () {
-        return (0, fn_utils_1.size)(this.checkedChildren);
+        return fn_utils_1.size(this.checkedChildren);
     };
     /**
      * Add a sibling node for the current node. This won't work if the current node is a root.
@@ -264,7 +264,7 @@ var Tree = /** @class */ (function () {
      * @returns {Tree} A newly inserted sibling, or null if you are trying to make a sibling for the root.
      */
     Tree.prototype.addSibling = function (sibling, position) {
-        if (Array.isArray((0, fn_utils_1.get)(this.parent, 'children'))) {
+        if (Array.isArray(fn_utils_1.get(this.parent, 'children'))) {
             return this.parent.addChild(sibling, position);
         }
         return null;
@@ -284,7 +284,7 @@ var Tree = /** @class */ (function () {
         return newborn;
     };
     Tree.prototype._addChild = function (child, position) {
-        if (position === void 0) { position = (0, fn_utils_1.size)(this._children) || 0; }
+        if (position === void 0) { position = fn_utils_1.size(this._children) || 0; }
         child.parent = this;
         if (Array.isArray(this._children)) {
             this._children.splice(position, 0, child);
@@ -341,28 +341,28 @@ var Tree = /** @class */ (function () {
      * @returns {boolean} A flag indicating whether or not this tree is static.
      */
     Tree.prototype.isStatic = function () {
-        return (0, fn_utils_1.get)(this.node.settings, 'static', false);
+        return fn_utils_1.get(this.node.settings, 'static', false);
     };
     /**
      * Check whether or not this tree has a left menu.
      * @returns {boolean} A flag indicating whether or not this tree has a left menu.
      */
     Tree.prototype.hasLeftMenu = function () {
-        return !(0, fn_utils_1.get)(this.node.settings, 'static', false) && (0, fn_utils_1.get)(this.node.settings, 'leftMenu', false);
+        return !fn_utils_1.get(this.node.settings, 'static', false) && fn_utils_1.get(this.node.settings, 'leftMenu', false);
     };
     /**
      * Check whether or not this tree has a right menu.
      * @returns {boolean} A flag indicating whether or not this tree has a right menu.
      */
     Tree.prototype.hasRightMenu = function () {
-        return !(0, fn_utils_1.get)(this.node.settings, 'static', false) && (0, fn_utils_1.get)(this.node.settings, 'rightMenu', false);
+        return !fn_utils_1.get(this.node.settings, 'static', false) && fn_utils_1.get(this.node.settings, 'rightMenu', false);
     };
     /**
      * Check whether or not this tree should show a drag icon.
      * @returns {boolean} A flag indicating whether or not this tree has a left menu.
      */
     Tree.prototype.hasDragIcon = function () {
-        return !(0, fn_utils_1.get)(this.node.settings, 'static', false) && (0, fn_utils_1.get)(this.node.settings, 'dragIcon', false);
+        return !fn_utils_1.get(this.node.settings, 'static', false) && fn_utils_1.get(this.node.settings, 'dragIcon', false);
     };
     /**
      * Check whether this tree is "Leaf" or not.
@@ -377,7 +377,7 @@ var Tree = /** @class */ (function () {
          * @returns {NodeMenuItem[]} The menu items of the current tree.
          */
         get: function () {
-            return (0, fn_utils_1.get)(this.node.settings, 'menuItems');
+            return fn_utils_1.get(this.node.settings, 'menuItems');
         },
         enumerable: false,
         configurable: true
@@ -387,7 +387,7 @@ var Tree = /** @class */ (function () {
      * @returns {boolean} A flag indicating whether or not this tree has a custom menu.
      */
     Tree.prototype.hasCustomMenu = function () {
-        return !this.isStatic() && !!(0, fn_utils_1.get)(this.node.settings, 'menuItems', false);
+        return !this.isStatic() && !!fn_utils_1.get(this.node.settings, 'menuItems', false);
     };
     /**
      * Check whether this tree is "Branch" or not. "Branch" is a node that has children.
@@ -401,14 +401,14 @@ var Tree = /** @class */ (function () {
      * @returns {boolean} A flag indicating whether or not this tree has children.
      */
     Tree.prototype.hasChildren = function () {
-        return !(0, fn_utils_1.isEmpty)(this._children) || this.childrenShouldBeLoaded();
+        return !fn_utils_1.isEmpty(this._children) || this.childrenShouldBeLoaded();
     };
     /**
      * Check whether this tree is a root or not. The root is the tree (node) that doesn't have parent (or technically its parent is null).
      * @returns {boolean} A flag indicating whether or not this tree is the root.
      */
     Tree.prototype.isRoot = function () {
-        return (0, fn_utils_1.isNil)(this.parent);
+        return fn_utils_1.isNil(this.parent);
     };
     /**
      * Check whether provided tree is a sibling of the current tree. Sibling trees (nodes) are the trees that have the same parent.
@@ -416,7 +416,7 @@ var Tree = /** @class */ (function () {
      * @returns {boolean} A flag indicating whether or not provided tree is the sibling of the current one.
      */
     Tree.prototype.hasSibling = function (tree) {
-        return !this.isRoot() && (0, fn_utils_1.includes)(this.parent.children, tree);
+        return !this.isRoot() && fn_utils_1.includes(this.parent.children, tree);
     };
     /**
      * Check whether provided tree is a child of the current tree.
@@ -425,7 +425,7 @@ var Tree = /** @class */ (function () {
      * @returns {boolean} A flag indicating whether provided tree is a child or not.
      */
     Tree.prototype.hasChild = function (tree) {
-        return (0, fn_utils_1.includes)(this._children, tree);
+        return fn_utils_1.includes(this._children, tree);
     };
     /**
      * Remove given tree from the current tree.
@@ -483,7 +483,7 @@ var Tree = /** @class */ (function () {
         if (this.childrenShouldBeLoaded()) {
             this.node._foldingType = tree_types_1.FoldingType.Collapsed;
         }
-        else if (this._children && !(0, fn_utils_1.isEmpty)(this._children)) {
+        else if (this._children && !fn_utils_1.isEmpty(this._children)) {
             this.node._foldingType = this.isCollapsedOnInit() ? tree_types_1.FoldingType.Collapsed : tree_types_1.FoldingType.Expanded;
         }
         else if (Array.isArray(this._children)) {
@@ -523,15 +523,15 @@ var Tree = /** @class */ (function () {
             this._setFoldingType();
         }
         if (this.node._foldingType === tree_types_1.FoldingType.Collapsed) {
-            return (0, fn_utils_1.get)(this.node.settings, 'cssClasses.collapsed', null);
+            return fn_utils_1.get(this.node.settings, 'cssClasses.collapsed', null);
         }
         else if (this.node._foldingType === tree_types_1.FoldingType.Expanded) {
-            return (0, fn_utils_1.get)(this.node.settings, 'cssClasses.expanded', null);
+            return fn_utils_1.get(this.node.settings, 'cssClasses.expanded', null);
         }
         else if (this.node._foldingType === tree_types_1.FoldingType.Empty) {
-            return (0, fn_utils_1.get)(this.node.settings, 'cssClasses.empty', null);
+            return fn_utils_1.get(this.node.settings, 'cssClasses.empty', null);
         }
-        return (0, fn_utils_1.get)(this.node.settings, 'cssClasses.leaf', null);
+        return fn_utils_1.get(this.node.settings, 'cssClasses.leaf', null);
     };
     Object.defineProperty(Tree.prototype, "nodeTemplate", {
         /**
@@ -546,10 +546,10 @@ var Tree = /** @class */ (function () {
     });
     Tree.prototype.getTemplateFromSettings = function () {
         if (this.isLeaf()) {
-            return (0, fn_utils_1.get)(this.node.settings, 'templates.leaf', '');
+            return fn_utils_1.get(this.node.settings, 'templates.leaf', '');
         }
         else {
-            return (0, fn_utils_1.get)(this.node.settings, 'templates.node', '');
+            return fn_utils_1.get(this.node.settings, 'templates.node', '');
         }
     };
     Object.defineProperty(Tree.prototype, "leftMenuTemplate", {
@@ -559,7 +559,7 @@ var Tree = /** @class */ (function () {
          */
         get: function () {
             if (this.hasLeftMenu()) {
-                return (0, fn_utils_1.get)(this.node.settings, 'templates.leftMenu', '<span></span>');
+                return fn_utils_1.get(this.node.settings, 'templates.leftMenu', '<span></span>');
             }
             return '';
         },
@@ -568,7 +568,7 @@ var Tree = /** @class */ (function () {
     });
     Object.defineProperty(Tree.prototype, "dragTemplate", {
         get: function () {
-            return (0, fn_utils_1.get)(this.node.settings, 'templates.dragIcon', '<span></span>');
+            return fn_utils_1.get(this.node.settings, 'templates.dragIcon', '<span></span>');
         },
         enumerable: false,
         configurable: true
@@ -579,10 +579,10 @@ var Tree = /** @class */ (function () {
         }
     };
     Tree.prototype.isCollapsedOnInit = function () {
-        return !!(0, fn_utils_1.get)(this.node.settings, 'isCollapsedOnInit');
+        return !!fn_utils_1.get(this.node.settings, 'isCollapsedOnInit');
     };
     Tree.prototype.keepNodesInDOM = function () {
-        return (0, fn_utils_1.get)(this.node.settings, 'keepNodesInDOM');
+        return fn_utils_1.get(this.node.settings, 'keepNodesInDOM');
     };
     /**
      * Check that current tree is newly created (added by user via menu for example). Tree that was built from the TreeModel is not marked as new.
@@ -593,7 +593,7 @@ var Tree = /** @class */ (function () {
     };
     Object.defineProperty(Tree.prototype, "id", {
         get: function () {
-            return (0, fn_utils_1.get)(this.node, 'id');
+            return fn_utils_1.get(this.node, 'id');
         },
         set: function (id) {
             this.node.id = id;
@@ -638,7 +638,7 @@ var Tree = /** @class */ (function () {
      * @returns {TreeModel} a clone of an underlying TreeModel instance
      */
     Tree.prototype.toTreeModel = function () {
-        var model = (0, fn_utils_1.defaultsDeep)(this.isLeaf() ? {} : { children: [] }, this.node);
+        var model = fn_utils_1.defaultsDeep(this.isLeaf() ? {} : { children: [] }, this.node);
         if (this.children) {
             this.children.forEach(function (child) {
                 model.children.push(child.toTreeModel());

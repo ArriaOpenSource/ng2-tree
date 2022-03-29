@@ -87,7 +87,7 @@ var TreeController = /** @class */ (function () {
             throw Error('You should supply an id!');
         }
         if (this.treeService.hasController(id)) {
-            throw Error("Controller already exists for the given id: ".concat(id));
+            throw Error("Controller already exists for the given id: " + id);
         }
         this.treeService.deleteController(this.tree.id);
         this.tree.id = id;
@@ -118,7 +118,7 @@ var TreeController = /** @class */ (function () {
         return this.tree.checked;
     };
     TreeController.prototype.isIndeterminate = function () {
-        return (0, fn_utils_1.get)(this.component, 'checkboxElementRef.nativeElement.indeterminate');
+        return fn_utils_1.get(this.component, 'checkboxElementRef.nativeElement.indeterminate');
     };
     TreeController.prototype.allowSelection = function () {
         this.tree.selectionAllowed = true;

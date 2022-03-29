@@ -6,17 +6,18 @@ var node_menu_service_1 = require("./node-menu.service");
 var menu_events_1 = require("./menu.events");
 var event_utils_1 = require("../utils/event.utils");
 var i0 = require("@angular/core");
-var i1 = require("@angular/common");
-var i2 = require("./node-menu.service");
+var i1 = require("./node-menu.service");
+var i2 = require("@angular/common");
 var _c0 = ["menuContainer"];
 function NodeMenuComponent_li_3_Template(rf, ctx) { if (rf & 1) {
     var _r4 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "li", 4);
-    i0.ɵɵlistener("click", function NodeMenuComponent_li_3_Template_li_click_0_listener($event) { var restoredCtx = i0.ɵɵrestoreView(_r4); var menuItem_r2 = restoredCtx.$implicit; var ctx_r3 = i0.ɵɵnextContext(); return ctx_r3.onMenuItemSelected($event, menuItem_r2); });
+    i0.ɵɵlistener("click", function NodeMenuComponent_li_3_Template_li_click_0_listener($event) { i0.ɵɵrestoreView(_r4); var menuItem_r2 = ctx.$implicit; var ctx_r3 = i0.ɵɵnextContext(); return ctx_r3.onMenuItemSelected($event, menuItem_r2); });
     i0.ɵɵelement(1, "div");
     i0.ɵɵelementStart(2, "span", 5);
     i0.ɵɵtext(3);
-    i0.ɵɵelementEnd()();
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementEnd();
 } if (rf & 2) {
     var menuItem_r2 = ctx.$implicit;
     i0.ɵɵadvance(1);
@@ -67,7 +68,7 @@ var NodeMenuComponent = /** @class */ (function () {
         this.disposersForGlobalListeners.forEach(function (dispose) { return dispose(); });
     };
     NodeMenuComponent.prototype.onMenuItemSelected = function (e, selectedMenuItem) {
-        if ((0, event_utils_1.isLeftButtonClicked)(e)) {
+        if (event_utils_1.isLeftButtonClicked(e)) {
             this.menuItemSelected.emit({
                 nodeMenuItemAction: selectedMenuItem.action,
                 nodeMenuItemSelected: selectedMenuItem.name
@@ -113,25 +114,27 @@ var NodeMenuComponent = /** @class */ (function () {
         var mouseClicked = e instanceof MouseEvent;
         // Check if the click is fired on an element inside a menu
         var containingTarget = this.menuContainer.nativeElement !== e.target && this.menuContainer.nativeElement.contains(e.target);
-        if ((mouseClicked && !containingTarget) || (0, event_utils_1.isEscapePressed)(e)) {
+        if ((mouseClicked && !containingTarget) || event_utils_1.isEscapePressed(e)) {
             this.nodeMenuService.fireMenuEvent(e.target, menu_events_1.NodeMenuAction.Close);
         }
     };
     NodeMenuComponent.ɵfac = function NodeMenuComponent_Factory(t) { return new (t || NodeMenuComponent)(i0.ɵɵdirectiveInject(core_1.Renderer2), i0.ɵɵdirectiveInject(node_menu_service_1.NodeMenuService)); };
-    NodeMenuComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type: NodeMenuComponent, selectors: [["node-menu"]], viewQuery: function NodeMenuComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0, 5);
+    NodeMenuComponent.ɵcmp = i0.ɵɵdefineComponent({ type: NodeMenuComponent, selectors: [["node-menu"]], viewQuery: function NodeMenuComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(_c0, 1);
         } if (rf & 2) {
             var _t = void 0;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.menuContainer = _t.first);
         } }, inputs: { menuItems: "menuItems" }, outputs: { menuItemSelected: "menuItemSelected" }, decls: 4, vars: 4, consts: [[1, "node-menu", 3, "ngStyle"], [1, "node-menu-content"], ["menuContainer", ""], ["class", "node-menu-item", 3, "click", 4, "ngFor", "ngForOf"], [1, "node-menu-item", 3, "click"], [1, "node-menu-item-value"]], template: function NodeMenuComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 0)(1, "ul", 1, 2);
+            i0.ɵɵelementStart(0, "div", 0);
+            i0.ɵɵelementStart(1, "ul", 1, 2);
             i0.ɵɵtemplate(3, NodeMenuComponent_li_3_Template, 4, 4, "li", 3);
-            i0.ɵɵelementEnd()();
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
         } if (rf & 2) {
             i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(2, _c1, ctx.visibility));
             i0.ɵɵadvance(3);
             i0.ɵɵproperty("ngForOf", ctx.availableMenuItems);
-        } }, directives: [i1.NgStyle, i1.NgForOf], encapsulation: 2 });
+        } }, directives: [i2.NgStyle, i2.NgForOf], encapsulation: 2 });
     return NodeMenuComponent;
 }());
 exports.NodeMenuComponent = NodeMenuComponent;
@@ -144,7 +147,7 @@ exports.NodeMenuComponent = NodeMenuComponent;
     }], function () { return [{ type: i0.Renderer2, decorators: [{
                 type: core_1.Inject,
                 args: [core_1.Renderer2]
-            }] }, { type: i2.NodeMenuService, decorators: [{
+            }] }, { type: i1.NodeMenuService, decorators: [{
                 type: core_1.Inject,
                 args: [node_menu_service_1.NodeMenuService]
             }] }]; }, { menuItemSelected: [{

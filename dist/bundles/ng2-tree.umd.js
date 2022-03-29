@@ -27,8 +27,8 @@ $__System.registerDynamic("c", ["d", "e", "f", "10", "11"], true, function ($__r
     var TreeTypes = $__require("f");
     var tree_1 = $__require("10");
     var i0 = $__require("d");
-    var i1 = $__require("11");
-    var i2 = $__require("e");
+    var i1 = $__require("e");
+    var i2 = $__require("11");
     var _c0 = ["rootComponent"];
     var TreeComponent = /** @class */function () {
         function TreeComponent(treeService) {
@@ -124,16 +124,16 @@ $__System.registerDynamic("c", ["d", "e", "f", "10", "11"], true, function ($__r
         TreeComponent.ɵfac = function TreeComponent_Factory(t) {
             return new (t || TreeComponent)(i0.ɵɵdirectiveInject(tree_service_1.TreeService));
         };
-        TreeComponent.ɵcmp = /*@__PURE__*/i0.ɵɵdefineComponent({ type: TreeComponent, selectors: [["tree"]], contentQueries: function TreeComponent_ContentQueries(rf, ctx, dirIndex) {
+        TreeComponent.ɵcmp = i0.ɵɵdefineComponent({ type: TreeComponent, selectors: [["tree"]], contentQueries: function TreeComponent_ContentQueries(rf, ctx, dirIndex) {
                 if (rf & 1) {
-                    i0.ɵɵcontentQuery(dirIndex, core_1.TemplateRef, 5);
+                    i0.ɵɵcontentQuery(dirIndex, core_1.TemplateRef, 1);
                 }if (rf & 2) {
                     var _t = void 0;
                     i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.template = _t.first);
                 }
             }, viewQuery: function TreeComponent_Query(rf, ctx) {
                 if (rf & 1) {
-                    i0.ɵɵviewQuery(_c0, 5);
+                    i0.ɵɵviewQuery(_c0, 1);
                 }if (rf & 2) {
                     var _t = void 0;
                     i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.rootComponent = _t.first);
@@ -144,7 +144,7 @@ $__System.registerDynamic("c", ["d", "e", "f", "10", "11"], true, function ($__r
                 }if (rf & 2) {
                     i0.ɵɵproperty("tree", ctx.tree)("settings", ctx.settings)("template", ctx.template);
                 }
-            }, directives: [i1.TreeInternalComponent], encapsulation: 2 });
+            }, directives: [i2.TreeInternalComponent], encapsulation: 2 });
         return TreeComponent;
     }();
     exports.TreeComponent = TreeComponent;
@@ -157,7 +157,7 @@ $__System.registerDynamic("c", ["d", "e", "f", "10", "11"], true, function ($__r
                 providers: [tree_service_1.TreeService]
             }]
         }], function () {
-            return [{ type: i2.TreeService, decorators: [{
+            return [{ type: i1.TreeService, decorators: [{
                     type: core_1.Inject,
                     args: [tree_service_1.TreeService]
                 }] }];
@@ -303,7 +303,7 @@ $__System.registerDynamic("12", ["13", "14", "15"], true, function ($__require, 
                 throw Error('You should supply an id!');
             }
             if (this.treeService.hasController(id)) {
-                throw Error("Controller already exists for the given id: ".concat(id));
+                throw Error("Controller already exists for the given id: " + id);
             }
             this.treeService.deleteController(this.tree.id);
             this.tree.id = id;
@@ -336,7 +336,7 @@ $__System.registerDynamic("12", ["13", "14", "15"], true, function ($__require, 
             return this.tree.checked;
         };
         TreeController.prototype.isIndeterminate = function () {
-            return (0, fn_utils_1.get)(this.component, 'checkboxElementRef.nativeElement.indeterminate');
+            return fn_utils_1.get(this.component, 'checkboxElementRef.nativeElement.indeterminate');
         };
         TreeController.prototype.allowSelection = function () {
             this.tree.selectionAllowed = true;
@@ -388,11 +388,13 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_div_3_Template(rf, ctx) {
         if (rf & 1) {
             var _r13 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "div", 13)(1, "input", 14, 15);
+            i0.ɵɵelementStart(0, "div", 13);
+            i0.ɵɵelementStart(1, "input", 14, 15);
             i0.ɵɵlistener("change", function TreeInternalComponent_ul_0_div_3_Template_input_change_1_listener() {
                 i0.ɵɵrestoreView(_r13);var ctx_r12 = i0.ɵɵnextContext(2);return ctx_r12.switchNodeCheckStatus();
             });
-            i0.ɵɵelementEnd()();
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
         }if (rf & 2) {
             var ctx_r1 = i0.ɵɵnextContext(2);
             i0.ɵɵadvance(1);
@@ -577,7 +579,9 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_Template(rf, ctx) {
         if (rf & 1) {
             var _r38 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "ul", 1)(1, "li")(2, "div", 2);
+            i0.ɵɵelementStart(0, "ul", 1);
+            i0.ɵɵelementStart(1, "li");
+            i0.ɵɵelementStart(2, "div", 2);
             i0.ɵɵlistener("contextmenu", function TreeInternalComponent_ul_0_Template_div_contextmenu_2_listener($event) {
                 i0.ɵɵrestoreView(_r38);var ctx_r37 = i0.ɵɵnextContext();return ctx_r37.showRightMenu($event);
             });
@@ -597,7 +601,8 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             i0.ɵɵtemplate(11, TreeInternalComponent_ul_0_node_menu_11_Template, 1, 1, "node-menu", 10);
             i0.ɵɵtemplate(12, TreeInternalComponent_ul_0_div_12_Template, 3, 6, "div", 11);
             i0.ɵɵtemplate(13, TreeInternalComponent_ul_0_ng_template_13_Template, 2, 3, "ng-template", 12);
-            i0.ɵɵelementEnd()();
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
         }if (rf & 2) {
             var ctx_r0 = i0.ɵɵnextContext();
             i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(17, _c3, ctx_r0.isRootHidden()));
@@ -649,13 +654,13 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
         };
         TreeInternalComponent.prototype.ngOnInit = function () {
             var _this = this;
-            var nodeId = (0, fn_utils_1.get)(this.tree, 'node.id', '');
+            var nodeId = fn_utils_1.get(this.tree, 'node.id', '');
             if (nodeId) {
                 this.controller = new tree_controller_1.TreeController(this);
                 this.treeService.setController(nodeId, this.controller);
             }
             this.settings = this.settings || new tree_types_1.Ng2TreeSettings();
-            this.isReadOnly = !(0, fn_utils_1.get)(this.settings, 'enableCheckboxes', true);
+            this.isReadOnly = !fn_utils_1.get(this.settings, 'enableCheckboxes', true);
             if (this.tree.isRoot() && this.settings.rootIsVisible === false) {
                 this.tree.disableCollapseOnInit();
             }
@@ -669,7 +674,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             this.subscriptions.push(this.treeService.draggedStream(this.tree, this.nodeElementRef).subscribe(function (e) {
                 return _this.nodeDraggedHandler(e);
             }));
-            this.subscriptions.push((0, rxjs_1.merge)(this.treeService.nodeChecked$, this.treeService.nodeUnchecked$).pipe((0, operators_1.filter)(function (e) {
+            this.subscriptions.push(rxjs_1.merge(this.treeService.nodeChecked$, this.treeService.nodeUnchecked$).pipe(operators_1.filter(function (e) {
                 return _this.eventContainsId(e) && _this.tree.hasChild(e.node);
             })).subscribe(function (e) {
                 return _this.updateCheckboxState();
@@ -679,7 +684,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             this.controller = new tree_controller_1.TreeController(this);
         };
         TreeInternalComponent.prototype.ngOnDestroy = function () {
-            if ((0, fn_utils_1.get)(this.tree, 'node.id', '') && !(this.tree.parent && this.tree.parent.children.indexOf(this.tree) > -1)) {
+            if (fn_utils_1.get(this.tree, 'node.id', '') && !(this.tree.parent && this.tree.parent.children.indexOf(this.tree) > -1)) {
                 this.treeService.deleteController(this.tree.node.id);
             }
             this.nodeDraggableService.releaseDraggedNode();
@@ -724,7 +729,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             } else if (position === draggable_events_1.DropPosition.Below) {
                 tree.moveSiblingBelow(sibling);
             } else {
-                console.error("Invalid drop position: ".concat(draggable_events_1.DropPosition[position]));
+                console.error("Invalid drop position: " + draggable_events_1.DropPosition[position]);
                 return;
             }
             this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
@@ -829,7 +834,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             this.isLeftMenuVisible = false;
         };
         TreeInternalComponent.prototype.onRemoveSelected = function () {
-            var nodeId = (0, fn_utils_1.get)(this.tree, 'node.id', '');
+            var nodeId = fn_utils_1.get(this.tree, 'node.id', '');
             this.nodeDraggableService.removeCheckedNodeById(nodeId);
             this.treeService.deleteController(nodeId);
             this.treeService.fireNodeRemoved(this.tree);
@@ -929,7 +934,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             if (this.tree.hasLoadedChildren()) {
                 this.tree.children.forEach(function (child) {
                     var controller = _this.treeService.getController(child.id);
-                    if (!(0, fn_utils_1.isNil)(controller)) {
+                    if (!fn_utils_1.isNil(controller)) {
                         executor(controller);
                     }
                 });
@@ -966,9 +971,9 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
         TreeInternalComponent.ɵfac = function TreeInternalComponent_Factory(t) {
             return new (t || TreeInternalComponent)(i0.ɵɵdirectiveInject(i1.NodeMenuService), i0.ɵɵdirectiveInject(i2.TreeService), i0.ɵɵdirectiveInject(i3.NodeDraggableService), i0.ɵɵdirectiveInject(i0.ElementRef));
         };
-        TreeInternalComponent.ɵcmp = /*@__PURE__*/i0.ɵɵdefineComponent({ type: TreeInternalComponent, selectors: [["tree-internal"]], viewQuery: function TreeInternalComponent_Query(rf, ctx) {
+        TreeInternalComponent.ɵcmp = i0.ɵɵdefineComponent({ type: TreeInternalComponent, selectors: [["tree-internal"]], viewQuery: function TreeInternalComponent_Query(rf, ctx) {
                 if (rf & 1) {
-                    i0.ɵɵviewQuery(_c0, 5);
+                    i0.ɵɵviewQuery(_c0, 1);
                 }if (rf & 2) {
                     var _t = void 0;
                     i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.checkboxElementRef = _t.first);
@@ -1074,8 +1079,8 @@ $__System.registerDynamic("f", ["15"], true, function ($__require, exports, modu
     var TreeModelSettings = /** @class */function () {
         function TreeModelSettings() {}
         TreeModelSettings.merge = function (child, parent) {
-            var parentCascadingSettings = (0, fn_utils_1.omit)((0, fn_utils_1.get)(parent, 'settings'), TreeModelSettings.NOT_CASCADING_SETTINGS);
-            return (0, fn_utils_1.defaultsDeep)({}, (0, fn_utils_1.get)(child, 'settings'), parentCascadingSettings, {
+            var parentCascadingSettings = fn_utils_1.omit(fn_utils_1.get(parent, 'settings'), TreeModelSettings.NOT_CASCADING_SETTINGS);
+            return fn_utils_1.defaultsDeep({}, fn_utils_1.get(child, 'settings'), parentCascadingSettings, {
                 static: false,
                 leftMenu: false,
                 rightMenu: true,
@@ -1580,15 +1585,15 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @param {boolean} [isBranch] - An option that makes a branch from created tree. Branch can have children.
          */
         function Tree(node, parent, isBranch) {
+            var _this = this;
             if (parent === void 0) {
                 parent = null;
             }
             if (isBranch === void 0) {
                 isBranch = false;
             }
-            var _this = this;
             this._childrenLoadingState = ChildrenLoadingState.NotStarted;
-            this._childrenAsyncOnce = (0, fn_utils_1.once)(function () {
+            this._childrenAsyncOnce = fn_utils_1.once(function () {
                 return new rxjs_1.Observable(function (observer) {
                     setTimeout(function () {
                         _this._childrenLoadingState = ChildrenLoadingState.Loading;
@@ -1613,7 +1618,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @static
          */
         Tree.isValueEmpty = function (value) {
-            return (0, fn_utils_1.isEmpty)((0, fn_utils_1.trim)(value));
+            return fn_utils_1.isEmpty(fn_utils_1.trim(value));
         };
         /**
          * Check whether a given value can be considered RenamableNode.
@@ -1622,7 +1627,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @static
          */
         Tree.isRenamable = function (value) {
-            return (0, fn_utils_1.has)(value, 'setName') && (0, fn_utils_1.isFunction)(value.setName) && (0, fn_utils_1.has)(value, 'toString') && (0, fn_utils_1.isFunction)(value.toString) && value.toString !== Object.toString;
+            return fn_utils_1.has(value, 'setName') && fn_utils_1.isFunction(value.setName) && fn_utils_1.has(value, 'toString') && fn_utils_1.isFunction(value.toString) && value.toString !== Object.toString;
         };
         Tree.cloneTreeShallow = function (origin) {
             var tree = new Tree(Object.assign({}, origin.node));
@@ -1637,11 +1642,11 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
         Tree.prototype.buildTreeFromModel = function (model, parent, isBranch) {
             var _this = this;
             this.parent = parent;
-            this.node = Object.assign((0, fn_utils_1.omit)(model, 'children'), { settings: tree_types_1.TreeModelSettings.merge(model, (0, fn_utils_1.get)(parent, 'node')) }, { emitLoadNextLevel: model.emitLoadNextLevel === true });
-            if ((0, fn_utils_1.isFunction)(this.node.loadChildren)) {
+            this.node = Object.assign(fn_utils_1.omit(model, 'children'), { settings: tree_types_1.TreeModelSettings.merge(model, fn_utils_1.get(parent, 'node')) }, { emitLoadNextLevel: model.emitLoadNextLevel === true });
+            if (fn_utils_1.isFunction(this.node.loadChildren)) {
                 this._loadChildren = this.node.loadChildren;
             } else {
-                (0, fn_utils_1.get)(model, 'children', []).forEach(function (child, index) {
+                fn_utils_1.get(model, 'children', []).forEach(function (child, index) {
                     _this._addChild(new Tree(child, _this), index);
                 });
             }
@@ -1704,7 +1709,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
                 if (this.canLoadChildren()) {
                     return this._childrenAsyncOnce();
                 }
-                return (0, rxjs_1.of)(this.children);
+                return rxjs_1.of(this.children);
             },
             enumerable: false,
             configurable: true
@@ -1750,7 +1755,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
             if (!model.id) {
                 tree.markAsNew();
             }
-            tree.id = tree.id || (0, uuid_1.v4)();
+            tree.id = tree.id || uuid_1.v4();
             if (this.childrenShouldBeLoaded() && !(this.childrenAreBeingLoaded() || this.childrenWereLoaded())) {
                 return null;
             }
@@ -1788,7 +1793,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
         });
         Object.defineProperty(Tree.prototype, "checked", {
             get: function () {
-                return !!(0, fn_utils_1.get)(this.node.settings, 'checked');
+                return !!fn_utils_1.get(this.node.settings, 'checked');
             },
             set: function (checked) {
                 this.node.settings = Object.assign({}, this.node.settings, { checked: checked });
@@ -1807,8 +1812,8 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
         });
         Object.defineProperty(Tree.prototype, "selectionAllowed", {
             get: function () {
-                var value = (0, fn_utils_1.get)(this.node.settings, 'selectionAllowed');
-                return (0, fn_utils_1.isNil)(value) ? true : !!value;
+                var value = fn_utils_1.get(this.node.settings, 'selectionAllowed');
+                return fn_utils_1.isNil(value) ? true : !!value;
             },
             set: function (selectionAllowed) {
                 this.node.settings = Object.assign({}, this.node.settings, { selectionAllowed: selectionAllowed });
@@ -1817,13 +1822,13 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
             configurable: true
         });
         Tree.prototype.hasLoadedChildren = function () {
-            return !(0, fn_utils_1.isEmpty)(this.children);
+            return !fn_utils_1.isEmpty(this.children);
         };
         Tree.prototype.loadedChildrenAmount = function () {
-            return (0, fn_utils_1.size)(this.children);
+            return fn_utils_1.size(this.children);
         };
         Tree.prototype.checkedChildrenAmount = function () {
-            return (0, fn_utils_1.size)(this.checkedChildren);
+            return fn_utils_1.size(this.checkedChildren);
         };
         /**
          * Add a sibling node for the current node. This won't work if the current node is a root.
@@ -1832,7 +1837,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @returns {Tree} A newly inserted sibling, or null if you are trying to make a sibling for the root.
          */
         Tree.prototype.addSibling = function (sibling, position) {
-            if (Array.isArray((0, fn_utils_1.get)(this.parent, 'children'))) {
+            if (Array.isArray(fn_utils_1.get(this.parent, 'children'))) {
                 return this.parent.addChild(sibling, position);
             }
             return null;
@@ -1853,7 +1858,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
         };
         Tree.prototype._addChild = function (child, position) {
             if (position === void 0) {
-                position = (0, fn_utils_1.size)(this._children) || 0;
+                position = fn_utils_1.size(this._children) || 0;
             }
             child.parent = this;
             if (Array.isArray(this._children)) {
@@ -1910,28 +1915,28 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @returns {boolean} A flag indicating whether or not this tree is static.
          */
         Tree.prototype.isStatic = function () {
-            return (0, fn_utils_1.get)(this.node.settings, 'static', false);
+            return fn_utils_1.get(this.node.settings, 'static', false);
         };
         /**
          * Check whether or not this tree has a left menu.
          * @returns {boolean} A flag indicating whether or not this tree has a left menu.
          */
         Tree.prototype.hasLeftMenu = function () {
-            return !(0, fn_utils_1.get)(this.node.settings, 'static', false) && (0, fn_utils_1.get)(this.node.settings, 'leftMenu', false);
+            return !fn_utils_1.get(this.node.settings, 'static', false) && fn_utils_1.get(this.node.settings, 'leftMenu', false);
         };
         /**
          * Check whether or not this tree has a right menu.
          * @returns {boolean} A flag indicating whether or not this tree has a right menu.
          */
         Tree.prototype.hasRightMenu = function () {
-            return !(0, fn_utils_1.get)(this.node.settings, 'static', false) && (0, fn_utils_1.get)(this.node.settings, 'rightMenu', false);
+            return !fn_utils_1.get(this.node.settings, 'static', false) && fn_utils_1.get(this.node.settings, 'rightMenu', false);
         };
         /**
          * Check whether or not this tree should show a drag icon.
          * @returns {boolean} A flag indicating whether or not this tree has a left menu.
          */
         Tree.prototype.hasDragIcon = function () {
-            return !(0, fn_utils_1.get)(this.node.settings, 'static', false) && (0, fn_utils_1.get)(this.node.settings, 'dragIcon', false);
+            return !fn_utils_1.get(this.node.settings, 'static', false) && fn_utils_1.get(this.node.settings, 'dragIcon', false);
         };
         /**
          * Check whether this tree is "Leaf" or not.
@@ -1946,7 +1951,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
              * @returns {NodeMenuItem[]} The menu items of the current tree.
              */
             get: function () {
-                return (0, fn_utils_1.get)(this.node.settings, 'menuItems');
+                return fn_utils_1.get(this.node.settings, 'menuItems');
             },
             enumerable: false,
             configurable: true
@@ -1956,7 +1961,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @returns {boolean} A flag indicating whether or not this tree has a custom menu.
          */
         Tree.prototype.hasCustomMenu = function () {
-            return !this.isStatic() && !!(0, fn_utils_1.get)(this.node.settings, 'menuItems', false);
+            return !this.isStatic() && !!fn_utils_1.get(this.node.settings, 'menuItems', false);
         };
         /**
          * Check whether this tree is "Branch" or not. "Branch" is a node that has children.
@@ -1970,14 +1975,14 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @returns {boolean} A flag indicating whether or not this tree has children.
          */
         Tree.prototype.hasChildren = function () {
-            return !(0, fn_utils_1.isEmpty)(this._children) || this.childrenShouldBeLoaded();
+            return !fn_utils_1.isEmpty(this._children) || this.childrenShouldBeLoaded();
         };
         /**
          * Check whether this tree is a root or not. The root is the tree (node) that doesn't have parent (or technically its parent is null).
          * @returns {boolean} A flag indicating whether or not this tree is the root.
          */
         Tree.prototype.isRoot = function () {
-            return (0, fn_utils_1.isNil)(this.parent);
+            return fn_utils_1.isNil(this.parent);
         };
         /**
          * Check whether provided tree is a sibling of the current tree. Sibling trees (nodes) are the trees that have the same parent.
@@ -1985,7 +1990,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @returns {boolean} A flag indicating whether or not provided tree is the sibling of the current one.
          */
         Tree.prototype.hasSibling = function (tree) {
-            return !this.isRoot() && (0, fn_utils_1.includes)(this.parent.children, tree);
+            return !this.isRoot() && fn_utils_1.includes(this.parent.children, tree);
         };
         /**
          * Check whether provided tree is a child of the current tree.
@@ -1994,7 +1999,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @returns {boolean} A flag indicating whether provided tree is a child or not.
          */
         Tree.prototype.hasChild = function (tree) {
-            return (0, fn_utils_1.includes)(this._children, tree);
+            return fn_utils_1.includes(this._children, tree);
         };
         /**
          * Remove given tree from the current tree.
@@ -2053,7 +2058,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
         Tree.prototype._setFoldingType = function () {
             if (this.childrenShouldBeLoaded()) {
                 this.node._foldingType = tree_types_1.FoldingType.Collapsed;
-            } else if (this._children && !(0, fn_utils_1.isEmpty)(this._children)) {
+            } else if (this._children && !fn_utils_1.isEmpty(this._children)) {
                 this.node._foldingType = this.isCollapsedOnInit() ? tree_types_1.FoldingType.Collapsed : tree_types_1.FoldingType.Expanded;
             } else if (Array.isArray(this._children)) {
                 this.node._foldingType = tree_types_1.FoldingType.Empty;
@@ -2091,13 +2096,13 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
                 this._setFoldingType();
             }
             if (this.node._foldingType === tree_types_1.FoldingType.Collapsed) {
-                return (0, fn_utils_1.get)(this.node.settings, 'cssClasses.collapsed', null);
+                return fn_utils_1.get(this.node.settings, 'cssClasses.collapsed', null);
             } else if (this.node._foldingType === tree_types_1.FoldingType.Expanded) {
-                return (0, fn_utils_1.get)(this.node.settings, 'cssClasses.expanded', null);
+                return fn_utils_1.get(this.node.settings, 'cssClasses.expanded', null);
             } else if (this.node._foldingType === tree_types_1.FoldingType.Empty) {
-                return (0, fn_utils_1.get)(this.node.settings, 'cssClasses.empty', null);
+                return fn_utils_1.get(this.node.settings, 'cssClasses.empty', null);
             }
-            return (0, fn_utils_1.get)(this.node.settings, 'cssClasses.leaf', null);
+            return fn_utils_1.get(this.node.settings, 'cssClasses.leaf', null);
         };
         Object.defineProperty(Tree.prototype, "nodeTemplate", {
             /**
@@ -2112,9 +2117,9 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
         });
         Tree.prototype.getTemplateFromSettings = function () {
             if (this.isLeaf()) {
-                return (0, fn_utils_1.get)(this.node.settings, 'templates.leaf', '');
+                return fn_utils_1.get(this.node.settings, 'templates.leaf', '');
             } else {
-                return (0, fn_utils_1.get)(this.node.settings, 'templates.node', '');
+                return fn_utils_1.get(this.node.settings, 'templates.node', '');
             }
         };
         Object.defineProperty(Tree.prototype, "leftMenuTemplate", {
@@ -2124,7 +2129,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
              */
             get: function () {
                 if (this.hasLeftMenu()) {
-                    return (0, fn_utils_1.get)(this.node.settings, 'templates.leftMenu', '<span></span>');
+                    return fn_utils_1.get(this.node.settings, 'templates.leftMenu', '<span></span>');
                 }
                 return '';
             },
@@ -2133,7 +2138,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
         });
         Object.defineProperty(Tree.prototype, "dragTemplate", {
             get: function () {
-                return (0, fn_utils_1.get)(this.node.settings, 'templates.dragIcon', '<span></span>');
+                return fn_utils_1.get(this.node.settings, 'templates.dragIcon', '<span></span>');
             },
             enumerable: false,
             configurable: true
@@ -2144,10 +2149,10 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
             }
         };
         Tree.prototype.isCollapsedOnInit = function () {
-            return !!(0, fn_utils_1.get)(this.node.settings, 'isCollapsedOnInit');
+            return !!fn_utils_1.get(this.node.settings, 'isCollapsedOnInit');
         };
         Tree.prototype.keepNodesInDOM = function () {
-            return (0, fn_utils_1.get)(this.node.settings, 'keepNodesInDOM');
+            return fn_utils_1.get(this.node.settings, 'keepNodesInDOM');
         };
         /**
          * Check that current tree is newly created (added by user via menu for example). Tree that was built from the TreeModel is not marked as new.
@@ -2158,7 +2163,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
         };
         Object.defineProperty(Tree.prototype, "id", {
             get: function () {
-                return (0, fn_utils_1.get)(this.node, 'id');
+                return fn_utils_1.get(this.node, 'id');
             },
             set: function (id) {
                 this.node.id = id;
@@ -2203,7 +2208,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
          * @returns {TreeModel} a clone of an underlying TreeModel instance
          */
         Tree.prototype.toTreeModel = function () {
-            var model = (0, fn_utils_1.defaultsDeep)(this.isLeaf() ? {} : { children: [] }, this.node);
+            var model = fn_utils_1.defaultsDeep(this.isLeaf() ? {} : { children: [] }, this.node);
             if (this.children) {
                 this.children.forEach(function (child) {
                     model.children.push(child.toTreeModel());
@@ -2441,7 +2446,7 @@ $__System.registerDynamic("1e", ["d", "19", "1a", "10", "18"], true, function ($
         NodeDraggableDirective.ɵfac = function NodeDraggableDirective_Factory(t) {
             return new (t || NodeDraggableDirective)(i0.ɵɵdirectiveInject(core_1.ElementRef), i0.ɵɵdirectiveInject(node_draggable_service_1.NodeDraggableService), i0.ɵɵdirectiveInject(core_1.Renderer2));
         };
-        NodeDraggableDirective.ɵdir = /*@__PURE__*/i0.ɵɵdefineDirective({ type: NodeDraggableDirective, selectors: [["", "nodeDraggable", ""]], inputs: { nodeDraggable: "nodeDraggable", tree: "tree" } });
+        NodeDraggableDirective.ɵdir = i0.ɵɵdefineDirective({ type: NodeDraggableDirective, selectors: [["", "nodeDraggable", ""]], inputs: { nodeDraggable: "nodeDraggable", tree: "tree" } });
         return NodeDraggableDirective;
     }();
     exports.NodeDraggableDirective = NodeDraggableDirective;
@@ -2523,7 +2528,7 @@ $__System.registerDynamic("1f", ["d", "17"], true, function ($__require, exports
         NodeEditableDirective.ɵfac = function NodeEditableDirective_Factory(t) {
             return new (t || NodeEditableDirective)(i0.ɵɵdirectiveInject(core_1.Renderer2), i0.ɵɵdirectiveInject(core_1.ElementRef));
         };
-        NodeEditableDirective.ɵdir = /*@__PURE__*/i0.ɵɵdefineDirective({ type: NodeEditableDirective, selectors: [["", "nodeEditable", ""]], hostBindings: function NodeEditableDirective_HostBindings(rf, ctx) {
+        NodeEditableDirective.ɵdir = i0.ɵɵdefineDirective({ type: NodeEditableDirective, selectors: [["", "nodeEditable", ""]], hostBindings: function NodeEditableDirective_HostBindings(rf, ctx) {
                 if (rf & 1) {
                     i0.ɵɵlistener("keyup.enter", function NodeEditableDirective_keyup_enter_HostBindingHandler($event) {
                         return ctx.applyNewValue($event.target.value);
@@ -2611,20 +2616,21 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
     var menu_events_1 = $__require("13");
     var event_utils_1 = $__require("14");
     var i0 = $__require("d");
-    var i1 = $__require("1d");
-    var i2 = $__require("16");
+    var i1 = $__require("16");
+    var i2 = $__require("1d");
     var _c0 = ["menuContainer"];
     function NodeMenuComponent_li_3_Template(rf, ctx) {
         if (rf & 1) {
             var _r4 = i0.ɵɵgetCurrentView();
             i0.ɵɵelementStart(0, "li", 4);
             i0.ɵɵlistener("click", function NodeMenuComponent_li_3_Template_li_click_0_listener($event) {
-                var restoredCtx = i0.ɵɵrestoreView(_r4);var menuItem_r2 = restoredCtx.$implicit;var ctx_r3 = i0.ɵɵnextContext();return ctx_r3.onMenuItemSelected($event, menuItem_r2);
+                i0.ɵɵrestoreView(_r4);var menuItem_r2 = ctx.$implicit;var ctx_r3 = i0.ɵɵnextContext();return ctx_r3.onMenuItemSelected($event, menuItem_r2);
             });
             i0.ɵɵelement(1, "div");
             i0.ɵɵelementStart(2, "span", 5);
             i0.ɵɵtext(3);
-            i0.ɵɵelementEnd()();
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
         }if (rf & 2) {
             var menuItem_r2 = ctx.$implicit;
             i0.ɵɵadvance(1);
@@ -2675,7 +2681,7 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
             });
         };
         NodeMenuComponent.prototype.onMenuItemSelected = function (e, selectedMenuItem) {
-            if ((0, event_utils_1.isLeftButtonClicked)(e)) {
+            if (event_utils_1.isLeftButtonClicked(e)) {
                 this.menuItemSelected.emit({
                     nodeMenuItemAction: selectedMenuItem.action,
                     nodeMenuItemSelected: selectedMenuItem.name
@@ -2721,31 +2727,33 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
             var mouseClicked = e instanceof MouseEvent;
             // Check if the click is fired on an element inside a menu
             var containingTarget = this.menuContainer.nativeElement !== e.target && this.menuContainer.nativeElement.contains(e.target);
-            if (mouseClicked && !containingTarget || (0, event_utils_1.isEscapePressed)(e)) {
+            if (mouseClicked && !containingTarget || event_utils_1.isEscapePressed(e)) {
                 this.nodeMenuService.fireMenuEvent(e.target, menu_events_1.NodeMenuAction.Close);
             }
         };
         NodeMenuComponent.ɵfac = function NodeMenuComponent_Factory(t) {
             return new (t || NodeMenuComponent)(i0.ɵɵdirectiveInject(core_1.Renderer2), i0.ɵɵdirectiveInject(node_menu_service_1.NodeMenuService));
         };
-        NodeMenuComponent.ɵcmp = /*@__PURE__*/i0.ɵɵdefineComponent({ type: NodeMenuComponent, selectors: [["node-menu"]], viewQuery: function NodeMenuComponent_Query(rf, ctx) {
+        NodeMenuComponent.ɵcmp = i0.ɵɵdefineComponent({ type: NodeMenuComponent, selectors: [["node-menu"]], viewQuery: function NodeMenuComponent_Query(rf, ctx) {
                 if (rf & 1) {
-                    i0.ɵɵviewQuery(_c0, 5);
+                    i0.ɵɵviewQuery(_c0, 1);
                 }if (rf & 2) {
                     var _t = void 0;
                     i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.menuContainer = _t.first);
                 }
             }, inputs: { menuItems: "menuItems" }, outputs: { menuItemSelected: "menuItemSelected" }, decls: 4, vars: 4, consts: [[1, "node-menu", 3, "ngStyle"], [1, "node-menu-content"], ["menuContainer", ""], ["class", "node-menu-item", 3, "click", 4, "ngFor", "ngForOf"], [1, "node-menu-item", 3, "click"], [1, "node-menu-item-value"]], template: function NodeMenuComponent_Template(rf, ctx) {
                 if (rf & 1) {
-                    i0.ɵɵelementStart(0, "div", 0)(1, "ul", 1, 2);
+                    i0.ɵɵelementStart(0, "div", 0);
+                    i0.ɵɵelementStart(1, "ul", 1, 2);
                     i0.ɵɵtemplate(3, NodeMenuComponent_li_3_Template, 4, 4, "li", 3);
-                    i0.ɵɵelementEnd()();
+                    i0.ɵɵelementEnd();
+                    i0.ɵɵelementEnd();
                 }if (rf & 2) {
                     i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(2, _c1, ctx.visibility));
                     i0.ɵɵadvance(3);
                     i0.ɵɵproperty("ngForOf", ctx.availableMenuItems);
                 }
-            }, directives: [i1.NgStyle, i1.NgForOf], encapsulation: 2 });
+            }, directives: [i2.NgStyle, i2.NgForOf], encapsulation: 2 });
         return NodeMenuComponent;
     }();
     exports.NodeMenuComponent = NodeMenuComponent;
@@ -2760,7 +2768,7 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
             return [{ type: i0.Renderer2, decorators: [{
                     type: core_1.Inject,
                     args: [core_1.Renderer2]
-                }] }, { type: i2.NodeMenuService, decorators: [{
+                }] }, { type: i1.NodeMenuService, decorators: [{
                     type: core_1.Inject,
                     args: [node_menu_service_1.NodeMenuService]
                 }] }];
@@ -2817,9 +2825,9 @@ $__System.registerDynamic("16", ["d", "1b", "1c", "13"], true, function ($__requ
             this.nodeMenuEvents$.next(nodeMenuEvent);
         };
         NodeMenuService.prototype.hideMenuStream = function (treeElementRef) {
-            return this.nodeMenuEvents$.pipe((0, operators_1.filter)(function (e) {
+            return this.nodeMenuEvents$.pipe(operators_1.filter(function (e) {
                 return treeElementRef.nativeElement !== e.sender;
-            }), (0, operators_1.filter)(function (e) {
+            }), operators_1.filter(function (e) {
                 return e.action === menu_events_1.NodeMenuAction.Close;
             }));
         };
@@ -2832,7 +2840,7 @@ $__System.registerDynamic("16", ["d", "1b", "1c", "13"], true, function ($__requ
         NodeMenuService.ɵfac = function NodeMenuService_Factory(t) {
             return new (t || NodeMenuService)();
         };
-        NodeMenuService.ɵprov = /*@__PURE__*/i0.ɵɵdefineInjectable({ token: NodeMenuService, factory: NodeMenuService.ɵfac });
+        NodeMenuService.ɵprov = i0.ɵɵdefineInjectable({ token: NodeMenuService, factory: NodeMenuService.ɵfac });
         return NodeMenuService;
     }();
     exports.NodeMenuService = NodeMenuService;
@@ -2858,7 +2866,6 @@ $__System.registerDynamic("2c", [], true, function ($__require, exports, module)
             return extendStatics(d, b);
         };
         return function (d, b) {
-            if (typeof b !== "function" && b !== null) throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
             extendStatics(d, b);
             function __() {
                 this.constructor = d;
@@ -3131,7 +3138,7 @@ $__System.registerDynamic("19", ["d", "1b", "18"], true, function ($__require, e
         NodeDraggableService.ɵfac = function NodeDraggableService_Factory(t) {
             return new (t || NodeDraggableService)();
         };
-        NodeDraggableService.ɵprov = /*@__PURE__*/i0.ɵɵdefineInjectable({ token: NodeDraggableService, factory: NodeDraggableService.ɵfac });
+        NodeDraggableService.ɵprov = i0.ɵɵdefineInjectable({ token: NodeDraggableService, factory: NodeDraggableService.ɵfac });
         return NodeDraggableService;
     }();
     exports.NodeDraggableService = NodeDraggableService;
@@ -3298,7 +3305,7 @@ $__System.registerDynamic("e", ["2c", "d", "19", "15", "1b", "1c"], true, functi
             });
         }
         TreeService.prototype.unselectStream = function (tree) {
-            return this.nodeSelected$.pipe((0, operators_1.filter)(function (e) {
+            return this.nodeSelected$.pipe(operators_1.filter(function (e) {
                 return tree !== e.node;
             }));
         };
@@ -3361,9 +3368,9 @@ $__System.registerDynamic("e", ["2c", "d", "19", "15", "1b", "1c"], true, functi
             this.nodeIndeterminate$.next(new tree_events_1.NodeIndeterminateEvent(tree, indeterminate));
         };
         TreeService.prototype.draggedStream = function (tree, element) {
-            return this.nodeDraggableService.draggableNodeEvents$.pipe((0, operators_1.filter)(function (e) {
+            return this.nodeDraggableService.draggableNodeEvents$.pipe(operators_1.filter(function (e) {
                 return e.target === element;
-            }), (0, operators_1.filter)(function (e) {
+            }), operators_1.filter(function (e) {
                 return !e.captured.some(function (cn) {
                     return cn.tree.hasChild(tree);
                 });
@@ -3387,7 +3394,7 @@ $__System.registerDynamic("e", ["2c", "d", "19", "15", "1b", "1c"], true, functi
             return this.controllers.has(id);
         };
         TreeService.prototype.shouldFireLoadNextLevel = function (tree) {
-            var shouldLoadNextLevel = tree.node.emitLoadNextLevel && !tree.node.loadChildren && !tree.childrenAreBeingLoaded() && (0, fn_utils_1.isEmpty)(tree.children);
+            var shouldLoadNextLevel = tree.node.emitLoadNextLevel && !tree.node.loadChildren && !tree.childrenAreBeingLoaded() && fn_utils_1.isEmpty(tree.children);
             if (shouldLoadNextLevel) {
                 tree.loadingChildrenRequested();
             }
@@ -3396,7 +3403,7 @@ $__System.registerDynamic("e", ["2c", "d", "19", "15", "1b", "1c"], true, functi
         TreeService.ɵfac = function TreeService_Factory(t) {
             return new (t || TreeService)(i0.ɵɵinject(node_draggable_service_1.NodeDraggableService));
         };
-        TreeService.ɵprov = /*@__PURE__*/i0.ɵɵdefineInjectable({ token: TreeService, factory: TreeService.ɵfac });
+        TreeService.ɵprov = i0.ɵɵdefineInjectable({ token: TreeService, factory: TreeService.ɵfac });
         return TreeService;
     }();
     exports.TreeService = TreeService;
@@ -3432,9 +3439,9 @@ $__System.registerDynamic("21", ["d", "2d"], true, function ($__require, exports
             return this.sanitizer.bypassSecurityTrustHtml(value);
         };
         SafeHtmlPipe.ɵfac = function SafeHtmlPipe_Factory(t) {
-            return new (t || SafeHtmlPipe)(i0.ɵɵdirectiveInject(i1.DomSanitizer, 16));
+            return new (t || SafeHtmlPipe)(i0.ɵɵdirectiveInject(i1.DomSanitizer));
         };
-        SafeHtmlPipe.ɵpipe = /*@__PURE__*/i0.ɵɵdefinePipe({ name: "safeHtml", type: SafeHtmlPipe, pure: true });
+        SafeHtmlPipe.ɵpipe = i0.ɵɵdefinePipe({ name: "safeHtml", type: SafeHtmlPipe, pure: true });
         return SafeHtmlPipe;
     }();
     exports.SafeHtmlPipe = SafeHtmlPipe;
@@ -3448,7 +3455,7 @@ $__System.registerDynamic("21", ["d", "2d"], true, function ($__require, exports
     })();
 
 });
-$__System.registerDynamic("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "20", "16", "e", "21"], true, function ($__require, exports, module) {
+$__System.registerDynamic("2e", ["b", "d", "c", "11", "1e", "19", "1f", "20", "16", "e", "21", "1d"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -3459,7 +3466,6 @@ $__System.registerDynamic("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "2
     var core_1 = $__require("d");
     var tree_component_1 = $__require("c");
     var tree_internal_component_1 = $__require("11");
-    var common_1 = $__require("1d");
     var node_draggable_directive_1 = $__require("1e");
     var node_draggable_service_1 = $__require("19");
     var node_editable_directive_1 = $__require("1f");
@@ -3467,17 +3473,21 @@ $__System.registerDynamic("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "2
     var node_menu_service_1 = $__require("16");
     var tree_service_1 = $__require("e");
     var safe_html_pipe_1 = $__require("21");
+    var common_1 = $__require("1d");
     var i0 = $__require("d");
     var TreeModule = /** @class */function () {
         function TreeModule() {}
         TreeModule.ɵfac = function TreeModule_Factory(t) {
             return new (t || TreeModule)();
         };
-        TreeModule.ɵmod = /*@__PURE__*/i0.ɵɵdefineNgModule({ type: TreeModule });
-        TreeModule.ɵinj = /*@__PURE__*/i0.ɵɵdefineInjector({ providers: [node_draggable_service_1.NodeDraggableService, node_menu_service_1.NodeMenuService, tree_service_1.TreeService], imports: [[common_1.CommonModule]] });
+        TreeModule.ɵmod = i0.ɵɵdefineNgModule({ type: TreeModule });
+        TreeModule.ɵinj = i0.ɵɵdefineInjector({ providers: [node_draggable_service_1.NodeDraggableService, node_menu_service_1.NodeMenuService, tree_service_1.TreeService], imports: [[common_1.CommonModule]] });
         return TreeModule;
     }();
     exports.TreeModule = TreeModule;
+    (function () {
+        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(TreeModule, { declarations: [node_draggable_directive_1.NodeDraggableDirective, tree_component_1.TreeComponent, node_editable_directive_1.NodeEditableDirective, node_menu_component_1.NodeMenuComponent, tree_internal_component_1.TreeInternalComponent, safe_html_pipe_1.SafeHtmlPipe], imports: [common_1.CommonModule], exports: [tree_component_1.TreeComponent] });
+    })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(TreeModule, [{
             type: core_1.NgModule,
@@ -3488,9 +3498,6 @@ $__System.registerDynamic("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "2
                 providers: [node_draggable_service_1.NodeDraggableService, node_menu_service_1.NodeMenuService, tree_service_1.TreeService]
             }]
         }], null, null);
-    })();
-    (function () {
-        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(TreeModule, { declarations: [node_draggable_directive_1.NodeDraggableDirective, tree_component_1.TreeComponent, node_editable_directive_1.NodeEditableDirective, node_menu_component_1.NodeMenuComponent, tree_internal_component_1.TreeInternalComponent, safe_html_pipe_1.SafeHtmlPipe], imports: [common_1.CommonModule], exports: [tree_component_1.TreeComponent] });
     })();
 
 });

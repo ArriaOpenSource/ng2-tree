@@ -54,7 +54,7 @@ var NodeDraggableService = /** @class */ (function () {
         this.draggedNode = null;
     };
     NodeDraggableService.ɵfac = function NodeDraggableService_Factory(t) { return new (t || NodeDraggableService)(); };
-    NodeDraggableService.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: NodeDraggableService, factory: NodeDraggableService.ɵfac });
+    NodeDraggableService.ɵprov = i0.ɵɵdefineInjectable({ token: NodeDraggableService, factory: NodeDraggableService.ɵfac });
     return NodeDraggableService;
 }());
 exports.NodeDraggableService = NodeDraggableService;

@@ -6,8 +6,8 @@ var tree_service_1 = require("./tree.service");
 var TreeTypes = require("./tree.types");
 var tree_1 = require("./tree");
 var i0 = require("@angular/core");
-var i1 = require("./tree-internal.component");
-var i2 = require("./tree.service");
+var i1 = require("./tree.service");
+var i2 = require("./tree-internal.component");
 var _c0 = ["rootComponent"];
 var TreeComponent = /** @class */ (function () {
     function TreeComponent(treeService) {
@@ -100,13 +100,13 @@ var TreeComponent = /** @class */ (function () {
     };
     TreeComponent.EMPTY_TREE = new tree_1.Tree({ value: '' });
     TreeComponent.ɵfac = function TreeComponent_Factory(t) { return new (t || TreeComponent)(i0.ɵɵdirectiveInject(tree_service_1.TreeService)); };
-    TreeComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type: TreeComponent, selectors: [["tree"]], contentQueries: function TreeComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
-            i0.ɵɵcontentQuery(dirIndex, core_1.TemplateRef, 5);
+    TreeComponent.ɵcmp = i0.ɵɵdefineComponent({ type: TreeComponent, selectors: [["tree"]], contentQueries: function TreeComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
+            i0.ɵɵcontentQuery(dirIndex, core_1.TemplateRef, 1);
         } if (rf & 2) {
             var _t = void 0;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.template = _t.first);
         } }, viewQuery: function TreeComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0, 5);
+            i0.ɵɵviewQuery(_c0, 1);
         } if (rf & 2) {
             var _t = void 0;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.rootComponent = _t.first);
@@ -114,7 +114,7 @@ var TreeComponent = /** @class */ (function () {
             i0.ɵɵelement(0, "tree-internal", 0, 1);
         } if (rf & 2) {
             i0.ɵɵproperty("tree", ctx.tree)("settings", ctx.settings)("template", ctx.template);
-        } }, directives: [i1.TreeInternalComponent], encapsulation: 2 });
+        } }, directives: [i2.TreeInternalComponent], encapsulation: 2 });
     return TreeComponent;
 }());
 exports.TreeComponent = TreeComponent;
@@ -125,7 +125,7 @@ exports.TreeComponent = TreeComponent;
                 template: "<tree-internal #rootComponent [tree]=\"tree\" [settings]=\"settings\" [template]=\"template\"></tree-internal>",
                 providers: [tree_service_1.TreeService]
             }]
-    }], function () { return [{ type: i2.TreeService, decorators: [{
+    }], function () { return [{ type: i1.TreeService, decorators: [{
                 type: core_1.Inject,
                 args: [tree_service_1.TreeService]
             }] }]; }, { treeModel: [{

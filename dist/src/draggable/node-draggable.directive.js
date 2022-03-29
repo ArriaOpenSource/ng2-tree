@@ -233,7 +233,7 @@ var NodeDraggableDirective = /** @class */ (function () {
     };
     NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
     NodeDraggableDirective.ɵfac = function NodeDraggableDirective_Factory(t) { return new (t || NodeDraggableDirective)(i0.ɵɵdirectiveInject(core_1.ElementRef), i0.ɵɵdirectiveInject(node_draggable_service_1.NodeDraggableService), i0.ɵɵdirectiveInject(core_1.Renderer2)); };
-    NodeDraggableDirective.ɵdir = /*@__PURE__*/ i0.ɵɵdefineDirective({ type: NodeDraggableDirective, selectors: [["", "nodeDraggable", ""]], inputs: { nodeDraggable: "nodeDraggable", tree: "tree" } });
+    NodeDraggableDirective.ɵdir = i0.ɵɵdefineDirective({ type: NodeDraggableDirective, selectors: [["", "nodeDraggable", ""]], inputs: { nodeDraggable: "nodeDraggable", tree: "tree" } });
     return NodeDraggableDirective;
 }());
 exports.NodeDraggableDirective = NodeDraggableDirective;

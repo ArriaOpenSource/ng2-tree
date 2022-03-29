@@ -60,6 +60,6 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     private executeOnChildController;
     updateCheckboxState(): void;
     private eventContainsId;
-    static ɵfac: i0.ɵɵFactoryDeclaration<TreeInternalComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<TreeInternalComponent, "tree-internal", never, { "tree": "tree"; "settings": "settings"; "template": "template"; }, {}, never, never>;
+    static ɵfac: i0.ɵɵFactoryDef<TreeInternalComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<TreeInternalComponent, "tree-internal", never, { "tree": "tree"; "settings": "settings"; "template": "template"; }, {}, never, never>;
 }

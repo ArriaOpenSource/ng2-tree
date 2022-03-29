@@ -15,7 +15,7 @@ var NodeMenuService = /** @class */ (function () {
         this.nodeMenuEvents$.next(nodeMenuEvent);
     };
     NodeMenuService.prototype.hideMenuStream = function (treeElementRef) {
-        return this.nodeMenuEvents$.pipe((0, operators_1.filter)(function (e) { return treeElementRef.nativeElement !== e.sender; }), (0, operators_1.filter)(function (e) { return e.action === menu_events_1.NodeMenuAction.Close; }));
+        return this.nodeMenuEvents$.pipe(operators_1.filter(function (e) { return treeElementRef.nativeElement !== e.sender; }), operators_1.filter(function (e) { return e.action === menu_events_1.NodeMenuAction.Close; }));
     };
     NodeMenuService.prototype.hideMenuForAllNodesExcept = function (treeElementRef) {
         this.nodeMenuEvents$.next({
@@ -24,7 +24,7 @@ var NodeMenuService = /** @class */ (function () {
         });
     };
     NodeMenuService.ɵfac = function NodeMenuService_Factory(t) { return new (t || NodeMenuService)(); };
-    NodeMenuService.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: NodeMenuService, factory: NodeMenuService.ɵfac });
+    NodeMenuService.ɵprov = i0.ɵɵdefineInjectable({ token: NodeMenuService, factory: NodeMenuService.ɵfac });
     return NodeMenuService;
 }());
 exports.NodeMenuService = NodeMenuService;

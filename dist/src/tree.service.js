@@ -37,7 +37,7 @@ var TreeService = /** @class */ (function () {
         });
     }
     TreeService.prototype.unselectStream = function (tree) {
-        return this.nodeSelected$.pipe((0, operators_1.filter)(function (e) { return tree !== e.node; }));
+        return this.nodeSelected$.pipe(operators_1.filter(function (e) { return tree !== e.node; }));
     };
     TreeService.prototype.fireNodeRenameKeydownEvent = function (tree, e) {
         this.nodeRenameKeydown$.next(new tree_events_1.NodeRenameKeydownEvent(tree, e));
@@ -99,7 +99,7 @@ var TreeService = /** @class */ (function () {
         this.nodeIndeterminate$.next(new tree_events_1.NodeIndeterminateEvent(tree, indeterminate));
     };
     TreeService.prototype.draggedStream = function (tree, element) {
-        return this.nodeDraggableService.draggableNodeEvents$.pipe((0, operators_1.filter)(function (e) { return e.target === element; }), (0, operators_1.filter)(function (e) { return !e.captured.some(function (cn) { return cn.tree.hasChild(tree); }); }));
+        return this.nodeDraggableService.draggableNodeEvents$.pipe(operators_1.filter(function (e) { return e.target === element; }), operators_1.filter(function (e) { return !e.captured.some(function (cn) { return cn.tree.hasChild(tree); }); }));
     };
     TreeService.prototype.setController = function (id, controller) {
         this.controllers.set(id, controller);
@@ -122,14 +122,14 @@ var TreeService = /** @class */ (function () {
         var shouldLoadNextLevel = tree.node.emitLoadNextLevel &&
             !tree.node.loadChildren &&
             !tree.childrenAreBeingLoaded() &&
-            (0, fn_utils_1.isEmpty)(tree.children);
+            fn_utils_1.isEmpty(tree.children);
         if (shouldLoadNextLevel) {
             tree.loadingChildrenRequested();
         }
         return shouldLoadNextLevel;
     };
     TreeService.ɵfac = function TreeService_Factory(t) { return new (t || TreeService)(i0.ɵɵinject(node_draggable_service_1.NodeDraggableService)); };
-    TreeService.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: TreeService, factory: TreeService.ɵfac });
+    TreeService.ɵprov = i0.ɵɵdefineInjectable({ token: TreeService, factory: TreeService.ɵfac });
     return TreeService;
 }());
 exports.TreeService = TreeService;

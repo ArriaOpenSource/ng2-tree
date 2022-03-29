@@ -7,6 +7,6 @@ export declare class NodeMenuService {
     fireMenuEvent(sender: HTMLElement, action: NodeMenuAction): void;
     hideMenuStream(treeElementRef: ElementRef): Observable<any>;
     hideMenuForAllNodesExcept(treeElementRef: ElementRef): void;
-    static ɵfac: i0.ɵɵFactoryDeclaration<NodeMenuService, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<NodeMenuService>;
+    static ɵfac: i0.ɵɵFactoryDef<NodeMenuService, never>;
+    static ɵprov: i0.ɵɵInjectableDef<NodeMenuService>;
 }

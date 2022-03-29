@@ -24,8 +24,8 @@ var TreeModelSettings = /** @class */ (function () {
     function TreeModelSettings() {
     }
     TreeModelSettings.merge = function (child, parent) {
-        var parentCascadingSettings = (0, fn_utils_1.omit)((0, fn_utils_1.get)(parent, 'settings'), TreeModelSettings.NOT_CASCADING_SETTINGS);
-        return (0, fn_utils_1.defaultsDeep)({}, (0, fn_utils_1.get)(child, 'settings'), parentCascadingSettings, {
+        var parentCascadingSettings = fn_utils_1.omit(fn_utils_1.get(parent, 'settings'), TreeModelSettings.NOT_CASCADING_SETTINGS);
+        return fn_utils_1.defaultsDeep({}, fn_utils_1.get(child, 'settings'), parentCascadingSettings, {
             static: false,
             leftMenu: false,
             rightMenu: true,

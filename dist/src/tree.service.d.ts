@@ -52,6 +52,6 @@ export declare class TreeService {
     getController(id: string | number): TreeController;
     hasController(id: string | number): boolean;
     private shouldFireLoadNextLevel;
-    static ɵfac: i0.ɵɵFactoryDeclaration<TreeService, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<TreeService>;
+    static ɵfac: i0.ɵɵFactoryDef<TreeService, never>;
+    static ɵprov: i0.ɵɵInjectableDef<TreeService>;
 }

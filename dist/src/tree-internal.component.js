@@ -29,9 +29,11 @@ var i8 = require("./utils/safe-html.pipe");
 var _c0 = ["checkbox"];
 function TreeInternalComponent_ul_0_div_3_Template(rf, ctx) { if (rf & 1) {
     var _r13 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "div", 13)(1, "input", 14, 15);
+    i0.ɵɵelementStart(0, "div", 13);
+    i0.ɵɵelementStart(1, "input", 14, 15);
     i0.ɵɵlistener("change", function TreeInternalComponent_ul_0_div_3_Template_input_change_1_listener() { i0.ɵɵrestoreView(_r13); var ctx_r12 = i0.ɵɵnextContext(2); return ctx_r12.switchNodeCheckStatus(); });
-    i0.ɵɵelementEnd()();
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementEnd();
 } if (rf & 2) {
     var ctx_r1 = i0.ɵɵnextContext(2);
     i0.ɵɵadvance(1);
@@ -160,7 +162,9 @@ var _c3 = function (a0) { return { rootless: a0 }; };
 var _c4 = function (a0, a1) { return { rootless: a0, checked: a1 }; };
 function TreeInternalComponent_ul_0_Template(rf, ctx) { if (rf & 1) {
     var _r38 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "ul", 1)(1, "li")(2, "div", 2);
+    i0.ɵɵelementStart(0, "ul", 1);
+    i0.ɵɵelementStart(1, "li");
+    i0.ɵɵelementStart(2, "div", 2);
     i0.ɵɵlistener("contextmenu", function TreeInternalComponent_ul_0_Template_div_contextmenu_2_listener($event) { i0.ɵɵrestoreView(_r38); var ctx_r37 = i0.ɵɵnextContext(); return ctx_r37.showRightMenu($event); });
     i0.ɵɵtemplate(3, TreeInternalComponent_ul_0_div_3_Template, 3, 2, "div", 3);
     i0.ɵɵelementStart(4, "div", 4);
@@ -176,7 +180,8 @@ function TreeInternalComponent_ul_0_Template(rf, ctx) { if (rf & 1) {
     i0.ɵɵtemplate(11, TreeInternalComponent_ul_0_node_menu_11_Template, 1, 1, "node-menu", 10);
     i0.ɵɵtemplate(12, TreeInternalComponent_ul_0_div_12_Template, 3, 6, "div", 11);
     i0.ɵɵtemplate(13, TreeInternalComponent_ul_0_ng_template_13_Template, 2, 3, "ng-template", 12);
-    i0.ɵɵelementEnd()();
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementEnd();
 } if (rf & 2) {
     var ctx_r0 = i0.ɵɵnextContext();
     i0.ɵɵproperty("ngClass", i0.ɵɵpureFunction1(17, _c3, ctx_r0.isRootHidden()));
@@ -227,13 +232,13 @@ var TreeInternalComponent = /** @class */ (function () {
     };
     TreeInternalComponent.prototype.ngOnInit = function () {
         var _this = this;
-        var nodeId = (0, fn_utils_1.get)(this.tree, 'node.id', '');
+        var nodeId = fn_utils_1.get(this.tree, 'node.id', '');
         if (nodeId) {
             this.controller = new tree_controller_1.TreeController(this);
             this.treeService.setController(nodeId, this.controller);
         }
         this.settings = this.settings || new tree_types_1.Ng2TreeSettings();
-        this.isReadOnly = !(0, fn_utils_1.get)(this.settings, 'enableCheckboxes', true);
+        this.isReadOnly = !fn_utils_1.get(this.settings, 'enableCheckboxes', true);
         if (this.tree.isRoot() && this.settings.rootIsVisible === false) {
             this.tree.disableCollapseOnInit();
         }
@@ -245,15 +250,15 @@ var TreeInternalComponent = /** @class */ (function () {
         this.subscriptions.push(this.treeService
             .draggedStream(this.tree, this.nodeElementRef)
             .subscribe(function (e) { return _this.nodeDraggedHandler(e); }));
-        this.subscriptions.push((0, rxjs_1.merge)(this.treeService.nodeChecked$, this.treeService.nodeUnchecked$)
-            .pipe((0, operators_1.filter)(function (e) { return _this.eventContainsId(e) && _this.tree.hasChild(e.node); }))
+        this.subscriptions.push(rxjs_1.merge(this.treeService.nodeChecked$, this.treeService.nodeUnchecked$)
+            .pipe(operators_1.filter(function (e) { return _this.eventContainsId(e) && _this.tree.hasChild(e.node); }))
             .subscribe(function (e) { return _this.updateCheckboxState(); }));
     };
     TreeInternalComponent.prototype.ngOnChanges = function (changes) {
         this.controller = new tree_controller_1.TreeController(this);
     };
     TreeInternalComponent.prototype.ngOnDestroy = function () {
-        if ((0, fn_utils_1.get)(this.tree, 'node.id', '') && !(this.tree.parent && this.tree.parent.children.indexOf(this.tree) > -1)) {
+        if (fn_utils_1.get(this.tree, 'node.id', '') && !(this.tree.parent && this.tree.parent.children.indexOf(this.tree) > -1)) {
             this.treeService.deleteController(this.tree.node.id);
         }
         this.nodeDraggableService.releaseDraggedNode();
@@ -298,7 +303,7 @@ var TreeInternalComponent = /** @class */ (function () {
             tree.moveSiblingBelow(sibling);
         }
         else {
-            console.error("Invalid drop position: ".concat(draggable_events_1.DropPosition[position]));
+            console.error("Invalid drop position: " + draggable_events_1.DropPosition[position]);
             return;
         }
         this.treeService.fireNodeMoved(sibling, sibling.parent, previousPositionInParent);
@@ -403,7 +408,7 @@ var TreeInternalComponent = /** @class */ (function () {
         this.isLeftMenuVisible = false;
     };
     TreeInternalComponent.prototype.onRemoveSelected = function () {
-        var nodeId = (0, fn_utils_1.get)(this.tree, 'node.id', '');
+        var nodeId = fn_utils_1.get(this.tree, 'node.id', '');
         this.nodeDraggableService.removeCheckedNodeById(nodeId);
         this.treeService.deleteController(nodeId);
         this.treeService.fireNodeRemoved(this.tree);
@@ -496,7 +501,7 @@ var TreeInternalComponent = /** @class */ (function () {
         if (this.tree.hasLoadedChildren()) {
             this.tree.children.forEach(function (child) {
                 var controller = _this.treeService.getController(child.id);
-                if (!(0, fn_utils_1.isNil)(controller)) {
+                if (!fn_utils_1.isNil(controller)) {
                     executor(controller);
                 }
             });
@@ -534,8 +539,8 @@ var TreeInternalComponent = /** @class */ (function () {
         return true;
     };
     TreeInternalComponent.ɵfac = function TreeInternalComponent_Factory(t) { return new (t || TreeInternalComponent)(i0.ɵɵdirectiveInject(i1.NodeMenuService), i0.ɵɵdirectiveInject(i2.TreeService), i0.ɵɵdirectiveInject(i3.NodeDraggableService), i0.ɵɵdirectiveInject(i0.ElementRef)); };
-    TreeInternalComponent.ɵcmp = /*@__PURE__*/ i0.ɵɵdefineComponent({ type: TreeInternalComponent, selectors: [["tree-internal"]], viewQuery: function TreeInternalComponent_Query(rf, ctx) { if (rf & 1) {
-            i0.ɵɵviewQuery(_c0, 5);
+    TreeInternalComponent.ɵcmp = i0.ɵɵdefineComponent({ type: TreeInternalComponent, selectors: [["tree-internal"]], viewQuery: function TreeInternalComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(_c0, 1);
         } if (rf & 2) {
             var _t = void 0;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.checkboxElementRef = _t.first);
