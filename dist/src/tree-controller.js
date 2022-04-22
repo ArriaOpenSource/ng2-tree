@@ -1,9 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeController = void 0;
 var menu_events_1 = require("./menu/menu.events");
 var event_utils_1 = require("./utils/event.utils");
 var fn_utils_1 = require("./utils/fn.utils");
-var TreeController = (function () {
+var TreeController = /** @class */ (function () {
     function TreeController(component) {
         this.component = component;
         this.tree = this.component.tree;

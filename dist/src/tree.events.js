@@ -1,8 +1,11 @@
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -10,14 +13,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var NodeEvent = (function () {
+exports.NodeRenameInputChangeEvent = exports.NodeRenameKeydownEvent = exports.NodeIndeterminateEvent = exports.NodeUncheckedEvent = exports.NodeCheckedEvent = exports.LoadNextLevelEvent = exports.MenuItemSelectedEvent = exports.NodeCollapsedEvent = exports.NodeExpandedEvent = exports.NodeRenamedEvent = exports.NodeCreatedEvent = exports.NodeRemovedEvent = exports.NodeMovedEvent = exports.NodeDestructiveEvent = exports.NodeUnselectedEvent = exports.NodeSelectedEvent = exports.NodeDoubleClickedEvent = exports.NodeEvent = void 0;
+var NodeEvent = /** @class */ (function () {
     function NodeEvent(node) {
         this.node = node;
     }
     return NodeEvent;
 }());
 exports.NodeEvent = NodeEvent;
-var NodeDoubleClickedEvent = (function (_super) {
+var NodeDoubleClickedEvent = /** @class */ (function (_super) {
     __extends(NodeDoubleClickedEvent, _super);
     function NodeDoubleClickedEvent(node, e) {
         var _this = _super.call(this, node) || this;
@@ -27,7 +31,7 @@ var NodeDoubleClickedEvent = (function (_super) {
     return NodeDoubleClickedEvent;
 }(NodeEvent));
 exports.NodeDoubleClickedEvent = NodeDoubleClickedEvent;
-var NodeSelectedEvent = (function (_super) {
+var NodeSelectedEvent = /** @class */ (function (_super) {
     __extends(NodeSelectedEvent, _super);
     function NodeSelectedEvent(node) {
         return _super.call(this, node) || this;
@@ -35,7 +39,7 @@ var NodeSelectedEvent = (function (_super) {
     return NodeSelectedEvent;
 }(NodeEvent));
 exports.NodeSelectedEvent = NodeSelectedEvent;
-var NodeUnselectedEvent = (function (_super) {
+var NodeUnselectedEvent = /** @class */ (function (_super) {
     __extends(NodeUnselectedEvent, _super);
     function NodeUnselectedEvent(node) {
         return _super.call(this, node) || this;
@@ -43,7 +47,7 @@ var NodeUnselectedEvent = (function (_super) {
     return NodeUnselectedEvent;
 }(NodeEvent));
 exports.NodeUnselectedEvent = NodeUnselectedEvent;
-var NodeDestructiveEvent = (function (_super) {
+var NodeDestructiveEvent = /** @class */ (function (_super) {
     __extends(NodeDestructiveEvent, _super);
     function NodeDestructiveEvent(node) {
         return _super.call(this, node) || this;
@@ -51,7 +55,7 @@ var NodeDestructiveEvent = (function (_super) {
     return NodeDestructiveEvent;
 }(NodeEvent));
 exports.NodeDestructiveEvent = NodeDestructiveEvent;
-var NodeMovedEvent = (function (_super) {
+var NodeMovedEvent = /** @class */ (function (_super) {
     __extends(NodeMovedEvent, _super);
     function NodeMovedEvent(node, previousParent, previousPosition) {
         var _this = _super.call(this, node) || this;
@@ -62,7 +66,7 @@ var NodeMovedEvent = (function (_super) {
     return NodeMovedEvent;
 }(NodeDestructiveEvent));
 exports.NodeMovedEvent = NodeMovedEvent;
-var NodeRemovedEvent = (function (_super) {
+var NodeRemovedEvent = /** @class */ (function (_super) {
     __extends(NodeRemovedEvent, _super);
     function NodeRemovedEvent(node, lastIndex) {
         var _this = _super.call(this, node) || this;
@@ -72,7 +76,7 @@ var NodeRemovedEvent = (function (_super) {
     return NodeRemovedEvent;
 }(NodeDestructiveEvent));
 exports.NodeRemovedEvent = NodeRemovedEvent;
-var NodeCreatedEvent = (function (_super) {
+var NodeCreatedEvent = /** @class */ (function (_super) {
     __extends(NodeCreatedEvent, _super);
     function NodeCreatedEvent(node) {
         return _super.call(this, node) || this;
@@ -80,7 +84,7 @@ var NodeCreatedEvent = (function (_super) {
     return NodeCreatedEvent;
 }(NodeDestructiveEvent));
 exports.NodeCreatedEvent = NodeCreatedEvent;
-var NodeRenamedEvent = (function (_super) {
+var NodeRenamedEvent = /** @class */ (function (_super) {
     __extends(NodeRenamedEvent, _super);
     function NodeRenamedEvent(node, oldValue, newValue) {
         var _this = _super.call(this, node) || this;
@@ -91,7 +95,7 @@ var NodeRenamedEvent = (function (_super) {
     return NodeRenamedEvent;
 }(NodeDestructiveEvent));
 exports.NodeRenamedEvent = NodeRenamedEvent;
-var NodeExpandedEvent = (function (_super) {
+var NodeExpandedEvent = /** @class */ (function (_super) {
     __extends(NodeExpandedEvent, _super);
     function NodeExpandedEvent(node) {
         return _super.call(this, node) || this;
@@ -99,7 +103,7 @@ var NodeExpandedEvent = (function (_super) {
     return NodeExpandedEvent;
 }(NodeEvent));
 exports.NodeExpandedEvent = NodeExpandedEvent;
-var NodeCollapsedEvent = (function (_super) {
+var NodeCollapsedEvent = /** @class */ (function (_super) {
     __extends(NodeCollapsedEvent, _super);
     function NodeCollapsedEvent(node) {
         return _super.call(this, node) || this;
@@ -107,7 +111,7 @@ var NodeCollapsedEvent = (function (_super) {
     return NodeCollapsedEvent;
 }(NodeEvent));
 exports.NodeCollapsedEvent = NodeCollapsedEvent;
-var MenuItemSelectedEvent = (function (_super) {
+var MenuItemSelectedEvent = /** @class */ (function (_super) {
     __extends(MenuItemSelectedEvent, _super);
     function MenuItemSelectedEvent(node, selectedItem) {
         var _this = _super.call(this, node) || this;
@@ -117,7 +121,7 @@ var MenuItemSelectedEvent = (function (_super) {
     return MenuItemSelectedEvent;
 }(NodeEvent));
 exports.MenuItemSelectedEvent = MenuItemSelectedEvent;
-var LoadNextLevelEvent = (function (_super) {
+var LoadNextLevelEvent = /** @class */ (function (_super) {
     __extends(LoadNextLevelEvent, _super);
     function LoadNextLevelEvent(node) {
         return _super.call(this, node) || this;
@@ -125,7 +129,7 @@ var LoadNextLevelEvent = (function (_super) {
     return LoadNextLevelEvent;
 }(NodeEvent));
 exports.LoadNextLevelEvent = LoadNextLevelEvent;
-var NodeCheckedEvent = (function (_super) {
+var NodeCheckedEvent = /** @class */ (function (_super) {
     __extends(NodeCheckedEvent, _super);
     function NodeCheckedEvent(node) {
         return _super.call(this, node) || this;
@@ -133,7 +137,7 @@ var NodeCheckedEvent = (function (_super) {
     return NodeCheckedEvent;
 }(NodeEvent));
 exports.NodeCheckedEvent = NodeCheckedEvent;
-var NodeUncheckedEvent = (function (_super) {
+var NodeUncheckedEvent = /** @class */ (function (_super) {
     __extends(NodeUncheckedEvent, _super);
     function NodeUncheckedEvent(node) {
         return _super.call(this, node) || this;
@@ -141,7 +145,7 @@ var NodeUncheckedEvent = (function (_super) {
     return NodeUncheckedEvent;
 }(NodeEvent));
 exports.NodeUncheckedEvent = NodeUncheckedEvent;
-var NodeIndeterminateEvent = (function (_super) {
+var NodeIndeterminateEvent = /** @class */ (function (_super) {
     __extends(NodeIndeterminateEvent, _super);
     function NodeIndeterminateEvent(node, indeterminate) {
         var _this = _super.call(this, node) || this;
@@ -151,7 +155,7 @@ var NodeIndeterminateEvent = (function (_super) {
     return NodeIndeterminateEvent;
 }(NodeEvent));
 exports.NodeIndeterminateEvent = NodeIndeterminateEvent;
-var NodeRenameKeydownEvent = (function (_super) {
+var NodeRenameKeydownEvent = /** @class */ (function (_super) {
     __extends(NodeRenameKeydownEvent, _super);
     function NodeRenameKeydownEvent(node, domEvent) {
         var _this = _super.call(this, node) || this;
@@ -161,7 +165,7 @@ var NodeRenameKeydownEvent = (function (_super) {
     return NodeRenameKeydownEvent;
 }(NodeEvent));
 exports.NodeRenameKeydownEvent = NodeRenameKeydownEvent;
-var NodeRenameInputChangeEvent = (function (_super) {
+var NodeRenameInputChangeEvent = /** @class */ (function (_super) {
     __extends(NodeRenameInputChangeEvent, _super);
     function NodeRenameInputChangeEvent(node, domEvent) {
         var _this = _super.call(this, node) || this;

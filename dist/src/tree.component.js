@@ -1,10 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeComponent = void 0;
 var core_1 = require("@angular/core");
 var tree_service_1 = require("./tree.service");
 var TreeTypes = require("./tree.types");
 var tree_1 = require("./tree");
-var TreeComponent = (function () {
+var i0 = require("@angular/core");
+var i1 = require("./tree.service");
+var i2 = require("./tree-internal.component");
+var _c0 = ["rootComponent"];
+var TreeComponent = /** @class */ (function () {
     function TreeComponent(treeService) {
         this.treeService = treeService;
         this.nodeCreated = new core_1.EventEmitter();
@@ -94,40 +99,77 @@ var TreeComponent = (function () {
         this.subscriptions.forEach(function (sub) { return sub && sub.unsubscribe(); });
     };
     TreeComponent.EMPTY_TREE = new tree_1.Tree({ value: '' });
-    TreeComponent.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'tree',
-                    template: "<tree-internal #rootComponent [tree]=\"tree\" [settings]=\"settings\" [template]=\"template\"></tree-internal>",
-                    providers: [tree_service_1.TreeService]
-                },] },
-    ];
-    /** @nocollapse */
-    TreeComponent.ctorParameters = function () { return [
-        { type: tree_service_1.TreeService, decorators: [{ type: core_1.Inject, args: [tree_service_1.TreeService,] },] },
-    ]; };
-    TreeComponent.propDecorators = {
-        "treeModel": [{ type: core_1.Input, args: ['tree',] },],
-        "settings": [{ type: core_1.Input },],
-        "nodeCreated": [{ type: core_1.Output },],
-        "nodeRemoved": [{ type: core_1.Output },],
-        "nodeRenamed": [{ type: core_1.Output },],
-        "nodeDoubleClicked": [{ type: core_1.Output },],
-        "nodeSelected": [{ type: core_1.Output },],
-        "nodeUnselected": [{ type: core_1.Output },],
-        "nodeDragStarted": [{ type: core_1.Output },],
-        "nodeMoved": [{ type: core_1.Output },],
-        "nodeExpanded": [{ type: core_1.Output },],
-        "nodeCollapsed": [{ type: core_1.Output },],
-        "loadNextLevel": [{ type: core_1.Output },],
-        "nodeChecked": [{ type: core_1.Output },],
-        "nodeUnchecked": [{ type: core_1.Output },],
-        "nodeRenameKeydown": [{ type: core_1.Output },],
-        "nodeRenameInputChange": [{ type: core_1.Output },],
-        "menuItemSelected": [{ type: core_1.Output },],
-        "rootComponent": [{ type: core_1.ViewChild, args: ['rootComponent',] },],
-        "template": [{ type: core_1.ContentChild, args: [core_1.TemplateRef,] },],
-    };
+    TreeComponent.ɵfac = function TreeComponent_Factory(t) { return new (t || TreeComponent)(i0.ɵɵdirectiveInject(tree_service_1.TreeService)); };
+    TreeComponent.ɵcmp = i0.ɵɵdefineComponent({ type: TreeComponent, selectors: [["tree"]], contentQueries: function TreeComponent_ContentQueries(rf, ctx, dirIndex) { if (rf & 1) {
+            i0.ɵɵcontentQuery(dirIndex, core_1.TemplateRef, 1);
+        } if (rf & 2) {
+            var _t = void 0;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.template = _t.first);
+        } }, viewQuery: function TreeComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(_c0, 1);
+        } if (rf & 2) {
+            var _t = void 0;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.rootComponent = _t.first);
+        } }, inputs: { treeModel: ["tree", "treeModel"], settings: "settings" }, outputs: { nodeCreated: "nodeCreated", nodeRemoved: "nodeRemoved", nodeRenamed: "nodeRenamed", nodeDoubleClicked: "nodeDoubleClicked", nodeSelected: "nodeSelected", nodeUnselected: "nodeUnselected", nodeDragStarted: "nodeDragStarted", nodeMoved: "nodeMoved", nodeExpanded: "nodeExpanded", nodeCollapsed: "nodeCollapsed", loadNextLevel: "loadNextLevel", nodeChecked: "nodeChecked", nodeUnchecked: "nodeUnchecked", nodeRenameKeydown: "nodeRenameKeydown", nodeRenameInputChange: "nodeRenameInputChange", menuItemSelected: "menuItemSelected" }, features: [i0.ɵɵProvidersFeature([tree_service_1.TreeService]), i0.ɵɵNgOnChangesFeature], decls: 2, vars: 3, consts: [[3, "tree", "settings", "template"], ["rootComponent", ""]], template: function TreeComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelement(0, "tree-internal", 0, 1);
+        } if (rf & 2) {
+            i0.ɵɵproperty("tree", ctx.tree)("settings", ctx.settings)("template", ctx.template);
+        } }, directives: [i2.TreeInternalComponent], encapsulation: 2 });
     return TreeComponent;
 }());
 exports.TreeComponent = TreeComponent;
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(TreeComponent, [{
+        type: core_1.Component,
+        args: [{
+                selector: 'tree',
+                template: "<tree-internal #rootComponent [tree]=\"tree\" [settings]=\"settings\" [template]=\"template\"></tree-internal>",
+                providers: [tree_service_1.TreeService]
+            }]
+    }], function () { return [{ type: i1.TreeService, decorators: [{
+                type: core_1.Inject,
+                args: [tree_service_1.TreeService]
+            }] }]; }, { treeModel: [{
+            type: core_1.Input,
+            args: ['tree']
+        }], settings: [{
+            type: core_1.Input
+        }], nodeCreated: [{
+            type: core_1.Output
+        }], nodeRemoved: [{
+            type: core_1.Output
+        }], nodeRenamed: [{
+            type: core_1.Output
+        }], nodeDoubleClicked: [{
+            type: core_1.Output
+        }], nodeSelected: [{
+            type: core_1.Output
+        }], nodeUnselected: [{
+            type: core_1.Output
+        }], nodeDragStarted: [{
+            type: core_1.Output
+        }], nodeMoved: [{
+            type: core_1.Output
+        }], nodeExpanded: [{
+            type: core_1.Output
+        }], nodeCollapsed: [{
+            type: core_1.Output
+        }], loadNextLevel: [{
+            type: core_1.Output
+        }], nodeChecked: [{
+            type: core_1.Output
+        }], nodeUnchecked: [{
+            type: core_1.Output
+        }], nodeRenameKeydown: [{
+            type: core_1.Output
+        }], nodeRenameInputChange: [{
+            type: core_1.Output
+        }], menuItemSelected: [{
+            type: core_1.Output
+        }], rootComponent: [{
+            type: core_1.ViewChild,
+            args: ['rootComponent']
+        }], template: [{
+            type: core_1.ContentChild,
+            args: [core_1.TemplateRef]
+        }] }); })();
 //# sourceMappingURL=tree.component.js.map

@@ -5,6 +5,7 @@ import { NodeCheckedEvent, NodeUncheckedEvent, NodeDoubleClickedEvent, NodeRenam
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
 import { NodeDragStartEvent } from './draggable/draggable.events';
+import * as i0 from "@angular/core";
 export declare class TreeComponent implements OnInit, OnChanges, OnDestroy {
     private treeService;
     private static EMPTY_TREE;
@@ -36,4 +37,6 @@ export declare class TreeComponent implements OnInit, OnChanges, OnDestroy {
     getController(): TreeController;
     getControllerByNodeId(id: number | string): TreeController;
     ngOnDestroy(): void;
+    static ɵfac: i0.ɵɵFactoryDef<TreeComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<TreeComponent, "tree", never, { "treeModel": "tree"; "settings": "settings"; }, { "nodeCreated": "nodeCreated"; "nodeRemoved": "nodeRemoved"; "nodeRenamed": "nodeRenamed"; "nodeDoubleClicked": "nodeDoubleClicked"; "nodeSelected": "nodeSelected"; "nodeUnselected": "nodeUnselected"; "nodeDragStarted": "nodeDragStarted"; "nodeMoved": "nodeMoved"; "nodeExpanded": "nodeExpanded"; "nodeCollapsed": "nodeCollapsed"; "loadNextLevel": "loadNextLevel"; "nodeChecked": "nodeChecked"; "nodeUnchecked": "nodeUnchecked"; "nodeRenameKeydown": "nodeRenameKeydown"; "nodeRenameInputChange": "nodeRenameInputChange"; "menuItemSelected": "menuItemSelected"; }, ["template"], never>;
 }

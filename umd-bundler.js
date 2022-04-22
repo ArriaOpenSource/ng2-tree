@@ -14,10 +14,7 @@ del(targetFolder)
     console.log('Deleted files and folders:\n', paths.join('\n'));
   })
   .then(() => {
-    return Promise.all([
-      buildSystemJs(),
-      buildSystemJs({minify: true})
-    ]);
+    return Promise.all([buildSystemJs(), buildSystemJs({ minify: true })]);
   })
   .catch(e => console.log(e));
 
@@ -31,15 +28,22 @@ function buildSystemJs(options = {}) {
   builder.config(getSystemJsBundleConfig());
 
   return builder
-    .buildStatic('dist/index', dest, Object.assign({
-      format: 'umd',
-      minify: false,
-      sourceMaps: true,
-      mangle: false,
-      noEmitHelpers: false,
-      declaration: false
-    }, options))
-    .then((b) => {
+    .buildStatic(
+      'dist/index',
+      dest,
+      Object.assign(
+        {
+          format: 'umd',
+          minify: false,
+          sourceMaps: true,
+          mangle: false,
+          noEmitHelpers: false,
+          declaration: false
+        },
+        options
+      )
+    )
+    .then(b => {
       console.log(`Build complete: ${minPostFix}`);
     })
     .catch(err => {
@@ -54,7 +58,7 @@ function getSystemJsBundleConfig() {
       typescript: './node_modules/typescript/lib/typescript.js',
       '@angular': './node_modules/@angular',
       rxjs: './node_modules/rxjs/bundles',
-      uuid: './node_modules/uuid',
+      uuid: './node_modules/uuid/dist/index',
       crypto: '@empty'
     },
     paths: {

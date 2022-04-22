@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isEscapePressed = exports.isRightButtonClicked = exports.isLeftButtonClicked = exports.MouseButtons = exports.Keys = void 0;
 var Keys;
 (function (Keys) {
     Keys[Keys["Escape"] = 27] = "Escape";

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isNil = exports.includes = exports.defaultsDeep = exports.once = exports.size = exports.omit = exports.get = exports.isFunction = exports.has = exports.trim = exports.isEmpty = void 0;
 function isEmpty(value) {
     if (typeof value === 'string') {
         return !/\S/.test(value);
@@ -40,11 +41,11 @@ function omit(value, propsToSkip) {
     }
     var normalizedPropsToSkip = typeof propsToSkip === 'string' ? [propsToSkip] : propsToSkip;
     return Object.keys(value).reduce(function (result, prop) {
+        var _a;
         if (includes(normalizedPropsToSkip, prop)) {
             return result;
         }
         return Object.assign(result, (_a = {}, _a[prop] = value[prop], _a));
-        var _a;
     }, {});
 }
 exports.omit = omit;

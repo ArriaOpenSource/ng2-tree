@@ -1,10 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeMenuComponent = void 0;
 var core_1 = require("@angular/core");
 var node_menu_service_1 = require("./node-menu.service");
 var menu_events_1 = require("./menu.events");
 var event_utils_1 = require("../utils/event.utils");
-var NodeMenuComponent = (function () {
+var i0 = require("@angular/core");
+var i1 = require("./node-menu.service");
+var i2 = require("@angular/common");
+var _c0 = ["menuContainer"];
+function NodeMenuComponent_li_3_Template(rf, ctx) { if (rf & 1) {
+    var _r4 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "li", 4);
+    i0.ɵɵlistener("click", function NodeMenuComponent_li_3_Template_li_click_0_listener($event) { i0.ɵɵrestoreView(_r4); var menuItem_r2 = ctx.$implicit; var ctx_r3 = i0.ɵɵnextContext(); return ctx_r3.onMenuItemSelected($event, menuItem_r2); });
+    i0.ɵɵelement(1, "div");
+    i0.ɵɵelementStart(2, "span", 5);
+    i0.ɵɵtext(3);
+    i0.ɵɵelementEnd();
+    i0.ɵɵelementEnd();
+} if (rf & 2) {
+    var menuItem_r2 = ctx.$implicit;
+    i0.ɵɵadvance(1);
+    i0.ɵɵclassMapInterpolate1("node-menu-item-icon ", menuItem_r2.cssClass, "");
+    i0.ɵɵadvance(2);
+    i0.ɵɵtextInterpolate(menuItem_r2.name);
+} }
+var _c1 = function (a0) { return { "visibility": a0 }; };
+var NodeMenuComponent = /** @class */ (function () {
     function NodeMenuComponent(renderer, nodeMenuService) {
         this.renderer = renderer;
         this.nodeMenuService = nodeMenuService;
@@ -96,23 +118,44 @@ var NodeMenuComponent = (function () {
             this.nodeMenuService.fireMenuEvent(e.target, menu_events_1.NodeMenuAction.Close);
         }
     };
-    NodeMenuComponent.decorators = [
-        { type: core_1.Component, args: [{
-                    selector: 'node-menu',
-                    template: "\n    <div class=\"node-menu\"  [ngStyle]=\"{'visibility': visibility}\">\n      <ul class=\"node-menu-content\" #menuContainer>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
-                },] },
-    ];
-    /** @nocollapse */
-    NodeMenuComponent.ctorParameters = function () { return [
-        { type: core_1.Renderer2, decorators: [{ type: core_1.Inject, args: [core_1.Renderer2,] },] },
-        { type: node_menu_service_1.NodeMenuService, decorators: [{ type: core_1.Inject, args: [node_menu_service_1.NodeMenuService,] },] },
-    ]; };
-    NodeMenuComponent.propDecorators = {
-        "menuItemSelected": [{ type: core_1.Output },],
-        "menuItems": [{ type: core_1.Input },],
-        "menuContainer": [{ type: core_1.ViewChild, args: ['menuContainer',] },],
-    };
+    NodeMenuComponent.ɵfac = function NodeMenuComponent_Factory(t) { return new (t || NodeMenuComponent)(i0.ɵɵdirectiveInject(core_1.Renderer2), i0.ɵɵdirectiveInject(node_menu_service_1.NodeMenuService)); };
+    NodeMenuComponent.ɵcmp = i0.ɵɵdefineComponent({ type: NodeMenuComponent, selectors: [["node-menu"]], viewQuery: function NodeMenuComponent_Query(rf, ctx) { if (rf & 1) {
+            i0.ɵɵviewQuery(_c0, 1);
+        } if (rf & 2) {
+            var _t = void 0;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.menuContainer = _t.first);
+        } }, inputs: { menuItems: "menuItems" }, outputs: { menuItemSelected: "menuItemSelected" }, decls: 4, vars: 4, consts: [[1, "node-menu", 3, "ngStyle"], [1, "node-menu-content"], ["menuContainer", ""], ["class", "node-menu-item", 3, "click", 4, "ngFor", "ngForOf"], [1, "node-menu-item", 3, "click"], [1, "node-menu-item-value"]], template: function NodeMenuComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 0);
+            i0.ɵɵelementStart(1, "ul", 1, 2);
+            i0.ɵɵtemplate(3, NodeMenuComponent_li_3_Template, 4, 4, "li", 3);
+            i0.ɵɵelementEnd();
+            i0.ɵɵelementEnd();
+        } if (rf & 2) {
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(2, _c1, ctx.visibility));
+            i0.ɵɵadvance(3);
+            i0.ɵɵproperty("ngForOf", ctx.availableMenuItems);
+        } }, directives: [i2.NgStyle, i2.NgForOf], encapsulation: 2 });
     return NodeMenuComponent;
 }());
 exports.NodeMenuComponent = NodeMenuComponent;
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NodeMenuComponent, [{
+        type: core_1.Component,
+        args: [{
+                selector: 'node-menu',
+                template: "\n    <div class=\"node-menu\"  [ngStyle]=\"{'visibility': visibility}\">\n      <ul class=\"node-menu-content\" #menuContainer>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
+            }]
+    }], function () { return [{ type: i0.Renderer2, decorators: [{
+                type: core_1.Inject,
+                args: [core_1.Renderer2]
+            }] }, { type: i1.NodeMenuService, decorators: [{
+                type: core_1.Inject,
+                args: [node_menu_service_1.NodeMenuService]
+            }] }]; }, { menuItemSelected: [{
+            type: core_1.Output
+        }], menuItems: [{
+            type: core_1.Input
+        }], menuContainer: [{
+            type: core_1.ViewChild,
+            args: ['menuContainer']
+        }] }); })();
 //# sourceMappingURL=node-menu.component.js.map

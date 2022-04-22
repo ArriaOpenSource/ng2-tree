@@ -1,6 +1,7 @@
 import { EventEmitter, OnDestroy, OnInit, Renderer2, AfterViewInit } from '@angular/core';
 import { NodeMenuService } from './node-menu.service';
 import { NodeMenuItemAction, NodeMenuItemSelectedEvent } from './menu.events';
+import * as i0 from "@angular/core";
 export declare class NodeMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     private renderer;
     private nodeMenuService;
@@ -15,9 +16,11 @@ export declare class NodeMenuComponent implements OnInit, AfterViewInit, OnDestr
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     onMenuItemSelected(e: MouseEvent, selectedMenuItem: NodeMenuItem): void;
-    private displayAboveOrBelow();
-    private getScrollParent(node);
-    private closeMenu(e);
+    private displayAboveOrBelow;
+    private getScrollParent;
+    private closeMenu;
+    static ɵfac: i0.ɵɵFactoryDef<NodeMenuComponent, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<NodeMenuComponent, "node-menu", never, { "menuItems": "menuItems"; }, { "menuItemSelected": "menuItemSelected"; }, never, never>;
 }
 export interface NodeMenuItem {
     name: string;

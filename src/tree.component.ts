@@ -27,8 +27,8 @@ import {
 
 import { Tree } from './tree';
 import { TreeController } from './tree-controller';
-import { Subscription } from 'rxjs/Subscription';
 import { NodeDragStartEvent } from './draggable/draggable.events';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'tree',
@@ -38,7 +38,7 @@ import { NodeDragStartEvent } from './draggable/draggable.events';
 export class TreeComponent implements OnInit, OnChanges, OnDestroy {
   private static EMPTY_TREE: Tree = new Tree({ value: '' });
 
-  /* tslint:disable-next-line:no-input-rename */
+  /* eslint-disable-next-line @angular-eslint/no-input-rename */
   @Input('tree') public treeModel: TreeTypes.TreeModel;
   @Input() public settings: TreeTypes.Ng2TreeSettings;
 

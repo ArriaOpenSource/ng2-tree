@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var CapturedNode = (function () {
+exports.CapturedNode = void 0;
+var CapturedNode = /** @class */ (function () {
     function CapturedNode(anElement, aTree) {
         this.anElement = anElement;
         this.aTree = aTree;
@@ -18,14 +19,14 @@ var CapturedNode = (function () {
         get: function () {
             return this.anElement;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(CapturedNode.prototype, "tree", {
         get: function () {
             return this.aTree;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return CapturedNode;

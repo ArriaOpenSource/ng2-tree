@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TreeStatus = exports.Ng2TreeSettings = exports.TreeModelSettings = exports.FoldingType = void 0;
 var fn_utils_1 = require("./utils/fn.utils");
-var FoldingType = (function () {
+var FoldingType = /** @class */ (function () {
     function FoldingType(_cssClass) {
         this._cssClass = _cssClass;
     }
@@ -9,7 +10,7 @@ var FoldingType = (function () {
         get: function () {
             return this._cssClass;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     FoldingType.Expanded = new FoldingType('node-expanded');
@@ -19,7 +20,7 @@ var FoldingType = (function () {
     return FoldingType;
 }());
 exports.FoldingType = FoldingType;
-var TreeModelSettings = (function () {
+var TreeModelSettings = /** @class */ (function () {
     function TreeModelSettings() {
     }
     TreeModelSettings.merge = function (child, parent) {
@@ -39,17 +40,19 @@ var TreeModelSettings = (function () {
     return TreeModelSettings;
 }());
 exports.TreeModelSettings = TreeModelSettings;
-var Ng2TreeSettings = (function () {
+var Ng2TreeSettings = /** @class */ (function () {
     function Ng2TreeSettings() {
         /**
-           * Indicates root visibility in the tree. When true - root is invisible.
-           * @name Ng2TreeSettings#rootIsVisible
-           * @type boolean
-           */
+         * Indicates root visibility in the tree. When true - root is invisible.
+         * @name Ng2TreeSettings#rootIsVisible
+         * @type boolean
+         */
+        /* eslint-disable */
         this.rootIsVisible = true;
         this.showCheckboxes = false;
         this.enableCheckboxes = true;
         this.ignoreParentOnCheck = false;
+        /* eslint-enable */
     }
     return Ng2TreeSettings;
 }());

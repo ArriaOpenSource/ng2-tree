@@ -1,11 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeDraggableDirective = void 0;
 var core_1 = require("@angular/core");
 var node_draggable_service_1 = require("./node-draggable.service");
 var captured_node_1 = require("./captured-node");
 var tree_1 = require("../tree");
 var draggable_events_1 = require("./draggable.events");
-var NodeDraggableDirective = (function () {
+var i0 = require("@angular/core");
+var i1 = require("./node-draggable.service");
+var NodeDraggableDirective = /** @class */ (function () {
     function NodeDraggableDirective(element, nodeDraggableService, renderer) {
         this.element = element;
         this.nodeDraggableService = nodeDraggableService;
@@ -229,22 +232,28 @@ var NodeDraggableDirective = (function () {
         this.nodeDraggableService.fireNodeDragStart(nodes, this.nodeDraggable);
     };
     NodeDraggableDirective.DATA_TRANSFER_STUB_DATA = 'some browsers enable drag-n-drop only when dataTransfer has data';
-    NodeDraggableDirective.decorators = [
-        { type: core_1.Directive, args: [{
-                    selector: '[nodeDraggable]'
-                },] },
-    ];
-    /** @nocollapse */
-    NodeDraggableDirective.ctorParameters = function () { return [
-        { type: core_1.ElementRef, decorators: [{ type: core_1.Inject, args: [core_1.ElementRef,] },] },
-        { type: node_draggable_service_1.NodeDraggableService, decorators: [{ type: core_1.Inject, args: [node_draggable_service_1.NodeDraggableService,] },] },
-        { type: core_1.Renderer2, decorators: [{ type: core_1.Inject, args: [core_1.Renderer2,] },] },
-    ]; };
-    NodeDraggableDirective.propDecorators = {
-        "nodeDraggable": [{ type: core_1.Input },],
-        "tree": [{ type: core_1.Input },],
-    };
+    NodeDraggableDirective.ɵfac = function NodeDraggableDirective_Factory(t) { return new (t || NodeDraggableDirective)(i0.ɵɵdirectiveInject(core_1.ElementRef), i0.ɵɵdirectiveInject(node_draggable_service_1.NodeDraggableService), i0.ɵɵdirectiveInject(core_1.Renderer2)); };
+    NodeDraggableDirective.ɵdir = i0.ɵɵdefineDirective({ type: NodeDraggableDirective, selectors: [["", "nodeDraggable", ""]], inputs: { nodeDraggable: "nodeDraggable", tree: "tree" } });
     return NodeDraggableDirective;
 }());
 exports.NodeDraggableDirective = NodeDraggableDirective;
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NodeDraggableDirective, [{
+        type: core_1.Directive,
+        args: [{
+                selector: '[nodeDraggable]'
+            }]
+    }], function () { return [{ type: i0.ElementRef, decorators: [{
+                type: core_1.Inject,
+                args: [core_1.ElementRef]
+            }] }, { type: i1.NodeDraggableService, decorators: [{
+                type: core_1.Inject,
+                args: [node_draggable_service_1.NodeDraggableService]
+            }] }, { type: i0.Renderer2, decorators: [{
+                type: core_1.Inject,
+                args: [core_1.Renderer2]
+            }] }]; }, { nodeDraggable: [{
+            type: core_1.Input
+        }], tree: [{
+            type: core_1.Input
+        }] }); })();
 //# sourceMappingURL=node-draggable.directive.js.map

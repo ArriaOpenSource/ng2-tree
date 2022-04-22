@@ -487,11 +487,11 @@ describe('TreeInternalComponent', () => {
     const childEl = faceInternalTreeEl.query(By.directive(TreeInternalComponent));
     expect(childEl.componentInstance.tree.isRoot()).toEqual(false);
     expect(childEl.query(By.css('.tree')).classes['rootless']).toEqual(
-      false,
+      undefined,
       'Only element with root tree node can have rootless class'
     );
     expect(childEl.query(By.css('.value-container')).classes['rootless']).toEqual(
-      false,
+      undefined,
       'Only element with root tree node can have rootless class'
     );
   });

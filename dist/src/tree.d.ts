@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs/Observable';
 import { FoldingType, RenamableNode, TreeModel } from './tree.types';
 import { NodeMenuItem } from './menu/node-menu.component';
+import { Observable } from 'rxjs';
 export declare class Tree {
     private _children;
     private _loadChildren;
@@ -22,8 +22,8 @@ export declare class Tree {
      * @static
      */
     static isRenamable(value: any): value is RenamableNode;
-    private static cloneTreeShallow(origin);
-    private static applyNewValueToRenamable(value, newValue);
+    private static cloneTreeShallow;
+    private static applyNewValueToRenamable;
     /**
      * Build an instance of Tree from an object implementing TreeModel interface.
      * @param {TreeModel} model - A model that is used to build a tree.
@@ -31,7 +31,7 @@ export declare class Tree {
      * @param {boolean} [isBranch] - An option that makes a branch from created tree. Branch can have children.
      */
     constructor(node: TreeModel, parent?: Tree, isBranch?: boolean);
-    private buildTreeFromModel(model, parent, isBranch);
+    private buildTreeFromModel;
     hasDeferredChildren(): boolean;
     loadingChildrenRequested(): void;
     /**
@@ -46,7 +46,7 @@ export declare class Tree {
      * @returns {boolean} A flag indicating that children were loaded.
      */
     childrenWereLoaded(): boolean;
-    private canLoadChildren();
+    private canLoadChildren;
     /**
      * Check whether children of the node should be loaded and not loaded yet.
      * Makes sense only for nodes that define `loadChildren` function.
@@ -57,13 +57,13 @@ export declare class Tree {
      * Get children of the current tree.
      * @returns {Tree[]} The children of the current tree.
      */
-    readonly children: Tree[];
+    get children(): Tree[];
     /**
      * By getting value from this property you start process of loading node's children using `loadChildren` function.
      * Once children are loaded `loadChildren` function won't be called anymore and loaded for the first time children are emitted in case of subsequent calls.
      * @returns {Observable<Tree[]>} An observable which emits children once they are loaded.
      */
-    readonly childrenAsync: Observable<Tree[]>;
+    get childrenAsync(): Observable<Tree[]>;
     /**
      * By calling this method you start process of loading node's children using `loadChildren` function.
      */
@@ -83,17 +83,20 @@ export declare class Tree {
      * Get the value of the current node
      * @returns {(string|RenamableNode)} The value of the node.
      */
+    get value(): any;
+    set checked(checked: boolean);
+    get checked(): boolean;
+    get checkedChildren(): Tree[];
+    set selectionAllowed(selectionAllowed: boolean);
+    get selectionAllowed(): boolean;
+    hasLoadedChildren(): boolean;
+    loadedChildrenAmount(): number;
+    checkedChildrenAmount(): number;
     /**
      * Set the value of the current node
      * @param {(string|RenamableNode)} value - The new value of the node.
      */
-    value: any;
-    checked: boolean;
-    readonly checkedChildren: Tree[];
-    selectionAllowed: boolean;
-    hasLoadedChildren(): boolean;
-    loadedChildrenAmount(): number;
-    checkedChildrenAmount(): number;
+    set value(value: any);
     /**
      * Add a sibling node for the current node. This won't work if the current node is a root.
      * @param {Tree} sibling - A node that should become a sibling.
@@ -108,7 +111,7 @@ export declare class Tree {
      * @returns {Tree} A newly inserted child.
      */
     addChild(child: Tree, position?: number): Tree;
-    private _addChild(child, position?);
+    private _addChild;
     /**
      * Moves a given sibling above the this node.
      * If node passed as a parameter is not a sibling - nothing happens.
@@ -125,7 +128,7 @@ export declare class Tree {
      * Get a node's position in its parent.
      * @returns {number} The position inside a parent.
      */
-    readonly positionInParent: number;
+    get positionInParent(): number;
     /**
      * Check whether or not this tree is static.
      * @returns {boolean} A flag indicating whether or not this tree is static.
@@ -155,7 +158,7 @@ export declare class Tree {
      * Get menu items of the current tree.
      * @returns {NodeMenuItem[]} The menu items of the current tree.
      */
-    readonly menuItems: NodeMenuItem[];
+    get menuItems(): NodeMenuItem[];
     /**
      * Check whether or not this tree has a custom menu.
      * @returns {boolean} A flag indicating whether or not this tree has a custom menu.
@@ -217,30 +220,30 @@ export declare class Tree {
     /**
      * Set a current folding type: expanded, collapsed or leaf.
      */
-    private _setFoldingType();
+    private _setFoldingType;
     /**
      * Get a current folding type: expanded, collapsed or leaf.
      * @returns {FoldingType} A folding type of the current tree.
      */
-    readonly foldingType: FoldingType;
+    get foldingType(): FoldingType;
     /**
      * Get a css class for element which displayes folding state - expanded, collapsed or leaf
      * @returns {string} A string icontaining css class (classes)
      */
-    readonly foldingCssClass: string;
-    private getCssClassesFromSettings();
+    get foldingCssClass(): string;
+    private getCssClassesFromSettings;
     /**
      * Get a html template to render before every node's name.
      * @returns {string} A string representing a html template.
      */
-    readonly nodeTemplate: string;
-    private getTemplateFromSettings();
+    get nodeTemplate(): string;
+    private getTemplateFromSettings;
     /**
      * Get a html template to render for an element activatin left menu of a node.
      * @returns {string} A string representing a html template.
      */
-    readonly leftMenuTemplate: string;
-    readonly dragTemplate: string;
+    get leftMenuTemplate(): string;
+    get dragTemplate(): string;
     disableCollapseOnInit(): void;
     isCollapsedOnInit(): boolean;
     keepNodesInDOM(): any;
@@ -249,7 +252,8 @@ export declare class Tree {
      * @returns {boolean} A flag whether the tree is new.
      */
     isNew(): boolean;
-    id: number | string;
+    get id(): number | string;
+    set id(id: number | string);
     /**
      * Mark current tree as new (@see {@link isNew}).
      */

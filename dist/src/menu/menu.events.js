@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NodeMenuAction = exports.NodeMenuItemAction = void 0;
 var NodeMenuItemAction;
 (function (NodeMenuItemAction) {
     NodeMenuItemAction[NodeMenuItemAction["NewFolder"] = 0] = "NewFolder";
