@@ -388,8 +388,8 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_div_3_Template(rf, ctx) {
         if (rf & 1) {
             var _r13 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "div", 13);
-            i0.ɵɵelementStart(1, "input", 14, 15);
+            i0.ɵɵelementStart(0, "div", 14);
+            i0.ɵɵelementStart(1, "input", 15, 16);
             i0.ɵɵlistener("change", function TreeInternalComponent_ul_0_div_3_Template_input_change_1_listener() {
                 i0.ɵɵrestoreView(_r13);var ctx_r12 = i0.ɵɵnextContext(2);return ctx_r12.switchNodeCheckStatus();
             });
@@ -403,7 +403,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_div_5_div_1_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "div", 21);
+            i0.ɵɵelement(0, "div", 22);
             i0.ɵɵpipe(1, "safeHtml");
         }if (rf & 2) {
             var ctx_r14 = i0.ɵɵnextContext(3);
@@ -412,7 +412,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_div_5_span_2_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "span", 22);
+            i0.ɵɵelement(0, "span", 23);
             i0.ɵɵpipe(1, "safeHtml");
         }if (rf & 2) {
             var ctx_r15 = i0.ɵɵnextContext(3);
@@ -421,7 +421,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_div_5_span_3_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "span", 23);
+            i0.ɵɵelement(0, "span", 24);
         }
     }
     function TreeInternalComponent_ul_0_div_5_ng_template_4_Template(rf, ctx) {}
@@ -431,16 +431,16 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_div_5_Template(rf, ctx) {
         if (rf & 1) {
             var _r19 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "div", 16);
+            i0.ɵɵelementStart(0, "div", 17);
             i0.ɵɵlistener("dblclick", function TreeInternalComponent_ul_0_div_5_Template_div_dblclick_0_listener($event) {
                 i0.ɵɵrestoreView(_r19);var ctx_r18 = i0.ɵɵnextContext(2);return ctx_r18.onNodeDoubleClicked($event);
             })("click", function TreeInternalComponent_ul_0_div_5_Template_div_click_0_listener($event) {
                 i0.ɵɵrestoreView(_r19);var ctx_r20 = i0.ɵɵnextContext(2);return ctx_r20.onNodeSelected($event);
             });
-            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_5_div_1_Template, 2, 3, "div", 17);
-            i0.ɵɵtemplate(2, TreeInternalComponent_ul_0_div_5_span_2_Template, 2, 3, "span", 18);
-            i0.ɵɵtemplate(3, TreeInternalComponent_ul_0_div_5_span_3_Template, 1, 0, "span", 19);
-            i0.ɵɵtemplate(4, TreeInternalComponent_ul_0_div_5_ng_template_4_Template, 0, 0, "ng-template", 20);
+            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_5_div_1_Template, 2, 3, "div", 18);
+            i0.ɵɵtemplate(2, TreeInternalComponent_ul_0_div_5_span_2_Template, 2, 3, "span", 19);
+            i0.ɵɵtemplate(3, TreeInternalComponent_ul_0_div_5_span_3_Template, 1, 0, "span", 20);
+            i0.ɵɵtemplate(4, TreeInternalComponent_ul_0_div_5_ng_template_4_Template, 0, 0, "ng-template", 21);
             i0.ɵɵelementEnd();
         }if (rf & 2) {
             var ctx_r2 = i0.ɵɵnextContext(2);
@@ -458,7 +458,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_input_6_Template(rf, ctx) {
         if (rf & 1) {
             var _r22 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "input", 24);
+            i0.ɵɵelementStart(0, "input", 25);
             i0.ɵɵlistener("keydown", function TreeInternalComponent_ul_0_input_6_Template_input_keydown_0_listener($event) {
                 i0.ɵɵrestoreView(_r22);var ctx_r21 = i0.ɵɵnextContext(2);return ctx_r21.keydownHandler($event);
             })("input", function TreeInternalComponent_ul_0_input_6_Template_input_input_0_listener($event) {
@@ -475,7 +475,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_div_7_Template(rf, ctx) {
         if (rf & 1) {
             var _r26 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "div", 25);
+            i0.ɵɵelementStart(0, "div", 26);
             i0.ɵɵlistener("click", function TreeInternalComponent_ul_0_div_7_Template_div_click_0_listener($event) {
                 i0.ɵɵrestoreView(_r26);var ctx_r25 = i0.ɵɵnextContext(2);return ctx_r25.showLeftMenu($event);
             });
@@ -488,7 +488,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_node_menu_8_Template(rf, ctx) {
         if (rf & 1) {
             var _r28 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "node-menu", 26);
+            i0.ɵɵelementStart(0, "node-menu", 27);
             i0.ɵɵlistener("menuItemSelected", function TreeInternalComponent_ul_0_node_menu_8_Template_node_menu_menuItemSelected_0_listener($event) {
                 i0.ɵɵrestoreView(_r28);var ctx_r27 = i0.ɵɵnextContext(2);return ctx_r27.onMenuItemSelected($event);
             });
@@ -497,7 +497,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_div_9_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "div", 27);
+            i0.ɵɵelement(0, "div", 28);
             i0.ɵɵpipe(1, "safeHtml");
         }if (rf & 2) {
             var ctx_r6 = i0.ɵɵnextContext(2);
@@ -507,29 +507,32 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_node_menu_10_Template(rf, ctx) {
         if (rf & 1) {
             var _r30 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "node-menu", 26);
+            i0.ɵɵelementStart(0, "node-menu", 29);
             i0.ɵɵlistener("menuItemSelected", function TreeInternalComponent_ul_0_node_menu_10_Template_node_menu_menuItemSelected_0_listener($event) {
                 i0.ɵɵrestoreView(_r30);var ctx_r29 = i0.ɵɵnextContext(2);return ctx_r29.onMenuItemSelected($event);
             });
             i0.ɵɵelementEnd();
+        }if (rf & 2) {
+            var ctx_r7 = i0.ɵɵnextContext(2);
+            i0.ɵɵproperty("cursorCoordinates", ctx_r7.cursorCoordinates);
         }
     }
     function TreeInternalComponent_ul_0_node_menu_11_Template(rf, ctx) {
         if (rf & 1) {
             var _r32 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "node-menu", 28);
+            i0.ɵɵelementStart(0, "node-menu", 30);
             i0.ɵɵlistener("menuItemSelected", function TreeInternalComponent_ul_0_node_menu_11_Template_node_menu_menuItemSelected_0_listener($event) {
                 i0.ɵɵrestoreView(_r32);var ctx_r31 = i0.ɵɵnextContext(2);return ctx_r31.onMenuItemSelected($event);
             });
             i0.ɵɵelementEnd();
         }if (rf & 2) {
             var ctx_r8 = i0.ɵɵnextContext(2);
-            i0.ɵɵproperty("menuItems", ctx_r8.tree.menuItems);
+            i0.ɵɵproperty("menuItems", ctx_r8.tree.menuItems)("cursorCoordinates", ctx_r8.cursorCoordinates);
         }
     }
     function TreeInternalComponent_ul_0_div_12_tree_internal_1_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "tree-internal", 31);
+            i0.ɵɵelement(0, "tree-internal", 33);
         }if (rf & 2) {
             var child_r34 = ctx.$implicit;
             var ctx_r33 = i0.ɵɵnextContext(3);
@@ -541,8 +544,8 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     };
     function TreeInternalComponent_ul_0_div_12_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 29);
-            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_12_tree_internal_1_Template, 1, 3, "tree-internal", 30);
+            i0.ɵɵelementStart(0, "div", 31);
+            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_12_tree_internal_1_Template, 1, 3, "tree-internal", 32);
             i0.ɵɵpipe(2, "async");
             i0.ɵɵelementEnd();
         }if (rf & 2) {
@@ -554,7 +557,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_ng_template_13_tree_internal_0_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "tree-internal", 31);
+            i0.ɵɵelement(0, "tree-internal", 33);
         }if (rf & 2) {
             var child_r36 = ctx.$implicit;
             var ctx_r35 = i0.ɵɵnextContext(3);
@@ -563,7 +566,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_ng_template_13_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵtemplate(0, TreeInternalComponent_ul_0_ng_template_13_tree_internal_0_Template, 1, 3, "tree-internal", 30);
+            i0.ɵɵtemplate(0, TreeInternalComponent_ul_0_ng_template_13_tree_internal_0_Template, 1, 3, "tree-internal", 32);
             i0.ɵɵpipe(1, "async");
         }if (rf & 2) {
             var ctx_r10 = i0.ɵɵnextContext(2);
@@ -597,10 +600,10 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             i0.ɵɵtemplate(8, TreeInternalComponent_ul_0_node_menu_8_Template, 1, 0, "node-menu", 8);
             i0.ɵɵtemplate(9, TreeInternalComponent_ul_0_div_9_Template, 2, 3, "div", 9);
             i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(10, TreeInternalComponent_ul_0_node_menu_10_Template, 1, 0, "node-menu", 8);
-            i0.ɵɵtemplate(11, TreeInternalComponent_ul_0_node_menu_11_Template, 1, 1, "node-menu", 10);
-            i0.ɵɵtemplate(12, TreeInternalComponent_ul_0_div_12_Template, 3, 6, "div", 11);
-            i0.ɵɵtemplate(13, TreeInternalComponent_ul_0_ng_template_13_Template, 2, 3, "ng-template", 12);
+            i0.ɵɵtemplate(10, TreeInternalComponent_ul_0_node_menu_10_Template, 1, 1, "node-menu", 10);
+            i0.ɵɵtemplate(11, TreeInternalComponent_ul_0_node_menu_11_Template, 1, 2, "node-menu", 11);
+            i0.ɵɵtemplate(12, TreeInternalComponent_ul_0_div_12_Template, 3, 6, "div", 12);
+            i0.ɵɵtemplate(13, TreeInternalComponent_ul_0_ng_template_13_Template, 2, 3, "ng-template", 13);
             i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
         }if (rf & 2) {
@@ -665,8 +668,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
                 this.tree.disableCollapseOnInit();
             }
             this.subscriptions.push(this.nodeMenuService.hideMenuStream(this.nodeElementRef).subscribe(function () {
-                _this.isRightMenuVisible = false;
-                _this.isLeftMenuVisible = false;
+                _this.hideMenus();
             }));
             this.subscriptions.push(this.treeService.unselectStream(this.tree).subscribe(function () {
                 return _this.isSelected = false;
@@ -721,6 +723,11 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
                     parentCtrl.updateCheckboxState();
                 }
             }
+        };
+        TreeInternalComponent.prototype.hideMenus = function () {
+            this.cursorCoordinates = undefined;
+            this.isRightMenuVisible = false;
+            this.isLeftMenuVisible = false;
         };
         TreeInternalComponent.prototype.moveSibling = function (sibling, tree, position) {
             var previousPositionInParent = sibling.positionInParent;
@@ -784,6 +791,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
                 return;
             }
             if (EventUtils.isRightButtonClicked(e)) {
+                this.setCursorCoordinates(e);
                 this.isRightMenuVisible = !this.isRightMenuVisible;
                 this.nodeMenuService.hideMenuForAllNodesExcept(this.nodeElementRef);
             }
@@ -823,15 +831,16 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
                     throw new Error("Chosen menu item doesn't exist");
             }
         };
+        TreeInternalComponent.prototype.setCursorCoordinates = function (e) {
+            this.cursorCoordinates = { x: e.clientX, y: e.clientY };
+        };
         TreeInternalComponent.prototype.onNewSelected = function (e) {
             this.tree.createNode(e.nodeMenuItemAction === menu_events_1.NodeMenuItemAction.NewFolder);
-            this.isRightMenuVisible = false;
-            this.isLeftMenuVisible = false;
+            this.hideMenus();
         };
         TreeInternalComponent.prototype.onRenameSelected = function () {
             this.tree.markAsBeingRenamed();
-            this.isRightMenuVisible = false;
-            this.isLeftMenuVisible = false;
+            this.hideMenus();
         };
         TreeInternalComponent.prototype.onRemoveSelected = function () {
             var nodeId = fn_utils_1.get(this.tree, 'node.id', '');
@@ -840,8 +849,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             this.treeService.fireNodeRemoved(this.tree);
         };
         TreeInternalComponent.prototype.onCustomSelected = function () {
-            this.isRightMenuVisible = false;
-            this.isLeftMenuVisible = false;
+            this.hideMenus();
         };
         TreeInternalComponent.prototype.onSwitchFoldingType = function () {
             this.tree.switchFoldingType();
@@ -978,7 +986,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
                     var _t = void 0;
                     i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.checkboxElementRef = _t.first);
                 }
-            }, inputs: { tree: "tree", settings: "settings", template: "template" }, features: [i0.ɵɵNgOnChangesFeature], decls: 1, vars: 1, consts: [["class", "tree", 3, "ngClass", 4, "ngIf"], [1, "tree", 3, "ngClass"], [1, "value-container", 3, "ngClass", "nodeDraggable", "tree", "contextmenu"], ["class", "node-checkbox", 4, "ngIf"], [1, "folding", 3, "ngClass", "click"], ["class", "node-value", 3, "node-selected", "dblclick", "click", 4, "ngIf"], ["type", "text", "class", "node-value", "id", "rename-input", 3, "nodeEditable", "keydown", "input", "valueChanged", 4, "ngIf"], ["class", "node-left-menu", 3, "innerHTML", "click", 4, "ngIf"], [3, "menuItemSelected", 4, "ngIf"], ["class", "drag-template", 3, "innerHTML", 4, "ngIf"], [3, "menuItems", "menuItemSelected", 4, "ngIf"], [3, "ngStyle", 4, "ngIf"], [3, "ngIf"], [1, "node-checkbox"], ["checkbox", "", "type", "checkbox", 3, "disabled", "checked", "change"], ["checkbox", ""], [1, "node-value", 3, "dblclick", "click"], ["class", "node-template", 3, "innerHTML", 4, "ngIf"], ["class", "node-name", 3, "innerHTML", 4, "ngIf"], ["class", "loading-children", 4, "ngIf"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "node-template", 3, "innerHTML"], [1, "node-name", 3, "innerHTML"], [1, "loading-children"], ["type", "text", "id", "rename-input", 1, "node-value", 3, "nodeEditable", "keydown", "input", "valueChanged"], [1, "node-left-menu", 3, "innerHTML", "click"], [3, "menuItemSelected"], [1, "drag-template", 3, "innerHTML"], [3, "menuItems", "menuItemSelected"], [3, "ngStyle"], [3, "tree", "template", "settings", 4, "ngFor", "ngForOf"], [3, "tree", "template", "settings"]], template: function TreeInternalComponent_Template(rf, ctx) {
+            }, inputs: { tree: "tree", settings: "settings", template: "template" }, features: [i0.ɵɵNgOnChangesFeature], decls: 1, vars: 1, consts: [["class", "tree", 3, "ngClass", 4, "ngIf"], [1, "tree", 3, "ngClass"], [1, "value-container", 3, "ngClass", "nodeDraggable", "tree", "contextmenu"], ["class", "node-checkbox", 4, "ngIf"], [1, "folding", 3, "ngClass", "click"], ["class", "node-value", 3, "node-selected", "dblclick", "click", 4, "ngIf"], ["type", "text", "class", "node-value", "id", "rename-input", 3, "nodeEditable", "keydown", "input", "valueChanged", 4, "ngIf"], ["class", "node-left-menu", 3, "innerHTML", "click", 4, "ngIf"], [3, "menuItemSelected", 4, "ngIf"], ["class", "drag-template", 3, "innerHTML", 4, "ngIf"], [3, "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "menuItems", "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "ngStyle", 4, "ngIf"], [3, "ngIf"], [1, "node-checkbox"], ["checkbox", "", "type", "checkbox", 3, "disabled", "checked", "change"], ["checkbox", ""], [1, "node-value", 3, "dblclick", "click"], ["class", "node-template", 3, "innerHTML", 4, "ngIf"], ["class", "node-name", 3, "innerHTML", 4, "ngIf"], ["class", "loading-children", 4, "ngIf"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "node-template", 3, "innerHTML"], [1, "node-name", 3, "innerHTML"], [1, "loading-children"], ["type", "text", "id", "rename-input", 1, "node-value", 3, "nodeEditable", "keydown", "input", "valueChanged"], [1, "node-left-menu", 3, "innerHTML", "click"], [3, "menuItemSelected"], [1, "drag-template", 3, "innerHTML"], [3, "cursorCoordinates", "menuItemSelected"], [3, "menuItems", "cursorCoordinates", "menuItemSelected"], [3, "ngStyle"], [3, "tree", "template", "settings", 4, "ngFor", "ngForOf"], [3, "tree", "template", "settings"]], template: function TreeInternalComponent_Template(rf, ctx) {
                 if (rf & 1) {
                     i0.ɵɵtemplate(0, TreeInternalComponent_ul_0_Template, 14, 22, "ul", 0);
                 }if (rf & 2) {
@@ -993,7 +1001,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             type: core_1.Component,
             args: [{
                 selector: 'tree-internal',
-                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n          <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n        </div>\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (dblclick)=\"onNodeDoubleClicked($event)\"\n          (click)=\"onNodeSelected($event)\">\n            <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n            <span *ngIf=\"!template\" class=\"node-name\" [innerHTML]=\"tree.value | safeHtml\"></span>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\" id=\"rename-input\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (keydown)=\"keydownHandler($event)\"\n           (input)=\"inputChangeHandler($event)\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
+                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n          <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n        </div>\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (dblclick)=\"onNodeDoubleClicked($event)\"\n          (click)=\"onNodeSelected($event)\">\n            <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n            <span *ngIf=\"!template\" class=\"node-name\" [innerHTML]=\"tree.value | safeHtml\"></span>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\" id=\"rename-input\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (keydown)=\"keydownHandler($event)\"\n           (input)=\"inputChangeHandler($event)\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
             }]
         }], function () {
             return [{ type: i1.NodeMenuService }, { type: i2.TreeService }, { type: i3.NodeDraggableService }, { type: i0.ElementRef }];
@@ -2618,28 +2626,29 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
     var i0 = $__require("d");
     var i1 = $__require("16");
     var i2 = $__require("1d");
-    var _c0 = ["menuContainer"];
-    function NodeMenuComponent_li_3_Template(rf, ctx) {
+    var _c0 = ["menuContent"];
+    var _c1 = ["menuContainer"];
+    function NodeMenuComponent_li_4_Template(rf, ctx) {
         if (rf & 1) {
-            var _r4 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "li", 4);
-            i0.ɵɵlistener("click", function NodeMenuComponent_li_3_Template_li_click_0_listener($event) {
-                i0.ɵɵrestoreView(_r4);var menuItem_r2 = ctx.$implicit;var ctx_r3 = i0.ɵɵnextContext();return ctx_r3.onMenuItemSelected($event, menuItem_r2);
+            var _r5 = i0.ɵɵgetCurrentView();
+            i0.ɵɵelementStart(0, "li", 5);
+            i0.ɵɵlistener("click", function NodeMenuComponent_li_4_Template_li_click_0_listener($event) {
+                i0.ɵɵrestoreView(_r5);var menuItem_r3 = ctx.$implicit;var ctx_r4 = i0.ɵɵnextContext();return ctx_r4.onMenuItemSelected($event, menuItem_r3);
             });
             i0.ɵɵelement(1, "div");
-            i0.ɵɵelementStart(2, "span", 5);
+            i0.ɵɵelementStart(2, "span", 6);
             i0.ɵɵtext(3);
             i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
         }if (rf & 2) {
-            var menuItem_r2 = ctx.$implicit;
+            var menuItem_r3 = ctx.$implicit;
             i0.ɵɵadvance(1);
-            i0.ɵɵclassMapInterpolate1("node-menu-item-icon ", menuItem_r2.cssClass, "");
+            i0.ɵɵclassMapInterpolate1("node-menu-item-icon ", menuItem_r3.cssClass, "");
             i0.ɵɵadvance(2);
-            i0.ɵɵtextInterpolate(menuItem_r2.name);
+            i0.ɵɵtextInterpolate(menuItem_r3.name);
         }
     }
-    var _c1 = function (a0) {
+    var _c2 = function (a0) {
         return { "visibility": a0 };
     };
     var NodeMenuComponent = /** @class */function () {
@@ -2673,7 +2682,7 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
             this.disposersForGlobalListeners.push(this.renderer.listen('document', 'mousedown', this.closeMenu.bind(this)));
         };
         NodeMenuComponent.prototype.ngAfterViewInit = function () {
-            this.displayAboveOrBelow();
+            this.positionMenu();
         };
         NodeMenuComponent.prototype.ngOnDestroy = function () {
             this.disposersForGlobalListeners.forEach(function (dispose) {
@@ -2689,16 +2698,16 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
                 this.nodeMenuService.fireMenuEvent(e.target, menu_events_1.NodeMenuAction.Close);
             }
         };
-        NodeMenuComponent.prototype.displayAboveOrBelow = function () {
+        NodeMenuComponent.prototype.positionMenu = function () {
             var _this = this;
-            var menuContainerElem = this.menuContainer.nativeElement;
-            var elemBCR = menuContainerElem.getBoundingClientRect();
+            var menuContentElem = this.menuContent.nativeElement;
+            var elemBCR = menuContentElem.getBoundingClientRect();
             var elemTop = elemBCR.top;
             var elemHeight = elemBCR.height;
-            var defaultDisplay = menuContainerElem.style.display;
-            menuContainerElem.style.display = 'none';
-            var scrollContainer = this.getScrollParent(menuContainerElem);
-            menuContainerElem.style.display = defaultDisplay;
+            var defaultDisplay = menuContentElem.style.display;
+            menuContentElem.style.display = 'none';
+            var scrollContainer = this.getScrollParent(menuContentElem);
+            menuContentElem.style.display = defaultDisplay;
             var viewportBottom;
             if (scrollContainer) {
                 var containerBCR = scrollContainer.getBoundingClientRect();
@@ -2708,7 +2717,11 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
                 viewportBottom = window.innerHeight;
             }
             var style = elemTop + elemHeight > viewportBottom ? 'bottom: 0' : 'top: 0';
-            menuContainerElem.setAttribute('style', style);
+            menuContentElem.setAttribute('style', style);
+            if (this.cursorCoordinates && this.cursorCoordinates.x && this.cursorCoordinates.y) {
+                var menuContainerElem = this.menuContainer.nativeElement;
+                menuContainerElem.setAttribute('style', "position: fixed; top: " + this.cursorCoordinates.y + "px; left: " + this.cursorCoordinates.x + "px");
+            }
             setTimeout(function () {
                 return _this.visibility = 'visible';
             });
@@ -2726,7 +2739,7 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
         NodeMenuComponent.prototype.closeMenu = function (e) {
             var mouseClicked = e instanceof MouseEvent;
             // Check if the click is fired on an element inside a menu
-            var containingTarget = this.menuContainer.nativeElement !== e.target && this.menuContainer.nativeElement.contains(e.target);
+            var containingTarget = this.menuContent.nativeElement !== e.target && this.menuContent.nativeElement.contains(e.target);
             if (mouseClicked && !containingTarget || event_utils_1.isEscapePressed(e)) {
                 this.nodeMenuService.fireMenuEvent(e.target, menu_events_1.NodeMenuAction.Close);
             }
@@ -2737,20 +2750,22 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
         NodeMenuComponent.ɵcmp = i0.ɵɵdefineComponent({ type: NodeMenuComponent, selectors: [["node-menu"]], viewQuery: function NodeMenuComponent_Query(rf, ctx) {
                 if (rf & 1) {
                     i0.ɵɵviewQuery(_c0, 1);
+                    i0.ɵɵviewQuery(_c1, 1);
                 }if (rf & 2) {
                     var _t = void 0;
+                    i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.menuContent = _t.first);
                     i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.menuContainer = _t.first);
                 }
-            }, inputs: { menuItems: "menuItems" }, outputs: { menuItemSelected: "menuItemSelected" }, decls: 4, vars: 4, consts: [[1, "node-menu", 3, "ngStyle"], [1, "node-menu-content"], ["menuContainer", ""], ["class", "node-menu-item", 3, "click", 4, "ngFor", "ngForOf"], [1, "node-menu-item", 3, "click"], [1, "node-menu-item-value"]], template: function NodeMenuComponent_Template(rf, ctx) {
+            }, inputs: { menuItems: "menuItems", cursorCoordinates: "cursorCoordinates" }, outputs: { menuItemSelected: "menuItemSelected" }, decls: 5, vars: 4, consts: [[1, "node-menu", 3, "ngStyle"], ["menuContainer", ""], [1, "node-menu-content"], ["menuContent", ""], ["class", "node-menu-item", 3, "click", 4, "ngFor", "ngForOf"], [1, "node-menu-item", 3, "click"], [1, "node-menu-item-value"]], template: function NodeMenuComponent_Template(rf, ctx) {
                 if (rf & 1) {
-                    i0.ɵɵelementStart(0, "div", 0);
-                    i0.ɵɵelementStart(1, "ul", 1, 2);
-                    i0.ɵɵtemplate(3, NodeMenuComponent_li_3_Template, 4, 4, "li", 3);
+                    i0.ɵɵelementStart(0, "div", 0, 1);
+                    i0.ɵɵelementStart(2, "ul", 2, 3);
+                    i0.ɵɵtemplate(4, NodeMenuComponent_li_4_Template, 4, 4, "li", 4);
                     i0.ɵɵelementEnd();
                     i0.ɵɵelementEnd();
                 }if (rf & 2) {
-                    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(2, _c1, ctx.visibility));
-                    i0.ɵɵadvance(3);
+                    i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(2, _c2, ctx.visibility));
+                    i0.ɵɵadvance(4);
                     i0.ɵɵproperty("ngForOf", ctx.availableMenuItems);
                 }
             }, directives: [i2.NgStyle, i2.NgForOf], encapsulation: 2 });
@@ -2762,7 +2777,7 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
             type: core_1.Component,
             args: [{
                 selector: 'node-menu',
-                template: "\n    <div class=\"node-menu\"  [ngStyle]=\"{'visibility': visibility}\">\n      <ul class=\"node-menu-content\" #menuContainer>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
+                template: "\n    <div class=\"node-menu\" [ngStyle]=\"{'visibility': visibility}\" #menuContainer>\n      <ul class=\"node-menu-content\" #menuContent>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
             }]
         }], function () {
             return [{ type: i0.Renderer2, decorators: [{
@@ -2776,6 +2791,11 @@ $__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($
                 type: core_1.Output
             }], menuItems: [{
                 type: core_1.Input
+            }], cursorCoordinates: [{
+                type: core_1.Input
+            }], menuContent: [{
+                type: core_1.ViewChild,
+                args: ['menuContent']
             }], menuContainer: [{
                 type: core_1.ViewChild,
                 args: ['menuContainer']
@@ -3455,7 +3475,7 @@ $__System.registerDynamic("21", ["d", "2d"], true, function ($__require, exports
     })();
 
 });
-$__System.registerDynamic("2e", ["b", "d", "c", "11", "1e", "19", "1f", "20", "16", "e", "21", "1d"], true, function ($__require, exports, module) {
+$__System.registerDynamic("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "20", "16", "e", "21"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -3466,6 +3486,7 @@ $__System.registerDynamic("2e", ["b", "d", "c", "11", "1e", "19", "1f", "20", "1
     var core_1 = $__require("d");
     var tree_component_1 = $__require("c");
     var tree_internal_component_1 = $__require("11");
+    var common_1 = $__require("1d");
     var node_draggable_directive_1 = $__require("1e");
     var node_draggable_service_1 = $__require("19");
     var node_editable_directive_1 = $__require("1f");
@@ -3473,7 +3494,6 @@ $__System.registerDynamic("2e", ["b", "d", "c", "11", "1e", "19", "1f", "20", "1
     var node_menu_service_1 = $__require("16");
     var tree_service_1 = $__require("e");
     var safe_html_pipe_1 = $__require("21");
-    var common_1 = $__require("1d");
     var i0 = $__require("d");
     var TreeModule = /** @class */function () {
         function TreeModule() {}

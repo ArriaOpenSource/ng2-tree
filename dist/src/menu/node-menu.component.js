@@ -8,24 +8,25 @@ var event_utils_1 = require("../utils/event.utils");
 var i0 = require("@angular/core");
 var i1 = require("./node-menu.service");
 var i2 = require("@angular/common");
-var _c0 = ["menuContainer"];
-function NodeMenuComponent_li_3_Template(rf, ctx) { if (rf & 1) {
-    var _r4 = i0.ɵɵgetCurrentView();
-    i0.ɵɵelementStart(0, "li", 4);
-    i0.ɵɵlistener("click", function NodeMenuComponent_li_3_Template_li_click_0_listener($event) { i0.ɵɵrestoreView(_r4); var menuItem_r2 = ctx.$implicit; var ctx_r3 = i0.ɵɵnextContext(); return ctx_r3.onMenuItemSelected($event, menuItem_r2); });
+var _c0 = ["menuContent"];
+var _c1 = ["menuContainer"];
+function NodeMenuComponent_li_4_Template(rf, ctx) { if (rf & 1) {
+    var _r5 = i0.ɵɵgetCurrentView();
+    i0.ɵɵelementStart(0, "li", 5);
+    i0.ɵɵlistener("click", function NodeMenuComponent_li_4_Template_li_click_0_listener($event) { i0.ɵɵrestoreView(_r5); var menuItem_r3 = ctx.$implicit; var ctx_r4 = i0.ɵɵnextContext(); return ctx_r4.onMenuItemSelected($event, menuItem_r3); });
     i0.ɵɵelement(1, "div");
-    i0.ɵɵelementStart(2, "span", 5);
+    i0.ɵɵelementStart(2, "span", 6);
     i0.ɵɵtext(3);
     i0.ɵɵelementEnd();
     i0.ɵɵelementEnd();
 } if (rf & 2) {
-    var menuItem_r2 = ctx.$implicit;
+    var menuItem_r3 = ctx.$implicit;
     i0.ɵɵadvance(1);
-    i0.ɵɵclassMapInterpolate1("node-menu-item-icon ", menuItem_r2.cssClass, "");
+    i0.ɵɵclassMapInterpolate1("node-menu-item-icon ", menuItem_r3.cssClass, "");
     i0.ɵɵadvance(2);
-    i0.ɵɵtextInterpolate(menuItem_r2.name);
+    i0.ɵɵtextInterpolate(menuItem_r3.name);
 } }
-var _c1 = function (a0) { return { "visibility": a0 }; };
+var _c2 = function (a0) { return { "visibility": a0 }; };
 var NodeMenuComponent = /** @class */ (function () {
     function NodeMenuComponent(renderer, nodeMenuService) {
         this.renderer = renderer;
@@ -62,7 +63,7 @@ var NodeMenuComponent = /** @class */ (function () {
         this.disposersForGlobalListeners.push(this.renderer.listen('document', 'mousedown', this.closeMenu.bind(this)));
     };
     NodeMenuComponent.prototype.ngAfterViewInit = function () {
-        this.displayAboveOrBelow();
+        this.positionMenu();
     };
     NodeMenuComponent.prototype.ngOnDestroy = function () {
         this.disposersForGlobalListeners.forEach(function (dispose) { return dispose(); });
@@ -76,16 +77,16 @@ var NodeMenuComponent = /** @class */ (function () {
             this.nodeMenuService.fireMenuEvent(e.target, menu_events_1.NodeMenuAction.Close);
         }
     };
-    NodeMenuComponent.prototype.displayAboveOrBelow = function () {
+    NodeMenuComponent.prototype.positionMenu = function () {
         var _this = this;
-        var menuContainerElem = this.menuContainer.nativeElement;
-        var elemBCR = menuContainerElem.getBoundingClientRect();
+        var menuContentElem = this.menuContent.nativeElement;
+        var elemBCR = menuContentElem.getBoundingClientRect();
         var elemTop = elemBCR.top;
         var elemHeight = elemBCR.height;
-        var defaultDisplay = menuContainerElem.style.display;
-        menuContainerElem.style.display = 'none';
-        var scrollContainer = this.getScrollParent(menuContainerElem);
-        menuContainerElem.style.display = defaultDisplay;
+        var defaultDisplay = menuContentElem.style.display;
+        menuContentElem.style.display = 'none';
+        var scrollContainer = this.getScrollParent(menuContentElem);
+        menuContentElem.style.display = defaultDisplay;
         var viewportBottom;
         if (scrollContainer) {
             var containerBCR = scrollContainer.getBoundingClientRect();
@@ -96,7 +97,11 @@ var NodeMenuComponent = /** @class */ (function () {
             viewportBottom = window.innerHeight;
         }
         var style = elemTop + elemHeight > viewportBottom ? 'bottom: 0' : 'top: 0';
-        menuContainerElem.setAttribute('style', style);
+        menuContentElem.setAttribute('style', style);
+        if (this.cursorCoordinates && this.cursorCoordinates.x && this.cursorCoordinates.y) {
+            var menuContainerElem = this.menuContainer.nativeElement;
+            menuContainerElem.setAttribute('style', "position: fixed; top: " + this.cursorCoordinates.y + "px; left: " + this.cursorCoordinates.x + "px");
+        }
         setTimeout(function () { return (_this.visibility = 'visible'); });
     };
     NodeMenuComponent.prototype.getScrollParent = function (node) {
@@ -113,7 +118,7 @@ var NodeMenuComponent = /** @class */ (function () {
     NodeMenuComponent.prototype.closeMenu = function (e) {
         var mouseClicked = e instanceof MouseEvent;
         // Check if the click is fired on an element inside a menu
-        var containingTarget = this.menuContainer.nativeElement !== e.target && this.menuContainer.nativeElement.contains(e.target);
+        var containingTarget = this.menuContent.nativeElement !== e.target && this.menuContent.nativeElement.contains(e.target);
         if ((mouseClicked && !containingTarget) || event_utils_1.isEscapePressed(e)) {
             this.nodeMenuService.fireMenuEvent(e.target, menu_events_1.NodeMenuAction.Close);
         }
@@ -121,18 +126,20 @@ var NodeMenuComponent = /** @class */ (function () {
     NodeMenuComponent.ɵfac = function NodeMenuComponent_Factory(t) { return new (t || NodeMenuComponent)(i0.ɵɵdirectiveInject(core_1.Renderer2), i0.ɵɵdirectiveInject(node_menu_service_1.NodeMenuService)); };
     NodeMenuComponent.ɵcmp = i0.ɵɵdefineComponent({ type: NodeMenuComponent, selectors: [["node-menu"]], viewQuery: function NodeMenuComponent_Query(rf, ctx) { if (rf & 1) {
             i0.ɵɵviewQuery(_c0, 1);
+            i0.ɵɵviewQuery(_c1, 1);
         } if (rf & 2) {
             var _t = void 0;
+            i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.menuContent = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.menuContainer = _t.first);
-        } }, inputs: { menuItems: "menuItems" }, outputs: { menuItemSelected: "menuItemSelected" }, decls: 4, vars: 4, consts: [[1, "node-menu", 3, "ngStyle"], [1, "node-menu-content"], ["menuContainer", ""], ["class", "node-menu-item", 3, "click", 4, "ngFor", "ngForOf"], [1, "node-menu-item", 3, "click"], [1, "node-menu-item-value"]], template: function NodeMenuComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 0);
-            i0.ɵɵelementStart(1, "ul", 1, 2);
-            i0.ɵɵtemplate(3, NodeMenuComponent_li_3_Template, 4, 4, "li", 3);
+        } }, inputs: { menuItems: "menuItems", cursorCoordinates: "cursorCoordinates" }, outputs: { menuItemSelected: "menuItemSelected" }, decls: 5, vars: 4, consts: [[1, "node-menu", 3, "ngStyle"], ["menuContainer", ""], [1, "node-menu-content"], ["menuContent", ""], ["class", "node-menu-item", 3, "click", 4, "ngFor", "ngForOf"], [1, "node-menu-item", 3, "click"], [1, "node-menu-item-value"]], template: function NodeMenuComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 0, 1);
+            i0.ɵɵelementStart(2, "ul", 2, 3);
+            i0.ɵɵtemplate(4, NodeMenuComponent_li_4_Template, 4, 4, "li", 4);
             i0.ɵɵelementEnd();
             i0.ɵɵelementEnd();
         } if (rf & 2) {
-            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(2, _c1, ctx.visibility));
-            i0.ɵɵadvance(3);
+            i0.ɵɵproperty("ngStyle", i0.ɵɵpureFunction1(2, _c2, ctx.visibility));
+            i0.ɵɵadvance(4);
             i0.ɵɵproperty("ngForOf", ctx.availableMenuItems);
         } }, directives: [i2.NgStyle, i2.NgForOf], encapsulation: 2 });
     return NodeMenuComponent;
@@ -142,7 +149,7 @@ exports.NodeMenuComponent = NodeMenuComponent;
         type: core_1.Component,
         args: [{
                 selector: 'node-menu',
-                template: "\n    <div class=\"node-menu\"  [ngStyle]=\"{'visibility': visibility}\">\n      <ul class=\"node-menu-content\" #menuContainer>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
+                template: "\n    <div class=\"node-menu\" [ngStyle]=\"{'visibility': visibility}\" #menuContainer>\n      <ul class=\"node-menu-content\" #menuContent>\n        <li class=\"node-menu-item\" *ngFor=\"let menuItem of availableMenuItems\"\n          (click)=\"onMenuItemSelected($event, menuItem)\">\n          <div class=\"node-menu-item-icon {{menuItem.cssClass}}\"></div>\n          <span class=\"node-menu-item-value\">{{menuItem.name}}</span>\n        </li>\n      </ul>\n    </div>\n  "
             }]
     }], function () { return [{ type: i0.Renderer2, decorators: [{
                 type: core_1.Inject,
@@ -154,6 +161,11 @@ exports.NodeMenuComponent = NodeMenuComponent;
             type: core_1.Output
         }], menuItems: [{
             type: core_1.Input
+        }], cursorCoordinates: [{
+            type: core_1.Input
+        }], menuContent: [{
+            type: core_1.ViewChild,
+            args: ['menuContent']
         }], menuContainer: [{
             type: core_1.ViewChild,
             args: ['menuContainer']

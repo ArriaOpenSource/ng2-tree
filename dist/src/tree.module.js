@@ -5,6 +5,7 @@ require("./rxjs-imports");
 var core_1 = require("@angular/core");
 var tree_component_1 = require("./tree.component");
 var tree_internal_component_1 = require("./tree-internal.component");
+var common_1 = require("@angular/common");
 var node_draggable_directive_1 = require("./draggable/node-draggable.directive");
 var node_draggable_service_1 = require("./draggable/node-draggable.service");
 var node_editable_directive_1 = require("./editable/node-editable.directive");
@@ -12,7 +13,6 @@ var node_menu_component_1 = require("./menu/node-menu.component");
 var node_menu_service_1 = require("./menu/node-menu.service");
 var tree_service_1 = require("./tree.service");
 var safe_html_pipe_1 = require("./utils/safe-html.pipe");
-var common_1 = require("@angular/common");
 var i0 = require("@angular/core");
 var TreeModule = /** @class */ (function () {
     function TreeModule() {
