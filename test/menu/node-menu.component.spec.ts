@@ -185,35 +185,45 @@ describe('NodeMenuComponent', () => {
 
   describe('ngAfterViewInit', () => {
     it('should display the menu', () => {
-      spyOn(componentInstance, 'displayAboveOrBelow');
+      spyOn(componentInstance, 'positionMenu');
       componentInstance.ngAfterViewInit();
-      expect(componentInstance.displayAboveOrBelow).toHaveBeenCalled();
+      expect(componentInstance.positionMenu).toHaveBeenCalled();
     });
   });
 
-  describe('displayAboveOrBelow', () => {
+  describe('positionMenu', () => {
     it('should determine if menu should open upwards or downwards based on available space', () => {
       const scrollableParent = document.createElement('div');
       scrollableParent.style.height = '300px';
 
-      const menuContainerElem = document.createElement('div');
-      menuContainerElem.style.height = '100px';
+      const menuContentElem = document.createElement('div');
+      menuContentElem.style.height = '100px';
 
-      scrollableParent.appendChild(menuContainerElem);
+      scrollableParent.appendChild(menuContentElem);
       document.body.appendChild(scrollableParent);
-      componentInstance.menuContainer = { nativeElement: menuContainerElem };
+      componentInstance.menuContent = { nativeElement: menuContentElem };
 
-      componentInstance.displayAboveOrBelow();
-      expect(menuContainerElem.getAttribute('style')).toEqual('top: 0');
+      componentInstance.positionMenu();
+      expect(menuContentElem.getAttribute('style')).toEqual('top: 0');
 
-      menuContainerElem.setAttribute('style', 'height: 200px');
-      scrollableParent.insertBefore(menuContainerElem.cloneNode(true), menuContainerElem);
-      scrollableParent.insertBefore(menuContainerElem.cloneNode(true), menuContainerElem);
+      menuContentElem.setAttribute('style', 'height: 200px');
+      scrollableParent.insertBefore(menuContentElem.cloneNode(true), menuContentElem);
+      scrollableParent.insertBefore(menuContentElem.cloneNode(true), menuContentElem);
 
-      componentInstance.displayAboveOrBelow();
-      expect(menuContainerElem.getAttribute('style')).toEqual('bottom: 0');
+      componentInstance.positionMenu();
+      expect(menuContentElem.getAttribute('style')).toEqual('bottom: 0');
 
       document.body.removeChild(scrollableParent);
+    });
+    it('should position menu as fixed if cursor coordinates are available', () => {
+      const menuContentElem = document.createElement('div');
+      componentInstance.menuContent = { nativeElement: menuContentElem };
+      const menuContainerElem = document.createElement('div');
+      componentInstance.menuContainer = { nativeElement: menuContainerElem };
+      componentInstance.cursorCoordinates = { x: 1, y: 2 };
+
+      componentInstance.positionMenu();
+      expect(menuContainerElem.getAttribute('style')).toEqual('position: fixed; top: 2px; left: 1px');
     });
   });
 
