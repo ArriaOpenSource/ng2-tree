@@ -17,8 +17,8 @@ import { isEscapePressed, isLeftButtonClicked } from '../utils/event.utils';
 @Component({
   selector: 'node-menu',
   template: `
-    <div class="node-menu"  [ngStyle]="{'visibility': visibility}">
-      <ul class="node-menu-content" #menuContainer>
+    <div class="node-menu" [ngStyle]="{'visibility': visibility}" #menuContainer>
+      <ul class="node-menu-content" #menuContent>
         <li class="node-menu-item" *ngFor="let menuItem of availableMenuItems"
           (click)="onMenuItemSelected($event, menuItem)">
           <div class="node-menu-item-icon {{menuItem.cssClass}}"></div>
@@ -35,7 +35,9 @@ export class NodeMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   public menuItemSelected: EventEmitter<NodeMenuItemSelectedEvent> = new EventEmitter<NodeMenuItemSelectedEvent>();
 
   @Input() public menuItems: NodeMenuItem[];
+  @Input() public cursorCoordinates?: ICursorCoordinates;
 
+  @ViewChild('menuContent') public menuContent: any;
   @ViewChild('menuContainer') public menuContainer: any;
 
   public availableMenuItems: NodeMenuItem[] = [
@@ -75,7 +77,7 @@ export class NodeMenuComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit(): void {
-    this.displayAboveOrBelow();
+    this.positionMenu();
   }
 
   public ngOnDestroy(): void {
@@ -93,17 +95,17 @@ export class NodeMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private displayAboveOrBelow(): void {
-    const menuContainerElem = this.menuContainer.nativeElement as HTMLElement;
+  private positionMenu(): void {
+    const menuContentElem = this.menuContent.nativeElement as HTMLElement;
 
-    const elemBCR = menuContainerElem.getBoundingClientRect();
+    const elemBCR = menuContentElem.getBoundingClientRect();
     const elemTop = elemBCR.top;
     const elemHeight = elemBCR.height;
 
-    const defaultDisplay = menuContainerElem.style.display;
-    menuContainerElem.style.display = 'none';
-    const scrollContainer = this.getScrollParent(menuContainerElem);
-    menuContainerElem.style.display = defaultDisplay;
+    const defaultDisplay = menuContentElem.style.display;
+    menuContentElem.style.display = 'none';
+    const scrollContainer = this.getScrollParent(menuContentElem);
+    menuContentElem.style.display = defaultDisplay;
 
     let viewportBottom;
     if (scrollContainer) {
@@ -115,7 +117,15 @@ export class NodeMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     const style = elemTop + elemHeight > viewportBottom ? 'bottom: 0' : 'top: 0';
-    menuContainerElem.setAttribute('style', style);
+    menuContentElem.setAttribute('style', style);
+
+    if (this.cursorCoordinates && this.cursorCoordinates.x && this.cursorCoordinates.y) {
+      const menuContainerElem = this.menuContainer.nativeElement as HTMLElement;
+      menuContainerElem.setAttribute(
+        'style',
+        `position: fixed; top: ${this.cursorCoordinates.y}px; left: ${this.cursorCoordinates.x}px`
+      );
+    }
     setTimeout(() => (this.visibility = 'visible'));
   }
 
@@ -135,7 +145,7 @@ export class NodeMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     const mouseClicked = e instanceof MouseEvent;
     // Check if the click is fired on an element inside a menu
     const containingTarget =
-      this.menuContainer.nativeElement !== e.target && this.menuContainer.nativeElement.contains(e.target);
+      this.menuContent.nativeElement !== e.target && this.menuContent.nativeElement.contains(e.target);
 
     if ((mouseClicked && !containingTarget) || isEscapePressed(e as KeyboardEvent)) {
       this.nodeMenuService.fireMenuEvent(e.target as HTMLElement, NodeMenuAction.Close);
@@ -147,4 +157,9 @@ export interface NodeMenuItem {
   name: string;
   action: NodeMenuItemAction;
   cssClass?: string;
+}
+
+export interface ICursorCoordinates {
+  x?: number;
+  y?: number;
 }

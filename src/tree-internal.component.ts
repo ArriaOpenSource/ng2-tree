@@ -27,6 +27,7 @@ import { NodeDraggableService } from './draggable/node-draggable.service';
 import { CapturedNode } from './draggable/captured-node';
 import { merge, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { ICursorCoordinates } from './menu/node-menu.component';
 
 @Component({
   selector: 'tree-internal',
@@ -73,12 +74,14 @@ import { filter } from 'rxjs/operators';
       </div>
 
       <node-menu *ngIf="isRightMenuVisible && !hasCustomMenu()"
-           (menuItemSelected)="onMenuItemSelected($event)">
+           (menuItemSelected)="onMenuItemSelected($event)"
+           [cursorCoordinates]="cursorCoordinates">
       </node-menu>
 
       <node-menu *ngIf="hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)"
            [menuItems]="tree.menuItems"
-           (menuItemSelected)="onMenuItemSelected($event)">
+           (menuItemSelected)="onMenuItemSelected($event)"
+           [cursorCoordinates]="cursorCoordinates">
       </node-menu>
 
       <div *ngIf="tree.keepNodesInDOM()" [ngStyle]="{'display': tree.isNodeExpanded() ? 'block' : 'none'}">
@@ -93,18 +96,17 @@ import { filter } from 'rxjs/operators';
 })
 export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
   @Input() public tree: Tree;
-
   @Input() public settings: TreeTypes.Ng2TreeSettings;
-
   @Input() public template: TemplateRef<any>;
 
+  @ViewChild('checkbox') public checkboxElementRef: ElementRef;
+
+  public cursorCoordinates?: ICursorCoordinates;
   public isSelected = false;
   public isRightMenuVisible = false;
   public isLeftMenuVisible = false;
   public isReadOnly = false;
   public controller: TreeController;
-
-  @ViewChild('checkbox') public checkboxElementRef: ElementRef;
 
   private subscriptions: Subscription[] = [];
 
@@ -139,8 +141,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
 
     this.subscriptions.push(
       this.nodeMenuService.hideMenuStream(this.nodeElementRef).subscribe(() => {
-        this.isRightMenuVisible = false;
-        this.isLeftMenuVisible = false;
+        this.hideMenus();
       })
     );
 
@@ -200,6 +201,12 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
         parentCtrl.updateCheckboxState();
       }
     }
+  }
+
+  private hideMenus(): void {
+    this.cursorCoordinates = undefined;
+    this.isRightMenuVisible = false;
+    this.isLeftMenuVisible = false;
   }
 
   private moveSibling(sibling: Tree, tree: Tree, position: DropPosition): void {
@@ -276,6 +283,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     }
 
     if (EventUtils.isRightButtonClicked(e)) {
+      this.setCursorCoordinates(e);
       this.isRightMenuVisible = !this.isRightMenuVisible;
       this.nodeMenuService.hideMenuForAllNodesExcept(this.nodeElementRef);
     }
@@ -319,16 +327,18 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
     }
   }
 
+  private setCursorCoordinates(e: MouseEvent): void {
+    this.cursorCoordinates = { x: e.clientX, y: e.clientY };
+  }
+
   private onNewSelected(e: NodeMenuItemSelectedEvent): void {
     this.tree.createNode(e.nodeMenuItemAction === NodeMenuItemAction.NewFolder);
-    this.isRightMenuVisible = false;
-    this.isLeftMenuVisible = false;
+    this.hideMenus();
   }
 
   private onRenameSelected(): void {
     this.tree.markAsBeingRenamed();
-    this.isRightMenuVisible = false;
-    this.isLeftMenuVisible = false;
+    this.hideMenus();
   }
 
   private onRemoveSelected(): void {
@@ -339,8 +349,7 @@ export class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, Afte
   }
 
   private onCustomSelected(): void {
-    this.isRightMenuVisible = false;
-    this.isLeftMenuVisible = false;
+    this.hideMenus();
   }
 
   public onSwitchFoldingType(): void {

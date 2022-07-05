@@ -8,6 +8,8 @@ export declare class NodeMenuComponent implements OnInit, AfterViewInit, OnDestr
     visibility: string;
     menuItemSelected: EventEmitter<NodeMenuItemSelectedEvent>;
     menuItems: NodeMenuItem[];
+    cursorCoordinates?: ICursorCoordinates;
+    menuContent: any;
     menuContainer: any;
     availableMenuItems: NodeMenuItem[];
     private disposersForGlobalListeners;
@@ -16,14 +18,18 @@ export declare class NodeMenuComponent implements OnInit, AfterViewInit, OnDestr
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     onMenuItemSelected(e: MouseEvent, selectedMenuItem: NodeMenuItem): void;
-    private displayAboveOrBelow;
+    private positionMenu;
     private getScrollParent;
     private closeMenu;
     static ɵfac: i0.ɵɵFactoryDef<NodeMenuComponent, never>;
-    static ɵcmp: i0.ɵɵComponentDefWithMeta<NodeMenuComponent, "node-menu", never, { "menuItems": "menuItems"; }, { "menuItemSelected": "menuItemSelected"; }, never, never>;
+    static ɵcmp: i0.ɵɵComponentDefWithMeta<NodeMenuComponent, "node-menu", never, { "menuItems": "menuItems"; "cursorCoordinates": "cursorCoordinates"; }, { "menuItemSelected": "menuItemSelected"; }, never, never>;
 }
 export interface NodeMenuItem {
     name: string;
     action: NodeMenuItemAction;
     cssClass?: string;
+}
+export interface ICursorCoordinates {
+    x?: number;
+    y?: number;
 }

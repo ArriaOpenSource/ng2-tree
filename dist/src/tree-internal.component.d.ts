@@ -7,6 +7,7 @@ import { NodeMenuItemSelectedEvent } from './menu/menu.events';
 import { NodeEditableEvent } from './editable/editable.events';
 import { TreeService } from './tree.service';
 import { NodeDraggableService } from './draggable/node-draggable.service';
+import { ICursorCoordinates } from './menu/node-menu.component';
 import * as i0 from "@angular/core";
 export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestroy, AfterViewInit {
     private nodeMenuService;
@@ -16,12 +17,13 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     tree: Tree;
     settings: TreeTypes.Ng2TreeSettings;
     template: TemplateRef<any>;
+    checkboxElementRef: ElementRef;
+    cursorCoordinates?: ICursorCoordinates;
     isSelected: boolean;
     isRightMenuVisible: boolean;
     isLeftMenuVisible: boolean;
     isReadOnly: boolean;
     controller: TreeController;
-    checkboxElementRef: ElementRef;
     private subscriptions;
     constructor(nodeMenuService: NodeMenuService, treeService: TreeService, nodeDraggableService: NodeDraggableService, nodeElementRef: ElementRef);
     ngAfterViewInit(): void;
@@ -29,6 +31,7 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     private nodeDraggedHandler;
+    private hideMenus;
     private moveSibling;
     private moveNodeToThisTreeAndRemoveFromPreviousOne;
     private moveNodeToParentTreeAndRemoveFromPreviousOne;
@@ -42,6 +45,7 @@ export declare class TreeInternalComponent implements OnInit, OnChanges, OnDestr
     showRightMenu(e: MouseEvent): void;
     showLeftMenu(e: MouseEvent): void;
     onMenuItemSelected(e: NodeMenuItemSelectedEvent): void;
+    private setCursorCoordinates;
     private onNewSelected;
     private onRenameSelected;
     private onRemoveSelected;
