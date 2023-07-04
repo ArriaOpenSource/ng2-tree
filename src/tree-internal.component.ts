@@ -47,7 +47,7 @@ import { ICursorCoordinates } from './menu/node-menu.component';
 
         <div class="folding" (click)="onSwitchFoldingType()" [ngClass]="tree.foldingCssClass"></div>
 
-        <div class="node-value"
+        <div class="node-value test change"
           *ngIf="!shouldShowInputForTreeValue()"
           [class.node-selected]="isSelected"
           (dblclick)="onNodeDoubleClicked($event)"
