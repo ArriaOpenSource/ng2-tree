@@ -78,6 +78,8 @@ export declare class TreeModelSettings {
      * @default false
      */
     static?: boolean;
+    tooltip?: string;
+    tooltipPosition?: string;
     isCollapsedOnInit?: boolean;
     checked?: boolean;
     selectionAllowed?: boolean;

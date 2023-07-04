@@ -1,6 +1,6 @@
 !function(e){function t(e){Object.defineProperty(this,e,{enumerable:!0,get:function(){return this[v][e]}})}function r(e){if("undefined"!=typeof System&&System.isModule?System.isModule(e):"[object Module]"===Object.prototype.toString.call(e))return e;var t={default:e,__useDefault:e};if(e&&e.__esModule)for(var r in e)Object.hasOwnProperty.call(e,r)&&(t[r]=e[r]);return new o(t)}function o(e){Object.defineProperty(this,v,{value:e}),Object.keys(e).forEach(t,this)}function n(e){return"@node/"===e.substr(0,6)?c(e,r(m(e.substr(6))),{}):p[e]}function u(e){var t=n(e);if(!t)throw new Error('Module "'+e+'" expected, but not contained in build.');if(t.module)return t.module;var r=t.linkRecord;return i(t,r),a(t,r,[]),t.module}function i(e,t){if(!t.depLoads){t.declare&&d(e,t),t.depLoads=[];for(var r=0;r<t.deps.length;r++){var o=n(t.deps[r]);t.depLoads.push(o),o.linkRecord&&i(o,o.linkRecord);var u=t.setters&&t.setters[r];u&&(u(o.module||o.linkRecord.moduleObj),o.importerSetters.push(u))}return e}}function d(t,r){var o=r.moduleObj,n=t.importerSetters,u=!1,i=r.declare.call(e,function(e,t){if(!u){if("object"==typeof e)for(var r in e)"__useDefault"!==r&&(o[r]=e[r]);else o[e]=t;u=!0;for(var i=0;i<n.length;i++)n[i](o);return u=!1,t}},{id:t.key});"function"!=typeof i?(r.setters=i.setters,r.execute=i.execute):(r.setters=[],r.execute=i)}function l(e,t,r){return p[e]={key:e,module:void 0,importerSetters:[],linkRecord:{deps:t,depLoads:void 0,declare:r,setters:void 0,execute:void 0,moduleObj:{}}}}function f(e,t,r,o){var n={};return p[e]={key:e,module:void 0,importerSetters:[],linkRecord:{deps:t,depLoads:void 0,declare:void 0,execute:o,executingRequire:r,moduleObj:{default:n,__useDefault:n},setters:void 0}}}function s(e,t,r){return function(o){for(var n=0;n<e.length;n++)if(e[n]===o){var u,i=t[n],d=i.linkRecord;return u=d?-1===r.indexOf(i)?a(i,d,r):d.moduleObj:i.module,"__useDefault"in u?u.__useDefault:u}}}function a(t,r,n){if(n.push(t),t.module)return t.module;var u;if(r.setters){for(var i=0;i<r.deps.length;i++){var d=r.depLoads[i],l=d.linkRecord;l&&-1===n.indexOf(d)&&(u=a(d,l,l.setters?n:[]))}r.execute.call(y)}else{var f={id:t.key},c=r.moduleObj;Object.defineProperty(f,"exports",{configurable:!0,set:function(e){c.default=c.__useDefault=e},get:function(){return c.__useDefault}});var p=s(r.deps,r.depLoads,n);if(!r.executingRequire)for(var i=0;i<r.deps.length;i++)p(r.deps[i]);var v=r.execute.call(e,p,c.__useDefault,f);void 0!==v?c.default=c.__useDefault=v:f.exports!==c.__useDefault&&(c.default=c.__useDefault=f.exports);var m=c.__useDefault;if(m&&m.__esModule)for(var b in m)Object.hasOwnProperty.call(m,b)&&(c[b]=m[b])}var f=t.module=new o(r.moduleObj);if(!r.setters)for(var i=0;i<t.importerSetters.length;i++)t.importerSetters[i](f);return f}function c(e,t){return p[e]={key:e,module:t,importerSetters:[],linkRecord:void 0}}var p={},v="undefined"!=typeof Symbol?Symbol():"@@baseObject";o.prototype=Object.create(null),"undefined"!=typeof Symbol&&Symbol.toStringTag&&(o.prototype[Symbol.toStringTag]="Module");var m="undefined"!=typeof System&&System._nodeRequire||"undefined"!=typeof require&&"undefined"!=typeof require.resolve&&"undefined"!=typeof process&&process.platform&&require,y={};return Object.freeze&&Object.freeze(y),function(e,t,n,i){return function(d){d(function(d){var s={_nodeRequire:m,register:l,registerDynamic:f,registry:{get:function(e){return p[e].module},set:c},newModule:function(e){return new o(e)}};c("@empty",new o({}));for(var a=0;a<t.length;a++)c(t[a],r(arguments[a],{}));i(s);var v=u(e[0]);if(e.length>1)for(var a=1;a<e.length;a++)u(e[a]);return n?v.__useDefault:(v instanceof o&&Object.defineProperty(v,"__esModule",{value:!0}),v)})}}}("undefined"!=typeof self?self:"undefined"!=typeof global?global:this)
 
-(["a"], ["1d","d","2d","1b","1c"], true, function($__System) {
+(["a"], ["1d","d","1f","2e","30","1b","1c"], true, function($__System) {
 var require = this.require, exports = this.exports, module = this.module;
 $__System.registerDynamic("b", [], true, function ($__require, exports, module) {
   "use strict";
@@ -352,7 +352,7 @@ $__System.registerDynamic("12", ["13", "14", "15"], true, function ($__require, 
     exports.TreeController = TreeController;
 
 });
-$__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "14", "18", "15", "19", "1a", "1b", "1c", "1d", "1e", "1f", "20", "21"], true, function ($__require, exports, module) {
+$__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "14", "18", "15", "19", "1a", "1b", "1c", "1d", "1e", "1f", "20", "21", "22"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -384,6 +384,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     var i6 = $__require("1f");
     var i7 = $__require("20");
     var i8 = $__require("21");
+    var i9 = $__require("22");
     var _c0 = ["checkbox"];
     function TreeInternalComponent_ul_0_div_3_Template(rf, ctx) {
         if (rf & 1) {
@@ -401,30 +402,30 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             i0.ɵɵproperty("disabled", ctx_r1.isReadOnly)("checked", ctx_r1.tree.checked);
         }
     }
-    function TreeInternalComponent_ul_0_div_5_div_1_Template(rf, ctx) {
+    function TreeInternalComponent_ul_0_div_5_div_2_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "div", 22);
+            i0.ɵɵelement(0, "div", 23);
             i0.ɵɵpipe(1, "safeHtml");
         }if (rf & 2) {
             var ctx_r14 = i0.ɵɵnextContext(3);
             i0.ɵɵproperty("innerHTML", i0.ɵɵpipeBind1(1, 1, ctx_r14.tree.nodeTemplate), i0.ɵɵsanitizeHtml);
         }
     }
-    function TreeInternalComponent_ul_0_div_5_span_2_Template(rf, ctx) {
+    function TreeInternalComponent_ul_0_div_5_span_3_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "span", 23);
+            i0.ɵɵelement(0, "span", 24);
             i0.ɵɵpipe(1, "safeHtml");
         }if (rf & 2) {
             var ctx_r15 = i0.ɵɵnextContext(3);
             i0.ɵɵproperty("innerHTML", i0.ɵɵpipeBind1(1, 1, ctx_r15.tree.value), i0.ɵɵsanitizeHtml);
         }
     }
-    function TreeInternalComponent_ul_0_div_5_span_3_Template(rf, ctx) {
+    function TreeInternalComponent_ul_0_div_5_span_4_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "span", 24);
+            i0.ɵɵelement(0, "span", 25);
         }
     }
-    function TreeInternalComponent_ul_0_div_5_ng_template_4_Template(rf, ctx) {}
+    function TreeInternalComponent_ul_0_div_5_ng_template_5_Template(rf, ctx) {}
     var _c1 = function (a0) {
         return { $implicit: a0 };
     };
@@ -437,14 +438,18 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             })("click", function TreeInternalComponent_ul_0_div_5_Template_div_click_0_listener($event) {
                 i0.ɵɵrestoreView(_r19);var ctx_r20 = i0.ɵɵnextContext(2);return ctx_r20.onNodeSelected($event);
             });
-            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_5_div_1_Template, 2, 3, "div", 18);
-            i0.ɵɵtemplate(2, TreeInternalComponent_ul_0_div_5_span_2_Template, 2, 3, "span", 19);
-            i0.ɵɵtemplate(3, TreeInternalComponent_ul_0_div_5_span_3_Template, 1, 0, "span", 20);
-            i0.ɵɵtemplate(4, TreeInternalComponent_ul_0_div_5_ng_template_4_Template, 0, 0, "ng-template", 21);
+            i0.ɵɵelementStart(1, "div", 18);
+            i0.ɵɵtemplate(2, TreeInternalComponent_ul_0_div_5_div_2_Template, 2, 3, "div", 19);
+            i0.ɵɵtemplate(3, TreeInternalComponent_ul_0_div_5_span_3_Template, 2, 3, "span", 20);
+            i0.ɵɵelementEnd();
+            i0.ɵɵtemplate(4, TreeInternalComponent_ul_0_div_5_span_4_Template, 1, 0, "span", 21);
+            i0.ɵɵtemplate(5, TreeInternalComponent_ul_0_div_5_ng_template_5_Template, 0, 0, "ng-template", 22);
             i0.ɵɵelementEnd();
         }if (rf & 2) {
             var ctx_r2 = i0.ɵɵnextContext(2);
             i0.ɵɵclassProp("node-selected", ctx_r2.isSelected);
+            i0.ɵɵadvance(1);
+            i0.ɵɵproperty("matTooltip", ctx_r2.tree.tooltip)("matTooltipPosition", ctx_r2.tree.tooltipPosition);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx_r2.tree.nodeTemplate);
             i0.ɵɵadvance(1);
@@ -452,13 +457,13 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx_r2.tree.childrenAreBeingLoaded());
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngTemplateOutlet", ctx_r2.template)("ngTemplateOutletContext", i0.ɵɵpureFunction1(7, _c1, ctx_r2.tree.node));
+            i0.ɵɵproperty("ngTemplateOutlet", ctx_r2.template)("ngTemplateOutletContext", i0.ɵɵpureFunction1(9, _c1, ctx_r2.tree.node));
         }
     }
     function TreeInternalComponent_ul_0_input_6_Template(rf, ctx) {
         if (rf & 1) {
             var _r22 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "input", 25);
+            i0.ɵɵelementStart(0, "input", 26);
             i0.ɵɵlistener("keydown", function TreeInternalComponent_ul_0_input_6_Template_input_keydown_0_listener($event) {
                 i0.ɵɵrestoreView(_r22);var ctx_r21 = i0.ɵɵnextContext(2);return ctx_r21.keydownHandler($event);
             })("input", function TreeInternalComponent_ul_0_input_6_Template_input_input_0_listener($event) {
@@ -475,7 +480,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_div_7_Template(rf, ctx) {
         if (rf & 1) {
             var _r26 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "div", 26);
+            i0.ɵɵelementStart(0, "div", 27);
             i0.ɵɵlistener("click", function TreeInternalComponent_ul_0_div_7_Template_div_click_0_listener($event) {
                 i0.ɵɵrestoreView(_r26);var ctx_r25 = i0.ɵɵnextContext(2);return ctx_r25.showLeftMenu($event);
             });
@@ -488,7 +493,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_node_menu_8_Template(rf, ctx) {
         if (rf & 1) {
             var _r28 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "node-menu", 27);
+            i0.ɵɵelementStart(0, "node-menu", 28);
             i0.ɵɵlistener("menuItemSelected", function TreeInternalComponent_ul_0_node_menu_8_Template_node_menu_menuItemSelected_0_listener($event) {
                 i0.ɵɵrestoreView(_r28);var ctx_r27 = i0.ɵɵnextContext(2);return ctx_r27.onMenuItemSelected($event);
             });
@@ -497,7 +502,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_div_9_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "div", 28);
+            i0.ɵɵelement(0, "div", 29);
             i0.ɵɵpipe(1, "safeHtml");
         }if (rf & 2) {
             var ctx_r6 = i0.ɵɵnextContext(2);
@@ -507,7 +512,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_node_menu_10_Template(rf, ctx) {
         if (rf & 1) {
             var _r30 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "node-menu", 29);
+            i0.ɵɵelementStart(0, "node-menu", 30);
             i0.ɵɵlistener("menuItemSelected", function TreeInternalComponent_ul_0_node_menu_10_Template_node_menu_menuItemSelected_0_listener($event) {
                 i0.ɵɵrestoreView(_r30);var ctx_r29 = i0.ɵɵnextContext(2);return ctx_r29.onMenuItemSelected($event);
             });
@@ -520,7 +525,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_node_menu_11_Template(rf, ctx) {
         if (rf & 1) {
             var _r32 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "node-menu", 30);
+            i0.ɵɵelementStart(0, "node-menu", 31);
             i0.ɵɵlistener("menuItemSelected", function TreeInternalComponent_ul_0_node_menu_11_Template_node_menu_menuItemSelected_0_listener($event) {
                 i0.ɵɵrestoreView(_r32);var ctx_r31 = i0.ɵɵnextContext(2);return ctx_r31.onMenuItemSelected($event);
             });
@@ -532,7 +537,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_div_12_tree_internal_1_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "tree-internal", 33);
+            i0.ɵɵelement(0, "tree-internal", 34);
         }if (rf & 2) {
             var child_r34 = ctx.$implicit;
             var ctx_r33 = i0.ɵɵnextContext(3);
@@ -544,8 +549,8 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     };
     function TreeInternalComponent_ul_0_div_12_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 31);
-            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_12_tree_internal_1_Template, 1, 3, "tree-internal", 32);
+            i0.ɵɵelementStart(0, "div", 32);
+            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_12_tree_internal_1_Template, 1, 3, "tree-internal", 33);
             i0.ɵɵpipe(2, "async");
             i0.ɵɵelementEnd();
         }if (rf & 2) {
@@ -557,7 +562,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_ng_template_13_tree_internal_0_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "tree-internal", 33);
+            i0.ɵɵelement(0, "tree-internal", 34);
         }if (rf & 2) {
             var child_r36 = ctx.$implicit;
             var ctx_r35 = i0.ɵɵnextContext(3);
@@ -566,7 +571,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_ng_template_13_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵtemplate(0, TreeInternalComponent_ul_0_ng_template_13_tree_internal_0_Template, 1, 3, "tree-internal", 32);
+            i0.ɵɵtemplate(0, TreeInternalComponent_ul_0_ng_template_13_tree_internal_0_Template, 1, 3, "tree-internal", 33);
             i0.ɵɵpipe(1, "async");
         }if (rf & 2) {
             var ctx_r10 = i0.ɵɵnextContext(2);
@@ -594,7 +599,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
                 i0.ɵɵrestoreView(_r38);var ctx_r39 = i0.ɵɵnextContext();return ctx_r39.onSwitchFoldingType();
             });
             i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(5, TreeInternalComponent_ul_0_div_5_Template, 5, 9, "div", 5);
+            i0.ɵɵtemplate(5, TreeInternalComponent_ul_0_div_5_Template, 6, 11, "div", 5);
             i0.ɵɵtemplate(6, TreeInternalComponent_ul_0_input_6_Template, 1, 1, "input", 6);
             i0.ɵɵtemplate(7, TreeInternalComponent_ul_0_div_7_Template, 1, 1, "div", 7);
             i0.ɵɵtemplate(8, TreeInternalComponent_ul_0_node_menu_8_Template, 1, 0, "node-menu", 8);
@@ -986,13 +991,13 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
                     var _t = void 0;
                     i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.checkboxElementRef = _t.first);
                 }
-            }, inputs: { tree: "tree", settings: "settings", template: "template" }, features: [i0.ɵɵNgOnChangesFeature], decls: 1, vars: 1, consts: [["class", "tree", 3, "ngClass", 4, "ngIf"], [1, "tree", 3, "ngClass"], [1, "value-container", 3, "ngClass", "nodeDraggable", "tree", "contextmenu"], ["class", "node-checkbox", 4, "ngIf"], [1, "folding", 3, "ngClass", "click"], ["class", "node-value", 3, "node-selected", "dblclick", "click", 4, "ngIf"], ["type", "text", "class", "node-value", "id", "rename-input", 3, "nodeEditable", "keydown", "input", "valueChanged", 4, "ngIf"], ["class", "node-left-menu", 3, "innerHTML", "click", 4, "ngIf"], [3, "menuItemSelected", 4, "ngIf"], ["class", "drag-template", 3, "innerHTML", 4, "ngIf"], [3, "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "menuItems", "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "ngStyle", 4, "ngIf"], [3, "ngIf"], [1, "node-checkbox"], ["checkbox", "", "type", "checkbox", 3, "disabled", "checked", "change"], ["checkbox", ""], [1, "node-value", 3, "dblclick", "click"], ["class", "node-template", 3, "innerHTML", 4, "ngIf"], ["class", "node-name", 3, "innerHTML", 4, "ngIf"], ["class", "loading-children", 4, "ngIf"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "node-template", 3, "innerHTML"], [1, "node-name", 3, "innerHTML"], [1, "loading-children"], ["type", "text", "id", "rename-input", 1, "node-value", 3, "nodeEditable", "keydown", "input", "valueChanged"], [1, "node-left-menu", 3, "innerHTML", "click"], [3, "menuItemSelected"], [1, "drag-template", 3, "innerHTML"], [3, "cursorCoordinates", "menuItemSelected"], [3, "menuItems", "cursorCoordinates", "menuItemSelected"], [3, "ngStyle"], [3, "tree", "template", "settings", 4, "ngFor", "ngForOf"], [3, "tree", "template", "settings"]], template: function TreeInternalComponent_Template(rf, ctx) {
+            }, inputs: { tree: "tree", settings: "settings", template: "template" }, features: [i0.ɵɵNgOnChangesFeature], decls: 1, vars: 1, consts: [["class", "tree", 3, "ngClass", 4, "ngIf"], [1, "tree", 3, "ngClass"], [1, "value-container", 3, "ngClass", "nodeDraggable", "tree", "contextmenu"], ["class", "node-checkbox", 4, "ngIf"], [1, "folding", 3, "ngClass", "click"], ["class", "node-value", 3, "node-selected", "dblclick", "click", 4, "ngIf"], ["type", "text", "class", "node-value", "id", "rename-input", 3, "nodeEditable", "keydown", "input", "valueChanged", 4, "ngIf"], ["class", "node-left-menu", 3, "innerHTML", "click", 4, "ngIf"], [3, "menuItemSelected", 4, "ngIf"], ["class", "drag-template", 3, "innerHTML", 4, "ngIf"], [3, "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "menuItems", "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "ngStyle", 4, "ngIf"], [3, "ngIf"], [1, "node-checkbox"], ["checkbox", "", "type", "checkbox", 3, "disabled", "checked", "change"], ["checkbox", ""], [1, "node-value", 3, "dblclick", "click"], [3, "matTooltip", "matTooltipPosition"], ["class", "node-template", 3, "innerHTML", 4, "ngIf"], ["class", "node-name", 3, "innerHTML", 4, "ngIf"], ["class", "loading-children", 4, "ngIf"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "node-template", 3, "innerHTML"], [1, "node-name", 3, "innerHTML"], [1, "loading-children"], ["type", "text", "id", "rename-input", 1, "node-value", 3, "nodeEditable", "keydown", "input", "valueChanged"], [1, "node-left-menu", 3, "innerHTML", "click"], [3, "menuItemSelected"], [1, "drag-template", 3, "innerHTML"], [3, "cursorCoordinates", "menuItemSelected"], [3, "menuItems", "cursorCoordinates", "menuItemSelected"], [3, "ngStyle"], [3, "tree", "template", "settings", 4, "ngFor", "ngForOf"], [3, "tree", "template", "settings"]], template: function TreeInternalComponent_Template(rf, ctx) {
                 if (rf & 1) {
                     i0.ɵɵtemplate(0, TreeInternalComponent_ul_0_Template, 14, 22, "ul", 0);
                 }if (rf & 2) {
                     i0.ɵɵproperty("ngIf", ctx.tree);
                 }
-            }, directives: [i4.NgIf, i4.NgClass, i5.NodeDraggableDirective, i4.NgTemplateOutlet, i6.NodeEditableDirective, i7.NodeMenuComponent, i4.NgStyle, i4.NgForOf, TreeInternalComponent], pipes: [i8.SafeHtmlPipe, i4.AsyncPipe], encapsulation: 2 });
+            }, directives: [i4.NgIf, i4.NgClass, i5.NodeDraggableDirective, i6.MatTooltip, i4.NgTemplateOutlet, i7.NodeEditableDirective, i8.NodeMenuComponent, i4.NgStyle, i4.NgForOf, TreeInternalComponent], pipes: [i9.SafeHtmlPipe, i4.AsyncPipe], encapsulation: 2 });
         return TreeInternalComponent;
     }();
     exports.TreeInternalComponent = TreeInternalComponent;
@@ -1001,7 +1006,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             type: core_1.Component,
             args: [{
                 selector: 'tree-internal',
-                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n          <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n        </div>\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (dblclick)=\"onNodeDoubleClicked($event)\"\n          (click)=\"onNodeSelected($event)\">\n            <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n            <span *ngIf=\"!template\" class=\"node-name\" [innerHTML]=\"tree.value | safeHtml\"></span>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\" id=\"rename-input\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (keydown)=\"keydownHandler($event)\"\n           (input)=\"inputChangeHandler($event)\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
+                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n          <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n        </div>\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (dblclick)=\"onNodeDoubleClicked($event)\"\n          (click)=\"onNodeSelected($event)\">\n            <div [matTooltip]=\"tree.tooltip\" [matTooltipPosition]=\"tree.tooltipPosition\">\n              <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n              <span *ngIf=\"!template\" class=\"node-name\" [innerHTML]=\"tree.value | safeHtml\"></span>\n            </div>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\" id=\"rename-input\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (keydown)=\"keydownHandler($event)\"\n           (input)=\"inputChangeHandler($event)\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
             }]
         }], function () {
             return [{ type: i1.NodeMenuService }, { type: i2.TreeService }, { type: i3.NodeDraggableService }, { type: i0.ElementRef }];
@@ -1128,7 +1133,7 @@ $__System.registerDynamic("f", ["15"], true, function ($__require, exports, modu
     })(TreeStatus = exports.TreeStatus || (exports.TreeStatus = {}));
 
 });
-$__System.registerDynamic("22", ["23", "24"], true, function ($__require, exports, module) {
+$__System.registerDynamic("23", ["24", "25"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1138,9 +1143,9 @@ $__System.registerDynamic("22", ["23", "24"], true, function ($__require, export
   });
   exports.default = void 0;
 
-  var _rng = _interopRequireDefault($__require("23"));
+  var _rng = _interopRequireDefault($__require("24"));
 
-  var _bytesToUuid = _interopRequireDefault($__require("24"));
+  var _bytesToUuid = _interopRequireDefault($__require("25"));
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
@@ -1242,7 +1247,7 @@ $__System.registerDynamic("22", ["23", "24"], true, function ($__require, export
   exports.default = _default;
   module.exports = exports.default;
 });
-$__System.registerDynamic("25", ["@empty"], true, function ($__require, exports, module) {
+$__System.registerDynamic("26", ["@empty"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1272,7 +1277,7 @@ $__System.registerDynamic("25", ["@empty"], true, function ($__require, exports,
   exports.default = _default;
   module.exports = exports.default;
 });
-$__System.registerDynamic("26", ["27", "25"], true, function ($__require, exports, module) {
+$__System.registerDynamic("27", ["28", "26"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1282,9 +1287,9 @@ $__System.registerDynamic("26", ["27", "25"], true, function ($__require, export
   });
   exports.default = void 0;
 
-  var _v = _interopRequireDefault($__require("27"));
+  var _v = _interopRequireDefault($__require("28"));
 
-  var _md = _interopRequireDefault($__require("25"));
+  var _md = _interopRequireDefault($__require("26"));
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
@@ -1295,7 +1300,7 @@ $__System.registerDynamic("26", ["27", "25"], true, function ($__require, export
   exports.default = _default;
   module.exports = exports.default;
 });
-$__System.registerDynamic("23", ["@empty"], true, function ($__require, exports, module) {
+$__System.registerDynamic("24", ["@empty"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1317,7 +1322,7 @@ $__System.registerDynamic("23", ["@empty"], true, function ($__require, exports,
 
   module.exports = exports.default;
 });
-$__System.registerDynamic("28", ["23", "24"], true, function ($__require, exports, module) {
+$__System.registerDynamic("29", ["24", "25"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1327,9 +1332,9 @@ $__System.registerDynamic("28", ["23", "24"], true, function ($__require, export
   });
   exports.default = void 0;
 
-  var _rng = _interopRequireDefault($__require("23"));
+  var _rng = _interopRequireDefault($__require("24"));
 
-  var _bytesToUuid = _interopRequireDefault($__require("24"));
+  var _bytesToUuid = _interopRequireDefault($__require("25"));
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
@@ -1364,7 +1369,7 @@ $__System.registerDynamic("28", ["23", "24"], true, function ($__require, export
   exports.default = _default;
   module.exports = exports.default;
 });
-$__System.registerDynamic("24", [], true, function ($__require, exports, module) {
+$__System.registerDynamic("25", [], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1395,7 +1400,7 @@ $__System.registerDynamic("24", [], true, function ($__require, exports, module)
   exports.default = _default;
   module.exports = exports.default;
 });
-$__System.registerDynamic("27", ["24"], true, function ($__require, exports, module) {
+$__System.registerDynamic("28", ["25"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1406,7 +1411,7 @@ $__System.registerDynamic("27", ["24"], true, function ($__require, exports, mod
   exports.default = _default;
   exports.URL = exports.DNS = void 0;
 
-  var _bytesToUuid = _interopRequireDefault($__require("24"));
+  var _bytesToUuid = _interopRequireDefault($__require("25"));
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
@@ -1470,7 +1475,7 @@ $__System.registerDynamic("27", ["24"], true, function ($__require, exports, mod
     return generateUUID;
   }
 });
-$__System.registerDynamic("29", ["@empty"], true, function ($__require, exports, module) {
+$__System.registerDynamic("2a", ["@empty"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1500,7 +1505,7 @@ $__System.registerDynamic("29", ["@empty"], true, function ($__require, exports,
   exports.default = _default;
   module.exports = exports.default;
 });
-$__System.registerDynamic("2a", ["27", "29"], true, function ($__require, exports, module) {
+$__System.registerDynamic("2b", ["28", "2a"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1510,9 +1515,9 @@ $__System.registerDynamic("2a", ["27", "29"], true, function ($__require, export
   });
   exports.default = void 0;
 
-  var _v = _interopRequireDefault($__require("27"));
+  var _v = _interopRequireDefault($__require("28"));
 
-  var _sha = _interopRequireDefault($__require("29"));
+  var _sha = _interopRequireDefault($__require("2a"));
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
@@ -1523,7 +1528,7 @@ $__System.registerDynamic("2a", ["27", "29"], true, function ($__require, export
   exports.default = _default;
   module.exports = exports.default;
 });
-$__System.registerDynamic("2b", ["22", "26", "28", "2a"], true, function ($__require, exports, module) {
+$__System.registerDynamic("2c", ["23", "27", "29", "2b"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -1556,19 +1561,19 @@ $__System.registerDynamic("2b", ["22", "26", "28", "2a"], true, function ($__req
     }
   });
 
-  var _v = _interopRequireDefault($__require("22"));
+  var _v = _interopRequireDefault($__require("23"));
 
-  var _v2 = _interopRequireDefault($__require("26"));
+  var _v2 = _interopRequireDefault($__require("27"));
 
-  var _v3 = _interopRequireDefault($__require("28"));
+  var _v3 = _interopRequireDefault($__require("29"));
 
-  var _v4 = _interopRequireDefault($__require("2a"));
+  var _v4 = _interopRequireDefault($__require("2b"));
 
   function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : { default: obj };
   }
 });
-$__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__require, exports, module) {
+$__System.registerDynamic("10", ["15", "f", "2c", "1b"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -1577,7 +1582,7 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
     exports.Tree = void 0;
     var fn_utils_1 = $__require("15");
     var tree_types_1 = $__require("f");
-    var uuid_1 = $__require("2b");
+    var uuid_1 = $__require("2c");
     var rxjs_1 = $__require("1b");
     var ChildrenLoadingState;
     (function (ChildrenLoadingState) {
@@ -1960,6 +1965,20 @@ $__System.registerDynamic("10", ["15", "f", "2b", "1b"], true, function ($__requ
              */
             get: function () {
                 return fn_utils_1.get(this.node.settings, 'menuItems');
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(Tree.prototype, "tooltip", {
+            get: function () {
+                return fn_utils_1.get(this.node.settings, 'tooltip', '');
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(Tree.prototype, "tooltipPosition", {
+            get: function () {
+                return fn_utils_1.get(this.node.settings, 'tooltipPosition', 'above');
             },
             enumerable: false,
             configurable: true
@@ -2496,7 +2515,7 @@ $__System.registerDynamic("17", [], true, function ($__require, exports, module)
     })(NodeEditableEventAction = exports.NodeEditableEventAction || (exports.NodeEditableEventAction = {}));
 
 });
-$__System.registerDynamic("1f", ["d", "17"], true, function ($__require, exports, module) {
+$__System.registerDynamic("20", ["d", "17"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -2612,7 +2631,7 @@ $__System.registerDynamic("14", [], true, function ($__require, exports, module)
     exports.isEscapePressed = isEscapePressed;
 
 });
-$__System.registerDynamic("20", ["d", "16", "13", "14", "1d"], true, function ($__require, exports, module) {
+$__System.registerDynamic("21", ["d", "16", "13", "14", "1d"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -2871,7 +2890,7 @@ $__System.registerDynamic("16", ["d", "1b", "1c", "13"], true, function ($__requ
     })();
 
 });
-$__System.registerDynamic("2c", [], true, function ($__require, exports, module) {
+$__System.registerDynamic("2d", [], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -3280,14 +3299,14 @@ $__System.registerDynamic("15", [], true, function ($__require, exports, module)
     exports.isNil = isNil;
 
 });
-$__System.registerDynamic("e", ["2c", "d", "19", "15", "1b", "1c"], true, function ($__require, exports, module) {
+$__System.registerDynamic("e", ["2d", "d", "19", "15", "1b", "1c"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
         GLOBAL = global;
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.TreeService = void 0;
-    var tree_events_1 = $__require("2c");
+    var tree_events_1 = $__require("2d");
     var core_1 = $__require("d");
     var node_draggable_service_1 = $__require("19");
     var fn_utils_1 = $__require("15");
@@ -3439,7 +3458,7 @@ $__System.registerDynamic("e", ["2c", "d", "19", "15", "1b", "1c"], true, functi
     })();
 
 });
-$__System.registerDynamic("21", ["d", "2d"], true, function ($__require, exports, module) {
+$__System.registerDynamic("22", ["d", "2e"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -3447,9 +3466,9 @@ $__System.registerDynamic("21", ["d", "2d"], true, function ($__require, exports
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.SafeHtmlPipe = void 0;
     var core_1 = $__require("d");
-    var platform_browser_1 = $__require("2d");
+    var platform_browser_1 = $__require("2e");
     var i0 = $__require("d");
-    var i1 = $__require("2d");
+    var i1 = $__require("2e");
     var SafeHtmlPipe = /** @class */function () {
         function SafeHtmlPipe(sanitizer) {
             this.sanitizer = sanitizer;
@@ -3475,7 +3494,7 @@ $__System.registerDynamic("21", ["d", "2d"], true, function ($__require, exports
     })();
 
 });
-$__System.registerDynamic("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "20", "16", "e", "21"], true, function ($__require, exports, module) {
+$__System.registerDynamic("2f", ["b", "d", "c", "11", "1d", "1e", "19", "20", "21", "16", "e", "22", "30", "1f"], true, function ($__require, exports, module) {
     "use strict";
 
     var global = this || self,
@@ -3489,11 +3508,13 @@ $__System.registerDynamic("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "2
     var common_1 = $__require("1d");
     var node_draggable_directive_1 = $__require("1e");
     var node_draggable_service_1 = $__require("19");
-    var node_editable_directive_1 = $__require("1f");
-    var node_menu_component_1 = $__require("20");
+    var node_editable_directive_1 = $__require("20");
+    var node_menu_component_1 = $__require("21");
     var node_menu_service_1 = $__require("16");
     var tree_service_1 = $__require("e");
-    var safe_html_pipe_1 = $__require("21");
+    var safe_html_pipe_1 = $__require("22");
+    var animations_1 = $__require("30");
+    var tooltip_1 = $__require("1f");
     var i0 = $__require("d");
     var TreeModule = /** @class */function () {
         function TreeModule() {}
@@ -3501,18 +3522,18 @@ $__System.registerDynamic("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "2
             return new (t || TreeModule)();
         };
         TreeModule.ɵmod = i0.ɵɵdefineNgModule({ type: TreeModule });
-        TreeModule.ɵinj = i0.ɵɵdefineInjector({ providers: [node_draggable_service_1.NodeDraggableService, node_menu_service_1.NodeMenuService, tree_service_1.TreeService], imports: [[common_1.CommonModule]] });
+        TreeModule.ɵinj = i0.ɵɵdefineInjector({ providers: [node_draggable_service_1.NodeDraggableService, node_menu_service_1.NodeMenuService, tree_service_1.TreeService], imports: [[common_1.CommonModule, animations_1.BrowserAnimationsModule, tooltip_1.MatTooltipModule]] });
         return TreeModule;
     }();
     exports.TreeModule = TreeModule;
     (function () {
-        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(TreeModule, { declarations: [node_draggable_directive_1.NodeDraggableDirective, tree_component_1.TreeComponent, node_editable_directive_1.NodeEditableDirective, node_menu_component_1.NodeMenuComponent, tree_internal_component_1.TreeInternalComponent, safe_html_pipe_1.SafeHtmlPipe], imports: [common_1.CommonModule], exports: [tree_component_1.TreeComponent] });
+        (typeof ngJitMode === "undefined" || ngJitMode) && i0.ɵɵsetNgModuleScope(TreeModule, { declarations: [node_draggable_directive_1.NodeDraggableDirective, tree_component_1.TreeComponent, node_editable_directive_1.NodeEditableDirective, node_menu_component_1.NodeMenuComponent, tree_internal_component_1.TreeInternalComponent, safe_html_pipe_1.SafeHtmlPipe], imports: [common_1.CommonModule, animations_1.BrowserAnimationsModule, tooltip_1.MatTooltipModule], exports: [tree_component_1.TreeComponent] });
     })();
     (function () {
         (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(TreeModule, [{
             type: core_1.NgModule,
             args: [{
-                imports: [common_1.CommonModule],
+                imports: [common_1.CommonModule, animations_1.BrowserAnimationsModule, tooltip_1.MatTooltipModule],
                 declarations: [node_draggable_directive_1.NodeDraggableDirective, tree_component_1.TreeComponent, node_editable_directive_1.NodeEditableDirective, node_menu_component_1.NodeMenuComponent, tree_internal_component_1.TreeInternalComponent, safe_html_pipe_1.SafeHtmlPipe],
                 exports: [tree_component_1.TreeComponent],
                 providers: [node_draggable_service_1.NodeDraggableService, node_menu_service_1.NodeMenuService, tree_service_1.TreeService]
@@ -3521,7 +3542,7 @@ $__System.registerDynamic("2e", ["b", "d", "c", "11", "1d", "1e", "19", "1f", "2
     })();
 
 });
-$__System.registerDynamic("a", ["f", "10", "13", "2c", "18", "c", "12", "2e"], true, function ($__require, exports, module) {
+$__System.registerDynamic("a", ["f", "10", "13", "2d", "18", "c", "12", "2f"], true, function ($__require, exports, module) {
   "use strict";
 
   var global = this || self,
@@ -3546,7 +3567,7 @@ $__System.registerDynamic("a", ["f", "10", "13", "2c", "18", "c", "12", "2e"], t
   Object.defineProperty(exports, "NodeMenuItemAction", { enumerable: true, get: function () {
       return menu_events_1.NodeMenuItemAction;
     } });
-  var tree_events_1 = $__require("2c");
+  var tree_events_1 = $__require("2d");
   Object.defineProperty(exports, "NodeEvent", { enumerable: true, get: function () {
       return tree_events_1.NodeEvent;
     } });
@@ -3613,7 +3634,7 @@ $__System.registerDynamic("a", ["f", "10", "13", "2c", "18", "c", "12", "2e"], t
   Object.defineProperty(exports, "TreeController", { enumerable: true, get: function () {
       return tree_controller_1.TreeController;
     } });
-  var tree_module_1 = $__require("2e");
+  var tree_module_1 = $__require("2f");
   Object.defineProperty(exports, "TreeModule", { enumerable: true, get: function () {
       return tree_module_1.TreeModule;
     } });
@@ -3622,9 +3643,9 @@ $__System.registerDynamic("a", ["f", "10", "13", "2c", "18", "c", "12", "2e"], t
 })
 (function(factory) {
   if (typeof define == 'function' && define.amd)
-    define(["@angular/common","@angular/core","@angular/platform-browser","rxjs","rxjs/operators"], factory);
+    define(["@angular/common","@angular/core","@angular/material/tooltip","@angular/platform-browser","@angular/platform-browser/animations","rxjs","rxjs/operators"], factory);
   else if (typeof module == 'object' && module.exports && typeof require == 'function')
-    module.exports = factory(require("@angular/common"), require("@angular/core"), require("@angular/platform-browser"), require("rxjs"), require("rxjs/operators"));
+    module.exports = factory(require("@angular/common"), require("@angular/core"), require("@angular/material/tooltip"), require("@angular/platform-browser"), require("@angular/platform-browser/animations"), require("rxjs"), require("rxjs/operators"));
   else
     throw new Error("Module must be loaded as AMD or CommonJS");
 });

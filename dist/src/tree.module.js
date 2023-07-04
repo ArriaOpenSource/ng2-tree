@@ -13,13 +13,15 @@ var node_menu_component_1 = require("./menu/node-menu.component");
 var node_menu_service_1 = require("./menu/node-menu.service");
 var tree_service_1 = require("./tree.service");
 var safe_html_pipe_1 = require("./utils/safe-html.pipe");
+var animations_1 = require("@angular/platform-browser/animations");
+var tooltip_1 = require("@angular/material/tooltip");
 var i0 = require("@angular/core");
 var TreeModule = /** @class */ (function () {
     function TreeModule() {
     }
     TreeModule.ɵfac = function TreeModule_Factory(t) { return new (t || TreeModule)(); };
     TreeModule.ɵmod = i0.ɵɵdefineNgModule({ type: TreeModule });
-    TreeModule.ɵinj = i0.ɵɵdefineInjector({ providers: [node_draggable_service_1.NodeDraggableService, node_menu_service_1.NodeMenuService, tree_service_1.TreeService], imports: [[common_1.CommonModule]] });
+    TreeModule.ɵinj = i0.ɵɵdefineInjector({ providers: [node_draggable_service_1.NodeDraggableService, node_menu_service_1.NodeMenuService, tree_service_1.TreeService], imports: [[common_1.CommonModule, animations_1.BrowserAnimationsModule, tooltip_1.MatTooltipModule]] });
     return TreeModule;
 }());
 exports.TreeModule = TreeModule;
@@ -28,11 +30,11 @@ exports.TreeModule = TreeModule;
         node_editable_directive_1.NodeEditableDirective,
         node_menu_component_1.NodeMenuComponent,
         tree_internal_component_1.TreeInternalComponent,
-        safe_html_pipe_1.SafeHtmlPipe], imports: [common_1.CommonModule], exports: [tree_component_1.TreeComponent] }); })();
+        safe_html_pipe_1.SafeHtmlPipe], imports: [common_1.CommonModule, animations_1.BrowserAnimationsModule, tooltip_1.MatTooltipModule], exports: [tree_component_1.TreeComponent] }); })();
 (function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(TreeModule, [{
         type: core_1.NgModule,
         args: [{
-                imports: [common_1.CommonModule],
+                imports: [common_1.CommonModule, animations_1.BrowserAnimationsModule, tooltip_1.MatTooltipModule],
                 declarations: [
                     node_draggable_directive_1.NodeDraggableDirective,
                     tree_component_1.TreeComponent,
