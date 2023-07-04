@@ -112,6 +112,10 @@ export class TreeModelSettings {
    */
   public static?: boolean;
 
+  public tooltip?: string;
+
+  public tooltipPosition?: string;
+
   public isCollapsedOnInit?: boolean;
 
   public checked?: boolean;
