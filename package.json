@@ -55,7 +55,7 @@
     "postversion": "git push origin master && git push --tags && npm run github-release && node publish.js",
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
     "prettier": "prettier --write '{.,src,test}/**/*.ts'",
-    "rebuild:dist":
+    "build:dist":
       "npm run clean && mkdir dist && npm run compile && cp -R src/styles.css README.md media dist && npm run commit:dist",
     "commit:dist": "git add dist/\\* && git commit -m \"Rebuild dist\""
   },
