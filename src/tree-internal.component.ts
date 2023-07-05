@@ -52,7 +52,7 @@ import { ICursorCoordinates } from './menu/node-menu.component';
           [class.node-selected]="isSelected"
           (dblclick)="onNodeDoubleClicked($event)"
           (click)="onNodeSelected($event)">
-            <div [matTooltip]="tree.tooltip" [matTooltipPosition]="tree.tooltipPosition">
+            <div [matTooltip]="tree.tooltip" [matTooltipPosition]="tree.tooltipPosition" matTooltipClass="ng2-tree-tooltip">
               <div *ngIf="tree.nodeTemplate" class="node-template" [innerHTML]="tree.nodeTemplate | safeHtml"></div>
               <span *ngIf="!template" class="node-name" [innerHTML]="tree.value | safeHtml"></span>
             </div>
