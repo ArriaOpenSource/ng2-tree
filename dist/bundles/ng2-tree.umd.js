@@ -1967,14 +1967,14 @@ $__System.registerDynamic("10", ["15", "f", "2c", "1b"], true, function ($__requ
         });
         Object.defineProperty(Tree.prototype, "tooltip", {
             get: function () {
-                return fn_utils_1.get(this.node.settings, 'tooltip', '');
+                return fn_utils_1.get(this.node, 'tooltip', '');
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(Tree.prototype, "tooltipPosition", {
             get: function () {
-                return fn_utils_1.get(this.node.settings, 'tooltipPosition', 'above');
+                return fn_utils_1.get(this.node, 'tooltipPosition', 'above');
             },
             enumerable: false,
             configurable: true

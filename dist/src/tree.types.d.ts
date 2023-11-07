@@ -12,6 +12,8 @@ export declare type ChildrenLoadingFunction = (callback: (children: TreeModel[])
 export interface TreeModel {
     value: string | RenamableNode;
     id?: string | number;
+    tooltip?: string;
+    tooltipPosition?: string;
     children?: TreeModel[];
     loadChildren?: ChildrenLoadingFunction;
     settings?: TreeModelSettings;
@@ -78,8 +80,6 @@ export declare class TreeModelSettings {
      * @default false
      */
     static?: boolean;
-    tooltip?: string;
-    tooltipPosition?: string;
     isCollapsedOnInit?: boolean;
     checked?: boolean;
     selectionAllowed?: boolean;
