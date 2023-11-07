@@ -211,17 +211,18 @@ export class AppComponent implements OnInit {
 
   public fonts: TreeModel = {
     value: 'Fonts',
+    tooltip: 'Fonts root',
+    tooltipPosition: 'right',
     settings: {
-      isCollapsedOnInit: false,
-      tooltip: 'Fonts root'
+      isCollapsedOnInit: false
     },
     children: [
       {
         value: 'Serif  -  All my children and I are STATIC ¯\\_(ツ)_/¯',
+        tooltip: 'Serif fonts',
         id: 1,
         settings: {
-          static: true,
-          tooltip: 'Serif fonts'
+          static: true
         },
         children: [
           { value: '<a href="#" id="antiqua" class="test">Antiqua</a> with HTML tags.', id: 2 },
@@ -238,9 +239,9 @@ export class AppComponent implements OnInit {
       },
       {
         value: 'Sans-serif (Right click me - I have a custom menu)',
+        tooltip: 'Sans-serif fonts',
         id: 11,
         settings: {
-          tooltip: 'Sans-serif fonts',
           menuItems: [
             { action: NodeMenuItemAction.Custom, name: 'Foo', cssClass: 'fa fa-arrow-right' },
             { action: NodeMenuItemAction.Custom, name: 'Bar', cssClass: 'fa fa-arrow-right' },
@@ -248,7 +249,7 @@ export class AppComponent implements OnInit {
           ]
         },
         children: [
-          { value: 'Arial', id: 12, settings: { tooltip: 'Arial font' } },
+          { value: 'Arial', id: 12, tooltip: 'Arial font' },
           { value: 'Century Gothic', id: 13 },
           { value: 'DejaVu Sans', id: 14 },
           { value: 'Futura', id: 15 },
@@ -258,10 +259,8 @@ export class AppComponent implements OnInit {
       },
       {
         value: 'Monospace - With ASYNC CHILDREN',
+        tooltip: 'Monospace fonts',
         id: 18,
-        settings: {
-          tooltip: 'Monospace fonts'
-        },
         // children property is ignored if "loadChildren" is present
         children: [{ value: 'I am the font that will be ignored' }],
         loadChildren: callback => {

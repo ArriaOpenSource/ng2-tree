@@ -414,11 +414,11 @@ export class Tree {
   }
 
   public get tooltip(): string {
-    return get(this.node.settings, 'tooltip', '');
+    return get(this.node, 'tooltip', '');
   }
 
   public get tooltipPosition(): string {
-    return get(this.node.settings, 'tooltipPosition', 'above');
+    return get(this.node, 'tooltipPosition', 'above');
   }
 
   /**

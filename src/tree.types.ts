@@ -19,6 +19,8 @@ export type ChildrenLoadingFunction = (callback: (children: TreeModel[]) => void
 export interface TreeModel {
   value: string | RenamableNode;
   id?: string | number;
+  tooltip?: string;
+  tooltipPosition?: string;
   children?: TreeModel[];
   loadChildren?: ChildrenLoadingFunction;
   settings?: TreeModelSettings;
@@ -111,10 +113,6 @@ export class TreeModelSettings {
    * @default false
    */
   public static?: boolean;
-
-  public tooltip?: string;
-
-  public tooltipPosition?: string;
 
   public isCollapsedOnInit?: boolean;
 
