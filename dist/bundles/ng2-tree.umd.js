@@ -402,30 +402,30 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             i0.ɵɵproperty("disabled", ctx_r1.isReadOnly)("checked", ctx_r1.tree.checked);
         }
     }
-    function TreeInternalComponent_ul_0_div_5_div_2_Template(rf, ctx) {
+    function TreeInternalComponent_ul_0_div_5_div_1_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "div", 23);
+            i0.ɵɵelement(0, "div", 22);
             i0.ɵɵpipe(1, "safeHtml");
         }if (rf & 2) {
             var ctx_r14 = i0.ɵɵnextContext(3);
             i0.ɵɵproperty("innerHTML", i0.ɵɵpipeBind1(1, 1, ctx_r14.tree.nodeTemplate), i0.ɵɵsanitizeHtml);
         }
     }
-    function TreeInternalComponent_ul_0_div_5_span_3_Template(rf, ctx) {
+    function TreeInternalComponent_ul_0_div_5_span_2_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "span", 24);
+            i0.ɵɵelement(0, "span", 23);
             i0.ɵɵpipe(1, "safeHtml");
         }if (rf & 2) {
             var ctx_r15 = i0.ɵɵnextContext(3);
-            i0.ɵɵproperty("innerHTML", i0.ɵɵpipeBind1(1, 1, ctx_r15.tree.value), i0.ɵɵsanitizeHtml);
+            i0.ɵɵproperty("innerHTML", i0.ɵɵpipeBind1(1, 3, ctx_r15.tree.value), i0.ɵɵsanitizeHtml)("matTooltip", ctx_r15.tree.tooltip)("matTooltipPosition", ctx_r15.tree.tooltipPosition);
         }
     }
-    function TreeInternalComponent_ul_0_div_5_span_4_Template(rf, ctx) {
+    function TreeInternalComponent_ul_0_div_5_span_3_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "span", 25);
+            i0.ɵɵelement(0, "span", 24);
         }
     }
-    function TreeInternalComponent_ul_0_div_5_ng_template_5_Template(rf, ctx) {}
+    function TreeInternalComponent_ul_0_div_5_ng_template_4_Template(rf, ctx) {}
     var _c1 = function (a0) {
         return { $implicit: a0 };
     };
@@ -438,18 +438,14 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             })("click", function TreeInternalComponent_ul_0_div_5_Template_div_click_0_listener($event) {
                 i0.ɵɵrestoreView(_r19);var ctx_r20 = i0.ɵɵnextContext(2);return ctx_r20.onNodeSelected($event);
             });
-            i0.ɵɵelementStart(1, "div", 18);
-            i0.ɵɵtemplate(2, TreeInternalComponent_ul_0_div_5_div_2_Template, 2, 3, "div", 19);
-            i0.ɵɵtemplate(3, TreeInternalComponent_ul_0_div_5_span_3_Template, 2, 3, "span", 20);
-            i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(4, TreeInternalComponent_ul_0_div_5_span_4_Template, 1, 0, "span", 21);
-            i0.ɵɵtemplate(5, TreeInternalComponent_ul_0_div_5_ng_template_5_Template, 0, 0, "ng-template", 22);
+            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_5_div_1_Template, 2, 3, "div", 18);
+            i0.ɵɵtemplate(2, TreeInternalComponent_ul_0_div_5_span_2_Template, 2, 5, "span", 19);
+            i0.ɵɵtemplate(3, TreeInternalComponent_ul_0_div_5_span_3_Template, 1, 0, "span", 20);
+            i0.ɵɵtemplate(4, TreeInternalComponent_ul_0_div_5_ng_template_4_Template, 0, 0, "ng-template", 21);
             i0.ɵɵelementEnd();
         }if (rf & 2) {
             var ctx_r2 = i0.ɵɵnextContext(2);
             i0.ɵɵclassProp("node-selected", ctx_r2.isSelected);
-            i0.ɵɵadvance(1);
-            i0.ɵɵproperty("matTooltip", ctx_r2.tree.tooltip)("matTooltipPosition", ctx_r2.tree.tooltipPosition);
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx_r2.tree.nodeTemplate);
             i0.ɵɵadvance(1);
@@ -457,13 +453,13 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             i0.ɵɵadvance(1);
             i0.ɵɵproperty("ngIf", ctx_r2.tree.childrenAreBeingLoaded());
             i0.ɵɵadvance(1);
-            i0.ɵɵproperty("ngTemplateOutlet", ctx_r2.template)("ngTemplateOutletContext", i0.ɵɵpureFunction1(9, _c1, ctx_r2.tree.node));
+            i0.ɵɵproperty("ngTemplateOutlet", ctx_r2.template)("ngTemplateOutletContext", i0.ɵɵpureFunction1(7, _c1, ctx_r2.tree.node));
         }
     }
     function TreeInternalComponent_ul_0_input_6_Template(rf, ctx) {
         if (rf & 1) {
             var _r22 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "input", 26);
+            i0.ɵɵelementStart(0, "input", 25);
             i0.ɵɵlistener("keydown", function TreeInternalComponent_ul_0_input_6_Template_input_keydown_0_listener($event) {
                 i0.ɵɵrestoreView(_r22);var ctx_r21 = i0.ɵɵnextContext(2);return ctx_r21.keydownHandler($event);
             })("input", function TreeInternalComponent_ul_0_input_6_Template_input_input_0_listener($event) {
@@ -480,7 +476,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_div_7_Template(rf, ctx) {
         if (rf & 1) {
             var _r26 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "div", 27);
+            i0.ɵɵelementStart(0, "div", 26);
             i0.ɵɵlistener("click", function TreeInternalComponent_ul_0_div_7_Template_div_click_0_listener($event) {
                 i0.ɵɵrestoreView(_r26);var ctx_r25 = i0.ɵɵnextContext(2);return ctx_r25.showLeftMenu($event);
             });
@@ -493,7 +489,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_node_menu_8_Template(rf, ctx) {
         if (rf & 1) {
             var _r28 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "node-menu", 28);
+            i0.ɵɵelementStart(0, "node-menu", 27);
             i0.ɵɵlistener("menuItemSelected", function TreeInternalComponent_ul_0_node_menu_8_Template_node_menu_menuItemSelected_0_listener($event) {
                 i0.ɵɵrestoreView(_r28);var ctx_r27 = i0.ɵɵnextContext(2);return ctx_r27.onMenuItemSelected($event);
             });
@@ -502,7 +498,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_div_9_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "div", 29);
+            i0.ɵɵelement(0, "div", 28);
             i0.ɵɵpipe(1, "safeHtml");
         }if (rf & 2) {
             var ctx_r6 = i0.ɵɵnextContext(2);
@@ -512,7 +508,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_node_menu_10_Template(rf, ctx) {
         if (rf & 1) {
             var _r30 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "node-menu", 30);
+            i0.ɵɵelementStart(0, "node-menu", 29);
             i0.ɵɵlistener("menuItemSelected", function TreeInternalComponent_ul_0_node_menu_10_Template_node_menu_menuItemSelected_0_listener($event) {
                 i0.ɵɵrestoreView(_r30);var ctx_r29 = i0.ɵɵnextContext(2);return ctx_r29.onMenuItemSelected($event);
             });
@@ -525,7 +521,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     function TreeInternalComponent_ul_0_node_menu_11_Template(rf, ctx) {
         if (rf & 1) {
             var _r32 = i0.ɵɵgetCurrentView();
-            i0.ɵɵelementStart(0, "node-menu", 31);
+            i0.ɵɵelementStart(0, "node-menu", 30);
             i0.ɵɵlistener("menuItemSelected", function TreeInternalComponent_ul_0_node_menu_11_Template_node_menu_menuItemSelected_0_listener($event) {
                 i0.ɵɵrestoreView(_r32);var ctx_r31 = i0.ɵɵnextContext(2);return ctx_r31.onMenuItemSelected($event);
             });
@@ -537,7 +533,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_div_12_tree_internal_1_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "tree-internal", 34);
+            i0.ɵɵelement(0, "tree-internal", 33);
         }if (rf & 2) {
             var child_r34 = ctx.$implicit;
             var ctx_r33 = i0.ɵɵnextContext(3);
@@ -549,8 +545,8 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     };
     function TreeInternalComponent_ul_0_div_12_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 32);
-            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_12_tree_internal_1_Template, 1, 3, "tree-internal", 33);
+            i0.ɵɵelementStart(0, "div", 31);
+            i0.ɵɵtemplate(1, TreeInternalComponent_ul_0_div_12_tree_internal_1_Template, 1, 3, "tree-internal", 32);
             i0.ɵɵpipe(2, "async");
             i0.ɵɵelementEnd();
         }if (rf & 2) {
@@ -562,7 +558,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_ng_template_13_tree_internal_0_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵelement(0, "tree-internal", 34);
+            i0.ɵɵelement(0, "tree-internal", 33);
         }if (rf & 2) {
             var child_r36 = ctx.$implicit;
             var ctx_r35 = i0.ɵɵnextContext(3);
@@ -571,7 +567,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
     }
     function TreeInternalComponent_ul_0_ng_template_13_Template(rf, ctx) {
         if (rf & 1) {
-            i0.ɵɵtemplate(0, TreeInternalComponent_ul_0_ng_template_13_tree_internal_0_Template, 1, 3, "tree-internal", 33);
+            i0.ɵɵtemplate(0, TreeInternalComponent_ul_0_ng_template_13_tree_internal_0_Template, 1, 3, "tree-internal", 32);
             i0.ɵɵpipe(1, "async");
         }if (rf & 2) {
             var ctx_r10 = i0.ɵɵnextContext(2);
@@ -599,7 +595,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
                 i0.ɵɵrestoreView(_r38);var ctx_r39 = i0.ɵɵnextContext();return ctx_r39.onSwitchFoldingType();
             });
             i0.ɵɵelementEnd();
-            i0.ɵɵtemplate(5, TreeInternalComponent_ul_0_div_5_Template, 6, 11, "div", 5);
+            i0.ɵɵtemplate(5, TreeInternalComponent_ul_0_div_5_Template, 5, 9, "div", 5);
             i0.ɵɵtemplate(6, TreeInternalComponent_ul_0_input_6_Template, 1, 1, "input", 6);
             i0.ɵɵtemplate(7, TreeInternalComponent_ul_0_div_7_Template, 1, 1, "div", 7);
             i0.ɵɵtemplate(8, TreeInternalComponent_ul_0_node_menu_8_Template, 1, 0, "node-menu", 8);
@@ -991,13 +987,13 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
                     var _t = void 0;
                     i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.checkboxElementRef = _t.first);
                 }
-            }, inputs: { tree: "tree", settings: "settings", template: "template" }, features: [i0.ɵɵNgOnChangesFeature], decls: 1, vars: 1, consts: [["class", "tree", 3, "ngClass", 4, "ngIf"], [1, "tree", 3, "ngClass"], [1, "value-container", 3, "ngClass", "nodeDraggable", "tree", "contextmenu"], ["class", "node-checkbox", 4, "ngIf"], [1, "folding", 3, "ngClass", "click"], ["class", "node-value", 3, "node-selected", "dblclick", "click", 4, "ngIf"], ["type", "text", "class", "node-value", "id", "rename-input", 3, "nodeEditable", "keydown", "input", "valueChanged", 4, "ngIf"], ["class", "node-left-menu", 3, "innerHTML", "click", 4, "ngIf"], [3, "menuItemSelected", 4, "ngIf"], ["class", "drag-template", 3, "innerHTML", 4, "ngIf"], [3, "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "menuItems", "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "ngStyle", 4, "ngIf"], [3, "ngIf"], [1, "node-checkbox"], ["checkbox", "", "type", "checkbox", 3, "disabled", "checked", "change"], ["checkbox", ""], [1, "node-value", 3, "dblclick", "click"], ["matTooltipClass", "ng2-tree-tooltip", 3, "matTooltip", "matTooltipPosition"], ["class", "node-template", 3, "innerHTML", 4, "ngIf"], ["class", "node-name", 3, "innerHTML", 4, "ngIf"], ["class", "loading-children", 4, "ngIf"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "node-template", 3, "innerHTML"], [1, "node-name", 3, "innerHTML"], [1, "loading-children"], ["type", "text", "id", "rename-input", 1, "node-value", 3, "nodeEditable", "keydown", "input", "valueChanged"], [1, "node-left-menu", 3, "innerHTML", "click"], [3, "menuItemSelected"], [1, "drag-template", 3, "innerHTML"], [3, "cursorCoordinates", "menuItemSelected"], [3, "menuItems", "cursorCoordinates", "menuItemSelected"], [3, "ngStyle"], [3, "tree", "template", "settings", 4, "ngFor", "ngForOf"], [3, "tree", "template", "settings"]], template: function TreeInternalComponent_Template(rf, ctx) {
+            }, inputs: { tree: "tree", settings: "settings", template: "template" }, features: [i0.ɵɵNgOnChangesFeature], decls: 1, vars: 1, consts: [["class", "tree", 3, "ngClass", 4, "ngIf"], [1, "tree", 3, "ngClass"], [1, "value-container", 3, "ngClass", "nodeDraggable", "tree", "contextmenu"], ["class", "node-checkbox", 4, "ngIf"], [1, "folding", 3, "ngClass", "click"], ["class", "node-value", 3, "node-selected", "dblclick", "click", 4, "ngIf"], ["type", "text", "class", "node-value", "id", "rename-input", 3, "nodeEditable", "keydown", "input", "valueChanged", 4, "ngIf"], ["class", "node-left-menu", 3, "innerHTML", "click", 4, "ngIf"], [3, "menuItemSelected", 4, "ngIf"], ["class", "drag-template", 3, "innerHTML", 4, "ngIf"], [3, "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "menuItems", "cursorCoordinates", "menuItemSelected", 4, "ngIf"], [3, "ngStyle", 4, "ngIf"], [3, "ngIf"], [1, "node-checkbox"], ["checkbox", "", "type", "checkbox", 3, "disabled", "checked", "change"], ["checkbox", ""], [1, "node-value", 3, "dblclick", "click"], ["class", "node-template", 3, "innerHTML", 4, "ngIf"], ["class", "node-name", "matTooltipClass", "ng2-tree-tooltip", 3, "innerHTML", "matTooltip", "matTooltipPosition", 4, "ngIf"], ["class", "loading-children", 4, "ngIf"], [3, "ngTemplateOutlet", "ngTemplateOutletContext"], [1, "node-template", 3, "innerHTML"], ["matTooltipClass", "ng2-tree-tooltip", 1, "node-name", 3, "innerHTML", "matTooltip", "matTooltipPosition"], [1, "loading-children"], ["type", "text", "id", "rename-input", 1, "node-value", 3, "nodeEditable", "keydown", "input", "valueChanged"], [1, "node-left-menu", 3, "innerHTML", "click"], [3, "menuItemSelected"], [1, "drag-template", 3, "innerHTML"], [3, "cursorCoordinates", "menuItemSelected"], [3, "menuItems", "cursorCoordinates", "menuItemSelected"], [3, "ngStyle"], [3, "tree", "template", "settings", 4, "ngFor", "ngForOf"], [3, "tree", "template", "settings"]], template: function TreeInternalComponent_Template(rf, ctx) {
                 if (rf & 1) {
                     i0.ɵɵtemplate(0, TreeInternalComponent_ul_0_Template, 14, 22, "ul", 0);
                 }if (rf & 2) {
                     i0.ɵɵproperty("ngIf", ctx.tree);
                 }
-            }, directives: [i4.NgIf, i4.NgClass, i5.NodeDraggableDirective, i6.MatTooltip, i4.NgTemplateOutlet, i7.NodeEditableDirective, i8.NodeMenuComponent, i4.NgStyle, i4.NgForOf, TreeInternalComponent], pipes: [i9.SafeHtmlPipe, i4.AsyncPipe], encapsulation: 2 });
+            }, directives: [i4.NgIf, i4.NgClass, i5.NodeDraggableDirective, i4.NgTemplateOutlet, i6.MatTooltip, i7.NodeEditableDirective, i8.NodeMenuComponent, i4.NgStyle, i4.NgForOf, TreeInternalComponent], pipes: [i9.SafeHtmlPipe, i4.AsyncPipe], encapsulation: 2 });
         return TreeInternalComponent;
     }();
     exports.TreeInternalComponent = TreeInternalComponent;
@@ -1006,7 +1002,7 @@ $__System.registerDynamic("11", ["d", "f", "10", "12", "16", "13", "17", "e", "1
             type: core_1.Component,
             args: [{
                 selector: 'tree-internal',
-                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n          <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n        </div>\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (dblclick)=\"onNodeDoubleClicked($event)\"\n          (click)=\"onNodeSelected($event)\">\n            <div [matTooltip]=\"tree.tooltip\" [matTooltipPosition]=\"tree.tooltipPosition\" matTooltipClass=\"ng2-tree-tooltip\">\n              <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n              <span *ngIf=\"!template\" class=\"node-name\" [innerHTML]=\"tree.value | safeHtml\"></span>\n            </div>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\" id=\"rename-input\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (keydown)=\"keydownHandler($event)\"\n           (input)=\"inputChangeHandler($event)\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
+                template: "\n  <ul class=\"tree\" *ngIf=\"tree\" [ngClass]=\"{rootless: isRootHidden()}\">\n    <li>\n      <div class=\"value-container\"\n        [ngClass]=\"{rootless: isRootHidden(), checked: tree.checked}\"\n        [class.selected]=\"isSelected\"\n        (contextmenu)=\"showRightMenu($event)\"\n        [nodeDraggable]=\"nodeElementRef\"\n        [tree]=\"tree\">\n\n        <div class=\"node-checkbox\" *ngIf=\"settings.showCheckboxes\">\n          <input checkbox  type=\"checkbox\" [disabled]=\"isReadOnly\" [checked]=\"tree.checked\" (change)=\"switchNodeCheckStatus()\" #checkbox />\n        </div>\n\n        <div class=\"folding\" (click)=\"onSwitchFoldingType()\" [ngClass]=\"tree.foldingCssClass\"></div>\n\n        <div class=\"node-value\"\n          *ngIf=\"!shouldShowInputForTreeValue()\"\n          [class.node-selected]=\"isSelected\"\n          (dblclick)=\"onNodeDoubleClicked($event)\"\n          (click)=\"onNodeSelected($event)\">\n            <div *ngIf=\"tree.nodeTemplate\" class=\"node-template\" [innerHTML]=\"tree.nodeTemplate | safeHtml\"></div>\n            <span *ngIf=\"!template\" class=\"node-name\"\n                  [innerHTML]=\"tree.value | safeHtml\"\n                  [matTooltip]=\"tree.tooltip\"\n                  [matTooltipPosition]=\"tree.tooltipPosition\"\n                  matTooltipClass=\"ng2-tree-tooltip\"></span>\n            <span class=\"loading-children\" *ngIf=\"tree.childrenAreBeingLoaded()\"></span>\n            <ng-template [ngTemplateOutlet]=\"template\" [ngTemplateOutletContext]=\"{ $implicit: tree.node }\"></ng-template>\n        </div>\n\n        <input type=\"text\" class=\"node-value\" id=\"rename-input\"\n           *ngIf=\"shouldShowInputForTreeValue()\"\n           [nodeEditable]=\"tree.value\"\n           (keydown)=\"keydownHandler($event)\"\n           (input)=\"inputChangeHandler($event)\"\n           (valueChanged)=\"applyNewValue($event)\"/>\n\n        <div class=\"node-left-menu\" *ngIf=\"tree.hasLeftMenu()\" (click)=\"showLeftMenu($event)\" [innerHTML]=\"tree.leftMenuTemplate\">\n        </div>\n        <node-menu *ngIf=\"tree.hasLeftMenu() && isLeftMenuVisible && !hasCustomMenu()\"\n          (menuItemSelected)=\"onMenuItemSelected($event)\">\n        </node-menu>\n        <div class=\"drag-template\" *ngIf=\"tree.hasDragIcon()\" [innerHTML]=\"tree.dragTemplate | safeHtml\"></div>\n      </div>\n\n      <node-menu *ngIf=\"isRightMenuVisible && !hasCustomMenu()\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <node-menu *ngIf=\"hasCustomMenu() && (isRightMenuVisible || isLeftMenuVisible)\"\n           [menuItems]=\"tree.menuItems\"\n           (menuItemSelected)=\"onMenuItemSelected($event)\"\n           [cursorCoordinates]=\"cursorCoordinates\">\n      </node-menu>\n\n      <div *ngIf=\"tree.keepNodesInDOM()\" [ngStyle]=\"{'display': tree.isNodeExpanded() ? 'block' : 'none'}\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </div>\n      <ng-template [ngIf]=\"tree.isNodeExpanded() && !tree.keepNodesInDOM()\">\n        <tree-internal *ngFor=\"let child of tree.childrenAsync | async\" [tree]=\"child\" [template]=\"template\" [settings]=\"settings\"></tree-internal>\n      </ng-template>\n    </li>\n  </ul>\n  "
             }]
         }], function () {
             return [{ type: i1.NodeMenuService }, { type: i2.TreeService }, { type: i3.NodeDraggableService }, { type: i0.ElementRef }];
