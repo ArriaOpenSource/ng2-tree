@@ -103,7 +103,6 @@
       }
     }
   },
-  "defaultProject": "ng2-tree",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
