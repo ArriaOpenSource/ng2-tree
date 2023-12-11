@@ -14,5 +14,5 @@
 ./protractor.conf.js
 ./publish.js
 ./tsconfig.json
-./tsconfig-aot.json
+./tsconfig-prod.json
 ./umd-bundler.js
