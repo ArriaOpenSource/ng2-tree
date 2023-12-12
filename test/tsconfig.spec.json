@@ -3,9 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "module": "commonjs",
-    "baseUrl": "",
     "types": ["jasmine", "node"]
   },
-  "files": ["./test.ts", "../src/demo/polyfills.ts"],
-  "include": ["**/*.spec.ts", "**/*.d.ts"]
+  "include": ["../**/*.spec.ts", "../**/*.d.ts"]
 }
