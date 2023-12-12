@@ -38,7 +38,7 @@
     "recursive"
   ],
   "scripts": {
-    "compile": "ngc --p tsconfig-prod.json && node umd-bundler.js",
+    "compile": "ngc --p tsconfig-prod.json",
     "clean": "rimraf coverage build dist dist-demo bundles factories .publish",
     "pre:publish":
       "npm run clean && npm run test && npm run lint && npm run compile && mkdir -p dist && cp -R src/styles.css README.md media dist",

@@ -4,8 +4,7 @@
     "noImplicitAny": false,
     "declaration": true,
     "stripInternal": true,
-    "outDir": "dist",
-    "suppressImplicitAnyIndexErrors": true
+    "outDir": "dist"
   },
   "exclude": ["src/demo", "node_modules"],
   "files": ["./index.ts"],

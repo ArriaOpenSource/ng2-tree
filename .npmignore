@@ -15,4 +15,3 @@
 ./publish.js
 ./tsconfig.json
 ./tsconfig-prod.json
-./umd-bundler.js

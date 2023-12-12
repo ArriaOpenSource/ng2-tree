@@ -1,4 +1,4 @@
-export declare type NodeEditableEventType = 'blur' | 'keyup';
+export type NodeEditableEventType = 'blur' | 'keyup';
 export declare enum NodeEditableEventAction {
     Cancel = 0
 }

@@ -74,7 +74,8 @@
               "src/styles.css"
             ],
             "assets": ["src/demo/favicon.ico"],
-            "include": ["test/**/*.spec.ts", "**/*.d.ts"]
+            "include": ["test/**/*.spec.ts", "**/*.d.ts"],
+            "exclude": ["dist/**/*"]
           }
         },
         "lint": {

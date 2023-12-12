@@ -1,31 +1,21 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TreeStatus = exports.Ng2TreeSettings = exports.TreeModelSettings = exports.FoldingType = void 0;
-var fn_utils_1 = require("./utils/fn.utils");
-var FoldingType = /** @class */ (function () {
-    function FoldingType(_cssClass) {
+import { defaultsDeep, get, omit } from './utils/fn.utils';
+export class FoldingType {
+    static { this.Expanded = new FoldingType('node-expanded'); }
+    static { this.Collapsed = new FoldingType('node-collapsed'); }
+    static { this.Empty = new FoldingType('node-empty'); }
+    static { this.Leaf = new FoldingType('node-leaf'); }
+    constructor(_cssClass) {
         this._cssClass = _cssClass;
     }
-    Object.defineProperty(FoldingType.prototype, "cssClass", {
-        get: function () {
-            return this._cssClass;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    FoldingType.Expanded = new FoldingType('node-expanded');
-    FoldingType.Collapsed = new FoldingType('node-collapsed');
-    FoldingType.Empty = new FoldingType('node-empty');
-    FoldingType.Leaf = new FoldingType('node-leaf');
-    return FoldingType;
-}());
-exports.FoldingType = FoldingType;
-var TreeModelSettings = /** @class */ (function () {
-    function TreeModelSettings() {
+    get cssClass() {
+        return this._cssClass;
     }
-    TreeModelSettings.merge = function (child, parent) {
-        var parentCascadingSettings = fn_utils_1.omit(fn_utils_1.get(parent, 'settings'), TreeModelSettings.NOT_CASCADING_SETTINGS);
-        return fn_utils_1.defaultsDeep({}, fn_utils_1.get(child, 'settings'), parentCascadingSettings, {
+}
+export class TreeModelSettings {
+    static { this.NOT_CASCADING_SETTINGS = ['selectionAllowed']; }
+    static merge(child, parent) {
+        const parentCascadingSettings = omit(get(parent, 'settings'), TreeModelSettings.NOT_CASCADING_SETTINGS);
+        return defaultsDeep({}, get(child, 'settings'), parentCascadingSettings, {
             static: false,
             leftMenu: false,
             rightMenu: true,
@@ -35,13 +25,10 @@ var TreeModelSettings = /** @class */ (function () {
             keepNodesInDOM: false,
             selectionAllowed: true
         });
-    };
-    TreeModelSettings.NOT_CASCADING_SETTINGS = ['selectionAllowed'];
-    return TreeModelSettings;
-}());
-exports.TreeModelSettings = TreeModelSettings;
-var Ng2TreeSettings = /** @class */ (function () {
-    function Ng2TreeSettings() {
+    }
+}
+export class Ng2TreeSettings {
+    constructor() {
         /**
          * Indicates root visibility in the tree. When true - root is invisible.
          * @name Ng2TreeSettings#rootIsVisible
@@ -54,13 +41,11 @@ var Ng2TreeSettings = /** @class */ (function () {
         this.ignoreParentOnCheck = false;
         /* eslint-enable */
     }
-    return Ng2TreeSettings;
-}());
-exports.Ng2TreeSettings = Ng2TreeSettings;
-var TreeStatus;
+}
+export var TreeStatus;
 (function (TreeStatus) {
     TreeStatus[TreeStatus["New"] = 0] = "New";
     TreeStatus[TreeStatus["Modified"] = 1] = "Modified";
     TreeStatus[TreeStatus["IsBeingRenamed"] = 2] = "IsBeingRenamed";
-})(TreeStatus = exports.TreeStatus || (exports.TreeStatus = {}));
+})(TreeStatus || (TreeStatus = {}));
 //# sourceMappingURL=tree.types.js.map
