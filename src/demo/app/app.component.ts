@@ -211,12 +211,15 @@ export class AppComponent implements OnInit {
 
   public fonts: TreeModel = {
     value: 'Fonts',
+    tooltip: 'Fonts root',
+    tooltipPosition: 'right',
     settings: {
       isCollapsedOnInit: false
     },
     children: [
       {
         value: 'Serif  -  All my children and I are STATIC ¯\\_(ツ)_/¯',
+        tooltip: 'Serif fonts',
         id: 1,
         settings: {
           static: true
@@ -236,6 +239,7 @@ export class AppComponent implements OnInit {
       },
       {
         value: 'Sans-serif (Right click me - I have a custom menu)',
+        tooltip: 'Sans-serif fonts',
         id: 11,
         settings: {
           menuItems: [
@@ -245,7 +249,7 @@ export class AppComponent implements OnInit {
           ]
         },
         children: [
-          { value: 'Arial', id: 12 },
+          { value: 'Arial', id: 12, tooltip: 'Arial font' },
           { value: 'Century Gothic', id: 13 },
           { value: 'DejaVu Sans', id: 14 },
           { value: 'Futura', id: 15 },
@@ -255,6 +259,7 @@ export class AppComponent implements OnInit {
       },
       {
         value: 'Monospace - With ASYNC CHILDREN',
+        tooltip: 'Monospace fonts',
         id: 18,
         // children property is ignored if "loadChildren" is present
         children: [{ value: 'I am the font that will be ignored' }],

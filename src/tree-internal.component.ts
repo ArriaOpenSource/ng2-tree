@@ -53,7 +53,11 @@ import { ICursorCoordinates } from './menu/node-menu.component';
           (dblclick)="onNodeDoubleClicked($event)"
           (click)="onNodeSelected($event)">
             <div *ngIf="tree.nodeTemplate" class="node-template" [innerHTML]="tree.nodeTemplate | safeHtml"></div>
-            <span *ngIf="!template" class="node-name" [innerHTML]="tree.value | safeHtml"></span>
+            <span *ngIf="!template" class="node-name"
+                  [innerHTML]="tree.value | safeHtml"
+                  [matTooltip]="tree.tooltip"
+                  [matTooltipPosition]="tree.tooltipPosition"
+                  matTooltipClass="ng2-tree-tooltip"></span>
             <span class="loading-children" *ngIf="tree.childrenAreBeingLoaded()"></span>
             <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: tree.node }"></ng-template>
         </div>

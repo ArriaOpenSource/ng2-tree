@@ -382,6 +382,20 @@ var Tree = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(Tree.prototype, "tooltip", {
+        get: function () {
+            return fn_utils_1.get(this.node, 'tooltip', '');
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Tree.prototype, "tooltipPosition", {
+        get: function () {
+            return fn_utils_1.get(this.node, 'tooltipPosition', 'above');
+        },
+        enumerable: false,
+        configurable: true
+    });
     /**
      * Check whether or not this tree has a custom menu.
      * @returns {boolean} A flag indicating whether or not this tree has a custom menu.

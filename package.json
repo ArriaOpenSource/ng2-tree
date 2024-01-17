@@ -55,7 +55,7 @@
     "postversion": "git push origin master && git push --tags && npm run github-release && node publish.js",
     "webdriver-update": "node ./node_modules/protractor/bin/webdriver-manager update",
     "prettier": "prettier --write '{.,src,test}/**/*.ts'",
-    "rebuild:dist":
+    "build:dist":
       "npm run clean && mkdir dist && npm run compile && cp -R src/styles.css README.md media dist && npm run commit:dist",
     "commit:dist": "git add dist/\\* && git commit -m \"Rebuild dist\""
   },
@@ -117,9 +117,12 @@
     "typescript": "~4.1.0",
     "uuid": "^7.0.0",
     "webpack": "^4.0.0",
-    "zone.js": "~0.11.5"
+    "zone.js": "^0.11.8"
   },
   "dependencies": {
+    "@angular/animations": "^11.2.14",
+    "@angular/cdk": "^11.2.13",
+    "@angular/material": "^11.2.13",
     "package-lock": "^1.0.5"
   }
 }
