@@ -20,7 +20,7 @@
               "node_modules/alertifyjs/build/css/alertify.css",
               "node_modules/alertifyjs/build/css/themes/default.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
-              "src/styles.css"
+              "src/demo/styles.css"
             ],
             "scripts": ["node_modules/alertifyjs/build/alertify.js"]
           },
@@ -71,7 +71,7 @@
               "node_modules/alertifyjs/build/css/alertify.css",
               "node_modules/alertifyjs/build/css/themes/default.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
-              "src/styles.css"
+              "src/demo/styles.css"
             ],
             "assets": ["src/demo/favicon.ico"],
             "include": ["test/**/*.spec.ts", "**/*.d.ts"],
