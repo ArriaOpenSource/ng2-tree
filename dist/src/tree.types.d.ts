@@ -12,6 +12,8 @@ export type ChildrenLoadingFunction = (callback: (children: TreeModel[]) => void
 export interface TreeModel {
     value: string | RenamableNode;
     id?: string | number;
+    tooltip?: string;
+    tooltipPosition?: string;
     children?: TreeModel[];
     loadChildren?: ChildrenLoadingFunction;
     settings?: TreeModelSettings;

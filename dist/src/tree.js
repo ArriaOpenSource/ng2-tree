@@ -339,6 +339,12 @@ export class Tree {
     get menuItems() {
         return get(this.node.settings, 'menuItems');
     }
+    get tooltip() {
+        return get(this.node, 'tooltip', '');
+    }
+    get tooltipPosition() {
+        return get(this.node, 'tooltipPosition', 'above');
+    }
     /**
      * Check whether or not this tree has a custom menu.
      * @returns {boolean} A flag indicating whether or not this tree has a custom menu.

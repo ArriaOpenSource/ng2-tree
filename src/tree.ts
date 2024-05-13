@@ -413,6 +413,14 @@ export class Tree {
     return get(this.node.settings, 'menuItems');
   }
 
+  public get tooltip(): string {
+    return get(this.node, 'tooltip', '');
+  }
+
+  public get tooltipPosition(): string {
+    return get(this.node, 'tooltipPosition', 'above');
+  }
+
   /**
    * Check whether or not this tree has a custom menu.
    * @returns {boolean} A flag indicating whether or not this tree has a custom menu.
@@ -420,6 +428,7 @@ export class Tree {
   public hasCustomMenu(): boolean {
     return !this.isStatic() && !!get(this.node.settings, 'menuItems', false);
   }
+
   /**
    * Check whether this tree is "Branch" or not. "Branch" is a node that has children.
    * @returns {boolean} A flag indicating whether or not this tree is a "Branch".

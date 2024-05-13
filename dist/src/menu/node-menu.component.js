@@ -7,22 +7,22 @@ import * as i1 from "@angular/common";
 import * as i2 from "./node-menu.service";
 const _c0 = ["menuContent"];
 const _c1 = ["menuContainer"];
+const _c2 = a0 => ({ "visibility": a0 });
 function NodeMenuComponent_li_4_Template(rf, ctx) { if (rf & 1) {
-    const _r5 = i0.ɵɵgetCurrentView();
+    const _r1 = i0.ɵɵgetCurrentView();
     i0.ɵɵelementStart(0, "li", 5);
-    i0.ɵɵlistener("click", function NodeMenuComponent_li_4_Template_li_click_0_listener($event) { const restoredCtx = i0.ɵɵrestoreView(_r5); const menuItem_r3 = restoredCtx.$implicit; const ctx_r4 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r4.onMenuItemSelected($event, menuItem_r3)); });
+    i0.ɵɵlistener("click", function NodeMenuComponent_li_4_Template_li_click_0_listener($event) { const menuItem_r2 = i0.ɵɵrestoreView(_r1).$implicit; const ctx_r2 = i0.ɵɵnextContext(); return i0.ɵɵresetView(ctx_r2.onMenuItemSelected($event, menuItem_r2)); });
     i0.ɵɵelement(1, "div");
     i0.ɵɵelementStart(2, "span", 6);
     i0.ɵɵtext(3);
     i0.ɵɵelementEnd()();
 } if (rf & 2) {
-    const menuItem_r3 = ctx.$implicit;
-    i0.ɵɵadvance(1);
-    i0.ɵɵclassMapInterpolate1("node-menu-item-icon ", menuItem_r3.cssClass, "");
+    const menuItem_r2 = ctx.$implicit;
+    i0.ɵɵadvance();
+    i0.ɵɵclassMapInterpolate1("node-menu-item-icon ", menuItem_r2.cssClass, "");
     i0.ɵɵadvance(2);
-    i0.ɵɵtextInterpolate(menuItem_r3.name);
+    i0.ɵɵtextInterpolate(menuItem_r2.name);
 } }
-const _c2 = a0 => ({ "visibility": a0 });
 export class NodeMenuComponent {
     constructor(renderer, nodeMenuService) {
         this.renderer = renderer;
@@ -126,8 +126,8 @@ export class NodeMenuComponent {
             let _t;
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.menuContent = _t.first);
             i0.ɵɵqueryRefresh(_t = i0.ɵɵloadQuery()) && (ctx.menuContainer = _t.first);
-        } }, inputs: { menuItems: "menuItems", cursorCoordinates: "cursorCoordinates" }, outputs: { menuItemSelected: "menuItemSelected" }, decls: 5, vars: 4, consts: [[1, "node-menu", 3, "ngStyle"], ["menuContainer", ""], [1, "node-menu-content"], ["menuContent", ""], ["class", "node-menu-item", 3, "click", 4, "ngFor", "ngForOf"], [1, "node-menu-item", 3, "click"], [1, "node-menu-item-value"]], template: function NodeMenuComponent_Template(rf, ctx) { if (rf & 1) {
-            i0.ɵɵelementStart(0, "div", 0, 1)(2, "ul", 2, 3);
+        } }, inputs: { menuItems: "menuItems", cursorCoordinates: "cursorCoordinates" }, outputs: { menuItemSelected: "menuItemSelected" }, decls: 5, vars: 4, consts: [["menuContainer", ""], ["menuContent", ""], [1, "node-menu", 3, "ngStyle"], [1, "node-menu-content"], ["class", "node-menu-item", 3, "click", 4, "ngFor", "ngForOf"], [1, "node-menu-item", 3, "click"], [1, "node-menu-item-value"]], template: function NodeMenuComponent_Template(rf, ctx) { if (rf & 1) {
+            i0.ɵɵelementStart(0, "div", 2, 0)(2, "ul", 3, 1);
             i0.ɵɵtemplate(4, NodeMenuComponent_li_4_Template, 4, 4, "li", 4);
             i0.ɵɵelementEnd()();
         } if (rf & 2) {

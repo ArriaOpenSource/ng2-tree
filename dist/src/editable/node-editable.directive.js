@@ -31,7 +31,7 @@ export class NodeEditableDirective {
     static { this.ɵfac = function NodeEditableDirective_Factory(t) { return new (t || NodeEditableDirective)(i0.ɵɵdirectiveInject(Renderer2), i0.ɵɵdirectiveInject(ElementRef)); }; }
     static { this.ɵdir = /*@__PURE__*/ i0.ɵɵdefineDirective({ type: NodeEditableDirective, selectors: [["", "nodeEditable", ""]], hostBindings: function NodeEditableDirective_HostBindings(rf, ctx) { if (rf & 1) {
             i0.ɵɵlistener("keyup.enter", function NodeEditableDirective_keyup_enter_HostBindingHandler($event) { return ctx.applyNewValue($event.target.value); })("blur", function NodeEditableDirective_blur_HostBindingHandler($event) { return ctx.applyNewValueByLoosingFocus($event.target.value); })("keyup.esc", function NodeEditableDirective_keyup_esc_HostBindingHandler() { return ctx.cancelEditing(); });
-        } }, inputs: { nodeValue: ["nodeEditable", "nodeValue"] }, outputs: { valueChanged: "valueChanged" } }); }
+        } }, inputs: { nodeValue: [i0.ɵɵInputFlags.None, "nodeEditable", "nodeValue"] }, outputs: { valueChanged: "valueChanged" } }); }
 }
 (() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NodeEditableDirective, [{
         type: Directive,

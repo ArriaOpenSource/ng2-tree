@@ -159,6 +159,8 @@ export declare class Tree {
      * @returns {NodeMenuItem[]} The menu items of the current tree.
      */
     get menuItems(): NodeMenuItem[];
+    get tooltip(): string;
+    get tooltipPosition(): string;
     /**
      * Check whether or not this tree has a custom menu.
      * @returns {boolean} A flag indicating whether or not this tree has a custom menu.

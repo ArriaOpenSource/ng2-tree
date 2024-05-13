@@ -11,9 +11,11 @@ import { NodeMenuComponent } from './menu/node-menu.component';
 import { NodeMenuService } from './menu/node-menu.service';
 import { TreeService } from './tree.service';
 import { SafeHtmlPipe } from './utils/safe-html.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, BrowserAnimationsModule, MatTooltipModule],
   declarations: [
     NodeDraggableDirective,
     TreeComponent,

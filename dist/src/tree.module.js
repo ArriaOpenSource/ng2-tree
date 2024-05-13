@@ -10,16 +10,18 @@ import { NodeMenuComponent } from './menu/node-menu.component';
 import { NodeMenuService } from './menu/node-menu.service';
 import { TreeService } from './tree.service';
 import { SafeHtmlPipe } from './utils/safe-html.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import * as i0 from "@angular/core";
 export class TreeModule {
     static { this.ɵfac = function TreeModule_Factory(t) { return new (t || TreeModule)(); }; }
     static { this.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: TreeModule }); }
-    static { this.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: [NodeDraggableService, NodeMenuService, TreeService], imports: [CommonModule] }); }
+    static { this.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ providers: [NodeDraggableService, NodeMenuService, TreeService], imports: [CommonModule, BrowserAnimationsModule, MatTooltipModule] }); }
 }
 (() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(TreeModule, [{
         type: NgModule,
         args: [{
-                imports: [CommonModule],
+                imports: [CommonModule, BrowserAnimationsModule, MatTooltipModule],
                 declarations: [
                     NodeDraggableDirective,
                     TreeComponent,
@@ -37,5 +39,5 @@ export class TreeModule {
         NodeEditableDirective,
         NodeMenuComponent,
         TreeInternalComponent,
-        SafeHtmlPipe], imports: [CommonModule], exports: [TreeComponent] }); })();
+        SafeHtmlPipe], imports: [CommonModule, BrowserAnimationsModule, MatTooltipModule], exports: [TreeComponent] }); })();
 //# sourceMappingURL=tree.module.js.map
