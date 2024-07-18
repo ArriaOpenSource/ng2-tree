@@ -1,34 +1,29 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.NodeMenuService = void 0;
-var core_1 = require("@angular/core");
-var rxjs_1 = require("rxjs");
-var operators_1 = require("rxjs/operators");
-var menu_events_1 = require("./menu.events");
-var i0 = require("@angular/core");
-var NodeMenuService = /** @class */ (function () {
-    function NodeMenuService() {
-        this.nodeMenuEvents$ = new rxjs_1.Subject();
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { NodeMenuAction } from './menu.events';
+import * as i0 from "@angular/core";
+export class NodeMenuService {
+    constructor() {
+        this.nodeMenuEvents$ = new Subject();
     }
-    NodeMenuService.prototype.fireMenuEvent = function (sender, action) {
-        var nodeMenuEvent = { sender: sender, action: action };
+    fireMenuEvent(sender, action) {
+        const nodeMenuEvent = { sender, action };
         this.nodeMenuEvents$.next(nodeMenuEvent);
-    };
-    NodeMenuService.prototype.hideMenuStream = function (treeElementRef) {
-        return this.nodeMenuEvents$.pipe(operators_1.filter(function (e) { return treeElementRef.nativeElement !== e.sender; }), operators_1.filter(function (e) { return e.action === menu_events_1.NodeMenuAction.Close; }));
-    };
-    NodeMenuService.prototype.hideMenuForAllNodesExcept = function (treeElementRef) {
+    }
+    hideMenuStream(treeElementRef) {
+        return this.nodeMenuEvents$.pipe(filter((e) => treeElementRef.nativeElement !== e.sender), filter((e) => e.action === NodeMenuAction.Close));
+    }
+    hideMenuForAllNodesExcept(treeElementRef) {
         this.nodeMenuEvents$.next({
             sender: treeElementRef.nativeElement,
-            action: menu_events_1.NodeMenuAction.Close
+            action: NodeMenuAction.Close
         });
-    };
-    NodeMenuService.ɵfac = function NodeMenuService_Factory(t) { return new (t || NodeMenuService)(); };
-    NodeMenuService.ɵprov = i0.ɵɵdefineInjectable({ token: NodeMenuService, factory: NodeMenuService.ɵfac });
-    return NodeMenuService;
-}());
-exports.NodeMenuService = NodeMenuService;
-(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NodeMenuService, [{
-        type: core_1.Injectable
+    }
+    static { this.ɵfac = function NodeMenuService_Factory(t) { return new (t || NodeMenuService)(); }; }
+    static { this.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: NodeMenuService, factory: NodeMenuService.ɵfac }); }
+}
+(() => { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(NodeMenuService, [{
+        type: Injectable
     }], null, null); })();
 //# sourceMappingURL=node-menu.service.js.map

@@ -10,7 +10,7 @@ import * as i7 from "@angular/common";
 import * as i8 from "@angular/platform-browser/animations";
 import * as i9 from "@angular/material/tooltip";
 export declare class TreeModule {
-    static ɵfac: i0.ɵɵFactoryDef<TreeModule, never>;
-    static ɵmod: i0.ɵɵNgModuleDefWithMeta<TreeModule, [typeof i1.NodeDraggableDirective, typeof i2.TreeComponent, typeof i3.NodeEditableDirective, typeof i4.NodeMenuComponent, typeof i5.TreeInternalComponent, typeof i6.SafeHtmlPipe], [typeof i7.CommonModule, typeof i8.BrowserAnimationsModule, typeof i9.MatTooltipModule], [typeof i2.TreeComponent]>;
-    static ɵinj: i0.ɵɵInjectorDef<TreeModule>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<TreeModule, never>;
+    static ɵmod: i0.ɵɵNgModuleDeclaration<TreeModule, [typeof i1.NodeDraggableDirective, typeof i2.TreeComponent, typeof i3.NodeEditableDirective, typeof i4.NodeMenuComponent, typeof i5.TreeInternalComponent, typeof i6.SafeHtmlPipe], [typeof i7.CommonModule, typeof i8.BrowserAnimationsModule, typeof i9.MatTooltipModule], [typeof i2.TreeComponent]>;
+    static ɵinj: i0.ɵɵInjectorDeclaration<TreeModule>;
 }

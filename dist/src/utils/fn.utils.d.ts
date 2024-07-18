@@ -9,4 +9,4 @@ export declare function once(fn: Once): Once;
 export declare function defaultsDeep(target: any, ...sources: any[]): any;
 export declare function includes(target: string | any[], value: any): boolean;
 export declare function isNil(value: any): boolean;
-export declare type Once = (...args: any[]) => any;
+export type Once = (...args: any[]) => any;

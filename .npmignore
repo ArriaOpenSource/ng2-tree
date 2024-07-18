@@ -1,0 +1,16 @@
+./e2e/**/*
+./src/**/*
+./.editorconfig
+./.eslintrc.json
+./.prettierignore
+./.prettierrc
+./.travis.yml
+./.vimrc
+./angular.json
+./index.ts
+./karma.conf.js
+./protractor.conf.js
+./protractor.conf.js
+./publish.js
+./tsconfig.json
+./tsconfig-prod.json

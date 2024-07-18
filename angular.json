@@ -4,8 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "ng2-tree": {
-      "root": "src",
-      "sourceRoot": "src/demo",
+      "root": "./",
       "projectType": "application",
       "architect": {
         "build": {
@@ -15,13 +14,13 @@
             "index": "src/demo/index.html",
             "main": "src/demo/main.ts",
             "tsConfig": "src/demo/tsconfig.app.json",
-            "polyfills": "src/demo/polyfills.ts",
-            "assets": ["src/demo/assets", "src/demo/favicon.ico"],
+            "assets": ["src/demo/favicon.ico"],
+            "polyfills": ["zone.js"],
             "styles": [
               "node_modules/alertifyjs/build/css/alertify.css",
               "node_modules/alertifyjs/build/css/themes/default.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
-              "src/styles.css"
+              "src/demo/styles.css"
             ],
             "scripts": ["node_modules/alertifyjs/build/alertify.js"]
           },
@@ -30,7 +29,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -43,40 +41,41 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ng2-tree:build"
+            "buildTarget": "ng2-tree:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng2-tree:build:production"
+              "buildTarget": "ng2-tree:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ng2-tree:build"
+            "buildTarget": "ng2-tree:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "test/test.ts",
-            "karmaConfig": "./karma.conf.js",
-            "polyfills": "src/demo/polyfills.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "test/tsconfig.spec.json",
             "scripts": ["node_modules/alertifyjs/build/alertify.js"],
             "styles": [
               "node_modules/alertifyjs/build/css/alertify.css",
               "node_modules/alertifyjs/build/css/themes/default.css",
               "node_modules/font-awesome/css/font-awesome.min.css",
-              "src/styles.css"
+              "src/demo/styles.css"
             ],
-            "assets": ["src/demo/assets", "src/demo/favicon.ico"]
+            "assets": ["src/demo/favicon.ico"],
+            "include": ["test/**/*.spec.ts", "**/*.d.ts"],
+            "exclude": ["dist/**/*"]
           }
         },
         "lint": {
@@ -102,7 +101,6 @@
       }
     }
   },
-  "defaultProject": "ng2-tree",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
@@ -113,6 +111,6 @@
     }
   },
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

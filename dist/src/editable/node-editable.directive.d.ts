@@ -11,6 +11,6 @@ export declare class NodeEditableDirective implements OnInit {
     applyNewValue(newNodeValue: string): void;
     applyNewValueByLoosingFocus(newNodeValue: string): void;
     cancelEditing(): void;
-    static ɵfac: i0.ɵɵFactoryDef<NodeEditableDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<NodeEditableDirective, "[nodeEditable]", never, { "nodeValue": "nodeEditable"; }, { "valueChanged": "valueChanged"; }, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NodeEditableDirective, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<NodeEditableDirective, "[nodeEditable]", never, { "nodeValue": { "alias": "nodeEditable"; "required": false; }; }, { "valueChanged": "valueChanged"; }, never, never, false, never>;
 }

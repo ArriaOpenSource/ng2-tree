@@ -8,7 +8,7 @@ export declare class FoldingType {
     constructor(_cssClass: string);
     get cssClass(): string;
 }
-export declare type ChildrenLoadingFunction = (callback: (children: TreeModel[]) => void) => void;
+export type ChildrenLoadingFunction = (callback: (children: TreeModel[]) => void) => void;
 export interface TreeModel {
     value: string | RenamableNode;
     id?: string | number;

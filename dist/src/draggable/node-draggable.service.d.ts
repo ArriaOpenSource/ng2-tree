@@ -18,6 +18,6 @@ export declare class NodeDraggableService {
     getDraggedNode(): CapturedNode;
     releaseCheckedNodes(): void;
     releaseDraggedNode(): void;
-    static ɵfac: i0.ɵɵFactoryDef<NodeDraggableService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<NodeDraggableService>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NodeDraggableService, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<NodeDraggableService>;
 }

@@ -33,6 +33,6 @@ export declare class NodeDraggableDirective implements OnDestroy, OnInit {
     private removeClasses;
     private notifyThatNodeWasDropped;
     private notifyThatNodeIsBeingDragged;
-    static ɵfac: i0.ɵɵFactoryDef<NodeDraggableDirective, never>;
-    static ɵdir: i0.ɵɵDirectiveDefWithMeta<NodeDraggableDirective, "[nodeDraggable]", never, { "nodeDraggable": "nodeDraggable"; "tree": "tree"; }, {}, never>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<NodeDraggableDirective, never>;
+    static ɵdir: i0.ɵɵDirectiveDeclaration<NodeDraggableDirective, "[nodeDraggable]", never, { "nodeDraggable": { "alias": "nodeDraggable"; "required": false; }; "tree": { "alias": "tree"; "required": false; }; }, {}, never, never, false, never>;
 }

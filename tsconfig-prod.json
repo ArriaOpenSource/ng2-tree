@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "declaration": true,
+    "stripInternal": true,
+    "outDir": "dist"
+  },
+  "exclude": ["src/demo", "node_modules"],
+  "files": ["./index.ts"],
+  "angularCompilerOptions": {
+    "strictMetadataEmit": true,
+    "skipMetadataEmit": false,
+    "preserveWhitespaces": false
+  }
+}
